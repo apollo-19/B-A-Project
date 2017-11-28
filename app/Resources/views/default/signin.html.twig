@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  Sign In
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+.form input {
+  width: 325px;
+}
+
+.form select {
+  width: 350px;
+}
+
+.form button {
+  width: 150px;
+  float: right;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container taright">
+    <form class="form fright" method="post">
+      <h1 class="welcomeText taright">Sign In</h1>
+      <h2 id="resultMessage">{{ result_message is defined ? result_message : '' }}</h2>
+
+      <input type="text" name="form[user_name]" placeholder="User Name" value="{{ form.user_name is defined ? form.user_name : '' }}" required />
+      <input type="password" name="form[password]" placeholder="Password" required />
+
+      <button>Sign In</button>
+    </form>
+
+    <hr class="clear" width="0" />
+  </div>
+{% endblock %}

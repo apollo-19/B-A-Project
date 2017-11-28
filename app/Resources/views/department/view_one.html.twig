@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ department.departmentCode }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+</style>
+{% endblock %}
+
+{% block body %}
+  <article class="container taleft">
+    <div class="form fright">
+
+      <h1 class="welcomeText tacenter">{{ department.departmentName }} ({{ department.departmentCode }})</h1>
+
+      <table>
+        <tr>
+          <td>Department Code:</td>
+          <td>{{ department.departmentCode }}</td>
+        </tr>
+
+        <tr>
+          <td>Department Name:</td>
+          <td>{{ department.departmentName }}</td>
+        </tr>
+
+        <tr>
+          <td>Department School:</td>
+          <td>{{ school.schoolName }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <hr class="clear" width="0" />
+  </article>
+{% endblock %}

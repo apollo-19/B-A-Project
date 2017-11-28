@@ -1,0 +1,57 @@
+AppBundle\Entity\Module:
+    type: entity
+    table: module
+    uniqueConstraints:
+        UNIQ_C242628CD297594:
+            columns:
+                - module_code
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        moduleCode:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+            column: module_code
+        moduleName:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: module_name
+        schoolId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: school_id
+        createdBy:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: created_by
+        moduleCreditHour:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: module_credit_hour
+        moduleDuration:
+            type: string
+            nullable: false
+            length: 25
+            options:
+                fixed: false
+            column: module_duration
+    lifecycleCallbacks: {  }

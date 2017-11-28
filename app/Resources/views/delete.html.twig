@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  Teacher Register
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+.form {
+  border: 1px solid #FF0000;
+  width: 100%;
+}
+
+h1 {
+  font-size: 25px;
+  color:#FF0000;
+  padding: 20px;
+  width: auto;
+}
+
+button[name=yes] {
+  background-color: #E00;
+  border: 1px solid #FF0000;
+}
+
+button[name=yes]:hover {
+  background-color: #F00;
+  border-color: #F00;
+}
+
+button[name=no] {
+  background-color: #F5F5F5;
+  border: 1px solid #F5F5F5;
+}
+
+button[name=no]:hover {
+  background-color: #F5F5F5;
+  border-color: #000;
+  color: #000;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container taright">
+    <form class="form fright" method="post">
+      <h1>{{ warningMessage }}</h1>
+      <button name="yes">Delete</button>
+      <button name="no">No</button>
+    </form>
+    <hr class="clear" width="0" />
+  </div>
+{% endblock %}

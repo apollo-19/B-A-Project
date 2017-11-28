@@ -1,0 +1,40 @@
+AppBundle\Entity\Prerequisite:
+    type: entity
+    table: prerequisite
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        courseModuleType:
+            type: string
+            nullable: false
+            length: 15
+            options:
+                fixed: false
+            column: course_module_type
+        courseModuleId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: course_module_id
+        prerequisiteType:
+            type: string
+            nullable: false
+            length: 15
+            options:
+                fixed: false
+            column: prerequisite_type
+        prerequisiteId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: prerequisite_id
+    lifecycleCallbacks: {  }

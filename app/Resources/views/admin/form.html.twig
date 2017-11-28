@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  {{ (mode == 'new') ? 'New Admin' : 'Edit Admin' }}
+{% endblock %}
+
+{% block body %}
+  <div class="container taright">
+    <form class="form fright" method="post">
+      <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Admin' : 'Edit Admin' }}</h1>
+      <h2>{{ result_message is defined ? result_message : '' }}</h2>
+
+      <label for="form[first_name]">First Name</label>
+      <input type="text" name="form[first_name]" placeholder="" value="{{ form.first_name is defined ? form.first_name : '' }}" required />
+
+      <label for="form[middle_name]">Middle Name</label>
+      <input type="text" name="form[middle_name]" placeholder="" value="{{ form.middle_name is defined ? form.middle_name : '' }}" required />
+
+      <label for="form[last_name]">Last Name</label>
+      <input type="text" name="form[last_name]" placeholder="" value="{{ form.last_name is defined ? form.last_name : '' }}" required />
+
+      <label for="form[mobile_number]">Mobile Number</label>
+      <input type="text" name="form[mobile_number]" placeholder="" value="{{ form.mobile_number is defined ? form.mobile_number : '' }}" required />
+
+      <label for="form[email_address]">Email Address</label>
+      <input type="text" name="form[email_address]" placeholder="" value="{{ form.email_address is defined ? form.email_address : '' }}" required />
+
+      <label for="form[admin_type]">Admin Type</label>
+      <select name="form[admin_type]" id="admin_type">
+        <option value="registrar" {{ (form.admin_type is defined and form.admin_type == 'registrar') ? 'selected' : '' }}>Registrar</option>
+        <option value="academics" {{ (form.admin_type is defined and form.admin_type == 'academics') ? 'selected' : '' }}>Academics</option>
+      </select>
+
+      <label for="form[admin_class]">Admin Class</label>
+      <select name="form[admin_class]" id="admin_class">
+        <option disabled></option>
+        <optgroup label="Registrar" id="registrar">
+          <option value="registrar head" {{ (form.admin_class is defined and form.admin_class == 'registrar head') ? 'selected' : '' }}>Registrar Head</option>
+          <option value="registrar officer" {{ (form.admin_class is defined and form.admin_class == 'registrar officer') ? 'selected' : '' }}>Registrar Officer</option>
+        </optgroup>
+
+        <optgroup label="Academics" id="academics">
+          <option value="integrated coordinator" {{ (form.admin_class is defined and form.admin_class == 'integrated coordinator') ? 'selected' : '' }}>Integrated Coordinator</option>
+          <option value="module coordinator" {{ (form.admin_class is defined and form.admin_class == 'module coordinator') ? 'selected' : '' }}>Module Coordinator</option>
+          <option value="minor coordinator" {{ (form.admin_class is defined and form.admin_class == 'minor coordinator') ? 'selected' : '' }}>Minor Coordinator</option>
+        </optgroup>
+      </select>
+
+      <label for="form[user_name]">User Name</label>
+      <input type="text" name="form[user_name]" placeholder="" value="{{ form.user_name is defined ? form.user_name : '' }}" required />
+
+      <button>{{ (mode == 'new') ? 'Create Admin' : 'Save Changes' }}</button>
+    </form>
+
+    <hr class="clear" width="0" />
+  </div>
+{% endblock %}
+
+{% block javascript %}
+  <script type="text/javascript">
+    function AdminType() {
+      var admin_type = $('#admin_type').val();
+      (admin_type == 'registrar') ? $('#academics').hide() : $('#registrar').hide();
+
+      $('#' + admin_type).show();
+    }
+    
+    $(document).ready(function(){
+      AdminType();
+      $('#admin_type').on("change", function() {
+        AdminType();
+      });
+    });
+  </script>
+{% endblock %}

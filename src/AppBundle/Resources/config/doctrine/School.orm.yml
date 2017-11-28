@@ -1,0 +1,41 @@
+AppBundle\Entity\School:
+    type: entity
+    table: school
+    uniqueConstraints:
+        UNIQ_F99EDABB363DEF75:
+            columns:
+                - school_code
+        UNIQ_F99EDABB1F0BA1EB:
+            columns:
+                - school_name
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        schoolCode:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+            column: school_code
+        schoolName:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: school_name
+        createdBy:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: created_by
+    lifecycleCallbacks: {  }

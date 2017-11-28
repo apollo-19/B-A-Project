@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  Access Denied!
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+#container {
+  text-align: center;
+  padding: 50px;
+}
+
+h1 {
+  border: 1px solid #FF0000;
+  font-size: 25px;
+  color:#FF0000;
+  padding: 20px;
+  width: auto;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+  <div id="wrapper">
+      <div id="container">
+          <h1>
+            {{ message }}
+          </h1>
+        </div>
+      </div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ admin.firstName }} {{ admin.middleName }} {{ admin.lastName }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+</style>
+{% endblock %}
+
+{% block body %}
+  <article class="container taleft">
+    <div class="form fright">
+
+      <h1 class="welcomeText tacenter">{{ admin.firstName }} {{ admin.middleName }} {{ admin.lastName }}</h1>
+
+      <table>
+        <tr>
+          <td>First Name:</td>
+          <td>{{ admin.firstName }}</td>
+        </tr>
+
+        <tr>
+          <td>Middle Name</td>
+          <td>{{ admin.middleName }}</td>
+        </tr>
+
+        <tr>
+          <td>Last Name</td>
+          <td>{{ admin.lastName }}</td>
+        </tr>
+
+        <tr>
+          <td>Mobile Number</td>
+          <td>{{ admin.mobileNumber }}</td>
+        </tr>
+
+        <tr>
+          <td>Email Address</td>
+          <td>{{ admin.emailAddress }}</td>
+        </tr>
+
+        <tr>
+          <td>Admin Type</td>
+          <td>{{ admin.adminType | capitalize }}</td>
+        </tr>
+
+        <tr>
+          <td>Admin Class</td>
+          <td>{{ admin.adminClass | capitalize }}</td>
+        </tr>
+
+        <tr>
+          <td>User Name</td>
+          <td>{{ admin.userName }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <hr class="clear" width="0" />
+  </article>
+{% endblock %}

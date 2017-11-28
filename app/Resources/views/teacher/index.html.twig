@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  Teacher
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <h1 class="welcomeText aright taright">Welcome {{ si_user_name }}.</h1>
+
+    <article class="tasks">
+      <div><a href="{{ path('school_view') }}">
+        <img src="images/icons/school.png" draggable="false" /><br />Schools
+      </a></div>
+
+      <div><a href="{{ path('module_view') }}">
+        <img src="images/icons/module.png" draggable="false" /><br />Modules
+      </a></div>
+
+      <div><a href="{{ path('course_view') }}">
+        <img src="images/icons/course.png" draggable="false" /><br />Courses
+      </a></div>
+
+      <div><a href="{{ path('section_view') }}">
+        <img src="images/icons/session.png" draggable="false" /><br />My Sessions
+      </a></div>
+
+      <div><a href="{{ path('section_view') }}">
+        <img src="images/icons/result.png" draggable="false" /><br />Results
+      </a></div>
+
+      <div><a href="{{ path('section_view') }}">
+        <img src="images/icons/assessment.png" draggable="false" /><br />Assessment
+      </a></div>
+
+      <div><a href=" {{ path('user_signout') }} " onclick="return confirm('Are You Sure You Want To Sign Out?') ">
+        <img src="images/icons/signout.png" draggable="false" /><br />Sign Out
+      </a></div>
+    </article>
+    <hr class="clear" width="0" />
+  </div>
+{% endblock %}

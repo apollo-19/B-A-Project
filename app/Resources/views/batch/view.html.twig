@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  Batch View
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container" id="view_container">
+    <a href="{{ path('batch_create') }}">Create a New Batch</a>
+    <table border="0">
+      <thead>
+        <tr>
+          <th>Batch Code</th>
+          <th>Batch Name</th>
+          <th>Batch Year</th>
+          <th>Batch School</th>
+          <th colspan="3">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for batch in batchs %}
+          <tr>
+            <td>{{ batch.batchCode }}</td>
+            <td>{{ batch.batchName }}</td>
+            <td>{{ batch.batchYear }}</td>
+            {% for school in schools %}
+              {% if(batch.schoolId == school.id) %}
+                <td> {{ school.schoolName }} </td>
+              {% endif %}
+            {% endfor %}
+
+            <td><a href="{{ path('batch_view_one', {'batch_id': batch.id}) }}">view</button></td>
+            <td><a href="{{ path('batch_edit', {'batch_id': batch.id}) }}" id="editBtn">edit</button></td>
+            <td><a href="{{ path('batch_delete', {'batch_id': batch.id}) }}" id="deleteBtn"
+                  onclick="return confirm('Are You Sure You Want To Delete {{ batch.batchName }} ({{ batch.batchCode }})?') ">delete</button></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

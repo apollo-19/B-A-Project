@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ (mode == 'new') ? 'New Batch' : 'Edit Batch' }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container taright">
+    <form class="form fright" method="post">
+      <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Batch' : 'Edit Batch' }}</h1>
+      <h2>{{ result_message is defined ? result_message : '' }}</h2>
+
+      <label for="form[batch_code]">Batch Code</label>
+      <input type="text" name="form[batch_code]" placeholder="DoIM" value="{{ form.batch_code is defined ? form.batch_code : '' }}" required />
+
+      <label for="form[batch_name]">Batch Name</label>
+      <input type="text" name="form[batch_name]" placeholder="Batch One" value="{{ form.batch_name is defined ? form.batch_name : '' }}" required />
+
+      <label for="form[batch_year]">Batch Year</label>
+      <input type="text" name="form[batch_year]" placeholder="Batch One" value="{{ form.batch_year is defined ? form.batch_year : '' }}" required />
+
+      <label for="form[batch_school]">Batch School</label>
+      <select name="form[batch_school]">
+        {% for school in schools %}
+          <option value="{{ school.id }}" {{ (school.id == (mySchool.id is defined ? mySchool.id : '')) ? 'selected' : '' }}>{{ school.schoolName }}</option>
+        {% endfor %}
+      </select>
+
+      <button>{{ (mode == 'new') ? 'Create Batch' : 'Save Changes' }}</button>
+    </form>
+
+    <hr class="clear" width="0" />
+  </div>
+{% endblock %}

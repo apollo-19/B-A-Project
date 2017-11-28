@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ curriculum.curriculumCode }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+</style>
+{% endblock %}
+
+{% block body %}
+  <article class="container taleft">
+    <div class="form fright">
+
+      <h1 class="welcomeText tacenter">{{ curriculum.curriculumName }} ({{ curriculum.curriculumCode }})</h1>
+
+      <table>
+        <tr>
+          <td>Curriculum Code:</td>
+          <td>{{ curriculum.curriculumCode }}</td>
+        </tr>
+
+        <tr>
+          <td>Curriculum Name:</td>
+          <td>{{ curriculum.curriculumName }}</td>
+        </tr>
+
+        <tr>
+          <td>Curriculum School:</td>
+          <td>{{ school.schoolName }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <hr class="clear" width="0" />
+  </article>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheet %}
+<style>
+#frontPageArticle {
+  width: inherit;
+  height: 60vh;
+  background-image: url("../images/frontPageArticle.jpg");
+  background-position: auto auto;
+  background-repeat: no-repeat;
+	background-size: cover;
+}
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <article id="frontPageArticle"></article>
+
+  <div class="container">
+    <article class="tasks">
+      <div>
+        <img src="images/icons/admin.png" draggable="false" />
+
+        <a href="{{ path('user_signin', {'user_type': 'admin'}) }}">Administrator</a>
+        <p>
+          Administrator page here the administration have a power to register course teacher , students and other staffs.
+        </p>
+      </div>
+
+      <div>
+        <img src="images/icons/teacher.png" />
+
+        <a href="{{ path('user_signin', {'user_type': 'teacher'}) }}">Teacher</a>
+        <p>
+          Teachers teach the student and are registered here to there respective departments.
+        </p>
+      </div>
+
+      <div>
+        <img src="images/icons/student.png" />
+
+        <a href="{{ path('user_signin', {'user_type': 'student'}) }}">Student</a>
+        <p>
+          These is a student page all students ared registed here and can see there marks as well there registration form.
+        </p>
+      </div>
+
+      <div>
+        <img src="images/icons/school.png" />
+
+        <a href="{{ path('user_signin', {'user_type': 1}) }}">School</a>
+        <p>
+          Shows avaliable school and modules/programs in the school.
+        </p>
+      </div>
+
+      <div>
+        <img src="images/icons/news.png" />
+
+        <a href="{{ path('user_signin', {'user_type': 'admin'}) }}">News</a>
+        <p>
+          This link takes you to the main hospital's dirctory and to show you the latest news from the school.
+        </p>
+      </div>
+
+      <hr class="clear" width="0" />
+    </article>
+  </div>
+
+{% endblock %}

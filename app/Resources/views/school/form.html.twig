@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ (mode == 'new') ? 'New School' : 'Edit School' }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container taright">
+    <form class="form fright" method="post">
+      <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New School' : 'Edit School' }}</h1>
+      <h2>{{ result_message is defined ? result_message : '' }}</h2>
+
+      <label for="form[first_name]">School Code</label>
+      <input type="text" name="form[school_code]" placeholder="MD1221" value="{{ form.school_code is defined ? form.school_code : '' }}" required />
+
+      <label for="form[middle_name]">Middle Name</label>
+      <input type="text" name="form[school_name]" placeholder="School of Medicine" value="{{ form.school_name is defined ? form.school_name : '' }}" required />
+
+      <button>{{ (mode == 'new') ? 'Create School' : 'Save Changes' }}</button>
+    </form>
+
+    <hr class="clear" width="0" />
+  </div>
+{% endblock %}

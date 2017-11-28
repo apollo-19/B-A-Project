@@ -1,0 +1,44 @@
+AppBundle\Entity\Section:
+    type: entity
+    table: section
+    uniqueConstraints:
+        UNIQ_2D737AEFF2ABDC93:
+            columns:
+                - section_code
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        sectionCode:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+            column: section_code
+        sectionName:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: section_name
+        batchId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: batch_id
+        createdBy:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: created_by
+    lifecycleCallbacks: {  }

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  Admin View
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container" id="view_container">
+    <a href="{{ path('admin_create') }}">Create a New Admin</a>
+    <table border="0">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Middle Name</th>
+          <th>Last Name</th>
+          <th>Mobile Number</th>
+          <th>Email Address</th>
+          <th>Admin Class</th>
+          <th colspan="3">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for admin in admins %}
+          <tr>
+            <td>{{ admin.firstName }}</td>
+            <td>{{ admin.middleName }}</td>
+            <td>{{ admin.lastName }}</td>
+            <td>{{ admin.mobileNumber }}</td>
+            <td>{{ admin.emailAddress }}</td>
+            <td>{{ admin.adminClass | capitalize }}</td>
+
+            <td><a href="{{ path('admin_view_one', {'admin_id': admin.id}) }}">view</a></td>
+
+            {% if(app.session.get('user_type') == 'admin') %}
+              <td><a href="{{ path('admin_edit', {'admin_id': admin.id}) }}" id="editBtn">edit</button></td>
+              <td><a href="{{ path('admin_delete', {'admin_id': admin.id}) }}" id="deleteBtn"
+                  onclick="return confirm('Are You Sure You Want To Delete {{ admin.firstName }} {{ admin.middleName }} {{ admin.lastName }}?') ">delete</button></td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

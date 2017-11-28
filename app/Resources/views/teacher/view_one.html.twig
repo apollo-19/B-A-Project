@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ teacher.firstName }} {{ teacher.middleName }} {{ teacher.lastName }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+</style>
+{% endblock %}
+
+{% block body %}
+  <article class="container taleft">
+    <div class="form fright">
+
+      <h1 class="welcomeText tacenter">{{ teacher.firstName }} {{ teacher.middleName }} {{ teacher.lastName }}</h1>
+
+      <table>
+        <tr>
+          <td colspan="3"><a class="fright" href="{{ path('teacher_edit', {'teacher_id': teacher.id}) }}">Edit Teacher</a></td>
+        </tr>
+
+        <tr>
+          <td>First Name:</td>
+          <td>{{ teacher.firstName }}</td>
+        </tr>
+
+        <tr>
+          <td>Middle Name:</td>
+          <td>{{ teacher.middleName }}</td>
+        </tr>
+
+        <tr>
+          <td>Last Name:</td>
+          <td>{{ teacher.lastName }}</td>
+        </tr>
+
+        <tr>
+          <td>Sex:</td>
+          <td>{{ teacher.sex | capitalize }}</td>
+        </tr>
+
+        <tr>
+          <td>Mobile Number:</td>
+          <td>{{ teacher.mobileNumber }}</td>
+        </tr>
+
+        <tr>
+          <td>Email Address:</td>
+          <td>{{ teacher.emailAddress }}</td>
+        </tr>
+
+        <tr>
+          <td>Teacher Department:</td>
+          <td>{{ department.departmentName }}</td>
+        </tr>
+
+        <tr>
+          <td>User Name:</td>
+          <td>{{ teacher.userName }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <hr class="clear" width="0" />
+  </article>
+{% endblock %}

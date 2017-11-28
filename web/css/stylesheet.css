@@ -1,0 +1,364 @@
+* {
+  margin:0px;
+  padding:0px;
+  font-weight: 200;
+}
+
+header, nav, article, section, div, footer {
+  display: block;
+}
+
+.clear {
+  clear: both;
+}
+
+.fleft {
+  float: left;
+}
+
+.fright {
+  float: right;
+}
+
+.taleft {
+  text-align: left;
+}
+
+.tacenter {
+  text-align: center;
+}
+
+.taright {
+  text-align: right;
+}
+
+.container {
+  margin: 15px auto;
+  width: 1250px;
+}
+
+#accessDenied {
+  text-align: center;
+  color: #FF0000;
+}
+
+header {
+  background-color: #1872B8;
+  color: #FFFFFF;
+
+  z-index: 99;
+  height: 80px;
+  width: inherit;
+  border-bottom: 2px solid #000;
+}
+
+header div:nth-child(1) {
+  float: left;
+  background-color: #333;
+
+  height: inherit;
+  width: 350px;
+}
+
+header div:nth-child(1) img {
+  z-index: 9;
+  height: inherit;
+  width: inherit;
+}
+
+header table {
+  float: right;
+  height: inherit;
+  width: auto;
+}
+
+header table tr td a {
+  color: #FFFFFF;
+
+  text-align: center;
+  text-decoration: none;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 30px;
+  height: inherit;
+}
+
+header table tr td a:hover {
+  background-color: #3A94DA;
+}
+
+.welcomeText {
+  cursor: default;
+  font-size: 30px;
+  color: #1872B8;
+
+  padding: 0px 20px;
+  width: inherit;
+}
+
+.tasks {
+  margin: 10px 0px;
+  padding: 15px;
+}
+
+.tasks div {
+  float: left;
+  text-align: center;
+
+  margin: 5px 22px;
+  width: 200px;
+}
+
+.tasks div img {
+  opacity: 0.75;
+  width: 50%;
+}
+
+.tasks div:hover img {
+  opacity: 1.0;
+}
+
+.tasks div a {
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+  color: #000000;
+
+  padding: 10px 0px;
+  width: inherit;
+}
+
+.tasks div:hover a {
+  color: #1872B8;
+}
+
+.tasks div p {
+  cursor: default;
+  text-align: justify;
+  opacity: 0.75;
+  font-size: 12px;
+}
+
+.form {
+  background-color: #F5F5F5;
+  border: 1px solid #1872B8;
+  border-radius: 10px;
+  padding: 10px 5px;
+  display: block;
+}
+
+.form h1 {
+  cursor: default;
+
+  font-size: 25px;
+  text-align: center;
+  margin: 5px;
+  padding: 5px;
+}
+
+.form h2 {
+  cursor: default;
+  font-size: 17.5px;
+  text-align: center;
+  margin: 10px 5px;
+  padding: 5px;
+}
+
+#resultMessage {
+  color: #F00;
+}
+
+.form label {
+  display: block;
+  cursor: default;
+  text-align: left;
+  margin: 5px;
+  padding: 5px;
+}
+
+.form p {
+  text-align: left;
+  margin: 5px;
+  padding: 5px;
+}
+
+.form button, .form input, .form select, .form textarea {
+  display: block;
+  font-size: 15px;
+  color: #000000;
+
+  margin: 7.5px 5px;
+  padding: 10px 5px;
+  width: 400px;
+}
+
+.form button, .form select {
+  cursor: pointer;
+}
+
+.form select {
+  width: 425px;
+}
+
+.form button {
+  width: 200px;
+  float: right;
+}
+
+.form button:hover {
+  color: #FFFFFF;
+  background-color: #1872B8;
+  border-color: #1872B8;
+}
+
+.form table tr td {
+  font-size: 15px;
+  padding: 10px 10px;
+}
+
+.form table tr td a {
+  color: #000000;
+  text-decoration: none;
+
+  padding: 0px 10px;
+}
+
+.form table tr td a:hover {
+  color: #1872B8;
+  text-decoration: underline;
+}
+
+.form table tr td:nth-child(1) {
+  cursor: default;
+  font-size: 17.5px;
+}
+
+/* view.html.twig ss */
+#view_container table {
+	width: inherit;
+	overflow: hidden;
+	border-collapse: collapse;
+	box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+#view_container th {
+	padding: 10px;
+	background-color: #EDF7F8;
+	color: #FFFFFF;
+}
+
+#view_container th {
+  padding: 15px 10px;
+	text-align: left;
+}
+
+#view_container thead th {
+	background-color: #2573B4;
+}
+
+#view_container tr:nth-child(odd) td {
+	padding: 10px;
+	background-color: #EDF7F8;
+	color: #blue;
+}
+
+#view_container tr:nth-child(even) td {
+	padding: 10px;
+	background-color: #blue;
+	color: #000000;
+}
+
+#view_container a {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  color: #1872B8;
+
+  border: 1px solid #1872B8;
+
+  margin: 10px 0px;
+  padding: 15px 25px;
+  width: auto;
+}
+
+#view_container a:hover {
+  background-color: #1872B8;
+  color: #FFFFFF;
+}
+
+#view_container tr td a {
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  color: #1872B8;
+
+  padding: 10px 15px;
+  width: auto;
+}
+
+#view_container tr td a:hover {
+  color: #FFFFFF;
+}
+
+#view_container #deleteBtn {
+  color: #EE0000;
+  border-color: #EE0000;
+}
+
+#view_container #deleteBtn:hover {
+  background-color: #EE0000;
+  color: #FFFFFF;
+}
+
+#view_container #view_one_link {
+  border: none;
+  padding: 0px;
+  color: #000000;
+}
+
+#view_container #view_one_link:hover {
+  color: #1872B8;
+  text-decoration: underline;
+  background-color: inherit;
+}
+
+footer {
+  background-color: #1872B8;
+  color: #FFFFFF;
+
+  padding: 0px 100px;
+
+  z-index: 99;
+  height: 70px;
+  width: inherit;
+  border-top: 2px solid #000;
+}
+
+footer table {
+  top: 0;
+  float: left;
+  height: inherit;
+  width: auto;
+}
+
+footer table tr td {
+  padding: 10px 15px;
+}
+
+footer table tr td img {
+  opacity: 0.5;
+  height: 40px;
+}
+
+footer table tr td img:hover {
+  opacity: 1.0;
+}
+
+footer div {
+  cursor: default;
+  float: right;
+  width: auto;
+  padding: 24px;
+}

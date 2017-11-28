@@ -1,0 +1,80 @@
+AppBundle\Entity\Admin:
+    type: entity
+    table: admin
+    uniqueConstraints:
+        user_name_UNIQUE:
+            columns:
+                - user_name
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        firstName:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: first_name
+        middleName:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: middle_name
+        lastName:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: last_name
+        mobileNumber:
+            type: string
+            nullable: false
+            length: 25
+            options:
+                fixed: false
+            column: mobile_number
+        emailAddress:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: email_address
+        adminType:
+            type: string
+            nullable: false
+            length: 75
+            options:
+                fixed: false
+            column: admin_type
+        adminClass:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: admin_class
+        userName:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: user_name
+        createdBy:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: created_by
+    lifecycleCallbacks: {  }

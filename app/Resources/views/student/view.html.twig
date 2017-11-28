@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  Student View
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+.container table {
+	width: 800px;
+  margin-left:50px;
+	border-collapse: collapse;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+.container th, .container td {
+	padding: 15px;
+	background-color: #EDF7F8;
+	color: #blue;
+}
+.container th {
+	text-align: left;
+}
+.container thead th {
+		background-color: #2573B4;
+	}
+
+
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <table>
+  <thead>
+    <tr>
+      <th>First Name </th>
+      <th>Middle Name</th>
+      <th>Last Name</th>
+      <th>Sex</th>
+      <th>School</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ell</td>
+      <td>Cell</td>
+      <td>sskf</td>
+      <td>Cell</td>
+      <td>Cell</td>
+      <td>Cell</td>
+      <td><button class="editbtn">edit</button></td>
+    </tr>
+    <tr>
+      <td>Cell 1</td>
+      <td>Cell 2</td>
+      <td>Cell 3</td>
+      <td>Cell 4</td>
+      <td>Cell 5</td>
+      <td>Cell 5</td>
+    </tr>
+    <tr>
+      <td>Cell 1</td>
+      <td>Cell 2</td>
+      <td>Cell 3</td>
+      <td>Cell 4</td>
+      <td>Cell 5</td>
+      <td>Cell 5</td>
+    </tr>
+    <tr>
+      <td>Cell 1</td>
+      <td>Cell 2</td>
+      <td>Cell 3</td>
+      <td>Cell 4</td>
+      <td>Cell 5</td>
+      <td>Cell 5</td>
+    </tr>
+    <tr>
+      <td>Cell 1</td>
+      <td>Cell 2</td>
+      <td>Cell 3</td>
+      <td>Cell 4</td>
+      <td>Cell 5</td>
+      <td>Cell 5</td>
+    </tr>
+
+  </tbody>
+</table>
+
+  </div>
+{% endblock %}

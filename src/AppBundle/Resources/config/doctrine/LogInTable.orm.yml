@@ -1,0 +1,38 @@
+AppBundle\Entity\LogInTable:
+    type: entity
+    table: log_in_table
+    uniqueConstraints:
+        UNIQ_D28F5AE724A232CF:
+            columns:
+                - user_name
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        userName:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: user_name
+        password:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        userType:
+            type: string
+            nullable: false
+            length: 15
+            options:
+                fixed: false
+            column: user_type
+    lifecycleCallbacks: {  }

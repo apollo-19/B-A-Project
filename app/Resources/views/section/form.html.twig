@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ (mode == 'new') ? 'New Section' : 'Edit Section' }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container taright">
+    <form class="form fright" method="post">
+      <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Section' : 'Edit Section' }}</h1>
+      <h2>{{ result_message is defined ? result_message : '' }}</h2>
+
+      <label for="form[section_code]">Section Code</label>
+      <input type="text" name="form[section_code]" placeholder="DoIM" value="{{ form.section_code is defined ? form.section_code : '' }}" required />
+
+      <label for="form[section_name]">Section Name</label>
+      <input type="text" name="form[section_name]" placeholder="Section One" value="{{ form.section_name is defined ? form.section_name : '' }}" required />
+
+      <label for="form[section_batch]">Section Batch</label>
+      <select name="form[section_batch]">
+        {% for batch in batches %}
+          <option value="{{ batch.id }}" {{ (batch.id == (myBatch.id is defined ? myBatch.id : '')) ? 'selected' : '' }} >{{ batch.batchName }}</option>
+        {% endfor %}
+      </select>
+
+      <button>{{ (mode == 'new') ? 'Create Batch' : 'Save Changes' }}</button>
+    </form>
+
+    <hr class="clear" width="0" />
+  </div>
+{% endblock %}

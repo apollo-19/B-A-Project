@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ module.moduleCode }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+</style>
+{% endblock %}
+
+{% block body %}
+  <article class="container taleft">
+    <div class="form fright">
+
+      <h1 class="welcomeText tacenter">{{ module.moduleName }} ({{ module.moduleCode }})</h1>
+
+      <table>
+        <tr>
+          <td>Module Code:</td>
+          <td>{{ module.moduleCode }}</td>
+        </tr>
+
+        <tr>
+          <td>Module Name:</td>
+          <td>{{ module.moduleName }}</td>
+        </tr>
+
+        <tr>
+          <td>Module Credit Hour:</td>
+          <td>{{ module.moduleCreditHour }}</td>
+        </tr>
+
+        <tr>
+          <td>Module Duration:</td>
+          <td>{{ module.moduleDuration }}</td>
+        </tr>
+
+        <tr>
+          <td>Module School:</td>
+          <td>{{ school.schoolName }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <hr class="clear" width="0" />
+  </article>
+{% endblock %}

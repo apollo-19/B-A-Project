@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  Prerequisite View
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container" id="view_container">
+    <a href="{{ path('prerequisite_create') }}">Create a New Prerequisite</a>
+    <table border="0">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Name</th>
+          <th>Prerequisited Type</th>
+          <th>Prerequisited Name</th>
+          <th colspan="3">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for prerequisite in prerequisites %}
+          <tr>
+            <td>{{ prerequisite.courseModuleType | capitalize }} </td>
+
+            <td>
+              {% if (prerequisite.courseModuleType == 'course') %}
+                {% for course in courses %}
+                  {% if ( prerequisite.courseModuleId == course.id ) %}
+                    {{ course.courseName }}
+                  {% endif %}
+                {% endfor %}
+
+              {% elseif (prerequisite.courseModuleType == 'module') %}
+                {% for module in modules %}
+                  {% if ( prerequisite.courseModuleId == module.id ) %}
+                    {{ module.moduleName }}
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            </td>
+
+            <td>{{ prerequisite.prerequisiteType | capitalize }}</td>
+
+            <td>
+              {% if (prerequisite.prerequisiteType == 'course') %}
+                {% for course in courses %}
+                  {% if ( prerequisite.prerequisiteId == course.id ) %}
+                    {{ course.courseName }}
+                  {% endif %}
+                {% endfor %}
+
+              {% elseif (prerequisite.prerequisiteType == 'module') %}
+                {% for module in modules %}
+                  {% if ( prerequisite.prerequisiteId == module.id ) %}
+                    {{ module.moduleName }}
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            </td>
+
+            <td><a href="{{ path('prerequisite_view_one', {'prerequisite_id': prerequisite.id}) }}">view</a></td>
+
+            {% if(app.session.get('user_type') == 'admin') %}
+              <td><a href="{{ path('prerequisite_edit', {'prerequisite_id': prerequisite.id}) }}" id="editBtn">edit</button></td>
+              <td><a href="{{ path('prerequisite_delete', {'prerequisite_id': prerequisite.id}) }}" id="deleteBtn"
+                    onclick="return confirm('Are You Sure You Want To Delete ?') ">delete</button></td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

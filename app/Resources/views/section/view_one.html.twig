@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ section.sectionCode }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+</style>
+{% endblock %}
+
+{% block body %}
+  <article class="container taleft">
+    <div class="form fright">
+
+      <h1 class="welcomeText tacenter">{{ section.sectionName }} ({{ section.sectionCode }})</h1>
+
+      <table>
+        <tr>
+          <td>Section Code:</td>
+          <td>{{ section.sectionCode }}</td>
+        </tr>
+
+        <tr>
+          <td>Section Name:</td>
+          <td>{{ section.sectionName }}</td>
+        </tr>
+
+        <tr>
+          <td>Section Batch:</td>
+          <td>{{ batch.batchName }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <hr class="clear" width="0" />
+  </article>
+{% endblock %}

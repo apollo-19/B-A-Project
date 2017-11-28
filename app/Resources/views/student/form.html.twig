@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ (mode == 'new') ? 'New Student' : 'Edit Student' }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container taright">
+    <form class="form fright" method="post">
+      <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Student' : 'Edit Student' }}</h1>
+      <h2>{{ result_message is defined ? result_message : '' }}</h2>
+
+      <label for="form[first_name_en]">First Name</label>
+      <input type="text" name="form[first_name_en]" placeholder="" value="{{ form.first_name_en is defined ? form.first_name_en : '' }}" required />
+
+      <label for="form[middle_name_en]">Middle Name</label>
+      <input type="text" name="form[middle_name_en]" placeholder="" value="{{ form.middle_name_en is defined ? form.middle_name_en : '' }}" required />
+
+      <label for="form[last_name_en]">Last Name</label>
+      <input type="text" name="form[last_name_en]" placeholder="" value="{{ form.last_name_en is defined ? form.last_name_en : '' }}" required />
+
+      <label for="form[sex]">Sex</label>
+      <input type="text" name="form[sex]" placeholder="" value="{{ form.sex is defined ? form.sex : '' }}" required />
+
+      <label for="form[nationality]">Nationality</label>
+      <input type="text" name="form[nationality]" placeholder="" value="{{ form.nationality is defined ? form.nationality : '' }}" required />
+
+      <label for="form[place_of_birth_town]">Place of Birth (Town)</label>
+      <input type="text" name="form[place_of_birth_town]" placeholder="" value="{{ form.place_of_birth_town is defined ? form.place_of_birth_town : '' }}" required />
+
+      <label for="form[place_of_birth_region]">Place of Birth (Region)</label>
+      <input type="text" name="form[place_of_birth_region]" placeholder="" value="{{ form.place_of_birth_region is defined ? form.place_of_birth_region : '' }}" required />
+
+      <label for="form[date_of_birth_gc]">Date of Birth (GC)</label>
+      <input type="text" name="form[date_of_birth_gc]" placeholder="" value="{{ form.date_of_birth_gc is defined ? form.date_of_birth_gc : '' }}" required />
+
+      <label for="form[date_of_birth_ec]">Date of Birth (EC)</label>
+      <input type="text" name="form[date_of_birth_ec]" placeholder="" value="{{ form.date_of_birth_ec is defined ? form.date_of_birth_ec : '' }}" required />
+
+      <label for="form[house_number]">House Number</label>
+      <input type="text" name="form[house_number]" placeholder="" value="{{ form.house_number is defined ? form.house_number : '' }}" required />
+
+      <label for="form[]"></label>
+      <input type="text" name="form[]" placeholder="" value="{{ form. is defined ? form. : '' }}" required />
+
+      <label for="form[]"></label>
+      <input type="text" name="form[]" placeholder="" value="{{ form. is defined ? form. : '' }}" required />
+
+      <label for="form[]"></label>
+      <input type="text" name="form[]" placeholder="" value="{{ form. is defined ? form. : '' }}" required />
+
+      <label for="form[]"></label>
+      <input type="text" name="form[]" placeholder="" value="{{ form. is defined ? form. : '' }}" required />
+
+      <label for="form[]"></label>
+      <input type="text" name="form[]" placeholder="" value="{{ form. is defined ? form. : '' }}" required />
+
+      <label for="form[student_batch]">Student Section</label>
+      <select name="form[student_batch]">
+        {% for section in sections %}
+          <option value="{{ section.id }}" {{ (section.id == (mySection.id is defined ? mySection.id : '')) ? 'selected' : '' }} >{{ section.sectionName }} ({{ section.sectionCode }})</option>
+        {% endfor %}
+      </select>
+
+      <button>{{ (mode == 'new') ? 'Create Batch' : 'Save Changes' }}</button>
+    </form>
+
+    <hr class="clear" width="0" />
+  </div>
+{% endblock %}

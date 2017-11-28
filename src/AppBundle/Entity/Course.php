@@ -1,0 +1,141 @@
+<?php
+
+namespace AppBundle\Entity;
+
+/**
+ * Course
+ */
+class Course
+{
+    /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $courseCode;
+
+    /**
+     * @var string
+     */
+    private $courseName;
+
+    /**
+     * @var integer
+     */
+    private $courseCreditHour;
+
+    /**
+     * @var integer
+     */
+    private $createdBy;
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set courseCode
+     *
+     * @param string $courseCode
+     *
+     * @return Course
+     */
+    public function setCourseCode($courseCode)
+    {
+        $this->courseCode = $courseCode;
+
+        return $this;
+    }
+
+    /**
+     * Get courseCode
+     *
+     * @return string
+     */
+    public function getCourseCode()
+    {
+        return $this->courseCode;
+    }
+
+    /**
+     * Set courseName
+     *
+     * @param string $courseName
+     *
+     * @return Course
+     */
+    public function setCourseName($courseName)
+    {
+        $this->courseName = $courseName;
+
+        return $this;
+    }
+
+    /**
+     * Get courseName
+     *
+     * @return string
+     */
+    public function getCourseName()
+    {
+        return $this->courseName;
+    }
+
+    /**
+     * Set courseCreditHour
+     *
+     * @param integer $courseCreditHour
+     *
+     * @return Course
+     */
+    public function setCourseCreditHour($courseCreditHour)
+    {
+        $this->courseCreditHour = $courseCreditHour;
+
+        return $this;
+    }
+
+    /**
+     * Get courseCreditHour
+     *
+     * @return integer
+     */
+    public function getCourseCreditHour()
+    {
+        return $this->courseCreditHour;
+    }
+
+    /**
+     * Set createdBy
+     *
+     * @param integer $createdBy
+     *
+     * @return Course
+     */
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return integer
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+}

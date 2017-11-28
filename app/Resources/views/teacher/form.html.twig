@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ (mode == 'new') ? 'New Teacher' : 'Edit Teacher' }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container taright">
+    <form class="form fright" method="post">
+      <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Teacher' : 'Edit Teacher' }}</h1>
+      <h2>{{ result_message is defined ? result_message : '' }}</h2>
+
+      <label for="form[first_name]">First Name</label>
+      <input type="text" name="form[first_name]" placeholder="Given Name" value="{{ form.first_name is defined ? form.first_name : '' }}" required />
+
+      <label for="form[middle_name]">Middle Name</label>
+      <input type="text" name="form[middle_name]" placeholder="Father's Name" value="{{ form.middle_name is defined ? form.middle_name : '' }}" required />
+
+      <label for="form[last_name]">Last Name</label>
+      <input type="text" name="form[last_name]" placeholder="Grand Father's Name" value="{{ form.last_name is defined ? form.last_name : '' }}" required />
+
+      <label for="form[sex]">Sex</label>
+      <select name="form[sex]" placeholder="Sex">
+        <option value="male" {{ (form.sex is defined and form.sex == 'male') ? 'selected' : '' }}>Male</option>
+        <option value="female" {{ (form.sex is defined and form.sex == 'female') ? 'selected' : '' }}>Female</option>
+      </select>
+
+      <label for="form[mobile_number]">Mobile Number</label>
+      <input type="tel" name="form[mobile_number]" placeholder="+251 900 000 000" value="{{ form.mobile_number is defined ? form.mobile_number : '' }}" required />
+
+      <label for="form[email_address]">Email Address</label>
+      <input type="email" name="form[email_address]" placeholder="email@example.com" value="{{ form.email_address is defined ? form.email_address : '' }}" required />
+
+      <label for="form[teacher_department]">Teacher Department</label>
+      <select name="form[teacher_department]">
+        {% for department in departments %}
+          <option value="{{ department.id }}" {{ (department.id == (myDepartment.id is defined ? myDepartment.id : '')) ? 'selected' : '' }} >{{ department.departmentName }}</option>
+        {% endfor %}
+      </select>
+
+      {% if(mode == 'new') %}
+        <label for="form[user_name]">User Name</label>
+        <input type="text" name="form[user_name]" placeholder="user_21" value="{{ form.user_name is defined ? form.user_name : '' }}" required />
+
+        <label for="form[password]">Password</label>
+        <input type="password" name="form[password]" placeholder="A minimum of 6 characters" required />
+
+        <label for="form[confirm_password]">Confirm Password</label>
+        <input type="password" name="form[confirm_password]" placeholder="A minimum of 6 characters" required />
+      {% endif %}
+
+      <button>{{ (mode == 'new') ? 'Hire Teacher' : 'Save Changes' }}</button>
+    </form>
+
+    <hr class="clear" width="0" />
+  </div>
+{% endblock %}

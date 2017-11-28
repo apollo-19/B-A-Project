@@ -1,0 +1,51 @@
+AppBundle\Entity\Batch:
+    type: entity
+    table: batch
+    uniqueConstraints:
+        UNIQ_F80B52D4E771DA67:
+            columns:
+                - batch_code
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        batchCode:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+            column: batch_code
+        batchName:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: batch_name
+        batchYear:
+            type: string
+            nullable: false
+            length: 10
+            options:
+                fixed: false
+            column: batch_year
+        schoolId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: school_id
+        createdBy:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: created_by
+    lifecycleCallbacks: {  }

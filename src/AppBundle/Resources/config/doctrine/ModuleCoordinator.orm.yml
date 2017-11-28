@@ -1,0 +1,26 @@
+AppBundle\Entity\ModuleCoordinator:
+    type: entity
+    table: module_coordinator
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        adminId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: admin_id
+        moduleId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: module_id
+    lifecycleCallbacks: {  }

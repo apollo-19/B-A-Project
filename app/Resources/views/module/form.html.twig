@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ (mode == 'new') ? 'New Module' : 'Edit Module' }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container taright">
+    <form class="form fright" method="post">
+      <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Module' : 'Edit Module' }}</h1>
+      <h2>{{ result_message is defined ? result_message : '' }}</h2>
+
+      <label for="form[module_code]">Module Code</label>
+      <input type="text" name="form[module_code]" placeholder="MD1221" value="{{ form.module_code is defined ? form.module_code : '' }}" required />
+
+      <label for="form[module_name]">Module Name</label>
+      <input type="text" name="form[module_name]" placeholder="Module of Medicine" value="{{ form.module_name is defined ? form.module_name : '' }}" required />
+
+      <label for="form[module_credit_hour]">Module Credit Hour</label>
+      <input type="number" min="1" max="50" name="form[module_credit_hour]" placeholder="3" value="{{ form.module_credit_hour is defined ? form.module_credit_hour : '' }}" required />
+
+      <label for="form[module_duration]">Module Duration</label>
+      <input type="text" min="1" max="15" name="form[module_duration]" placeholder="3" value="{{ form.module_duration is defined ? form.module_duration : '' }}" required />
+
+      <label for="form[module_school]">Module School</label>
+      <select name="form[module_school]">
+        {% for school in schools %}
+          <option value="{{ school.id }}" {{ (school.id == (mySchool.id is defined ? mySchool.id : '')) ? 'selected' : '' }} >{{ school.schoolName }}</option>
+        {% endfor %}
+      </select>
+
+
+      <button>{{ (mode == 'new') ? 'Create Module' : 'Save Changes' }}</button>
+    </form>
+
+    <hr class="clear" width="0" />
+  </div>
+{% endblock %}

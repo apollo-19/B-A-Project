@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ batch.batchCode }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+</style>
+{% endblock %}
+
+{% block body %}
+  <article class="container taleft">
+    <div class="form fright">
+
+      <h1 class="welcomeText tacenter">{{ batch.batchName }} ({{ batch.batchCode }})</h1>
+
+      <table>
+        <tr>
+          <td>Batch Code:</td>
+          <td>{{ batch.batchCode }}</td>
+        </tr>
+
+        <tr>
+          <td>Batch Name:</td>
+          <td>{{ batch.batchName }}</td>
+        </tr>
+
+        <tr>
+          <td>Batch Year:</td>
+          <td>{{ batch.batchYear }}</td>
+        </tr>
+
+        <tr>
+          <td>Batch School:</td>
+          <td>{{ school.schoolName }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <hr class="clear" width="0" />
+  </article>
+{% endblock %}

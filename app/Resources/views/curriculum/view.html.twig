@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  Curriculum View
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container" id="view_container">
+    <a href="{{ path('curriculum_create') }}">Create a New Curriculum</a>
+    <a href="{{ path('curriculum_create') }}">Structure Curriculum</a>
+
+    <table border="0">
+      <thead>
+        <tr>
+          <th>Curriculum Code</th>
+          <th>Curriculum Name</th>
+          <th>Curriculum School</th>
+          <th colspan="3">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for curriculum in curriculums %}
+          <tr>
+            <td>{{ curriculum.curriculumCode }}</td>
+            <td>{{ curriculum.curriculumName }}</td>
+            <td>
+              {% for school in schools %}
+                {% if(curriculum.schoolId == school.id) %}
+                  {{ school.schoolName }}
+                {% endif %}
+              {% endfor %}
+            </td>
+
+            <td><a href="{{ path('curriculum_view_one', {'curriculum_id': curriculum.id}) }}">view</a></td>
+            <td><a href="{{ path('curriculum_edit', {'curriculum_id': curriculum.id}) }}" id="editBtn">edit</button></td>
+            <td><a href="{{ path('curriculum_delete', {'curriculum_id': curriculum.id}) }}" id="deleteBtn"
+                  onclick="return confirm('Are You Sure You Want To Delete {{ curriculum.curriculumName }} ({{ curriculum.curriculumCode }})?') ">delete</button></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
