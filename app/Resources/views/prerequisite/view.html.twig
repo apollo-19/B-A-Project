@@ -15,23 +15,21 @@
     <table border="0">
       <thead>
         <tr>
-          <th>Type</th>
-          <th>Name</th>
-          <th>Prerequisited Type</th>
-          <th>Prerequisited Name</th>
+          <th>Course/Module</th>
+          <th>Prerequisited Course/Module</th>
           <th colspan="3">Action</th>
         </tr>
       </thead>
       <tbody>
         {% for prerequisite in prerequisites %}
           <tr>
-            <td>{{ prerequisite.courseModuleType | capitalize }} </td>
-
             <td>
+              ({{ prerequisite.courseModuleType | capitalize }}) -
               {% if (prerequisite.courseModuleType == 'course') %}
                 {% for course in courses %}
                   {% if ( prerequisite.courseModuleId == course.id ) %}
                     {{ course.courseName }}
+
                   {% endif %}
                 {% endfor %}
 
@@ -44,9 +42,9 @@
               {% endif %}
             </td>
 
-            <td>{{ prerequisite.prerequisiteType | capitalize }}</td>
-
             <td>
+              ({{ prerequisite.prerequisiteType | capitalize }}) -
+
               {% if (prerequisite.prerequisiteType == 'course') %}
                 {% for course in courses %}
                   {% if ( prerequisite.prerequisiteId == course.id ) %}
@@ -62,8 +60,6 @@
                 {% endfor %}
               {% endif %}
             </td>
-
-            <td><a href="{{ path('prerequisite_view_one', {'prerequisite_id': prerequisite.id}) }}">view</a></td>
 
             {% if(app.session.get('user_type') == 'admin') %}
               <td><a href="{{ path('prerequisite_edit', {'prerequisite_id': prerequisite.id}) }}" id="editBtn">edit</button></td>

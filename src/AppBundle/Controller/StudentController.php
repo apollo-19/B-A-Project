@@ -59,7 +59,19 @@ class StudentController extends Controller
                       ->add('email_address')
                       ->add('native_language')
                       ->add('marital_status')
-
+                      ->add('section_id')
+                      
+                      ->add('pce_full_name')
+                      ->add('pce_relationship')
+                      ->add('pce_other')
+                      ->add('pce_telephone_home')
+                      ->add('pce_telephone_office')
+                      ->add('pce_house_number')
+                      ->add('pce_kebele')
+                      ->add('pce_woreda_subcity')
+                      ->add('pce_town')
+                      ->add('pce_zone')
+                      ->add('pce_region')
                       /*
                       ->add('')
                       ->add('')

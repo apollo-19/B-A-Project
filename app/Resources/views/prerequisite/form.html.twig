@@ -17,42 +17,42 @@
 
       <label for="form[course_module_type]">Course or Module?</label>
       <select name="form[course_module_type]" id="courseModuleType">
-        <option value="course" {{ ((myCourse.course_module_id is defined ? myCourse.course_module_id : '') == 'course') ? 'selected' : '' }}>Course</option>
-        <option value="module" {{ ((myCourse.course_module_id is defined ? myCourse.course_module_id : '') == 'module') ? 'selected' : '' }}>Module</option>
+        <option value="course" {{ (myCourseModuleType is defined and myCourseModuleType == 'course') ? 'selected' : '' }}>Course</option>
+        <option value="module" {{ (myCourseModuleType is defined and myCourseModuleType == 'module') ? 'selected' : '' }}>Module</option>
       </select>
 
       <label for="form[course_module_id]">Course/Module Name</label>
       <select name="form[course_module_id]" id="courseModuleId">
-        <optgroup label="Courses" id="courses1">
-          {% for course in courses %}
-            <option value="{{ course.id }}" {{ (course.id == (myCourseModule.id is defined ? myCourseModule.id : '')) ? 'selected' : '' }}>{{ course.courseName }}</option>
+        <optgroup label="Modules" id="modules1">
+          {% for module in modules %}
+            <option value="{{ module.id }}" {{ ((myCourseModuleType is defined and myCourseModuleType == 'module' ? module.id : 0) == (myCourseModule.id is defined ? myCourseModule.id : '')) ? 'selected' : '' }}>{{ module.moduleName }}</option>
           {% endfor %}
         </optgroup>
 
-        <optgroup label="Modules" id="modules1">
-          {% for module in modules %}
-            <option value="{{ module.id }}" {{ (module.id == (myModule.id is defined ? myModule.id : '')) ? 'selected' : '' }}>{{ module.moduleName }}</option>
+        <optgroup label="Courses" id="courses1">
+          {% for course in courses %}
+            <option value="{{ course.id }}" {{ ((myCourseModuleType is defined and myCourseModuleType == 'course' ? course.id : 0) == (myCourseModule.id is defined ? myCourseModule.id : '')) ? 'selected' : '' }}>{{ course.courseName }}</option>
           {% endfor %}
         </optgroup>
       </select>
 
       <label for="form[prerequisite_type]">Prerequisite Type</label>
       <select name="form[prerequisite_type]" id="prerequisiteType">
-        <option value="course" {{ ((myCourse.course_module_id is defined ? myCourse.course_module_id : '') == 'course') ? 'selected' : '' }}>Course</option>
-        <option value="module" {{ ((myCourse.course_module_id is defined ? myCourse.course_module_id : '') == 'module') ? 'selected' : '' }}>Module</option>
+        <option value="course" {{ (myPrerequisiteType is defined and myPrerequisiteType == 'course') ? 'selected' : '' }}>Course</option>
+        <option value="module" {{ (myPrerequisiteType is defined and myPrerequisiteType == 'module') ? 'selected' : '' }}>Module</option>
       </select>
 
       <label for="form[prerequisite_id]">Prerequisite</label>
       <select name="form[prerequisite_id]" id="prerequisiteId">
-        <optgroup label="Courses" id="courses2">
-          {% for course in courses %}
-            <option value="{{ course.id }}" {{ (course.id == (myCourse.id is defined ? myCourse.id : '')) ? 'selected' : '' }}>{{ course.courseName }}</option>
+        <optgroup label="Modules" id="modules2">
+          {% for module in modules %}
+            <option value="{{ module.id }}" {{ ((myPrerequisiteType is defined and myPrerequisiteType == 'module' ? module.id : 0) == (myPrerequisite.id is defined ? myPrerequisite.id : '')) ? 'selected' : '' }}>{{ module.moduleName }}</option>
           {% endfor %}
         </optgroup>
 
-        <optgroup label="Modules" id="modules2">
-          {% for module in modules %}
-            <option value="{{ module.id }}" {{ (module.id == (myModule.id is defined ? myModule.id : '')) ? 'selected' : '' }}>{{ module.moduleName }}</option>
+        <optgroup label="Courses" id="courses2">
+          {% for course in courses %}
+            <option value="{{ course.id }}" {{ ((myPrerequisiteType is defined and myPrerequisiteType == 'course' ? course.id : 0) == (myPrerequisite.id is defined ? myPrerequisite.id : '')) ? 'selected' : '' }}>{{ course.courseName }}</option>
           {% endfor %}
         </optgroup>
       </select>
@@ -66,18 +66,22 @@
 
 {% block javascript %}
   <script type="text/javascript">
-    function TypeDiff() {
-      var courseModuleType = $('#courseModuleType').val();
-      (courseModuleType == 'course') ? $('#module1').hide() : $('#course1').hide();
-
-      $('#' + courseModuleType + 's').show();
+    function TypeDiff(whch, num) {
+      var courseModulePrerequisiteType = $('#' + whch).val();
+      (courseModulePrerequisiteType == 'course') ? $('#modules' + num).hide() : $('#courses' + num).hide();
+      $('#' + courseModulePrerequisiteType + 's' + num).show();
     }
 
     $(document).ready(function(){
-      $('#course1').hide();
-      //TypeDiff();
+      TypeDiff('courseModuleType', '1');
+      TypeDiff('prerequisiteType', '2');
+
       $('#courseModuleType').on("change", function() {
-        TypeDiff();
+        TypeDiff('courseModuleType', '1');
+      });
+
+      $('#prerequisiteType').on("change", function() {
+        TypeDiff('prerequisiteType', '2');
       });
     });
   </script>
