@@ -139,4 +139,3 @@ class Prerequisite
         return $this->prerequisiteId;
     }
 }
-

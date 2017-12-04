@@ -140,12 +140,6 @@ class TeacherController extends Controller
 
         $data['departments'] = $departments;
 
-        $department = $this->getDoctrine()
-                            ->getRepository('AppBundle:Department')
-                            ->findOneById($teacher_data['teacher_department']);
-
-        $data['myDepartment'] = $department;
-
         $session = new Session();
 
         if($session->get('user_name') && ($session->get('user_type') == 'admin') && ($session->get('user_id') == $teacher_data['registered_by'])){

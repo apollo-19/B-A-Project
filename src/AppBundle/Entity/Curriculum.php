@@ -23,10 +23,29 @@ class Curriculum
     private $curriculumName;
 
     /**
+     * @var string
+     */
+    private $curriculumType;
+
+    /**
+     * @var \AppBundle\Entity\School
+     */
+    private $school;
+
+    /**
      * @var bool
      */
     private $isApplied;
 
+    /**
+     * @var integer
+     */
+    private $schoolId;
+
+    /**
+     * @var integer
+     */
+    private $createdBy;
 
     /**
      * Get id
@@ -109,16 +128,6 @@ class Curriculum
     {
         return $this->isApplied;
     }
-    /**
-     * @var integer
-     */
-    private $schoolId;
-
-    /**
-     * @var integer
-     */
-    private $createdBy;
-
 
     /**
      * Set schoolId
@@ -167,10 +176,6 @@ class Curriculum
     {
         return $this->createdBy;
     }
-    /**
-     * @var \AppBundle\Entity\School
-     */
-    private $school;
 
 
     /**
@@ -195,5 +200,29 @@ class Curriculum
     public function getSchool()
     {
         return $this->school;
+    }
+
+    /**
+     * Set curriculumType
+     *
+     * @param string $curriculumType
+     *
+     * @return Curriculum
+     */
+    public function setCurriculumType($curriculumType)
+    {
+        $this->curriculumType = $curriculumType;
+
+        return $this;
+    }
+
+    /**
+     * Get curriculumType
+     *
+     * @return string
+     */
+    public function getCurriculumType()
+    {
+        return $this->curriculumType;
     }
 }

@@ -24,7 +24,7 @@
       <label for="form[department_school]">Department School</label>
       <select name="form[department_school]">
         {% for school in schools %}
-          <option value="{{ school.id }}" {{ (school.id == (mySchool.id is defined ? mySchool.id : '')) ? 'selected' : '' }} >{{ school.schoolName }}</option>
+          <option value="{{ school.id }}" {{ (school.id == (form.department_school is defined ? form.department_school : '')) ? 'selected' : '' }} >{{ school.schoolName }}</option>
         {% endfor %}
       </select>
 

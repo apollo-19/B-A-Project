@@ -35,6 +35,12 @@ AppBundle\Entity\Section:
             options:
                 unsigned: false
             column: batch_id
+        curriculumId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: curriculum_id
         createdBy:
             type: integer
             nullable: false

@@ -32,21 +32,36 @@ class CourseController extends Controller
         $form = $this ->createFormBuilder()
                       ->add('course_code')
                       ->add('course_name')
+                      ->add('module_id')
                       ->add('course_credit_hour')
+                      ->add('curriculum_id')
                       ->getForm();
+
+        $curriculum = $this->getDoctrine()
+                            ->getRepository('AppBundle:Curriculum')
+                            ->findAll();
+
+        $data['curriculums'] = $curriculum;
+
+        $module = $this->getDoctrine()
+                            ->getRepository('AppBundle:Module')
+                            ->findAll();
+
+        $data['modules'] = $module;
 
         $form->handleRequest($request);
 
         if($form->isSubmitted()){
-          $form_data = $form->getData();
-          $data['form'] = $form_data;
+          $course_data = $form->getData();
+          $data['form'] = $course_data;
 
           $em = $this->getDoctrine()->getManager();
           $course = new Course();
-          $course->setCourseCode($form_data['course_code']);
-          $course->setCourseName($form_data['course_name']);
-          $course->setCourseCreditHour($form_data['course_credit_hour']);
-
+          $course->setCourseCode($course_data['course_code']);
+          $course->setCourseName($course_data['course_name']);
+          $course->setModuleId($course_data['module_id']);
+          $course->setCourseCreditHour($course_data['course_credit_hour']);
+          $course->setCurriculumId($course_data['curriculum_id']);
 
           $course->setCreatedBy($session->get('user_id'));
 
@@ -74,22 +89,40 @@ class CourseController extends Controller
       $form = $this ->createFormBuilder()
                     ->add('course_code')
                     ->add('course_name')
+                    ->add('module_id')
                     ->add('course_credit_hour')
+                    ->add('curriculum_id')
                     ->getForm();
 
       $course = $this->getDoctrine()
                           ->getRepository('AppBundle:Course')
                           ->findOneById($course_id);
 
+      $curriculum_id = $course->getCurriculumId();
+
+      $curriculum = $this->getDoctrine()
+                          ->getRepository('AppBundle:Curriculum')
+                          ->findAll();
+
+      $data['curriculums'] = $curriculum;
+
       $course_data['course_code'] = $course->getCourseCode();
       $course_data['course_name'] = $course->getCourseName();
       $course_data['course_credit_hour'] = $course->getCourseCreditHour();
+      $course_data['module_id'] = $course->getModuleId();
+      $course_data['curriculum_id'] = $course->getCurriculumId();
       $course_data['created_by'] = $course->getCreatedBy();
 
       $session = new Session();
 
       if($session->get('user_name') && ($session->get('user_type') == 'admin') && ($session->get('user_id') == $course_data['created_by'])){
         $data['form'] = $course_data;
+
+        $module = $this->getDoctrine()
+                            ->getRepository('AppBundle:Module')
+                            ->findAll();
+
+        $data['modules'] = $module;
 
         $form->handleRequest($request);
 
@@ -100,7 +133,9 @@ class CourseController extends Controller
 
           $course->setCourseCode($course_data['course_code']);
           $course->setCourseName($course_data['course_name']);
+          $course->setModuleId($course_data['module_id']);
           $course->setCourseCreditHour($course_data['course_credit_hour']);
+          $course->setCurriculumId($course_data['curriculum_id']);
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($course);
@@ -155,6 +190,18 @@ class CourseController extends Controller
                             ->findAll();
 
         $data['courses'] = $course;
+
+        $module = $this->getDoctrine()
+                            ->getRepository('AppBundle:Module')
+                            ->findAll();
+
+        $data['modules'] = $module;
+
+        $curriculum = $this->getDoctrine()
+                            ->getRepository('AppBundle:Curriculum')
+                            ->findAll();
+
+        $data['curriculums'] = $curriculum;
 
         return $this->render('course/view.html.twig', $data);
       } else {

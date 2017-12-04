@@ -21,10 +21,16 @@
       <label for="form[curriculum_name]">Curriculum Name</label>
       <input type="text" name="form[curriculum_name]" placeholder="Introduction to Internal Medicine" value="{{ form.curriculum_name is defined ? form.curriculum_name : '' }}" required />
 
+      <label for="form[curriculum_type]">Curriculum Type</label>
+      <select name="form[curriculum_type]">
+        <option value="modularized" {{ (form.curriculumType is defined and form.curriculumType == 'modularized') ? 'selected' : '' }} >Modularized</option>
+        <option value="semester" {{ (form.curriculumType is defined and form.curriculumType == 'semester') ? 'selected' : '' }} >Semester</option>
+      </select>
+
       <label for="form[curriculum_school]">Curriculum School</label>
       <select name="form[curriculum_school]">
         {% for school in schools %}
-          <option value="{{ school.id }}" {{ (school.id == (mySchool.id is defined ? mySchool.id : '')) ? 'selected' : '' }} >{{ school.schoolName }}</option>
+          <option value="{{ school.id }}" {{ (school.id == (form.curriculum_school is defined ? form.curriculum_school : '')) ? 'selected' : '' }} >{{ school.schoolName }}</option>
         {% endfor %}
       </select>
 

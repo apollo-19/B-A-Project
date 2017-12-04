@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use AppBundle\Entity\Admin;
+use AppBundle\Entity\LogInTable;
 
 class AdminController extends Controller
 {
@@ -46,6 +47,8 @@ class AdminController extends Controller
                       ->add('admin_type')
                       ->add('admin_class')
                       ->add('user_name')
+                      ->add('password')
+                      ->add('confirm_password')
                       ->getForm();
 
         $form->handleRequest($request);
@@ -55,21 +58,33 @@ class AdminController extends Controller
           $admin_data = $form->getData();
           $data['form'] = $admin_data;
 
-          $admin = new Admin();
-          $admin->setFirstName($admin_data['first_name']);
-          $admin->setMiddleName($admin_data['middle_name']);
-          $admin->setLastName($admin_data['last_name']);
-          $admin->setMobileNumber($admin_data['mobile_number']);
-          $admin->setEmailAddress($admin_data['email_address']);
-          $admin->setAdminType($admin_data['admin_type']);
-          $admin->setAdminClass($admin_data['admin_class']);
-          $admin->setUserName($admin_data['user_name']);
+          if($admin_data['password'] != $admin_data['confirm_password'])
+            $data['resultMessage'] = 'Passwords Must Match!';
+          else {
+            $em = $this->getDoctrine()->getManager();
 
-          $em = $this->getDoctrine()->getManager();
-          $em->persist($admin);
-          $em->flush();
+            $passwordLIT = new LogInTable();
+            $passwordLIT->setUserName($admin_data['user_name']);
+            $passwordLIT->setPassword($admin_data['password']);
+            $passwordLIT->setUserType('admin');
 
-          return $this->redirectToRoute('admin_view');
+            $admin = new Admin();
+            $admin->setFirstName($admin_data['first_name']);
+            $admin->setMiddleName($admin_data['middle_name']);
+            $admin->setLastName($admin_data['last_name']);
+            $admin->setMobileNumber($admin_data['mobile_number']);
+            $admin->setEmailAddress($admin_data['email_address']);
+            $admin->setAdminType($admin_data['admin_type']);
+            $admin->setAdminClass($admin_data['admin_class']);
+            $admin->setUserName($admin_data['user_name']);
+            $admin->setCreatedBy($session->get('user_id'));
+
+            $em->persist($admin);
+            $em->persist($passwordLIT);
+            $em->flush();
+
+            return $this->redirectToRoute('admin_view');
+          }
         }
 
         return $this->render('admin/form.html.twig', $data);
@@ -86,7 +101,6 @@ class AdminController extends Controller
     {
       $data = [];
       $data['mode'] = 'edit';
-      $data['form'] = [];
 
       $form = $this ->createFormBuilder()
                     ->add('first_name')
@@ -96,7 +110,6 @@ class AdminController extends Controller
                     ->add('email_address')
                     ->add('admin_type')
                     ->add('admin_class')
-                    ->add('user_name')
                     ->getForm();
 
       $admin = $this->getDoctrine()
@@ -110,7 +123,6 @@ class AdminController extends Controller
       $admin_data['email_address'] = $admin->getEmailAddress();
       $admin_data['admin_type'] = $admin->getAdminType();
       $admin_data['admin_class'] = $admin->getAdminClass();
-      $admin_data['user_name'] = $admin->getUserName();
       $admin_data['created_by'] = $admin->getCreatedBy();
 
       $session = new Session();
@@ -132,7 +144,6 @@ class AdminController extends Controller
           $admin->setEmailAddress($admin_data['email_address']);
           $admin->setAdminType($admin_data['admin_type']);
           $admin->setAdminClass($admin_data['admin_class']);
-          $admin->setUserName($admin_data['user_name']);
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($admin);
@@ -165,9 +176,16 @@ class AdminController extends Controller
                             ->getRepository('AppBundle:Admin')
                             ->findOneById($admin_id);
 
+        $admin_user_name = $admin->getUserName();
+
+        $admin_log_in_info = $this->getDoctrine()
+                            ->getRepository('AppBundle:LogInTable')
+                            ->findOneByUserName($admin_user_name);
+
         $em = $this->getDoctrine()->getManager();
 
         $em->remove($admin);
+        $em->remove($admin_log_in_info);
         $em->flush();
 
         return $this->redirectToRoute('admin_view');
@@ -184,7 +202,7 @@ class AdminController extends Controller
     {
       $session = new Session();
 
-      if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'admin')){
+      if($session->get('user_name') && ($session->get('user_type') == 'admin')){
         $data = [];
         $data['admins'] = [];
 

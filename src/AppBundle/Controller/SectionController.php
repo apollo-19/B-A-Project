@@ -34,6 +34,7 @@ class SectionController extends Controller
                       ->add('section_code')
                       ->add('section_name')
                       ->add('section_batch')
+                      ->add('section_curriculum')
                       ->getForm();
 
         $batch = $this->getDoctrine()
@@ -42,17 +43,24 @@ class SectionController extends Controller
 
         $data['batches'] = $batch;
 
+        $curriculum = $this->getDoctrine()
+                      ->getRepository('AppBundle:Curriculum')
+                      ->findAll();
+
+        $data['curriculums'] = $curriculum;
+
         $form->handleRequest($request);
 
         if($form->isSubmitted()){
-          $form_data = $form->getData();
-          $data['form'] = $form_data;
+          $section_data = $form->getData();
+          $data['form'] = $section_data;
 
           $em = $this->getDoctrine()->getManager();
           $section = new Section();
-          $section->setSectionCode($form_data['section_code']);
-          $section->setSectionName($form_data['section_name']);
-          $section->setBatchId($form_data['section_batch']);
+          $section->setSectionCode($section_data['section_code']);
+          $section->setSectionName($section_data['section_name']);
+          $section->setBatchId($section_data['section_batch']);
+          $section->setCurriculumId($section_data['section_curriculum']);
           $section->setCreatedBy($session->get('user_id'));
 
           $em->persist($section);
@@ -82,15 +90,23 @@ class SectionController extends Controller
                     ->add('section_code')
                     ->add('section_name')
                     ->add('section_batch')
+                    ->add('section_curriculum')
                     ->getForm();
 
       $section = $this->getDoctrine()
                           ->getRepository('AppBundle:Section')
                           ->findOneById($section_id);
 
+      $curriculum = $this->getDoctrine()
+                          ->getRepository('AppBundle:Curriculum')
+                          ->findAll();
+
+      $data['curriculums'] = $curriculum;
+
       $section_data['section_code'] = $section->getSectionCode();
       $section_data['section_name'] = $section->getSectionName();
       $section_data['section_batch'] = $section->getBatchId();
+      $section_data['section_curriculum'] = $section->getCurriculumId();
 
       $section_data['created_by'] = $section->getCreatedBy();
 
@@ -99,12 +115,6 @@ class SectionController extends Controller
                           ->findAll();
 
       $data['batches'] = $batches;
-
-      $batch = $this->getDoctrine()
-                          ->getRepository('AppBundle:Batch')
-                          ->findOneById($section_data['section_batch']);
-
-      $data['myBatch'] = $batch;
 
       $session = new Session();
 
@@ -121,6 +131,7 @@ class SectionController extends Controller
           $section->setSectionCode($section_data['section_code']);
           $section->setSectionName($section_data['section_name']);
           $section->setbatchId($section_data['section_batch']);
+          $section->setCurriculumId($section_data['section_curriculum']);
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($section);
@@ -181,6 +192,12 @@ class SectionController extends Controller
                             ->findAll();
 
         $data['batches'] = $batch;
+
+        $curriculum = $this->getDoctrine()
+                            ->getRepository('AppBundle:Curriculum')
+                            ->findAll();
+
+        $data['curriculums'] = $curriculum;
 
         return $this->render('section/view.html.twig', $data);
       } else {
