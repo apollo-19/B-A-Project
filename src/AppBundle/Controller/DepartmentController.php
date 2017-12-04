@@ -47,12 +47,16 @@ class DepartmentController extends Controller
         if($form->isSubmitted()){
           $form_data = $form->getData();
           $data['form'] = $form_data;
+          $myschool = $this->getDoctrine()
+                           ->getRepository('AppBundle:School')
+                           ->findOneById($form_data['department_school']);
+
 
           $em = $this->getDoctrine()->getManager();
           $department = new Department();
           $department->setDepartmentCode($form_data['department_code']);
           $department->setDepartmentName($form_data['department_name']);
-          $department->setSchoolId($form_data['department_school']);
+          $department->setSchool($myschool);
           $department->setCreatedBy($session->get('user_id'));
 
           $em->persist($department);
