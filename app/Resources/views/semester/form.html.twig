@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ (mode == 'new') ? 'New Semester' : 'Edit Semester' }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container taright">
+    <form class="form fright" method="post">
+      <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Semester' : 'Edit Semester' }}</h1>
+      <h2>{{ result_message is defined ? result_message : '' }}</h2>
+
+      <label for="form[semester]">Semester</label>
+      <input type="text" name="form[semester]" placeholder="IM101" value="{{ form.semester is defined ? form.semester : '' }}" required />
+
+      <label for="form[year]">Year</label>
+      <input type="text" name="form[year]" placeholder="Introduction to Internal Medicine" value="{{ form.year is defined ? form.year : '' }}" required />
+
+      <label for="form[semester_curriculum]">Semester Curriculum</label>
+      <select name="form[semester_curriculum]">
+        {% for curriculum in curriculums %}
+          <option value="{{ curriculum.id }}" {{ (form.semester_curriculum is defined and form.semester_curriculum == curriculum.id) ? 'selected' : '' }}>{{ curriculum.curriculumName }}</option>
+        {% endfor %}
+      </select>
+
+      <button>{{ (mode == 'new') ? 'Create Semester' : 'Save Changes' }}</button>
+    </form>
+
+    <hr class="clear" width="0" />
+  </div>
+{% endblock %}

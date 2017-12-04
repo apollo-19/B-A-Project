@@ -1,0 +1,32 @@
+AppBundle\Entity\Semester:
+    type: entity
+    table: semester
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        semester:
+            type: string
+            nullable: false
+            length: 30
+            options:
+                fixed: false
+        year:
+            type: string
+            nullable: false
+            length: 10
+            options:
+                fixed: false
+        curriculumId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: curriculum_id
+    lifecycleCallbacks: {  }
