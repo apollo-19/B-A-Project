@@ -50,3 +50,7 @@ AppBundle\Entity\Department:
                 name: school_id
                 referencedColumnName: id
                 onDelete: CASCADE
+    oneToMany:
+        teachers:
+            targetEntity: Teacher
+            mappedBy: department

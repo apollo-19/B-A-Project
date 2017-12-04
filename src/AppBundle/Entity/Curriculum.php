@@ -28,19 +28,11 @@ class Curriculum
     private $curriculumType;
 
     /**
-     * @var \AppBundle\Entity\School
-     */
-    private $school;
-
-    /**
      * @var bool
      */
     private $isApplied;
 
-    /**
-     * @var integer
-     */
-    private $schoolId;
+
 
     /**
      * @var integer
@@ -129,6 +121,43 @@ class Curriculum
         return $this->isApplied;
     }
 
+
+    /**
+     * Set curriculumType
+     *
+     * @param string $curriculumType
+     *
+     * @return Curriculum
+     */
+    public function setCurriculumType($curriculumType)
+    {
+        $this->curriculumType = $curriculumType;
+
+        return $this;
+    }
+
+    /**
+     * Get curriculumType
+     *
+     * @return string
+     */
+    public function getCurriculumType()
+    {
+        return $this->curriculumType;
+    }
+
+    
+    /**
+     * @var integer
+     */
+    private $schoolId;
+
+    /**
+     * @var \AppBundle\Entity\School
+     */
+    private $school;
+
+
     /**
      * Set schoolId
      *
@@ -177,7 +206,6 @@ class Curriculum
         return $this->createdBy;
     }
 
-
     /**
      * Set school
      *
@@ -201,28 +229,89 @@ class Curriculum
     {
         return $this->school;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $modules;
 
     /**
-     * Set curriculumType
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->modules = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add module
      *
-     * @param string $curriculumType
+     * @param \AppBundle\Entity\Module $module
      *
      * @return Curriculum
      */
-    public function setCurriculumType($curriculumType)
+    public function addModule(\AppBundle\Entity\Module $module)
     {
-        $this->curriculumType = $curriculumType;
+        $this->modules[] = $module;
 
         return $this;
     }
 
     /**
-     * Get curriculumType
+     * Remove module
      *
-     * @return string
+     * @param \AppBundle\Entity\Module $module
      */
-    public function getCurriculumType()
+    public function removeModule(\AppBundle\Entity\Module $module)
     {
-        return $this->curriculumType;
+        $this->modules->removeElement($module);
+    }
+
+    /**
+     * Get modules
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getModules()
+    {
+        return $this->modules;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $batchs;
+
+
+    /**
+     * Add batch
+     *
+     * @param \AppBundle\Entity\Batch $batch
+     *
+     * @return Curriculum
+     */
+    public function addBatch(\AppBundle\Entity\Batch $batch)
+    {
+        $this->batchs[] = $batch;
+
+        return $this;
+    }
+
+    /**
+     * Remove batch
+     *
+     * @param \AppBundle\Entity\Batch $batch
+     */
+    public function removeBatch(\AppBundle\Entity\Batch $batch)
+    {
+        $this->batchs->removeElement($batch);
+    }
+
+    /**
+     * Get batchs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBatchs()
+    {
+        return $this->batchs;
     }
 }

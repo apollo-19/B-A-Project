@@ -64,10 +64,10 @@ class School extends \AppBundle\Entity\School implements \Doctrine\ORM\Proxy\Pro
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'schoolCode', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'schoolName', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'createdBy', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'departments'];
+            return ['__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'schoolCode', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'schoolName', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'createdBy', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'departments', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'batchs', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'curriculums', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'modules'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'schoolCode', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'schoolName', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'createdBy', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'departments'];
+        return ['__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'schoolCode', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'schoolName', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'createdBy', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'departments', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'batchs', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'curriculums', '' . "\0" . 'AppBundle\\Entity\\School' . "\0" . 'modules'];
     }
 
     /**
@@ -285,6 +285,105 @@ class School extends \AppBundle\Entity\School implements \Doctrine\ORM\Proxy\Pro
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDepartments', []);
 
         return parent::getDepartments();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addBatch(\AppBundle\Entity\Batch $batch)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addBatch', [$batch]);
+
+        return parent::addBatch($batch);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeBatch(\AppBundle\Entity\Batch $batch)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeBatch', [$batch]);
+
+        return parent::removeBatch($batch);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getBatchs()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getBatchs', []);
+
+        return parent::getBatchs();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addCurriculum(\AppBundle\Entity\Curriculum $curriculum)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addCurriculum', [$curriculum]);
+
+        return parent::addCurriculum($curriculum);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeCurriculum(\AppBundle\Entity\Curriculum $curriculum)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeCurriculum', [$curriculum]);
+
+        return parent::removeCurriculum($curriculum);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCurriculums()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCurriculums', []);
+
+        return parent::getCurriculums();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addModule(\AppBundle\Entity\Module $module)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addModule', [$module]);
+
+        return parent::addModule($module);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeModule(\AppBundle\Entity\Module $module)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeModule', [$module]);
+
+        return parent::removeModule($module);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getModules()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getModules', []);
+
+        return parent::getModules();
     }
 
 }

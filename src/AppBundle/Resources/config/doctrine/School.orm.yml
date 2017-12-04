@@ -43,3 +43,12 @@ AppBundle\Entity\School:
         departments:
             targetEntity: Department
             mappedBy: school
+        batchs:
+            targetEntity: Batch
+            mappedBy: school
+        curriculums:
+            targetEntity: Curriculum
+            mappedBy: school
+        modules:
+          targetEntity: Module
+          mappedBy: school

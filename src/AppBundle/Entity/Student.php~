@@ -1756,4 +1756,33 @@ class Student
     {
         return $this->dateOfBirthEc;
     }
+    /**
+     * @var integer
+     */
+    private $sectionId;
+
+
+    /**
+     * Set sectionId
+     *
+     * @param integer $sectionId
+     *
+     * @return Student
+     */
+    public function setSectionId($sectionId)
+    {
+        $this->sectionId = $sectionId;
+
+        return $this;
+    }
+
+    /**
+     * Get sectionId
+     *
+     * @return integer
+     */
+    public function getSectionId()
+    {
+        return $this->sectionId;
+    }
 }

@@ -444,6 +444,9 @@
     <service id="AppBundle\Controller\SectionController" class="AppBundle\Controller\SectionController" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
     </service>
+    <service id="AppBundle\Controller\SemesterController" class="AppBundle\Controller\SemesterController" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+    </service>
     <service id="AppBundle\Controller\StudentController" class="AppBundle\Controller\StudentController" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
     </service>
@@ -466,7 +469,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-50"/>
-      <argument type="service" id="service_locator.83ae517479bb1696edb6f4406233d9c9"/>
+      <argument type="service" id="service_locator.51662b75eed5fe68f4fef63418f957f3"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-100"/>
@@ -634,7 +637,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>CyjBgcnzRpyGg0Ac6JRBJL</argument>
+      <argument>ZOBmAB8sPXASQcGtWPFIE4</argument>
       <argument>/home/apollo-19/github/B-A-Project/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -644,7 +647,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>CyjBgcnzRpyGg0Ac6JRBJL</argument>
+      <argument>ZOBmAB8sPXASQcGtWPFIE4</argument>
       <call method="setLogger">
         <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       </call>
@@ -2194,12 +2197,12 @@
     </service>
     <service id="security.authentication.listener.anonymous.main" class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
       <argument type="service" id="security.token_storage"/>
-      <argument>5a24f29fb86434.88738999</argument>
+      <argument>5a25023d9f7b49.01565930</argument>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
       <argument type="service" id="security.authentication.manager"/>
     </service>
     <service id="security.authentication.provider.anonymous.main" class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-      <argument>5a24f29fb86434.88738999</argument>
+      <argument>5a25023d9f7b49.01565930</argument>
     </service>
     <service id="security.exception_listener.main" class="Symfony\Component\Security\Http\Firewall\ExceptionListener" public="false">
       <argument type="service" id="security.token_storage"/>
@@ -3197,6 +3200,8 @@
     <service id="abstract.instanceof.AppBundle\Controller\SchoolController" class="AppBundle\Controller\SchoolController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\SectionController" class="AppBundle\Controller\SectionController" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.AppBundle\Controller\SectionController" class="AppBundle\Controller\SectionController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\SemesterController" class="AppBundle\Controller\SemesterController" autowire="true" abstract="true"/>
+    <service id="abstract.instanceof.AppBundle\Controller\SemesterController" class="AppBundle\Controller\SemesterController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\StudentController" class="AppBundle\Controller\StudentController" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.AppBundle\Controller\StudentController" class="AppBundle\Controller\StudentController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\TeacherController" class="AppBundle\Controller\TeacherController" autowire="true" abstract="true"/>
@@ -3241,6 +3246,10 @@
       <tag name="container.service_locator"/>
       <argument type="collection"/>
     </service>
+    <service id="service_locator.a355c7e24707fefd0a4a8d5fc3a68367" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
+    </service>
     <service id="service_locator.cc910ec42cc3113bba86fb4d1d6f4840" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection"/>
@@ -3249,7 +3258,7 @@
       <tag name="container.service_locator"/>
       <argument type="collection"/>
     </service>
-    <service id="service_locator.83ae517479bb1696edb6f4406233d9c9" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id="service_locator.51662b75eed5fe68f4fef63418f957f3" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection"/>
     </service>
@@ -3465,7 +3474,7 @@
     <service id="cache.system.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>G9v21FgfH0</argument>
       <argument>0</argument>
-      <argument>CyjBgcnzRpyGg0Ac6JRBJL</argument>
+      <argument>ZOBmAB8sPXASQcGtWPFIE4</argument>
       <argument>/home/apollo-19/github/B-A-Project/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3473,7 +3482,7 @@
     <service id="cache.validator.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>wkUFOhXHq+</argument>
       <argument>0</argument>
-      <argument>CyjBgcnzRpyGg0Ac6JRBJL</argument>
+      <argument>ZOBmAB8sPXASQcGtWPFIE4</argument>
       <argument>/home/apollo-19/github/B-A-Project/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3481,7 +3490,7 @@
     <service id="cache.serializer.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>kXcFTe5nmo</argument>
       <argument>0</argument>
-      <argument>CyjBgcnzRpyGg0Ac6JRBJL</argument>
+      <argument>ZOBmAB8sPXASQcGtWPFIE4</argument>
       <argument>/home/apollo-19/github/B-A-Project/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3489,7 +3498,7 @@
     <service id="cache.annotations.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>czk5QGo6S2</argument>
       <argument>0</argument>
-      <argument>CyjBgcnzRpyGg0Ac6JRBJL</argument>
+      <argument>ZOBmAB8sPXASQcGtWPFIE4</argument>
       <argument>/home/apollo-19/github/B-A-Project/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>

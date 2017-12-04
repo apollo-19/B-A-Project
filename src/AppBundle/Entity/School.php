@@ -110,7 +110,7 @@ class School
         return $this->createdBy;
     }
 
-  
+
 
 
     /**
@@ -158,5 +158,124 @@ class School
     public function getDepartments()
     {
         return $this->departments;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $batchs;
+
+
+    /**
+     * Add batch
+     *
+     * @param \AppBundle\Entity\Batch $batch
+     *
+     * @return School
+     */
+    public function addBatch(\AppBundle\Entity\Batch $batch)
+    {
+        $this->batchs[] = $batch;
+
+        return $this;
+    }
+
+    /**
+     * Remove batch
+     *
+     * @param \AppBundle\Entity\Batch $batch
+     */
+    public function removeBatch(\AppBundle\Entity\Batch $batch)
+    {
+        $this->batchs->removeElement($batch);
+    }
+
+    /**
+     * Get batchs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBatchs()
+    {
+        return $this->batchs;
+    }
+
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $curriculums;
+
+
+    /**
+     * Add curriculum
+     *
+     * @param \AppBundle\Entity\Curriculum $curriculum
+     *
+     * @return School
+     */
+    public function addCurriculum(\AppBundle\Entity\Curriculum $curriculum)
+    {
+        $this->curriculums[] = $curriculum;
+
+        return $this;
+    }
+
+    /**
+     * Remove curriculum
+     *
+     * @param \AppBundle\Entity\Curriculum $curriculum
+     */
+    public function removeCurriculum(\AppBundle\Entity\Curriculum $curriculum)
+    {
+        $this->curriculums->removeElement($curriculum);
+    }
+
+    /**
+     * Get curriculums
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCurriculums()
+    {
+        return $this->curriculums;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $modules;
+
+
+    /**
+     * Add module
+     *
+     * @param \AppBundle\Entity\Module $module
+     *
+     * @return School
+     */
+    public function addModule(\AppBundle\Entity\Module $module)
+    {
+        $this->modules[] = $module;
+
+        return $this;
+    }
+
+    /**
+     * Remove module
+     *
+     * @param \AppBundle\Entity\Module $module
+     */
+    public function removeModule(\AppBundle\Entity\Module $module)
+    {
+        $this->modules->removeElement($module);
+    }
+
+    /**
+     * Get modules
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getModules()
+    {
+        return $this->modules;
     }
 }

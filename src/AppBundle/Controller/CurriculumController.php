@@ -49,13 +49,15 @@ class CurriculumController extends Controller
         if($form->isSubmitted()){
           $form_data = $form->getData();
           $data['form'] = $form_data;
-
+          $myschool = $this->getDoctrine()
+                           ->getRepository('AppBundle:School')
+                           ->findOneById($form_data['curriculum_school']);
           $em = $this->getDoctrine()->getManager();
           $curriculum = new Curriculum();
           $curriculum->setCurriculumCode($form_data['curriculum_code']);
           $curriculum->setCurriculumName($form_data['curriculum_name']);
           $curriculum->setCurriculumType($form_data['curriculum_type']);
-          $curriculum->setSchoolId($form_data['curriculum_school']);
+          $curriculum->setSchool($myschool);
 
           $curriculum->setCreatedBy($session->get('user_id'));
 

@@ -23,10 +23,21 @@ class Curriculum
     private $curriculumName;
 
     /**
+     * @var string
+     */
+    private $curriculumType;
+
+    /**
      * @var bool
      */
     private $isApplied;
 
+
+
+    /**
+     * @var integer
+     */
+    private $createdBy;
 
     /**
      * Get id
@@ -109,15 +120,42 @@ class Curriculum
     {
         return $this->isApplied;
     }
+
+
+    /**
+     * Set curriculumType
+     *
+     * @param string $curriculumType
+     *
+     * @return Curriculum
+     */
+    public function setCurriculumType($curriculumType)
+    {
+        $this->curriculumType = $curriculumType;
+
+        return $this;
+    }
+
+    /**
+     * Get curriculumType
+     *
+     * @return string
+     */
+    public function getCurriculumType()
+    {
+        return $this->curriculumType;
+    }
+
+    
     /**
      * @var integer
      */
     private $schoolId;
 
     /**
-     * @var integer
+     * @var \AppBundle\Entity\School
      */
-    private $createdBy;
+    private $school;
 
 
     /**
@@ -167,11 +205,6 @@ class Curriculum
     {
         return $this->createdBy;
     }
-    /**
-     * @var \AppBundle\Entity\School
-     */
-    private $school;
-
 
     /**
      * Set school
@@ -195,5 +228,90 @@ class Curriculum
     public function getSchool()
     {
         return $this->school;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $modules;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->modules = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add module
+     *
+     * @param \AppBundle\Entity\Module $module
+     *
+     * @return Curriculum
+     */
+    public function addModule(\AppBundle\Entity\Module $module)
+    {
+        $this->modules[] = $module;
+
+        return $this;
+    }
+
+    /**
+     * Remove module
+     *
+     * @param \AppBundle\Entity\Module $module
+     */
+    public function removeModule(\AppBundle\Entity\Module $module)
+    {
+        $this->modules->removeElement($module);
+    }
+
+    /**
+     * Get modules
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getModules()
+    {
+        return $this->modules;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $batchs;
+
+
+    /**
+     * Add batch
+     *
+     * @param \AppBundle\Entity\Batch $batch
+     *
+     * @return Curriculum
+     */
+    public function addBatch(\AppBundle\Entity\Batch $batch)
+    {
+        $this->batchs[] = $batch;
+
+        return $this;
+    }
+
+    /**
+     * Remove batch
+     *
+     * @param \AppBundle\Entity\Batch $batch
+     */
+    public function removeBatch(\AppBundle\Entity\Batch $batch)
+    {
+        $this->batchs->removeElement($batch);
+    }
+
+    /**
+     * Get batchs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBatchs()
+    {
+        return $this->batchs;
     }
 }

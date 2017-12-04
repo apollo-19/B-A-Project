@@ -48,13 +48,16 @@ class BatchController extends Controller
         if($form->isSubmitted()){
           $form_data = $form->getData();
           $data['form'] = $form_data;
-
+          $myschool = $this->getDoctrine()
+                           ->getRepository('AppBundle:School')
+                           ->findOneById($form_data['batch_school']);
+      
           $em = $this->getDoctrine()->getManager();
           $batch = new Batch();
           $batch->setBatchCode($form_data['batch_code']);
           $batch->setBatchName($form_data['batch_name']);
           $batch->setBatchYear($form_data['batch_year']);
-          $batch->setSchoolId($form_data['batch_school']);
+          $batch->setSchool($myschool);
           $batch->setCreatedBy($session->get('user_id'));
 
           $em->persist($batch);

@@ -138,4 +138,63 @@ class Course
     {
         return $this->createdBy;
     }
+    
+    /**
+     * @var integer
+     */
+    private $curriculumId;
+
+    /**
+     * @var integer
+     */
+    private $moduleId;
+
+
+    /**
+     * Set curriculumId
+     *
+     * @param integer $curriculumId
+     *
+     * @return Course
+     */
+    public function setCurriculumId($curriculumId)
+    {
+        $this->curriculumId = $curriculumId;
+
+        return $this;
+    }
+
+    /**
+     * Get curriculumId
+     *
+     * @return integer
+     */
+    public function getCurriculumId()
+    {
+        return $this->curriculumId;
+    }
+
+    /**
+     * Set moduleId
+     *
+     * @param integer $moduleId
+     *
+     * @return Course
+     */
+    public function setModuleId($moduleId)
+    {
+        $this->moduleId = $moduleId;
+
+        return $this;
+    }
+
+    /**
+     * Get moduleId
+     *
+     * @return integer
+     */
+    public function getModuleId()
+    {
+        return $this->moduleId;
+    }
 }
