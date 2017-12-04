@@ -39,3 +39,7 @@ AppBundle\Entity\School:
                 unsigned: false
             column: created_by
     lifecycleCallbacks: {  }
+    oneToMany:
+        departments:
+            targetEntity: Department
+            mappedBy: school
