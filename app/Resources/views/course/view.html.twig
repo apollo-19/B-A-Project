@@ -18,6 +18,8 @@
           <th>Course Code</th>
           <th>Course Name</th>
           <th>Course Credit Hour</th>
+          <th>Course Curriculum</th>
+          <th>Course Module</th>
           <th colspan="3">Actions</th>
         </tr>
       </thead>
@@ -27,6 +29,20 @@
             <td>{{ course.courseCode }}</td>
             <td>{{ course.courseName }}</td>
             <td>{{ course.courseCreditHour }}</td>
+            <td>
+              {% for curriculum in curriculums %}
+                {% if(course.curriculumId == curriculum.id) %}
+                  {{ curriculum.curriculumName }}
+                {% endif %}
+              {% endfor %}
+            </td>
+            <td>
+              {% for module in modules %}
+                {% if(course.moduleId == module.id) %}
+                  {{ module.moduleName }}
+                {% endif %}
+              {% endfor %}
+            </td>
 
             <td><a href="{{ path('course_view_one', {'course_id': course.id}) }}">view</a></td>
 
@@ -34,7 +50,7 @@
               <td><a href="{{ path('course_edit', {'course_id': course.id}) }}" id="editBtn">edit</button></td>
               <td><a href="{{ path('course_delete', {'course_id': course.id}) }}" id="deleteBtn"
                     onclick="return confirm('Are You Sure You Want To Delete {{ course.courseName }} ({{ course.courseCode }})?') ">delete</button></td>
-            {% endif %}  
+            {% endif %}
           </tr>
         {% endfor %}
       </tbody>

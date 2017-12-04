@@ -45,4 +45,11 @@ AppBundle\Entity\Curriculum:
             options:
                 unsigned: false
             column: created_by
+        curriculumType:
+            type: string
+            nullable: false
+            length: 15
+            options:
+                fixed: false
+            column: curriculum_type
     lifecycleCallbacks: {  }

@@ -112,15 +112,17 @@ class PrerequisiteController extends Controller
       $data['courses'] = $course;
 
       $myCourseModule = $this->getDoctrine()
-                          ->getRepository('AppBundle:' + ucwords($prerequisite_data['course_module_type']))
+                          ->getRepository('AppBundle:' . ucwords($prerequisite_data['course_module_type']))
                           ->findOneById($prerequisite_data['course_module_id']);
 
+      $data['myCourseModuleType'] = $prerequisite_data['course_module_type'];
       $data['myCourseModule'] = $myCourseModule;
 
       $myPrerequisite = $this->getDoctrine()
-                          ->getRepository('AppBundle:' + ucwords($prerequisite_data['prerequisite_type']))
+                          ->getRepository('AppBundle:' . ucwords($prerequisite_data['prerequisite_type']))
                           ->findOneById($prerequisite_data['prerequisite_id']);
 
+      $data['myPrerequisiteType'] = $prerequisite_data['prerequisite_type'];
       $data['myPrerequisite'] = $myPrerequisite;
 
       $session = new Session();

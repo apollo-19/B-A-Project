@@ -27,13 +27,19 @@
       <label for="form[module_duration]">Module Duration</label>
       <input type="text" min="1" max="15" name="form[module_duration]" placeholder="3" value="{{ form.module_duration is defined ? form.module_duration : '' }}" required />
 
-      <label for="form[module_school]">Module School</label>
-      <select name="form[module_school]">
-        {% for school in schools %}
-          <option value="{{ school.id }}" {{ (school.id == (mySchool.id is defined ? mySchool.id : '')) ? 'selected' : '' }} >{{ school.schoolName }}</option>
+      <label for="form[module_curriculum]">Module Curriculum</label>
+      <select name="form[module_curriculum]">
+        {% for curriculum in curriculums %}
+          <option value="{{ curriculum.id }}" {{ (form.module_curriculum is defined and form.module_curriculum == curriculum.id) ? 'selected' : '' }}>{{ curriculum.curriculumName }}</option>
         {% endfor %}
       </select>
 
+      <label for="form[module_school]">Module School</label>
+      <select name="form[module_school]">
+        {% for school in schools %}
+          <option value="{{ school.id }}" {{ (form.module_school is defined and form.module_school == school.id) ? 'selected' : '' }} >{{ school.schoolName }}</option>
+        {% endfor %}
+      </select>
 
       <button>{{ (mode == 'new') ? 'Create Module' : 'Save Changes' }}</button>
     </form>

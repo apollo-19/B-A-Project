@@ -39,7 +39,7 @@
       <label for="form[teacher_department]">Teacher Department</label>
       <select name="form[teacher_department]">
         {% for department in departments %}
-          <option value="{{ department.id }}" {{ (department.id == (myDepartment.id is defined ? myDepartment.id : '')) ? 'selected' : '' }} >{{ department.departmentName }}</option>
+          <option value="{{ department.id }}" {{ (department.id == (form.teacher_department is defined ? form.teacher_department : '')) ? 'selected' : '' }} >{{ department.departmentName }}</option>
         {% endfor %}
       </select>
 

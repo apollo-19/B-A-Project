@@ -19,6 +19,7 @@
           <th>Module Name</th>
           <th>Module School</th>
           <th>Module Credit Hour</th>
+          <th>Module Curriculum</th>
           <th colspan="3">Actions</th>
         </tr>
       </thead>
@@ -35,6 +36,13 @@
               {% endfor %}
             </td>
             <td>{{ module.moduleCreditHour }}</td>
+            <td>
+              {% for curriculum in curriculums %}
+                {% if(module.curriculumId == curriculum.id) %}
+                  {{ curriculum.curriculumName }}
+                {% endif %}
+              {% endfor %}
+            </td>
 
             <td><a href="{{ path('module_view_one', {'module_id': module.id}) }}">view</a></td>
 

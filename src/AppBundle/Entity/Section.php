@@ -138,4 +138,33 @@ class Section
     {
         return $this->createdBy;
     }
+    /**
+     * @var integer
+     */
+    private $curriculumId;
+
+
+    /**
+     * Set curriculumId
+     *
+     * @param integer $curriculumId
+     *
+     * @return Section
+     */
+    public function setCurriculumId($curriculumId)
+    {
+        $this->curriculumId = $curriculumId;
+
+        return $this;
+    }
+
+    /**
+     * Get curriculumId
+     *
+     * @return integer
+     */
+    public function getCurriculumId()
+    {
+        return $this->curriculumId;
+    }
 }

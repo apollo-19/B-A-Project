@@ -46,8 +46,16 @@
         </optgroup>
       </select>
 
-      <label for="form[user_name]">User Name</label>
-      <input type="text" name="form[user_name]" placeholder="" value="{{ form.user_name is defined ? form.user_name : '' }}" required />
+      {% if(mode == 'new') %}
+        <label for="form[user_name]">User Name</label>
+        <input type="text" name="form[user_name]" placeholder="user_21" value="{{ form.user_name is defined ? form.user_name : '' }}" required />
+
+        <label for="form[password]">Password</label>
+        <input type="password" name="form[password]" placeholder="A minimum of 6 characters" required />
+
+        <label for="form[confirm_password]">Confirm Password</label>
+        <input type="password" name="form[confirm_password]" placeholder="A minimum of 6 characters" required />
+      {% endif %}
 
       <button>{{ (mode == 'new') ? 'Create Admin' : 'Save Changes' }}</button>
     </form>
@@ -64,7 +72,7 @@
 
       $('#' + admin_type).show();
     }
-    
+
     $(document).ready(function(){
       AdminType();
       $('#admin_type').on("change", function() {

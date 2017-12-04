@@ -6,6 +6,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use AppBundle\Entity\LogInTable;
+use AppBundle\Entity\Student;
 
 class StudentController extends Controller
 {
@@ -59,15 +61,47 @@ class StudentController extends Controller
                       ->add('email_address')
                       ->add('native_language')
                       ->add('marital_status')
+                      ->add('section_id')
 
-                      /*
-                      ->add('')
-                      ->add('')
-                      ->add('')
-                      ->add('')
-                      ->add('')
-                      ->add('')
-                      */
+                      ->add('pce_full_name')
+                      ->add('pce_relationship')
+                      ->add('pce_other')
+                      ->add('pce_telephone_home')
+                      ->add('pce_telephone_office')
+                      ->add('pce_house_number')
+                      ->add('pce_kebele')
+                      ->add('pce_woreda_subcity')
+                      ->add('pce_town')
+                      ->add('pce_zone')
+                      ->add('pce_region')
+
+                      ->add('father_full_name')
+                      ->add('father_occupation')
+                      ->add('father_educational_level')
+                      ->add('father_telephone_home')
+                      ->add('father_telephone_office')
+                      ->add('father_house_number')
+                      ->add('father_kebele')
+                      ->add('father_woreda_subcity')
+                      ->add('father_town')
+                      ->add('father_zone')
+                      ->add('father_region')
+
+                      ->add('mother_full_name')
+                      ->add('mother_occupation')
+                      ->add('mother_educational_level')
+                      ->add('mother_telephone_home')
+                      ->add('mother_telephone_office')
+                      ->add('mother_house_number')
+                      ->add('mother_kebele')
+                      ->add('mother_woreda_subcity')
+                      ->add('mother_town')
+                      ->add('mother_zone')
+                      ->add('mother_region')
+
+                      ->add('user_name')
+                      ->add('password')
+                      ->add('confirm_password')
                       ->getForm();
 
         $section = $this->getDoctrine()
@@ -93,35 +127,325 @@ class StudentController extends Controller
             $passwordLIT->setUserType('student');
 
             $student = new Student();
-            $student->setRegisteredBy($session->get('user_id'));
-            $student->setFirstName($form_data['first_name']);
-            $student->setMiddleName($form_data['middle_name']);
-            $student->setLastName($form_data['last_name']);
+            $student->setFirstNameEn($form_data['first_name_en']);
+            $student->setMiddleNameEn($form_data['middle_name_en']);
+            $student->setLastNameEn($form_data['last_name_en']);
+            $student->setFirstNameAm($form_data['first_name_am']);
+            $student->setMiddleNameAm($form_data['middle_name_am']);
+            $student->setLastNameAm($form_data['last_name_am']);
             $student->setSex($form_data['sex']);
-            $student->setMobileNumber($form_data['mobile_number']);
+            $student->setNationality($form_data['nationality']);
+            $student->setPlaceOfBirthTown($form_data['place_of_birth_town']);
+            $student->setPlaceOfBirthRegion($form_data['place_of_birth_region']);
+            $student->setDateOfBirthGc($form_data['date_of_birth_gc']);
+            $student->setDateOfBirthEc($form_data['date_of_birth_ec']);
+            $student->setHouseNumber($form_data['house_number']);
+            $student->setKebele($form_data['kebele']);
+            $student->setWoredaSubcity($form_data['woreda_subcity']);
+            $student->setTown($form_data['town']);
+            $student->setZone($form_data['zone']);
+            $student->setRegion($form_data['region']);
+            $student->setPoBox($form_data['po_box']);
+            $student->setTelephoneHome($form_data['telephone_home']);
+            $student->setTelephoneMobile($form_data['telephone_mobile']);
             $student->setEmailAddress($form_data['email_address']);
-            $student->setUserName($form_data['user_name']);
-            $student->setDepartmentId($form_data['teacher_department']);
+            $student->setNativeLanguage($form_data['native_language']);
+            $student->setMaritalStatus($form_data['marital_status']);
 
-            $em->persist($teacher);
+            $student->setPceFullName($form_data['pce_full_name']);
+            $student->setPceRelationship($form_data['pce_relationship']);
+            $student->setPceOther($form_data['pce_other']);
+            $student->setPceTelephoneHome($form_data['pce_telephone_home']);
+            $student->setPceTelephoneOffice($form_data['pce_telephone_office']);
+            $student->setPceHouseNumber($form_data['pce_house_number']);
+            $student->setPceKebele($form_data['pce_kebele']);
+            $student->setPceWoredaSubcity($form_data['pce_woreda_subcity']);
+            $student->setPceTown($form_data['pce_town']);
+            $student->setPceZone($form_data['pce_zone']);
+            $student->setPceRegion($form_data['pce_region']);
+
+            $student->setFatherFullName($form_data['father_full_name']);
+            $student->setFatherOccupation($form_data['father_occupation']);
+            $student->setFatherEducationalLevel($form_data['father_educational_level']);
+            $student->setFatherTelephoneHome($form_data['father_telephone_home']);
+            $student->setFatherTelephoneOffice($form_data['father_telephone_office']);
+            $student->setFatherHouseNumber($form_data['father_house_number']);
+            $student->setFatherKebele($form_data['father_kebele']);
+            $student->setFatherWoredaSubcity($form_data['father_woreda_subcity']);
+            $student->setFatherTown($form_data['father_town']);
+            $student->setFatherZone($form_data['father_zone']);
+            $student->setFatherRegion($form_data['father_region']);
+
+            $student->setMotherFullName($form_data['mother_full_name']);
+            $student->setMotherOccupation($form_data['mother_occupation']);
+            $student->setMotherEducationalLevel($form_data['mother_educational_level']);
+            $student->setMotherTelephoneHome($form_data['mother_telephone_home']);
+            $student->setMotherTelephoneOffice($form_data['mother_telephone_office']);
+            $student->setMotherHouseNumber($form_data['mother_house_number']);
+            $student->setMotherKebele($form_data['mother_kebele']);
+            $student->setMotherWoredaSubcity($form_data['mother_woreda_subcity']);
+            $student->setMotherTown($form_data['mother_town']);
+            $student->setMotherZone($form_data['mother_zone']);
+            $student->setMotherRegion($form_data['mother_region']);
+
+            $student->setRegisteredBy($session->get('user_id'));
+            $student->setUserName($form_data['user_name']);
+            $student->setSectionId($form_data['section_id']);
+
+            $em->persist($student);
             $em->persist($passwordLIT);
 
             $em->flush();
-            return $this->redirectToRoute('teacher_view');
+            return $this->redirectToRoute('student_view');
           }
         }
 
-        return $this->render('student/form_1.html.twig', $data);
+        return $this->render('student/form.html.twig', $data);
       } else {
-        $data['message'] = 'You Are Not Qualified to Hire a Teacher.';
+        $data['message'] = 'You Are Not Qualified to Hire a Student.';
         return $this->render('accessDenied.html.twig', $data);
       }
     }
 
+    /**
+     * @Route("/student/edit/{student_id}", name="student_edit")
+     */
+    public function studentEditAction(Request $request, $student_id)
+    {
+      $data = [];
+      $data['mode'] = 'edit';
 
+      $form = $this ->createFormBuilder()
+                    ->add('first_name_en')
+                    ->add('middle_name_en')
+                    ->add('last_name_en')
+                    ->add('first_name_am')
+                    ->add('middle_name_am')
+                    ->add('last_name_am')
+                    ->add('sex')
+                    ->add('nationality')
+                    ->add('place_of_birth_town')
+                    ->add('place_of_birth_region')
+                    ->add('date_of_birth_gc')
+                    ->add('date_of_birth_ec')
+                    ->add('house_number')
+                    ->add('kebele')
+                    ->add('woreda_subcity')
+                    ->add('town')
+                    ->add('zone')
+                    ->add('region')
+                    ->add('po_box')
+                    ->add('telephone_home')
+                    ->add('telephone_mobile')
+                    ->add('email_address')
+                    ->add('native_language')
+                    ->add('marital_status')
+                    ->add('section_id')
 
+                    ->add('pce_full_name')
+                    ->add('pce_relationship')
+                    ->add('pce_other')
+                    ->add('pce_telephone_home')
+                    ->add('pce_telephone_office')
+                    ->add('pce_house_number')
+                    ->add('pce_kebele')
+                    ->add('pce_woreda_subcity')
+                    ->add('pce_town')
+                    ->add('pce_zone')
+                    ->add('pce_region')
 
+                    ->add('father_full_name')
+                    ->add('father_occupation')
+                    ->add('father_educational_level')
+                    ->add('father_telephone_home')
+                    ->add('father_telephone_office')
+                    ->add('father_house_number')
+                    ->add('father_kebele')
+                    ->add('father_woreda_subcity')
+                    ->add('father_town')
+                    ->add('father_zone')
+                    ->add('father_region')
 
+                    ->add('mother_full_name')
+                    ->add('mother_occupation')
+                    ->add('mother_educational_level')
+                    ->add('mother_telephone_home')
+                    ->add('mother_telephone_office')
+                    ->add('mother_house_number')
+                    ->add('mother_kebele')
+                    ->add('mother_woreda_subcity')
+                    ->add('mother_town')
+                    ->add('mother_zone')
+                    ->add('mother_region')
+
+                    ->add('user_name')
+                    ->add('password')
+                    ->add('confirm_password')
+                    ->getForm();
+
+      $section = $this->getDoctrine()
+                          ->getRepository('AppBundle:Section')
+                          ->findAll();
+
+      $data['sections'] = $section;
+
+      $student = $this->getDoctrine()
+                          ->getRepository('AppBundle:Student')
+                          ->findOneById($student_id);
+
+      $student_data['first_name_en'] = $student->getFirstNameEn();
+      $student_data['middle_name_en'] = $student->getMiddleNameEn();
+      $student_data['last_name_en'] = $student->getLastNameEn();
+      $student_data['first_name_am'] = $student->getFirstNameAm();
+      $student_data['middle_name_am'] = $student->getMiddleNameAm();
+      $student_data['last_name_am'] = $student->getLastNameAm();
+      $student_data['sex'] = $student->getSex();
+      $student_data['nationality'] = $student->getNationality();
+      $student_data['place_of_birth_town'] = $student->getPlaceOfBirthTown();
+      $student_data['place_of_birth_region'] = $student->getPlaceOfBirthRegion();
+      $student_data['date_of_birth_gc'] = $student->getDateOfBirthGc();
+      $student_data['date_of_birth_ec'] = $student->getDateOfBirthEc();
+      $student_data['house_number'] = $student->getHouseNumber();
+      $student_data['kebele'] = $student->getKebele();
+      $student_data['woreda_subcity'] = $student->getWoredaSubcity();
+      $student_data['town'] = $student->getTown();
+      $student_data['zone'] = $student->getZone();
+      $student_data['region'] = $student->getRegion();
+      $student_data['po_box'] = $student->getPoBox();
+      $student_data['telephone_home'] = $student->getTelephoneHome();
+      $student_data['telephone_mobile'] = $student->getTelephoneMobile();
+      $student_data['email_address'] = $student->getEmailAddress();
+      $student_data['native_language'] = $student->getNativeLanguage();
+      $student_data['marital_status'] = $student->getMaritalStatus();
+
+      $student_data['pce_full_name'] = $student->getPceFullName();
+      $student_data['pce_relationship'] = $student->getPceRelationship();
+      $student_data['pce_other'] = $student->getPceOther();
+      $student_data['pce_telephone_home'] = $student->getPceTelephoneHome();
+      $student_data['pce_telephone_office'] = $student->getPceTelephoneOffice();
+      $student_data['pce_house_number'] = $student->getPceHouseNumber();
+      $student_data['pce_kebele'] = $student->getPceKebele();
+      $student_data['pce_woreda_subcity'] = $student->getPceWoredaSubcity();
+      $student_data['pce_town'] = $student->getPceTown();
+      $student_data['pce_zone'] = $student->getPceZone();
+      $student_data['pce_region'] = $student->getPceRegion();
+
+      $student_data['father_full_name'] = $student->getFatherFullName();
+      $student_data['father_occupation'] = $student->getFatherOccupation();
+      $student_data['father_educational_level'] = $student->getFatherEducationalLevel();
+      $student_data['father_telephone_home'] = $student->getFatherTelephoneHome();
+      $student_data['father_telephone_office'] = $student->getFatherTelephoneOffice();
+      $student_data['father_house_number'] = $student->getFatherHouseNumber();
+      $student_data['father_kebele'] = $student->getFatherKebele();
+      $student_data['father_woreda_subcity'] = $student->getFatherWoredaSubcity();
+      $student_data['father_town'] = $student->getFatherTown();
+      $student_data['father_zone'] = $student->getFatherZone();
+      $student_data['father_region'] = $student->getFatherRegion();
+
+      $student_data['mother_full_name'] = $student->getMotherFullName();
+      $student_data['mother_occupation'] = $student->getMotherOccupation();
+      $student_data['mother_educational_level'] = $student->getMotherEducationalLevel();
+      $student_data['mother_telephone_home'] = $student->getMotherTelephoneHome();
+      $student_data['mother_telephone_office'] = $student->getMotherTelephoneOffice();
+      $student_data['mother_house_number'] = $student->getMotherHouseNumber();
+      $student_data['mother_kebele'] = $student->getMotherKebele();
+      $student_data['mother_woreda_subcity'] = $student->getMotherWoredaSubcity();
+      $student_data['mother_town'] = $student->getMotherTown();
+      $student_data['mother_zone'] = $student->getMotherZone();
+      $student_data['mother_region'] = $student->getMotherRegion();
+
+      $student_data['registered_by'] = $student->getRegisteredBy();
+      $student_data['user_name'] = $student->getUserName();
+      $student_data['section_id'] = $student->getSectionId();
+
+      $session = new Session();
+
+      if($session->get('user_name') && ($session->get('user_type') == 'admin')){
+        $data['form'] = $student_data;
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()){
+          $data['form'] = [];
+          $student_data = $form->getData();
+          $data['form'] = $student_data;
+
+          $student->setFirstNameEn($form_data['first_name_en']);
+          $student->setMiddleNameEn($form_data['middle_name_en']);
+          $student->setLastNameEn($form_data['last_name_en']);
+          $student->setFirstNameAm($form_data['first_name_am']);
+          $student->setMiddleNameAm($form_data['middle_name_am']);
+          $student->setLastNameAm($form_data['last_name_am']);
+          $student->setSex($form_data['sex']);
+          $student->setNationality($form_data['nationality']);
+          $student->setPlaceOfBirthTown($form_data['place_of_birth_town']);
+          $student->setPlaceOfBirthRegion($form_data['place_of_birth_region']);
+          $student->setDateOfBirthGc($form_data['date_of_birth_gc']);
+          $student->setDateOfBirthEc($form_data['date_of_birth_ec']);
+          $student->setHouseNumber($form_data['house_number']);
+          $student->setKebele($form_data['kebele']);
+          $student->setWoredaSubcity($form_data['woreda_subcity']);
+          $student->setTown($form_data['town']);
+          $student->setZone($form_data['zone']);
+          $student->setRegion($form_data['region']);
+          $student->setPoBox($form_data['po_box']);
+          $student->setTelephoneHome($form_data['telephone_home']);
+          $student->setTelephoneMobile($form_data['telephone_mobile']);
+          $student->setEmailAddress($form_data['email_address']);
+          $student->setNativeLanguage($form_data['native_language']);
+          $student->setMaritalStatus($form_data['marital_status']);
+
+          $student->setPceFullName($form_data['pce_full_name']);
+          $student->setPceRelationship($form_data['pce_relationship']);
+          $student->setPceOther($form_data['pce_other']);
+          $student->setPceTelephoneHome($form_data['pce_telephone_home']);
+          $student->setPceTelephoneOffice($form_data['pce_telephone_office']);
+          $student->setPceHouseNumber($form_data['pce_house_number']);
+          $student->setPceKebele($form_data['pce_kebele']);
+          $student->setPceWoredaSubcity($form_data['pce_woreda_subcity']);
+          $student->setPceTown($form_data['pce_town']);
+          $student->setPceZone($form_data['pce_zone']);
+          $student->setPceRegion($form_data['pce_region']);
+
+          $student->setFatherFullName($form_data['father_full_name']);
+          $student->setFatherOccupation($form_data['father_occupation']);
+          $student->setFatherEducationalLevel($form_data['father_educational_level']);
+          $student->setFatherTelephoneHome($form_data['father_telephone_home']);
+          $student->setFatherTelephoneOffice($form_data['father_telephone_office']);
+          $student->setFatherHouseNumber($form_data['father_house_number']);
+          $student->setFatherKebele($form_data['father_kebele']);
+          $student->setFatherWoredaSubcity($form_data['father_woreda_subcity']);
+          $student->setFatherTown($form_data['father_town']);
+          $student->setFatherZone($form_data['father_zone']);
+          $student->setFatherRegion($form_data['father_region']);
+
+          $student->setMotherFullName($form_data['mother_full_name']);
+          $student->setMotherOccupation($form_data['mother_occupation']);
+          $student->setMotherEducationalLevel($form_data['mother_educational_level']);
+          $student->setMotherTelephoneHome($form_data['mother_telephone_home']);
+          $student->setMotherTelephoneOffice($form_data['mother_telephone_office']);
+          $student->setMotherHouseNumber($form_data['mother_house_number']);
+          $student->setMotherKebele($form_data['mother_kebele']);
+          $student->setMotherWoredaSubcity($form_data['mother_woreda_subcity']);
+          $student->setMotherTown($form_data['mother_town']);
+          $student->setMotherZone($form_data['mother_zone']);
+          $student->setMotherRegion($form_data['mother_region']);
+
+          $student->setUserName($form_data['user_name']);
+          $student->setSectionId($form_data['section_id']);
+
+          $em = $this->getDoctrine()->getManager();
+          $em->persist($student);
+          $em->flush();
+
+          return $this->redirectToRoute('student_view');
+        }
+        return $this->render('student/form.html.twig', $data);
+      } else {
+        $data['message'] = 'You Are Not Qualified to Edit This Student.';
+        return $this->render('accessDenied.html.twig', $data);
+      }
+    }
 
     /**
      * @Route("/student/delete/{student_id}", name="student_delete")
@@ -169,11 +493,11 @@ class StudentController extends Controller
                             ->getRepository('AppBundle:Student')
                             ->findAll();
 
-        $department = $this->getDoctrine()
-                            ->getRepository('AppBundle:Department')
+        $school = $this->getDoctrine()
+                            ->getRepository('AppBundle:School')
                             ->findAll();
 
-        $data['departments'] = $department;
+        $data['schools'] = $school;
 
         $data['students'] = $student;
 
@@ -199,13 +523,13 @@ class StudentController extends Controller
                             ->getRepository('AppBundle:Student')
                             ->findOneById($student_id);
 
-        $student_department = $student->getDepartmentId();
+        $student_section = $student->getSectionId();
 
-        $department = $this->getDoctrine()
-                            ->getRepository('AppBundle:Department')
-                            ->findOneById($student_department);
+        $section = $this->getDoctrine()
+                            ->getRepository('AppBundle:Section')
+                            ->findOneById($student_section);
 
-        $data['department'] = $department;
+        $data['section'] = $section;
 
         $data['student'] = $student;
 

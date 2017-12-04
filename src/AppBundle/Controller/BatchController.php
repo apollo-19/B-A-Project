@@ -103,12 +103,6 @@ class BatchController extends Controller
 
       $data['schools'] = $schools;
 
-      $school = $this->getDoctrine()
-                          ->getRepository('AppBundle:School')
-                          ->findOneById($batch_data['batch_school']);
-
-      $data['mySchool'] = $school;
-
       $session = new Session();
 
       if($session->get('user_name') && ($session->get('user_type') == 'admin') && ($session->get('user_id') == $batch_data['created_by'])){

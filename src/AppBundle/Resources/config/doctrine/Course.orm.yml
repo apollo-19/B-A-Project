@@ -35,6 +35,18 @@ AppBundle\Entity\Course:
             options:
                 unsigned: false
             column: course_credit_hour
+        curriculumId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: curriculum_id
+        moduleId:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: module_id
         createdBy:
             type: integer
             nullable: false

@@ -29,18 +29,6 @@ AppBundle\Entity\Module:
             options:
                 fixed: false
             column: module_name
-        schoolId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: school_id
-        createdBy:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: created_by
         moduleCreditHour:
             type: integer
             nullable: false
@@ -54,4 +42,22 @@ AppBundle\Entity\Module:
             options:
                 fixed: false
             column: module_duration
+        schoolId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: school_id
+        curriculumId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: curriculum_id
+        createdBy:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: created_by
     lifecycleCallbacks: {  }

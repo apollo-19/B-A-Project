@@ -18,6 +18,7 @@
           <th>Section Code</th>
           <th>Section Name</th>
           <th>Section Batch</th>
+          <th>Section Curriculum</th>
           <th colspan="3">Actions</th>
         </tr>
       </thead>
@@ -26,11 +27,21 @@
           <tr>
             <td>{{ section.sectionCode }}</td>
             <td>{{ section.sectionName }}</td>
-            {% for batch in batches %}
-              {% if(section.batchId == batch.id) %}
-                <td> {{ batch.batchName }} </td>
-              {% endif %}
-            {% endfor %}
+            <td>
+              {% for batch in batches %}
+                {% if(section.batchId == batch.id) %}
+                  {{ batch.batchName }}
+                {% endif %}
+              {% endfor %}
+            </td>
+
+            <td>
+              {% for curriculum in curriculums %}
+                {% if(section.curriculumId == curriculum.id) %}
+                  {{ curriculum.curriculumName }}
+                {% endif %}
+              {% endfor %}
+            </td>
 
             <td><a href="{{ path('section_view_one', {'section_id': section.id}) }}">view</button></td>
 

@@ -24,7 +24,14 @@
       <label for="form[section_batch]">Section Batch</label>
       <select name="form[section_batch]">
         {% for batch in batches %}
-          <option value="{{ batch.id }}" {{ (batch.id == (myBatch.id is defined ? myBatch.id : '')) ? 'selected' : '' }} >{{ batch.batchName }}</option>
+          <option value="{{ batch.id }}" {{ (form.section_batch is defined and batch.id == form.section_batch) ? 'selected' : '' }} >{{ batch.batchName }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="form[section_curriculum]">Section Curriculum</label>
+      <select name="form[section_curriculum]">
+        {% for curriculum in curriculums %}
+          <option value="{{ curriculum.id }}" {{ (form.section_curriculum is defined and form.section_curriculum == curriculum.id) ? 'selected' : '' }}>{{ curriculum.curriculumName }}</option>
         {% endfor %}
       </select>
 
