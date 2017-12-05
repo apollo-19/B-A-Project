@@ -1,0 +1,77 @@
+AppBundle\Entity\Schoolsession:
+    type: entity
+    table: schoolsession
+    uniqueConstraints:
+        session_code_UNIQUE:
+            columns:
+                - session_code
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        sessionCode:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+            column: session_code
+        sessionName:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: session_name
+        sectionId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: section_id
+        teacherId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: teacher_id
+        courseModuleType:
+            type: string
+            nullable: false
+            length: 15
+            options:
+                fixed: false
+            column: course_module_type
+        courseModuleId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: course_module_id
+        sessionStartDate:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: session_start_date
+        sessionEndDate:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: session_end_date
+        createdBy:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: created_by
+    lifecycleCallbacks: {  }

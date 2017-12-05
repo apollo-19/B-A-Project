@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-  {{ (mode == 'new') ? 'Register Student' : 'Edit Student' }}
+  {{ (mode == 'new') ? 'New Student' : 'Edit Student' }}
 {% endblock %}
 
 {% block stylesheet %}
@@ -24,7 +24,7 @@
   <div class="container taright">
     <form class="" method="post">
       <div class="form fright" id="form1">
-        <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'Register Student' : 'Edit Student' }}</h1>
+        <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Student' : 'Edit Student' }}</h1>
         <h3 class="welcomeText2 tacenter">(1/4) Personal Information</h3>
         <h2>{{ result_message is defined ? result_message : '' }}</h2>
 
@@ -127,7 +127,7 @@
       </div>
 
       <div class="form fright" id="form2">
-        <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'Register Student' : 'Edit Student' }}</h1>
+        <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Student' : 'Edit Student' }}</h1>
         <h3 class="welcomeText2 tacenter">(2/4) Person to be Contacted in Case of Emergency</h3>
         <h2>{{ result_message is defined ? result_message : '' }}</h2>
 
@@ -169,7 +169,7 @@
       </div>
 
       <div class="form fright" id="form3">
-        <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'Register Student' : 'Edit Student' }}</h1>
+        <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Student' : 'Edit Student' }}</h1>
         <h3 class="welcomeText2 tacenter">(3/4) Family Background</h3>
         <h2>{{ result_message is defined ? result_message : '' }}</h2>
 
@@ -250,7 +250,7 @@
       </div>
 
       <div class="form fright" id="form4">
-        <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'Register Student' : 'Edit Student' }}</h1>
+        <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Student' : 'Edit Student' }}</h1>
         <h3 class="welcomeText2 tacenter">(4/4) Sign In Information</h3>
         <h2>{{ result_message is defined ? result_message : '' }}</h2>
 
