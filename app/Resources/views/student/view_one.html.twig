@@ -1,0 +1,360 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ student.firstNameEn }} {{ student.middleNameEn }} {{ student.lastNameEn }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+</style>
+{% endblock %}
+
+{% block body %}
+  <article class="container taleft">
+    <div class="form fright">
+
+      <h1 class="welcomeText tacenter">{{ student.firstNameEn }} {{ student.middleNameEn }} {{ student.lastNameEn }}</h1>
+      <h1>
+        <a class="fright" href="{{ path('student_edit', {'student_id': student.id}) }}">Edit Student</a>
+      </h1>
+
+      <table border="" id="form1">
+        <tr>
+          <td>First Name:</td>
+          <td>{{ student.firstNameEn }}</td>
+        </tr>
+
+        <tr>
+          <td>Middle Name:</td>
+          <td>{{ student.middleNameEn }}</td>
+        </tr>
+
+        <tr>
+          <td>Last Name</td>
+          <td>{{ student.lastNameEn }}</td>
+        </tr>
+
+        <tr>
+          <td>የመጀመሪያ ስም:</td>
+          <td>{{ student.firstNameAm }}</td>
+        </tr>
+
+        <tr>
+          <td>የአባት ስም</td>
+          <td>{{ student.middleNameAm }}</td>
+        </tr>
+
+        <tr>
+          <td>የአያት ሥም</td>
+          <td>{{ student.lastNameAm }}</td>
+        </tr>
+
+        <tr>
+          <td>Sex</td>
+          <td>{{ student.sex }}</td>
+        </tr>
+
+        <tr>
+          <td>Nationality</td>
+          <td>{{ student.nationality }}</td>
+        </tr>
+
+        <tr>
+          <td>Place of Birth Town</td>
+          <td>{{ student.placeOfBirthTown }}</td>
+        </tr>
+
+        <tr>
+          <td>Place of Birth Region</td>
+          <td>{{ student.placeOfBirthRegion }}</td>
+        </tr>
+
+        <tr>
+          <td>Date of Birth (GC)</td>
+          <td>{{ student.dateOfBirthGc }}</td>
+        </tr>
+
+        <tr>
+          <td>Date of Birth (EC)</td>
+          <td>{{ student.dateOfBirthEc }}</td>
+        </tr>
+
+        <tr>
+          <td>House Number</td>
+          <td>{{ student.houseNumber }}</td>
+        </tr>
+
+        <tr>
+          <td>Kebele</td>
+          <td>{{ student.kebele }}</td>
+        </tr>
+
+        <tr>
+          <td>Woreda/Subcity</td>
+          <td>{{ student.woredaSubcity }}</td>
+        </tr>
+
+        <tr>
+          <td>Town</td>
+          <td>{{ student.town }}</td>
+        </tr>
+
+        <tr>
+          <td>Zone</td>
+          <td>{{ student.zone }}</td>
+        </tr>
+
+        <tr>
+          <td>Region</td>
+          <td>{{ student.region }}</td>
+        </tr>
+
+        <tr>
+          <td>P.O. Box</td>
+          <td>{{ student.poBox }}</td>
+        </tr>
+
+        <tr>
+          <td>Telephone Home</td>
+          <td>{{ student.telephoneHome }}</td>
+        </tr>
+
+        <tr>
+          <td>Telephone Mobile</td>
+          <td>{{ student.telephoneMobile }}</td>
+        </tr>
+
+        <tr>
+          <td>Email Address</td>
+          <td>{{ student.emailAddress }}</td>
+        </tr>
+
+        <tr>
+          <td>Native Language</td>
+          <td>{{ student.nativeLanguage }}</td>
+        </tr>
+
+        <tr>
+          <td>Marital Status</td>
+          <td>{{ student.maritalStatus }}</td>
+        </tr>
+
+        <tr>
+          <td colspan="3"><button id="form1Next"> Next (2/4) >> </button></td>
+        </tr>
+      </table>
+
+      <table id="form2">
+        <tr>
+          <td>Full Name:</td>
+          <td>{{ student.pceFullName }}</td>
+        </tr>
+
+        <tr>
+          <td>Relationship:</td>
+          <td>{{ student.pceRelationship }}</td>
+        </tr>
+
+        <tr>
+          <td>Other:</td>
+          <td>{{ student.pceOther }}</td>
+        </tr>
+
+        <tr>
+          <td>Telephone Home:</td>
+          <td>{{ student.pceTelephoneHome }}</td>
+        </tr>
+
+        <tr>
+          <td>Telephone Office:</td>
+          <td>{{ student.pceTelephoneOffice }}</td>
+        </tr>
+
+        <tr>
+          <td>House Number:</td>
+          <td>{{ student.pceHouseNumber }}</td>
+        </tr>
+
+        <tr>
+          <td>Kebele:</td>
+          <td>{{ student.pceKebele }}</td>
+        </tr>
+
+        <tr>
+          <td>Woreda/Subcity:</td>
+          <td>{{ student.pceWoredaSubcity }}</td>
+        </tr>
+
+        <tr>
+          <td>Town:</td>
+          <td>{{ student.pceTown }}</td>
+        </tr>
+
+        <tr>
+          <td>Zone:</td>
+          <td>{{ student.pceZone }}</td>
+        </tr>
+
+        <tr>
+          <td>Region:</td>
+          <td>{{ student.pceRegion }}</td>
+        </tr>
+
+        <tr>
+          <td><button id="form2Prev"><< Prev (1/4)</button></td>
+          <td><button id="form2Next">Next (3/4) >></button></td>
+        </tr>
+      </table>
+
+      <table id="form3">
+        <tr>
+          <td>Father:</td>
+        </tr>
+
+        <tr>
+          <td>Full Name:</td>
+          <td>{{ student.fatherFullName }}</td>
+        </tr>
+
+        <tr>
+          <td>Occupation:</td>
+          <td>{{ student.fatherOccupation }}</td>
+        </tr>
+
+        <tr>
+          <td>Educational Level:</td>
+          <td>{{ student.fatherEducationalLevel }}</td>
+        </tr>
+
+        <tr>
+          <td>Telephone Home Number:</td>
+          <td>{{ student.fatherTelephoneHome }}</td>
+        </tr>
+
+        <tr>
+          <td>Telephone Office Number:</td>
+          <td>{{ student.fatherTelephoneHome }}</td>
+        </tr>
+
+        <tr>
+          <td>Residence Address House Number:</td>
+          <td>{{ student.fatherHouseNumber }}</td>
+        </tr>
+
+        <tr>
+          <td>Kebele:</td>
+          <td>{{ student.fatherKebele }}</td>
+        </tr>
+
+        <tr>
+          <td>Woreda/Subcity:</td>
+          <td>{{ student.fatherWoredaSubcity }}</td>
+        </tr>
+
+        <tr>
+          <td>Town:</td>
+          <td>{{ student.fatherTown }}</td>
+        </tr>
+
+        <tr>
+          <td>Zone:</td>
+          <td>{{ student.fatherZone }}</td>
+        </tr>
+
+        <tr>
+          <td>Region:</td>
+          <td>{{ student.fatherRegion }}</td>
+        </tr>
+      </table>
+
+      <label>Mother</label>
+      <hr />
+        <label for="form[mother_full_name]">Full Name</label>
+        <input type="text" name="form[mother_full_name]" placeholder="" value="{{ form.mother_full_name is defined ? form.mother_full_name : '' }}" required />
+
+        <label for="form[mother_occupation]">Occupation</label>
+        <input type="text" name="form[mother_occupation]" placeholder="" value="{{ form.mother_occupation is defined ? form.mother_occupation : '' }}" required />
+
+        <label for="form[mother_educational_level]">Educational Level</label>
+        <input type="text" name="form[mother_educational_level]" placeholder="" value="{{ form.mother_educational_leventel is defined ? form.mother_educational_leventel : '' }}" required />
+
+        <label for="form[mother_telephone_home]">Telephone Home Number</label>
+        <input type="text" name="form[mother_telephone_home]" placeholder="" value="{{ form.mother_telephone_home is defined ? form.mother_telephone_home : '' }}" required />
+
+        <label for="form[mother_telephone_office]">Telephone Office Number</label>
+        <input type="text" name="form[mother_telephone_office]" placeholder="" value="{{ form.mother_telephone_office is defined ? form.mother_telephone_office : '' }}" required />
+
+        <label for="form[mother_house_number]">Residence Address House Number</label>
+        <input type="text" name="form[mother_house_number]" placeholder="" value="{{ form.mother_house_number is defined ? form.mother_house_number : '' }}" required />
+
+        <label for="form[mother_kebele]">Kebele</label>
+        <input type="number" name="form[mother_kebele]" placeholder="" value="{{ form.mother_kebele is defined ? form.mother_kebele : '' }}" required />
+
+        <label for="form[mother_woreda_subcity]">Woreda/Subcity</label>
+        <input type="text" name="form[mother_woreda_subcity]" placeholder="" value="{{ form.mother_woreda_subcity is defined ? form.mother_woreda_subcity : '' }}" required />
+
+        <label for="form[mother_town]">Town</label>
+        <input type="text" name="form[mother_town]" placeholder="" value="{{ form.mother_town is defined ? form.mother_town : '' }}" required />
+
+        <label for="form[mother_zone]">Zone</label>
+        <input type="text" name="form[mother_zone]" placeholder="" value="{{ form.mother_zone is defined ? form.mother_zone : '' }}" required />
+
+        <label for="form[mother_region]">Region</label>
+        <input type="text" name="form[mother_region]" placeholder="" value="{{ form.mother_region is defined ? form.mother_region : '' }}" required />
+      <hr />
+    </div>
+
+    <hr class="clear" width="0" />
+  </article>
+{% endblock %}
+
+{% block javascript %}
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#form2').hide();
+      $('#form3').hide();
+      $('#form4').hide();
+
+      $('#form1Next').on("click", function(event) {
+        event.preventDefault();
+        $('#form2').show();
+        $('#form1').hide();
+        window.location = '#top';
+      });
+
+      $('#form2Next').on("click", function(event) {
+        event.preventDefault();
+        $('#form3').show();
+        $('#form2').hide();
+        window.location = '#top';
+      });
+
+      $('#form2Prev').on("click", function(event) {
+        event.preventDefault();
+        $('#form1').show();
+        $('#form2').hide();
+        window.location = '#top';
+      });
+
+      $('#form3Next').on("click", function(event) {
+        event.preventDefault();
+        $('#form4').show();
+        $('#form3').hide();
+        window.location = '#top';
+      });
+
+      $('#form3Prev').on("click", function(event) {
+        event.preventDefault();
+        $('#form2').show();
+        $('#form3').hide();
+        window.location = '#top';
+      });
+
+      $('#form4Prev').on("click", function(event) {
+        event.preventDefault();
+        $('#form3').show();
+        $('#form4').hide();
+        window.location = '#top';
+      });
+    });
+  </script>
+{% endblock %}

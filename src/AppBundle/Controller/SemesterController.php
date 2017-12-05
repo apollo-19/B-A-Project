@@ -56,7 +56,7 @@ class SemesterController extends Controller
           $semester = new Semester();
           $semester->setSemester($semester_data['semester']);
           $semester->setYear($semester_data['year']);
-          $semester->setCurriculumId($semester_data['curriculumodule_id']);
+          $semester->setCurriculumId($semester_data['semester_curriculum']);
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($semester);
@@ -114,7 +114,7 @@ class SemesterController extends Controller
 
           $semester->setSemester($semester_data['semester']);
           $semester->setYear($semester_data['year']);
-          $semester->setCurriculumId($semester_data['curriculumodule_id']);
+          $semester->setCurriculumId($semester_data['semester_curriculum']);
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($semester);
