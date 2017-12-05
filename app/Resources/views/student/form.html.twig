@@ -245,16 +245,24 @@
           <input type="text" name="form[mother_region]" placeholder="" value="{{ form.mother_region is defined ? form.mother_region : '' }}" required />
         <hr />
 
-        <button id="form3Next">Next (4/4) >></button>
+        {% if(mode == 'new') %}
+          <button id="form3Next">Next (4/4) >></button>
+        {% endif %}
+
+        {% if(mode == 'edit') %}
+          <button>Save Changes</button>
+        {% endif %}
+
         <button id="form3Prev"><< Prev (2/4)</button>
       </div>
 
-      <div class="form fright" id="form4">
-        <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Student' : 'Edit Student' }}</h1>
-        <h3 class="welcomeText2 tacenter">(4/4) Sign In Information</h3>
-        <h2>{{ result_message is defined ? result_message : '' }}</h2>
+      {% if(mode == 'new') %}
+        <div class="form fright" id="form4">
+          <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Student' : 'Edit Student' }}</h1>
+          <h3 class="welcomeText2 tacenter">(4/4) Sign In Information</h3>
+          <h2>{{ result_message is defined ? result_message : '' }}</h2>
 
-        {% if(mode == 'new') %}
+
           <label for="form[user_name]">User Name</label>
           <input type="text" name="form[user_name]" placeholder="user_12" value="{{ form.user_name is defined ? form.user_name : '' }}" required />
 
@@ -263,11 +271,15 @@
 
           <label for="form[confirm_password]">Confirm Password</label>
           <input type="password" name="form[confirm_password]" placeholder="A minimum of 6 characters" required />
-        {% endif %}
 
-        <button>{{ (mode == 'new') ? 'Register Student' : 'Save Changes' }}</button>
-        <button id="form4Prev"><< Prev (3/4)</button>
-      </div>
+          {% if(mode == 'new') %}
+            <button>Register Student</button>
+          {% endif %}
+
+          <button id="form4Prev"><< Prev (3/4)</button>
+        </div>
+      {% endif %}
+
     </form>
 
     <hr class="clear" width="0" />

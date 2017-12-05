@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  School Sessions View
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container" id="view_container">
+    <a href="{{ path('session_create') }}">New School Session</a>
+    <table border="0">
+      <thead>
+        <tr>
+          <th>Session Code</th>
+          <th>Session Name</th>
+          <th>Session Section</th>
+          <th>Session Teacher</th>
+          <th>Session Course/Module</th>
+          <th colspan="3">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for session in school_sessions %}
+          <tr>
+            <td>{{ session.sessionCode }}</td>
+            <td>{{ session.sessionName }}</td>
+
+            <td>
+              {% for section in sections %}
+                {% if(session.sectionId == section.id) %}
+                  {{ section.sectionName }}
+                {% endif %}
+              {% endfor %}
+            </td>
+
+            <td>
+              {% for teacher in teachers %}
+                {% if(session.teacherId == teacher.id) %}
+                  {{ teacher.firstName }} {{ teacher.middleName }}
+                {% endif %}
+              {% endfor %}
+            </td>
+
+            <td>
+              ({{ session.courseModuleType | capitalize }}) -
+              {% if (session.courseModuleType == 'course') %}
+                {% for course in courses %}
+                  {% if ( session.courseModuleId == course.id ) %}
+                    {{ course.courseName }}
+
+                  {% endif %}
+                {% endfor %}
+
+              {% elseif (session.courseModuleType == 'module') %}
+                {% for module in modules %}
+                  {% if ( session.courseModuleId == module.id ) %}
+                    {{ module.moduleName }}
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            </td>
+
+            {% if(app.session.get('user_type') == 'admin') %}
+              <td><a href="{{ path('session_edit', {'session_id': session.id}) }}" id="editBtn">edit</button></td>
+              <td><a href="{{ path('session_delete', {'session_id': session.id}) }}" id="deleteBtn"
+                    onclick="return confirm('Are You Sure You Want To Delete {{ session.sessionName }} ({{ session.sessionCode }})?') ">delete</button></td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

@@ -222,6 +222,10 @@ header table tr td a:hover {
   border-color: #1872B8;
 }
 
+.form table {
+  width: 100%;
+}
+
 .form table tr td {
   font-size: 15px;
   padding: 10px 10px;
