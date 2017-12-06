@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-  Teacher Register
+  {{ (mode == 'new') ? 'New School Result' : 'Edit School Result' }}
 {% endblock %}
 
 {% block stylesheet %}
@@ -10,7 +10,41 @@
 {% endblock %}
 
 {% block body %}
-  <div class="container">
+  <div class="container taright">
+    <form class="form fright" method="post">
+      <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New School Result' : 'Edit School Result' }}</h1>
+      <h2>{{ result_message is defined ? result_message : '' }}</h2>
 
+      <label for="form[]"></label>
+      <input type="text" name="form[]" placeholder="DoIM" value="{{ form. is defined ? form. : '' }}" required />
+
+      <label for="form[]"></label>
+      <select name="form[]">
+        {% for  in  %}
+          <option value="{{ .id }}" {{ (form. is defined and .id == form.) ? 'selected' : '' }} >{{ . }}</option>
+        {% endfor %}
+      </select>
+
+      <button>{{ (mode == 'new') ? 'Create School Section' : 'Save Changes' }}</button>
+    </form>
+
+    <hr class="clear" width="0" />
   </div>
+{% endblock %}
+
+{% block javascript %}
+  <script type="text/javascript">
+    function TypeDiff() {
+      ($('#courseModuleType').val() == 'course') ? $('#modules').hide() : $('#courses').hide();
+      $('#' + $('#courseModuleType').val() + 's').show();
+    }
+
+    $(document).ready(function(){
+      TypeDiff();
+
+      $('#courseModuleType').on("change", function() {
+        TypeDiff();
+      });
+    });
+  </script>
 {% endblock %}

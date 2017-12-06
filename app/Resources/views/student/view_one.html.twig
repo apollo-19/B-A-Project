@@ -5,6 +5,9 @@
 
 {% block stylesheet %}
 <style>
+.form {
+  width: 500px;
+}
 </style>
 {% endblock %}
 
@@ -13,11 +16,13 @@
     <div class="form fright">
 
       <h1 class="welcomeText tacenter">{{ student.firstNameEn }} {{ student.middleNameEn }} {{ student.lastNameEn }}</h1>
-      <h1>
-        <a class="fright" href="{{ path('student_edit', {'student_id': student.id}) }}">Edit Student</a>
-      </h1>
+      <table>
+        <tr>
+          <td class="taright"><a href="{{ path('student_edit', {'student_id': student.id}) }}">Edit Student</a></td>
+        </tr>
+      </table>
 
-      <table border="" id="form1">
+      <table id="form1">
         <tr>
           <td>First Name:</td>
           <td>{{ student.firstNameEn }}</td>
@@ -139,7 +144,7 @@
         </tr>
 
         <tr>
-          <td colspan="3"><button id="form1Next"> Next (2/4) >> </button></td>
+          <td colspan="3"><button id="form1Next"> Next (2/3) >> </button></td>
         </tr>
       </table>
 
@@ -200,14 +205,14 @@
         </tr>
 
         <tr>
-          <td><button id="form2Prev"><< Prev (1/4)</button></td>
-          <td><button id="form2Next">Next (3/4) >></button></td>
+          <td><button id="form2Prev"><< Prev (1/3)</button></td>
+          <td><button id="form2Next">Next (3/3) >></button></td>
         </tr>
       </table>
 
       <table id="form3">
         <tr>
-          <td>Father:</td>
+          <td colspan="2" align="center">Father</td>
         </tr>
 
         <tr>
@@ -226,17 +231,25 @@
         </tr>
 
         <tr>
-          <td>Telephone Home Number:</td>
+          <td colspan="2" align="center">Telephone</td>
+        </tr>
+
+        <tr>
+          <td>Home Number:</td>
           <td>{{ student.fatherTelephoneHome }}</td>
         </tr>
 
         <tr>
-          <td>Telephone Office Number:</td>
+          <td>Office Number:</td>
           <td>{{ student.fatherTelephoneHome }}</td>
         </tr>
 
         <tr>
-          <td>Residence Address House Number:</td>
+          <td colspan="2" align="center">Residence Address</td>
+        </tr>
+
+        <tr>
+          <td>House Number:</td>
           <td>{{ student.fatherHouseNumber }}</td>
         </tr>
 
@@ -264,43 +277,80 @@
           <td>Region:</td>
           <td>{{ student.fatherRegion }}</td>
         </tr>
+
+        <tr>
+          <td colspan="2" align="center">Mother:</td>
+        </tr>
+
+        <tr>
+          <td>Full Name:</td>
+          <td>{{ student.motherFullName }}</td>
+        </tr>
+
+        <tr>
+          <td>Occupation:</td>
+          <td>{{ student.motherOccupation }}</td>
+        </tr>
+
+        <tr>
+          <td>Educational Level:</td>
+          <td>{{ student.motherEducationalLevel }}</td>
+        </tr>
+
+        <tr>
+          <td colspan="2" align="center">Telephone</td>
+        </tr>
+
+        <tr>
+          <td>Home Number:</td>
+          <td>{{ student.motherTelephoneHome }}</td>
+        </tr>
+
+        <tr>
+          <td>Office Number:</td>
+          <td>{{ student.motherTelephoneHome }}</td>
+        </tr>
+
+        <tr>
+          <td colspan="2" align="center">Residence Address</td>
+        </tr>
+
+        <tr>
+          <td>House Number:</td>
+          <td>{{ student.motherHouseNumber }}</td>
+        </tr>
+
+        <tr>
+          <td>Kebele:</td>
+          <td>{{ student.motherKebele }}</td>
+        </tr>
+
+        <tr>
+          <td>Woreda/Subcity:</td>
+          <td>{{ student.motherWoredaSubcity }}</td>
+        </tr>
+
+        <tr>
+          <td>Town:</td>
+          <td>{{ student.motherTown }}</td>
+        </tr>
+
+        <tr>
+          <td>Zone:</td>
+          <td>{{ student.motherZone }}</td>
+        </tr>
+
+        <tr>
+          <td>Region:</td>
+          <td>{{ student.motherRegion }}</td>
+        </tr>
+
+        <tr>
+          <td><button id="form3Prev"><< Prev (2/3)</button></td>
+          <td></td>
+        </tr>
       </table>
 
-      <label>Mother</label>
-      <hr />
-        <label for="form[mother_full_name]">Full Name</label>
-        <input type="text" name="form[mother_full_name]" placeholder="" value="{{ form.mother_full_name is defined ? form.mother_full_name : '' }}" required />
-
-        <label for="form[mother_occupation]">Occupation</label>
-        <input type="text" name="form[mother_occupation]" placeholder="" value="{{ form.mother_occupation is defined ? form.mother_occupation : '' }}" required />
-
-        <label for="form[mother_educational_level]">Educational Level</label>
-        <input type="text" name="form[mother_educational_level]" placeholder="" value="{{ form.mother_educational_leventel is defined ? form.mother_educational_leventel : '' }}" required />
-
-        <label for="form[mother_telephone_home]">Telephone Home Number</label>
-        <input type="text" name="form[mother_telephone_home]" placeholder="" value="{{ form.mother_telephone_home is defined ? form.mother_telephone_home : '' }}" required />
-
-        <label for="form[mother_telephone_office]">Telephone Office Number</label>
-        <input type="text" name="form[mother_telephone_office]" placeholder="" value="{{ form.mother_telephone_office is defined ? form.mother_telephone_office : '' }}" required />
-
-        <label for="form[mother_house_number]">Residence Address House Number</label>
-        <input type="text" name="form[mother_house_number]" placeholder="" value="{{ form.mother_house_number is defined ? form.mother_house_number : '' }}" required />
-
-        <label for="form[mother_kebele]">Kebele</label>
-        <input type="number" name="form[mother_kebele]" placeholder="" value="{{ form.mother_kebele is defined ? form.mother_kebele : '' }}" required />
-
-        <label for="form[mother_woreda_subcity]">Woreda/Subcity</label>
-        <input type="text" name="form[mother_woreda_subcity]" placeholder="" value="{{ form.mother_woreda_subcity is defined ? form.mother_woreda_subcity : '' }}" required />
-
-        <label for="form[mother_town]">Town</label>
-        <input type="text" name="form[mother_town]" placeholder="" value="{{ form.mother_town is defined ? form.mother_town : '' }}" required />
-
-        <label for="form[mother_zone]">Zone</label>
-        <input type="text" name="form[mother_zone]" placeholder="" value="{{ form.mother_zone is defined ? form.mother_zone : '' }}" required />
-
-        <label for="form[mother_region]">Region</label>
-        <input type="text" name="form[mother_region]" placeholder="" value="{{ form.mother_region is defined ? form.mother_region : '' }}" required />
-      <hr />
     </div>
 
     <hr class="clear" width="0" />

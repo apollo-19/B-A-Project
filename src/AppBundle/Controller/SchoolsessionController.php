@@ -197,14 +197,8 @@ class SchoolsessionController extends Controller
     public function sessionDeleteAction(Request $request, $session_id)
     {
       $session = new Session();
-      $school_session_data = [];
 
-      $session = $this->getDoctrine()
-                          ->getRepository('AppBundle:Schoolsession')
-                          ->findOneById($session_id);
-      $school_session_data['created_by'] = $session->getCreatedBy();
-
-      if($session->get('user_name') && ($session->get('user_type') == 'admin') && ($session->get('user_id') == $school_session_data['created_by'])){
+      if($session->get('user_name') && ($session->get('user_type') == 'admin')){
         $session = $this->getDoctrine()
                             ->getRepository('AppBundle:Schoolsession')
                             ->findOneById($session_id);

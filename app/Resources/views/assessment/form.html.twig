@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ (mode == 'new') ? 'New School Session' : 'Edit School Session' }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container taright">
+    <form class="form fright" method="post">
+      <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New School Session' : 'Edit School Session' }}</h1>
+      <h2>{{ result_message is defined ? result_message : '' }}</h2>
+
+      <label for="form[session_code]">Session Code</label>
+      <input type="text" name="form[session_code]" placeholder="DoIM" value="{{ form.session_code is defined ? form.session_code : '' }}" required />
+
+      <label for="form[session_name]">Session Name</label>
+      <input type="text" name="form[session_name]" placeholder="session One" value="{{ form.session_name is defined ? form.session_name : '' }}" required />
+
+      <label for="form[session_section]">Session Section</label>
+      <select name="form[session_section]">
+        {% for section in sections %}
+          <option value="{{ section.id }}" {{ (form.session_section is defined and section.id == form.session_section) ? 'selected' : '' }} >{{ section.sectionName }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="form[session_teacher]">Session Teacher</label>
+      <select name="form[session_teacher]">
+        {% for teacher in teachers %}
+          <option value="{{ teacher.id }}" {{ (form.session_teacher is defined and form.session_teacher == teacher.id) ? 'selected' : '' }}>{{ teacher.userName }} ({{ teacher.firstName }} {{ teacher.middleName }} {{ teacher.lastName }})</option>
+        {% endfor %}
+      </select>
+
+      <label for="form[course_module_type]">Session Course/Module Type</label>
+      <select name="form[course_module_type]" id="courseModuleType">
+        <option value="course" {{ (form.course_module_type is defined and form.course_module_type == 'course') ? 'selected' : '' }}>Course</option>
+        <option value="module" {{ (form.course_module_type is defined and form.course_module_type == 'module') ? 'selected' : '' }}>Module</option>
+      </select>
+
+      <label for="form[course_module_id]">Session Course/Module</label>
+      <select name="form[course_module_id]" id="courseModuleId">
+        <optgroup label="Modules" id="modules">
+          {% for module in modules %}
+            <option value="{{ module.id }}" {{ ((form.course_module_id is defined and form.course_module_id == 'module' ? module.id : 0) == (form.course_module_id is defined ? form.course_module_id : '')) ? 'selected' : '' }}>{{ module.moduleName }}</option>
+          {% endfor %}
+        </optgroup>
+
+        <optgroup label="Courses" id="courses">
+          {% for course in courses %}
+            <option value="{{ course.id }}" {{ ((form.course_module_id is defined and form.course_module_id == 'course' ? course.id : 0) == (form.course_module_id is defined ? form.course_module_id : '')) ? 'selected' : '' }}>{{ course.courseName }}</option>
+          {% endfor %}
+        </optgroup>
+      </select>
+
+      <label for="form[session_start_date]">Session Start Date</label>
+      <input type="date" name="form[session_start_date]" value="{{ form.session_start_date is defined ? form.session_start_date : '' }}">
+
+      <label for="form[session_end_date]">Session End Date</label>
+      <input type="date" name="form[session_end_date]" value="{{ form.session_end_date is defined ? form.session_end_date : '' }}">
+
+      <button>{{ (mode == 'new') ? 'Create School Section' : 'Save Changes' }}</button>
+    </form>
+
+    <hr class="clear" width="0" />
+  </div>
+{% endblock %}
+
+{% block javascript %}
+  <script type="text/javascript">
+    function TypeDiff() {
+      ($('#courseModuleType').val() == 'course') ? $('#modules').hide() : $('#courses').hide();
+      $('#' + $('#courseModuleType').val() + 's').show();
+    }
+
+    $(document).ready(function(){
+      TypeDiff();
+
+      $('#courseModuleType').on("change", function() {
+        TypeDiff();
+      });
+    });
+  </script>
+{% endblock %}
