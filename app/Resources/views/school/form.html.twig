@@ -18,7 +18,7 @@
       <label for="form[first_name]">School Code</label>
       <input type="text" name="form[school_code]" placeholder="MD1221" value="{{ form.school_code is defined ? form.school_code : '' }}" required />
 
-      <label for="form[middle_name]">Middle Name</label>
+      <label for="form[middle_name]">School Name</label>
       <input type="text" name="form[school_name]" placeholder="School of Medicine" value="{{ form.school_name is defined ? form.school_name : '' }}" required />
 
       <button>{{ (mode == 'new') ? 'Create School' : 'Save Changes' }}</button>

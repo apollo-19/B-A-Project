@@ -47,6 +47,12 @@ AppBundle\Entity\Course:
             options:
                 unsigned: false
             column: module_id
+        semesterId:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: semester_id
         createdBy:
             type: integer
             nullable: false

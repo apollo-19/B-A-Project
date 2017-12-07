@@ -1,0 +1,33 @@
+AppBundle\Entity\AssessmentSession:
+    type: entity
+    table: assessment_session
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        assessmentId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: assessment_id
+        assessmentSession:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: assessment_session
+        createdBy:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: created_by
+    lifecycleCallbacks: {  }

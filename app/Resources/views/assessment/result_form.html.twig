@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ (mode == 'new') ? 'New Assessment Type' : 'Edit Assessment Type' }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container taright">
+    <form class="form fright" method="post">
+      <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Assessment Type' : 'Edit Assessment Type' }}</h1>
+      <h2>{{ result_message is defined ? result_message : '' }}</h2>
+
+      <label for="form[assessment_id]">Assessment Type</label>
+      <select name="form[assessment_id]">
+        {% for assessment_type in assessment_types %}
+          <option value="{{ assessment_type.id }}" {{ (form.assessment_id is defined and assessment_type.id == form.assessment_id) ? 'selected' : '' }}>{{ assessment_type.assessmentName ~ ' (' ~ assessment_type.assessmentWorth ~ ')' }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="form[session_id]">Assessment Result Session</label>
+      <select name="form[session_id]">
+        {% for session in school_sessions %}
+          <option value="{{ session.id }}" {{ (form.session_id is defined and session.id == form.session_id) ? 'selected' : '' }}>{{ session.sessionName }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="form[student_id]">Assessment Result Student</label>
+      <select name="form[student_id]">
+        {% for student in students %}
+          <option value="{{ student.id }}" {{ (form.student_id is defined and student.id == form.student_id) ? 'selected' : '' }}>{{ student.firstNameEn ~ ' ' ~ student.middleNameEn ~ ' ' ~ student.lastNameEn ~ ' (' ~ student.userName ~')' }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="form[result_value]">Assessment Result</label>
+      <input type="text" name="form[result_value]" placeholder="" value="{{ form.result_value is defined ? form.result_value : '' }}" required />
+
+      <button>{{ (mode == 'new') ? 'Create Assessment Type' : 'Save Changes' }}</button>
+    </form>
+
+    <hr class="clear" width="0" />
+  </div>
+{% endblock %}
+
+{% block javascript %}
+  <script type="text/javascript">
+    function TypeDiff() {
+      ($('#courseModuleType').val() == 'course') ? $('#modules').hide() : $('#courses').hide();
+      $('#' + $('#courseModuleType').val() + 's').show();
+    }
+
+    $(document).ready(function(){
+      TypeDiff();
+
+      $('#courseModuleType').on("change", function() {
+        TypeDiff();
+      });
+    });
+  </script>
+{% endblock %}

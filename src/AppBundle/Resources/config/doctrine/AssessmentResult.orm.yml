@@ -1,0 +1,39 @@
+AppBundle\Entity\AssessmentResult:
+    type: entity
+    table: assessment_result
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        assessmentSessionId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: assessment_session_id
+        studentId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: student_id
+        resultValue:
+            type: string
+            nullable: false
+            length: 10
+            options:
+                fixed: false
+            column: result_value
+        createdBy:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: created_by
+    lifecycleCallbacks: {  }

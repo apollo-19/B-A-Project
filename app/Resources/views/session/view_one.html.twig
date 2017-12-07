@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ session.sessionCode }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+</style>
+{% endblock %}
+
+{% block body %}
+  <article class="container taleft">
+    <div class="form fright">
+
+      <h1 class="welcomeText tacenter">{{ session.sessionName }} ({{ session.sessionCode }})</h1>
+
+      <table>
+        <tr>
+          <td>Session Code:</td>
+          <td>{{ session.sessionCode }}</td>
+        </tr>
+
+        <tr>
+          <td>Session Name:</td>
+          <td>{{ session.sessionName }}</td>
+        </tr>
+
+        <tr>
+          <td>Session Section:</td>
+          <td>
+            {% for section in sections %}
+              {% if(session.sectionId == section.id) %}
+                {{ section.sectionName }}
+              {% endif %}
+            {% endfor %}
+          </td>
+        </tr>
+
+        <tr>
+          <td>Session Teacher:</td>
+          <td>
+            {% for teacher in teachers %}
+              {% if(session.teacherId == teacher.id) %}
+                {{ teacher.firstName }} {{ teacher.middleName }}
+              {% endif %}
+            {% endfor %}
+          </td>
+        </tr>
+
+        <tr>
+          <td>Session Course/Module:</td>
+          <td>
+            ({{ session.courseModuleType | capitalize }}) -
+            {% if (session.courseModuleType == 'course') %}
+              {% for course in courses %}
+                {% if ( session.courseModuleId == course.id ) %}
+                  {{ course.courseName }}
+
+                {% endif %}
+              {% endfor %}
+
+            {% elseif (session.courseModuleType == 'module') %}
+              {% for module in modules %}
+                {% if ( session.courseModuleId == module.id ) %}
+                  {{ module.moduleName }}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          </td>
+        </tr>
+
+        <tr>
+          <td>Session Assessment:</td>
+          <td>
+            {% for assessment_session in assessment_sessions %}
+              {% for assessment_type in assessment_types %}
+                {% if(assessment_type.id == assessment_session.assessmentId) %}
+                  {{ assessment_type.assessmentName ~ ' (' ~ assessment_type.assessmentWorth ~ '%) ' }}
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+          </td>
+        </tr>
+
+        <tr>
+          <td>Session Assessment Total:</td>
+          <td>
+            {% set assessmentWorthTotal = 0 %}
+            {% for assessment_session in assessment_sessions %}
+              {% for assessment_type in assessment_types %}
+                {% if(assessment_type.id == assessment_session.assessmentId) %}
+                  {% set assessmentWorthTotal = assessmentWorthTotal + assessment_type.assessmentWorth  %}
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+
+            {{ assessmentWorthTotal }}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <hr class="clear" width="0" />
+  </article>
+{% endblock %}

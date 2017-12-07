@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  School Assessments View
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container" id="view_container">
+    <a href="{{ path('assessment_result_create') }}">New School Assessment</a>
+    <table border="0">
+      <thead>
+        <tr>
+          <th>Assessment Type</th>
+          <th>Assessment Result Session</th>
+          <th>Assessment Result Student</th>
+          <th>Assessment Result</th>
+          <th colspan="3">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for assessment_result in assessment_results %}
+          <tr>
+            <td>
+              {% for assessment_session in assessment_sessions %}
+                {% if(assessment_session.id == assessment_result.assessmentSessionId) %}
+                  {% for assessment_type in assessment_types %}
+                    {% if(assessment_type.id == assessment_session.assessmentId) %}
+                      {{ assessment_type.assessmentName ~ ' (' ~ assessment_type.assessmentWorth ~ ')' }}
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+              {% endfor %}
+            </td>
+
+            <td>
+              {% for student in students %}
+                {% if(student.id == assessment_result.studentId) %}
+                  {{ student.firstNameEn ~ ' ' ~ student.middleNameEn ~ ' ' ~ student.lastNameEn ~ ' ' ~ '(' ~ student.userName ~ ')' }}
+                {% endif %}
+              {% endfor %}
+            </td>
+
+            <td>{{ assessment_result.resultValue }}</td>
+
+            {% if(app.session.get('user_type') == 'admin') %}
+              <td><a href="{{ path('assessment_result_edit', {'assessment_result_id': assessment_result.id}) }}" id="editBtn">edit</button></td>
+              <td><a href="{{ path('assessment_result_delete', {'assessment_result_id': assessment_result.id}) }}" id="deleteBtn"
+                    onclick="return confirm('Are You Sure You Want To Delete Assessment?') ">delete</button></td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

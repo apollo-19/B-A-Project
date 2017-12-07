@@ -30,7 +30,9 @@
       <label for="form[module_curriculum]">Module Curriculum</label>
       <select name="form[module_curriculum]">
         {% for curriculum in curriculums %}
-          <option value="{{ curriculum.id }}" {{ (form.module_curriculum is defined and form.module_curriculum == curriculum.id) ? 'selected' : '' }}>{{ curriculum.curriculumName }}</option>
+          {% if (curriculum.curriculumType == 'modularized') %}
+            <option value="{{ curriculum.id }}" {{ (form.module_curriculum is defined and form.module_curriculum == curriculum.id) ? 'selected' : '' }}>{{ curriculum.curriculumName }}</option>
+          {% endif %}
         {% endfor %}
       </select>
 
