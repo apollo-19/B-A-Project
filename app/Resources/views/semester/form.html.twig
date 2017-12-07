@@ -24,7 +24,9 @@
       <label for="form[semester_curriculum]">Semester Curriculum</label>
       <select name="form[semester_curriculum]">
         {% for curriculum in curriculums %}
-          <option value="{{ curriculum.id }}" {{ (form.semester_curriculum is defined and form.semester_curriculum == curriculum.id) ? 'selected' : '' }}>{{ curriculum.curriculumName }}</option>
+          {% if (curriculum.curriculumType == 'semester') %}
+            <option value="{{ curriculum.id }}" {{ (form.semester_curriculum is defined and form.semester_curriculum == curriculum.id) ? 'selected' : '' }}>{{ curriculum.curriculumName }}</option>
+          {% endif %}
         {% endfor %}
       </select>
 

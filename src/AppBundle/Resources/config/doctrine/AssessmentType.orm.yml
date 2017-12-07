@@ -1,0 +1,34 @@
+AppBundle\Entity\AssessmentType:
+    type: entity
+    table: assessment_type
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        assessmentName:
+            type: string
+            nullable: false
+            length: 75
+            options:
+                fixed: false
+            column: assessment_name
+        assessmentWorth:
+            type: string
+            nullable: false
+            length: 5
+            options:
+                fixed: false
+            column: assessment_worth
+        createdBy:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: created_by
+    lifecycleCallbacks: {  }

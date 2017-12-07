@@ -25,17 +25,25 @@
       <input type="number" min="1" max="50" name="form[course_credit_hour]" placeholder="3" value="{{ form.course_credit_hour is defined ? form.course_credit_hour : '' }}" required />
 
       <label for="form[curriculum_id]">Course Curriculum</label>
-      <select name="form[curriculum_id]">
+      <select name="form[curriculum_id]" id="courseCurriculum">
         {% for curriculum in curriculums %}
-          <option value="{{ curriculum.id }}" {{ (form.curriculum_id is defined and curriculum.id == form.curriculum_id) ? 'selected' : '' }}>{{ curriculum.curriculumName }}</option>
+          <option value="{{ curriculum.id }}" title="{{ curriculum.curriculumType }}" {{ (form.curriculum_id is defined and curriculum.id == form.curriculum_id) ? 'selected' : '' }}>{{ curriculum.curriculumName ~ ' (' ~ curriculum.curriculumType | capitalize ~ ')' }}</option>
         {% endfor %}
       </select>
 
-      <label for="form[module_id]">Course Module</label>
-      <select name="form[module_id]">
+      <label for="form[module_id]" class="courseModules">Course Module</label>
+      <select name="form[module_id]" class="courseModules">
         <option value="">No Module</option>
         {% for module in modules %}
           <option value="{{ module.id }}" {{ (form.module_id is defined and module.id == form.module_id) ? 'selected' : '' }}>{{ module.moduleName }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="form[semester_id]" class="courseSemesters">Course Semester</label>
+      <select name="form[semester_id]" class="courseSemesters">
+        <option value="">No Semester</option>
+        {% for semester in semesters %}
+          <option value="{{ semester.id }}" {{ (form.semester_id is defined and semester.id == form.semester_id) ? 'selected' : '' }}>{{ semester.semester ~ '/' ~ semester.year }}</option>
         {% endfor %}
       </select>
 
@@ -44,4 +52,26 @@
 
     <hr class="clear" width="0" />
   </div>
+{% endblock %}
+
+{% block javascript %}
+  <script type="text/javascript">
+    function TypeDiff() {
+      if($('#courseCurriculum option:selected').attr("title") == 'semester') {
+        $('.courseModules').hide();
+        $('.courseSemesters').show();
+      } else if ($('#courseCurriculum option:selected').attr("title") == 'modularized') {
+        $('.courseSemesters').hide();
+        $('.courseModules').show();
+      }
+    }
+
+    $(document).ready(function(){
+      TypeDiff();
+
+      $('#courseCurriculum').on("change", function() {
+        TypeDiff();
+      });
+    });
+  </script>
 {% endblock %}

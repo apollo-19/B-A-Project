@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  School Assessments View
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container" id="view_container">
+    <a href="{{ path('assessment_session_create') }}">New School Assessment</a>
+    <table border="0">
+      <thead>
+        <tr>
+          <th>Assessment Name</th>
+          <th>Assessment Session</th>
+          <th colspan="3">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for assessment in assessment_sessions %}
+          <tr>
+            <td>{{ assessment.assessmentId }}</td>
+            <td>{{ assessment.assessmentSession }}</td>
+
+            {% if(app.session.get('user_type') == 'admin') %}
+              <td><a href="{{ path('assessment_session_edit', {'assessment_session_id': assessment.id}) }}" id="editBtn">edit</button></td>
+              <td><a href="{{ path('assessment_session_delete', {'assessment_session_id': assessment.id}) }}" id="deleteBtn"
+                    onclick="return confirm('Are You Sure You Want To Delete Assessment?') ">delete</button></td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ (mode == 'new') ? 'New Assessment Type' : 'Edit Assessment Type' }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container taright">
+    <form class="form fright" method="post">
+      <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Assessment Type' : 'Edit Assessment Type' }}</h1>
+      <h2>{{ result_message is defined ? result_message : '' }}</h2>
+
+      <label for="form[assessment_name]">Assessment Name</label>
+      <input type="text" name="form[assessment_name]" placeholder="" value="{{ form.assessment_name is defined ? form.assessment_name : '' }}" required />
+
+      <label for="form[assessment_worth]">Assessment Worth</label>
+      <input type="number" name="form[assessment_worth]" placeholder="" value="{{ form.assessment_worth is defined ? form.assessment_worth : '' }}" required />
+
+      <button>{{ (mode == 'new') ? 'Create Assessment Type' : 'Save Changes' }}</button>
+    </form>
+
+    <hr class="clear" width="0" />
+  </div>
+{% endblock %}
+
+{% block javascript %}
+  <script type="text/javascript">
+    function TypeDiff() {
+      ($('#courseModuleType').val() == 'course') ? $('#modules').hide() : $('#courses').hide();
+      $('#' + $('#courseModuleType').val() + 's').show();
+    }
+
+    $(document).ready(function(){
+      TypeDiff();
+
+      $('#courseModuleType').on("change", function() {
+        TypeDiff();
+      });
+    });
+  </script>
+{% endblock %}

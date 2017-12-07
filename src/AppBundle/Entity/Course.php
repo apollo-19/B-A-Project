@@ -197,4 +197,33 @@ class Course
     {
         return $this->moduleId;
     }
+    /**
+     * @var integer
+     */
+    private $semesterId;
+
+
+    /**
+     * Set semesterId
+     *
+     * @param integer $semesterId
+     *
+     * @return Course
+     */
+    public function setSemesterId($semesterId)
+    {
+        $this->semesterId = $semesterId;
+
+        return $this;
+    }
+
+    /**
+     * Get semesterId
+     *
+     * @return integer
+     */
+    public function getSemesterId()
+    {
+        return $this->semesterId;
+    }
 }

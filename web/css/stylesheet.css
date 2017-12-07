@@ -263,6 +263,7 @@ header table tr td a:hover {
 }
 
 #view_container th {
+  cursor: default;
   padding: 15px 10px;
 	text-align: left;
 }
@@ -271,16 +272,13 @@ header table tr td a:hover {
 	background-color: #2573B4;
 }
 
-#view_container tr:nth-child(odd) td {
-	padding: 10px;
-	background-color: #EDF7F8;
-	color: #blue;
+#view_container tr td {
+  padding: 0px 10px;
+  color: #000000;
 }
 
-#view_container tr:nth-child(even) td {
-	padding: 10px;
-	background-color: #blue;
-	color: #000000;
+#view_container tr:nth-child(odd) td {
+	background-color: #EDF7F8;
 }
 
 #view_container a {
@@ -307,7 +305,7 @@ header table tr td a:hover {
   text-align: center;
   color: #1872B8;
 
-  padding: 10px 15px;
+  padding: 5px 15px;
   width: auto;
 }
 

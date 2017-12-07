@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ (mode == 'new') ? 'New Assessment Session' : 'Edit Assessment Session' }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container taright">
+    <form class="form fright" method="post">
+      <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Assessment Session' : 'Edit Assessment Session' }}</h1>
+      <h2>{{ result_message is defined ? result_message : '' }}</h2>
+
+      <label for="form[assessment_id]">Assessment Name</label>
+      <input type="text" name="form[assessment_id]" placeholder="" value="{{ form.assessment_id is defined ? form.assessment_id : '' }}" required />
+
+      <label for="form[assessment_session_worth]">Assessment Worth</label>
+      <input type="text" name="form[assessment_session_worth]" placeholder="" value="{{ form.assessment_session_worth is defined ? form.assessment_session_worth : '' }}" required />
+
+      <button>{{ (mode == 'new') ? 'Create Assessment Session' : 'Save Changes' }}</button>
+    </form>
+
+    <hr class="clear" width="0" />
+  </div>
+{% endblock %}

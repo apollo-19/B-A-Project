@@ -55,24 +55,34 @@
         <img src="images/icons/batch.png" draggable="false" /><br />Batches
       </a></div>
 
-      <div><a href="{{ path('student_view') }}">
-        <img src="images/icons/student.png" draggable="false" /><br />Students
-      </a></div>
-
       <div><a href="{{ path('section_view') }}">
         <img src="images/icons/section.png" draggable="false" /><br />Sections
+      </a></div>
+
+      <div><a href="{{ path('student_view') }}">
+        <img src="images/icons/student.png" draggable="false" /><br />Students
       </a></div>
 
       <div><a href="{{ path('session_view') }}">
         <img src="images/icons/session.png" draggable="false" /><br />School Sessions
       </a></div>
 
-      <div><a href="{{ path('result_view') }}">
-        <img src="images/icons/result.png" draggable="false" /><br />Results
+
+      <div><a href="{{ path('assessment_type_view') }}">
+        <img src="images/icons/assessment.png" draggable="false" /><br />Assessment Types
       </a></div>
 
-      <div><a href="{{ path('session_view') }}">
-        <img src="images/icons/assessment.png" draggable="false" /><br />Assessment
+      <div><a href="{{ path('assessment_session_view') }}">
+        <img src="images/icons/assessment.png" draggable="false" /><br />Assessment Sessions
+      </a></div>
+
+      <div><a href="{{ path('assessment_result_view') }}">
+        <img src="images/icons/result.png" draggable="false" /><br />Assessment Results
+      </a></div>
+
+      <div><a href="{{ path('session_result_view') }}">
+        <img src="images/icons/result.png" draggable="false" /><br />Session Results
+
       </a></div>
 
       <div><a href=" {{ path('user_signout') }} " onclick="return confirm('Are You Sure You Want To Sign Out?') ">

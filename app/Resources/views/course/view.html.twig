@@ -19,12 +19,13 @@
           <th>Course Name</th>
           <th>Course Credit Hour</th>
           <th>Course Curriculum</th>
-          <th>Course Module</th>
+          <th>Course Module/Semester</th>
           <th colspan="3">Actions</th>
         </tr>
       </thead>
       <tbody>
         {% for course in courses %}
+          {% set currCurriculumType = '' %}
           <tr>
             <td>{{ course.courseCode }}</td>
             <td>{{ course.courseName }}</td>
@@ -33,13 +34,20 @@
               {% for curriculum in curriculums %}
                 {% if(course.curriculumId == curriculum.id) %}
                   {{ curriculum.curriculumName }}
+                  {% set currCurriculumType = curriculum.curriculumType %}
                 {% endif %}
               {% endfor %}
             </td>
             <td>
               {% for module in modules %}
-                {% if(course.moduleId == module.id) %}
-                  {{ module.moduleName }}
+                {% if(course.moduleId == module.id and currCurriculumType == 'modularized') %}
+                  {{ module.moduleName }} Module
+                {% endif %}
+              {% endfor %}
+
+              {% for semester in semesters %}
+                {% if(course.semesterId == semester.id and currCurriculumType == 'semester') %}
+                  {{ semester.semester ~ ' ' ~ semester.year }} Semester
                 {% endif %}
               {% endfor %}
             </td>

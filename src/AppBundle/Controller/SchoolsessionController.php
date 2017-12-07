@@ -262,4 +262,64 @@ class SchoolsessionController extends Controller
         return $this->render('accessDenied.html.twig', $data);
       }
     }
+
+    /**
+     * @Route("/session/view_one/{session_id}", name="session_view_one")
+     */
+    public function sessionViewOneAction(Request $request, $session_id)
+    {
+      $session = new Session();
+
+      if($session->get('user_id') && ($session->get('user_type') == 'admin' || $session->get('user_type') == 'teacher')){
+        $data = [];
+        $data['sessions'] = [];
+
+        $session = $this->getDoctrine()
+                            ->getRepository('AppBundle:Schoolsession')
+                            ->findOneById($session_id);
+
+        $data['session'] = $session;
+
+        $section = $this->getDoctrine()
+                            ->getRepository('AppBundle:Section')
+                            ->findAll();
+
+        $data['sections'] = $section;
+
+        $course = $this->getDoctrine()
+                            ->getRepository('AppBundle:Course')
+                            ->findAll();
+
+        $data['courses'] = $course;
+
+        $module = $this->getDoctrine()
+                            ->getRepository('AppBundle:Module')
+                            ->findAll();
+
+        $data['modules'] = $module;
+
+        $teacher = $this->getDoctrine()
+                            ->getRepository('AppBundle:Teacher')
+                            ->findAll();
+
+        $data['teachers'] = $teacher;
+
+        $assessment_session = $this->getDoctrine()
+                            ->getRepository('AppBundle:AssessmentSession')
+                            ->findAll();
+
+        $data['assessment_sessions'] = $assessment_session;
+
+        $assessment_type = $this->getDoctrine()
+                            ->getRepository('AppBundle:AssessmentType')
+                            ->findAll();
+
+        $data['assessment_types'] = $assessment_type;
+
+        return $this->render('session/view_one.html.twig', $data);
+      } else {
+        $data['message'] = 'You Are Not Qualified to View This Session.';
+        return $this->render('accessDenied.html.twig', $data);
+      }
+    }
 }

@@ -32,9 +32,10 @@ class CourseController extends Controller
         $form = $this ->createFormBuilder()
                       ->add('course_code')
                       ->add('course_name')
-                      ->add('module_id')
                       ->add('course_credit_hour')
                       ->add('curriculum_id')
+                      ->add('module_id')
+                      ->add('semester_id')
                       ->getForm();
 
         $curriculum = $this->getDoctrine()
@@ -49,6 +50,12 @@ class CourseController extends Controller
 
         $data['modules'] = $module;
 
+        $semester = $this->getDoctrine()
+                            ->getRepository('AppBundle:Semester')
+                            ->findAll();
+
+        $data['semesters'] = $semester;
+
         $form->handleRequest($request);
 
         if($form->isSubmitted()){
@@ -59,9 +66,10 @@ class CourseController extends Controller
           $course = new Course();
           $course->setCourseCode($course_data['course_code']);
           $course->setCourseName($course_data['course_name']);
-          $course->setModuleId($course_data['module_id']);
           $course->setCourseCreditHour($course_data['course_credit_hour']);
           $course->setCurriculumId($course_data['curriculum_id']);
+          $course->setModuleId($course_data['module_id']);
+          $course->setSemesterId($course_data['semester_id']);
 
           $course->setCreatedBy($session->get('user_id'));
 
@@ -90,6 +98,7 @@ class CourseController extends Controller
                     ->add('course_code')
                     ->add('course_name')
                     ->add('module_id')
+                    ->add('semester_id')
                     ->add('course_credit_hour')
                     ->add('curriculum_id')
                     ->getForm();
@@ -106,10 +115,23 @@ class CourseController extends Controller
 
       $data['curriculums'] = $curriculum;
 
+      $module = $this->getDoctrine()
+                          ->getRepository('AppBundle:Module')
+                          ->findAll();
+
+      $data['modules'] = $module;
+
+      $semester = $this->getDoctrine()
+                          ->getRepository('AppBundle:Semester')
+                          ->findAll();
+
+      $data['semesters'] = $semester;
+
       $course_data['course_code'] = $course->getCourseCode();
       $course_data['course_name'] = $course->getCourseName();
       $course_data['course_credit_hour'] = $course->getCourseCreditHour();
       $course_data['module_id'] = $course->getModuleId();
+      $course_data['semester_id'] = $course->getSemesterId();
       $course_data['curriculum_id'] = $course->getCurriculumId();
       $course_data['created_by'] = $course->getCreatedBy();
 
@@ -117,12 +139,6 @@ class CourseController extends Controller
 
       if($session->get('user_name') && ($session->get('user_type') == 'admin') && ($session->get('user_id') == $course_data['created_by'])){
         $data['form'] = $course_data;
-
-        $module = $this->getDoctrine()
-                            ->getRepository('AppBundle:Module')
-                            ->findAll();
-
-        $data['modules'] = $module;
 
         $form->handleRequest($request);
 
@@ -134,6 +150,7 @@ class CourseController extends Controller
           $course->setCourseCode($course_data['course_code']);
           $course->setCourseName($course_data['course_name']);
           $course->setModuleId($course_data['module_id']);
+          $course->setSemesterId($course_data['semester_id']);
           $course->setCourseCreditHour($course_data['course_credit_hour']);
           $course->setCurriculumId($course_data['curriculum_id']);
 
@@ -202,6 +219,12 @@ class CourseController extends Controller
                             ->findAll();
 
         $data['curriculums'] = $curriculum;
+        
+        $semester = $this->getDoctrine()
+                            ->getRepository('AppBundle:Semester')
+                            ->findAll();
+
+        $data['semesters'] = $semester;
 
         return $this->render('course/view.html.twig', $data);
       } else {
