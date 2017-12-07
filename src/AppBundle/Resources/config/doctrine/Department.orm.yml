@@ -42,3 +42,15 @@ AppBundle\Entity\Department:
                 unsigned: false
             column: created_by
     lifecycleCallbacks: {  }
+    manyToOne:
+        school:
+            targetEntity: School
+            inversedBy: departments
+            joinColumn:
+                name: school_id
+                referencedColumnName: id
+                onDelete: CASCADE
+    oneToMany:
+        teachers:
+            targetEntity: Teacher
+            mappedBy: department

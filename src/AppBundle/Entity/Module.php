@@ -196,10 +196,21 @@ class Module
     {
         return $this->createdBy;
     }
+
     /**
      * @var integer
      */
     private $curriculumId;
+
+    /**
+     * @var \AppBundle\Entity\School
+     */
+    private $school;
+
+    /**
+     * @var \AppBundle\Entity\Curriculum
+     */
+    private $curriculum;
 
 
     /**
@@ -224,5 +235,53 @@ class Module
     public function getCurriculumId()
     {
         return $this->curriculumId;
+    }
+
+    /**
+     * Set school
+     *
+     * @param \AppBundle\Entity\School $school
+     *
+     * @return Module
+     */
+    public function setSchool(\AppBundle\Entity\School $school = null)
+    {
+        $this->school = $school;
+
+        return $this;
+    }
+
+    /**
+     * Get school
+     *
+     * @return \AppBundle\Entity\School
+     */
+    public function getSchool()
+    {
+        return $this->school;
+    }
+
+    /**
+     * Set curriculum
+     *
+     * @param \AppBundle\Entity\Curriculum $curriculum
+     *
+     * @return Module
+     */
+    public function setCurriculum(\AppBundle\Entity\Curriculum $curriculum = null)
+    {
+        $this->curriculum = $curriculum;
+
+        return $this;
+    }
+
+    /**
+     * Get curriculum
+     *
+     * @return \AppBundle\Entity\Curriculum
+     */
+    public function getCurriculum()
+    {
+        return $this->curriculum;
     }
 }
