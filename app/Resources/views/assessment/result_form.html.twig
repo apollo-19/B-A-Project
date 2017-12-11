@@ -17,15 +17,15 @@
 
       <label for="form[assessment_id]">Assessment Type</label>
       <select name="form[assessment_id]">
-        {% for assessment_type in assessment_types %}
-          <option value="{{ assessment_type.id }}" {{ (form.assessment_id is defined and assessment_type.id == form.assessment_id) ? 'selected' : '' }}>{{ assessment_type.assessmentName ~ ' (' ~ assessment_type.assessmentWorth ~ ')' }}</option>
-        {% endfor %}
-      </select>
+        {% for assessment_session in assessment_sessions %}
+          {% if school_session.id in assessment_session.assessmentSession %}
 
-      <label for="form[session_id]">Assessment Result Session</label>
-      <select name="form[session_id]">
-        {% for session in school_sessions %}
-          <option value="{{ session.id }}" {{ (form.session_id is defined and session.id == form.session_id) ? 'selected' : '' }}>{{ session.sessionName }}</option>
+            {% for assessment_type in assessment_types %}
+              {% if assessment_type.id == assessment_session.assessmentId %}
+                <option value="{{ assessment_type.id }}" {{ (form.assessment_id is defined and assessment_type.id == form.assessment_id) ? 'selected' : '' }}>{{ assessment_type.assessmentName ~ ' (' ~ assessment_type.assessmentWorth ~ ')' }}</option>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
         {% endfor %}
       </select>
 

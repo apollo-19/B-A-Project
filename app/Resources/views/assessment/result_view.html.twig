@@ -11,12 +11,13 @@
 
 {% block body %}
   <div class="container" id="view_container">
-    <a href="{{ path('assessment_result_create') }}">New School Assessment</a>
     <table border="0">
       <thead>
         <tr>
-          <th>Assessment Type</th>
-          <th>Assessment Result Session</th>
+          {% for assessment_type in assessment_types %}
+            <th>{{ assessment_type.assessmentName }} <br /> {{ '('~ assessment_type.assessmentWorth ~'%)'}}</th>
+          {% endfor %}
+          <th>type</th>
           <th>Assessment Result Student</th>
           <th>Assessment Result</th>
           <th colspan="3">Actions</th>
@@ -25,12 +26,16 @@
       <tbody>
         {% for assessment_result in assessment_results %}
           <tr>
+            {% for assessment_type in assessment_types %}
+              <td>{{ assessment_type.assessmentName }} <br /> {{ '('~ assessment_type.assessmentWorth ~'%)'}}</td>
+            {% endfor %}
+
             <td>
               {% for assessment_session in assessment_sessions %}
                 {% if(assessment_session.id == assessment_result.assessmentSessionId) %}
                   {% for assessment_type in assessment_types %}
                     {% if(assessment_type.id == assessment_session.assessmentId) %}
-                      {{ assessment_type.assessmentName ~ ' (' ~ assessment_type.assessmentWorth ~ ')' }}
+                      {{ assessment_type.assessmentName ~ ' (' ~ assessment_type.assessmentWorth ~ '%)' }}
                     {% endif %}
                   {% endfor %}
                 {% endif %}
