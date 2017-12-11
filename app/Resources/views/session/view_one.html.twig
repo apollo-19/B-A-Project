@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-  {{ session.sessionCode }}
+  {{ session.sessionCode | upper }}
 {% endblock %}
 
 {% block stylesheet %}
@@ -73,12 +73,17 @@
           <td>Session Assessment:</td>
           <td>
             {% for assessment_session in assessment_sessions %}
-              {% for assessment_type in assessment_types %}
-                {% if(assessment_type.id == assessment_session.assessmentId) %}
-                  {{ assessment_type.assessmentName ~ ' (' ~ assessment_type.assessmentWorth ~ '%) ' }}
-                {% endif %}
-              {% endfor %}
+              {% if(session.id == assessment_session.assessmentSession) %}
+                {% for assessment_type in assessment_types %}
+                  {% if assessment_type.id == assessment_session.assessmentId %}
+                    <p> {{ assessment_type.assessmentName ~ ' (' ~ assessment_type.assessmentWorth ~ '%) ' }} </p>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
             {% endfor %}
+
+            <p><a href="{{ path('assessment_session_create', {'school_session': session.id}) }}" id="editBtn"> + add assessment</a></p>
+            <p><a href="{{ path('assessment_result_view', {'school_session': session.id}) }}" id="editBtn"> + view assessment results</a></p>
           </td>
         </tr>
 
@@ -87,14 +92,16 @@
           <td>
             {% set assessmentWorthTotal = 0 %}
             {% for assessment_session in assessment_sessions %}
-              {% for assessment_type in assessment_types %}
-                {% if(assessment_type.id == assessment_session.assessmentId) %}
+              {% if(session.id == assessment_session.assessmentSession) %}
+                {% for assessment_type in assessment_types %}
+                  {% if assessment_type.id == assessment_session.assessmentId %}
                   {% set assessmentWorthTotal = assessmentWorthTotal + assessment_type.assessmentWorth  %}
-                {% endif %}
-              {% endfor %}
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
             {% endfor %}
 
-            {{ assessmentWorthTotal }}
+            {{ assessmentWorthTotal ~ '%' }}
           </td>
         </tr>
       </table>

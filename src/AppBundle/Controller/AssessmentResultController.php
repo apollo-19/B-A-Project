@@ -24,9 +24,9 @@ class AssessmentResultController extends Controller
     }
 
     /**
-     * @Route("/assessment_result/create", name="assessment_result_create")
+     * @Route("/assessment_result/create/{school_session}", name="assessment_result_create")
      */
-    public function assessmentResultCreateAction(Request $request)
+    public function assessmentResultCreateAction(Request $request, $school_session)
     {
       $session = new Session();
 
@@ -35,16 +35,29 @@ class AssessmentResultController extends Controller
         $data['mode'] = 'new';
 
         $form = $this ->createFormBuilder()
-                      ->add('assessment_session_id')
+                      ->add('assessment_id')
+                      ->add('session_id')
                       ->add('student_id')
                       ->add('result_value')
                       ->getForm();
+
+        $assessment_session = $this->getDoctrine()
+                            ->getRepository('AppBundle:Schoolsession')
+                            ->findOneById($school_session);
+
+        $data['school_session'] = $assessment_session;
 
         $assessment_session = $this->getDoctrine()
                             ->getRepository('AppBundle:AssessmentSession')
                             ->findAll();
 
         $data['assessment_sessions'] = $assessment_session;
+
+        $assessment_type = $this->getDoctrine()
+                            ->getRepository('AppBundle:AssessmentType')
+                            ->findAll();
+
+        $data['assessment_types'] = $assessment_type;
 
         $student = $this->getDoctrine()
                             ->getRepository('AppBundle:Student')
@@ -58,6 +71,8 @@ class AssessmentResultController extends Controller
           $data['form'] = [];
           $assessment_result_data = $form->getData();
           $data['form'] = $assessment_result_data;
+
+
 
           $assessment_result = new AssessmentResult();
           $assessment_result->setAssessmentSessionId($assessment_result_data['assessment_session_id']);
@@ -167,38 +182,46 @@ class AssessmentResultController extends Controller
     }
 
     /**
-     * @Route("/assessment_result/view", name="assessment_result_view")
+     * @Route("/assessment_result/view/{school_session}", name="assessment_result_view")
      */
-    public function assessmentTypeViewAction()
+    public function assessmentTypeViewAction(Request $request, $school_session)
     {
       $session = new Session();
 
       if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'admin')){
         $data = [];
 
+        $session = $this->getDoctrine()
+                            ->getRepository('AppBundle:Schoolsession')
+                            ->findOneById($school_session);
+
+        $data['school_session'] = $session;
+
+        $assessment_session_id = $session->getId();
+        $assessment_session = $this->getDoctrine()
+                            ->getRepository('AppBundle:AssessmentSession')
+                            ->findAll($assessment_session_id);
+
+        $data['assessment_sessions'] = $assessment_session;
+
+        $assessment_session_id = $session->getId();
         $assessment_result = $this->getDoctrine()
                             ->getRepository('AppBundle:AssessmentResult')
-                            ->findAll();
+                            ->findAll($assessment_session_id);
 
         $data['assessment_results'] = $assessment_result;
 
-        $assessment_session = $this->getDoctrine()
-                            ->getRepository('AppBundle:AssessmentSession')
+        $students = $this->getDoctrine()
+                            ->getRepository('AppBundle:Student')
                             ->findAll();
 
-        $data['assessment_sessions'] = $assessment_session;
+        $data['students'] = $students;
 
         $assessment_type = $this->getDoctrine()
                             ->getRepository('AppBundle:AssessmentType')
                             ->findAll();
 
         $data['assessment_types'] = $assessment_type;
-
-        $student = $this->getDoctrine()
-                            ->getRepository('AppBundle:Student')
-                            ->findAll();
-
-        $data['students'] = $student;
 
         return $this->render('assessment/result_view.html.twig', $data);
       } else {

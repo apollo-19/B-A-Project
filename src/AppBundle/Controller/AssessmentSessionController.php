@@ -24,9 +24,9 @@ class AssessmentSessionController extends Controller
     }
 
     /**
-     * @Route("/assessment_session/create", name="assessment_session_create")
+     * @Route("/assessment_session/create/{school_session}", name="assessment_session_create")
      */
-    public function assessmentSessionCreateAction(Request $request)
+    public function assessmentSessionCreateAction(Request $request, $school_session)
     {
       $session = new Session();
 
@@ -36,8 +36,20 @@ class AssessmentSessionController extends Controller
 
         $form = $this ->createFormBuilder()
                       ->add('assessment_id')
-                      ->add('assessment_session_worth')
+                      ->add('assessment_session')
                       ->getForm();
+
+        $assessment_session = $this->getDoctrine()
+                            ->getRepository('AppBundle:Schoolsession')
+                            ->findOneById($school_session);
+
+        $data['school_session'] = $assessment_session;
+
+        $assessment_type = $this->getDoctrine()
+                            ->getRepository('AppBundle:AssessmentType')
+                            ->findAll();
+
+        $data['assessment_types'] = $assessment_type;
 
         $form->handleRequest($request);
 
@@ -48,7 +60,7 @@ class AssessmentSessionController extends Controller
 
           $assessment_session = new Assessmentsession();
           $assessment_session->setAssessmentId($assessment_session_data['assessment_id']);
-          $assessment_session->setAssessmentSessionWorth($assessment_session_data['assessment_session_worth']);
+          $assessment_session->setAssessmentSession($school_session);
 
           $assessment_session->setCreatedBy($session->get('user_id'));
 
@@ -56,7 +68,7 @@ class AssessmentSessionController extends Controller
           $em->persist($assessment_session);
           $em->flush();
 
-          return $this->redirectToRoute('assessment_session_view');
+          return $this->redirectToRoute('session_view');
         }
 
         return $this->render('assessment/session_form.html.twig', $data);
@@ -76,7 +88,7 @@ class AssessmentSessionController extends Controller
 
       $form = $this ->createFormBuilder()
                     ->add('assessment_id')
-                    ->add('assessment_session_worth')
+                    ->add('assessment_session')
                     ->getForm();
 
       $assessment_session = $this->getDoctrine()
@@ -84,7 +96,7 @@ class AssessmentSessionController extends Controller
                           ->findOneById($assessment_session_id);
 
       $assessment_session_data['assessment_id'] = $assessment_session->getAssessmentId();
-      $assessment_session_data['assessment_session_worth'] = $assessment_session->getAssessmentSessionWorth();
+      $assessment_session_data['assessment_session'] = $assessment_session->getAssessmentSession();
 
       $session = new Session();
 
@@ -99,7 +111,7 @@ class AssessmentSessionController extends Controller
           $data['form'] = $assessment_session_data;
 
           $assessment_session->setAssessmentId($assessment_session_data['assessment_id']);
-          $assessment_session->setAssessmentSessionWorth($assessment_session_data['assessment_session_worth']);
+          $assessment_session->setAssessmentSession($assessment_session_data['assessment_session']);
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($assessment_session);
