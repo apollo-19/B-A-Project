@@ -1,0 +1,26 @@
+AppBundle\Entity\Grade:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\GradeRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        startPoint:
+            type: string
+            length: '5'
+            column: start_point
+        endPoint:
+            type: string
+            length: '5'
+            column: end_point
+        grade:
+            type: string
+            length: '2'
+        gradeSystemId:
+            type: integer
+            column: grade_system_id
+    lifecycleCallbacks: {  }
