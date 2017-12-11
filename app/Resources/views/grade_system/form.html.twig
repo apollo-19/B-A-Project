@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ (mode == 'new') ? 'New Grade System' : 'Edit Grade System' }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container taright">
+    <form class="form fright" method="post">
+      <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Grade System' : 'Edit Grade System' }}</h1>
+      <h2>{{ result_message is defined ? result_message : '' }}</h2>
+
+      <label for="form[grade_system_code]">Grade System Code</label>
+      <input type="text" name="form[grade_system_code]" value="{{ form.grade_system_code is defined ? form.grade_system_code : '' }}" required />
+
+      <label for="form[grade_system_name]">Grade System Name</label>
+      <input type="text" name="form[grade_system_name]" value="{{ form.grade_system_name is defined ? form.grade_system_name : '' }}" required />
+
+      <button>{{ (mode == 'new') ? 'Create Grade System' : 'Save Changes' }}</button>
+    </form>
+
+    <hr class="clear" width="0" />
+  </div>
+{% endblock %}
