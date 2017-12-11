@@ -81,9 +81,6 @@
                 {% endfor %}
               {% endif %}
             {% endfor %}
-
-            <p><a href="{{ path('assessment_session_create', {'school_session': session.id}) }}" id="editBtn"> + add assessment</a></p>
-            <p><a href="{{ path('assessment_result_view', {'school_session': session.id}) }}" id="editBtn"> + view assessment results</a></p>
           </td>
         </tr>
 
@@ -102,6 +99,13 @@
             {% endfor %}
 
             {{ assessmentWorthTotal ~ '%' }}
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2" class="tacenter">
+            <a href="{{ path('assessment_session_create', {'school_session_id': session.id}) }}" id="editBtn"> + add assessment</a>
+            <a href="{{ path('assessment_result_view', {'school_session_id': session.id}) }}" id="editBtn"> + view assessment results</a>
           </td>
         </tr>
       </table>

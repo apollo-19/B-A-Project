@@ -109,4 +109,33 @@ class Semester
     {
         return $this->curriculumId;
     }
+    /**
+     * @var integer
+     */
+    private $createdBy;
+
+
+    /**
+     * Set createdBy
+     *
+     * @param integer $createdBy
+     *
+     * @return Semester
+     */
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return integer
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
 }

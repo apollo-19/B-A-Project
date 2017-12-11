@@ -24,9 +24,9 @@ class AssessmentSessionController extends Controller
     }
 
     /**
-     * @Route("/assessment_session/create/{school_session}", name="assessment_session_create")
+     * @Route("/assessment_session/create/{school_session_id}", name="assessment_session_create")
      */
-    public function assessmentSessionCreateAction(Request $request, $school_session)
+    public function assessmentSessionCreateAction(Request $request, $school_session_id)
     {
       $session = new Session();
 
@@ -41,7 +41,7 @@ class AssessmentSessionController extends Controller
 
         $assessment_session = $this->getDoctrine()
                             ->getRepository('AppBundle:Schoolsession')
-                            ->findOneById($school_session);
+                            ->findOneById($school_session_id);
 
         $data['school_session'] = $assessment_session;
 
@@ -60,7 +60,7 @@ class AssessmentSessionController extends Controller
 
           $assessment_session = new Assessmentsession();
           $assessment_session->setAssessmentId($assessment_session_data['assessment_id']);
-          $assessment_session->setAssessmentSession($school_session);
+          $assessment_session->setAssessmentSession($school_session_id);
 
           $assessment_session->setCreatedBy($session->get('user_id'));
 

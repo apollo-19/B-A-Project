@@ -11,12 +11,18 @@ AppBundle\Entity\AssessmentResult:
             generator:
                 strategy: IDENTITY
     fields:
-        assessmentSessionId:
+        assessmentId:
             type: integer
             nullable: false
             options:
                 unsigned: false
-            column: assessment_session_id
+            column: assessment_id
+        sessionId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: session_id
         studentId:
             type: integer
             nullable: false

@@ -53,16 +53,3 @@ AppBundle\Entity\Curriculum:
                 fixed: false
             column: curriculum_type
     lifecycleCallbacks: {  }
-    oneToMany:
-        modules:
-            targetEntity: Module
-            mappedBy: curriculum
-      
-    manyToOne:
-        school:
-            targetEntity: School
-            inversedBy: curriculums
-            joinColumn:
-                name: school_id
-                referencedColumnName: id
-                onDelete: CASCADE

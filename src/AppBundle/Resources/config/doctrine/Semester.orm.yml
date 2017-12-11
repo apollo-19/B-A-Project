@@ -29,4 +29,10 @@ AppBundle\Entity\Semester:
             options:
                 unsigned: false
             column: curriculum_id
+        createdBy:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: created_by
     lifecycleCallbacks: {  }

@@ -19,11 +19,10 @@ AppBundle\Entity\AssessmentType:
                 fixed: false
             column: assessment_name
         assessmentWorth:
-            type: string
+            type: integer
             nullable: false
-            length: 5
             options:
-                fixed: false
+                unsigned: false
             column: assessment_worth
         createdBy:
             type: integer

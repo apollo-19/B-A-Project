@@ -24,9 +24,9 @@ class AssessmentResultController extends Controller
     }
 
     /**
-     * @Route("/assessment_result/create/{school_session}", name="assessment_result_create")
+     * @Route("/assessment_result/create/{school_session_id}", name="assessment_result_create")
      */
-    public function assessmentResultCreateAction(Request $request, $school_session)
+    public function assessmentResultCreateAction(Request $request, $school_session_id)
     {
       $session = new Session();
 
@@ -35,35 +35,38 @@ class AssessmentResultController extends Controller
         $data['mode'] = 'new';
 
         $form = $this ->createFormBuilder()
-                      ->add('assessment_id')
-                      ->add('session_id')
+                      ->add('assessment_session')
                       ->add('student_id')
                       ->add('result_value')
                       ->getForm();
 
-        $assessment_session = $this->getDoctrine()
+        $school_session = $this->getDoctrine()
                             ->getRepository('AppBundle:Schoolsession')
-                            ->findOneById($school_session);
+                            ->findOneById($school_session_id);
 
-        $data['school_session'] = $assessment_session;
+        $data['school_session'] = $school_session;
 
         $assessment_session = $this->getDoctrine()
                             ->getRepository('AppBundle:AssessmentSession')
-                            ->findAll();
+                            ->findBy(
+                              array('assessmentSession' => $school_session_id)
+                            );
 
         $data['assessment_sessions'] = $assessment_session;
+
+        $students = $this->getDoctrine()
+                            ->getRepository('AppBundle:Student')
+                            ->findBy(
+                              array('sectionId' => $school_session_id)
+                            );
+
+        $data['students'] = $students;
 
         $assessment_type = $this->getDoctrine()
                             ->getRepository('AppBundle:AssessmentType')
                             ->findAll();
 
         $data['assessment_types'] = $assessment_type;
-
-        $student = $this->getDoctrine()
-                            ->getRepository('AppBundle:Student')
-                            ->findAll();
-
-        $data['students'] = $student;
 
         $form->handleRequest($request);
 
@@ -72,10 +75,9 @@ class AssessmentResultController extends Controller
           $assessment_result_data = $form->getData();
           $data['form'] = $assessment_result_data;
 
-
-
           $assessment_result = new AssessmentResult();
-          $assessment_result->setAssessmentSessionId($assessment_result_data['assessment_session_id']);
+          $assessment_result->setAssessmentId($assessment_result_data['assessment_session']);
+          $assessment_result->setSessionId($school_session->getId());
           $assessment_result->setStudentId($assessment_result_data['student_id']);
           $assessment_result->setResultValue($assessment_result_data['result_value']);
 
@@ -85,7 +87,7 @@ class AssessmentResultController extends Controller
           $em->persist($assessment_result);
           $em->flush();
 
-          return $this->redirectToRoute('assessment_result_view');
+          return $this->redirect($this->generateUrl('assessment_result_view', array('school_session_id' => $school_session_id)));
         }
 
         return $this->render('assessment/result_form.html.twig', $data);
@@ -182,38 +184,39 @@ class AssessmentResultController extends Controller
     }
 
     /**
-     * @Route("/assessment_result/view/{school_session}", name="assessment_result_view")
+     * @Route("/assessment_result/view/{school_session_id}", name="assessment_result_view")
      */
-    public function assessmentTypeViewAction(Request $request, $school_session)
+    public function assessmentTypeViewAction(Request $request, $school_session_id)
     {
       $session = new Session();
 
       if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'admin')){
-        $data = [];
-
-        $session = $this->getDoctrine()
+        $school_session = $this->getDoctrine()
                             ->getRepository('AppBundle:Schoolsession')
-                            ->findOneById($school_session);
+                            ->findOneById($school_session_id);
 
-        $data['school_session'] = $session;
+        $data['school_session'] = $school_session;
 
-        $assessment_session_id = $session->getId();
         $assessment_session = $this->getDoctrine()
                             ->getRepository('AppBundle:AssessmentSession')
-                            ->findAll($assessment_session_id);
+                            ->findBy(
+                              array('assessmentSession' => $school_session_id)
+                            );
 
         $data['assessment_sessions'] = $assessment_session;
 
         $assessment_session_id = $session->getId();
         $assessment_result = $this->getDoctrine()
                             ->getRepository('AppBundle:AssessmentResult')
-                            ->findAll($assessment_session_id);
+                            ->findAll();
 
         $data['assessment_results'] = $assessment_result;
 
         $students = $this->getDoctrine()
                             ->getRepository('AppBundle:Student')
-                            ->findAll();
+                            ->findBy(
+                              array('sectionId' => $school_session_id)
+                            );
 
         $data['students'] = $students;
 
@@ -222,6 +225,7 @@ class AssessmentResultController extends Controller
                             ->findAll();
 
         $data['assessment_types'] = $assessment_type;
+        $data['school_session_id'] = $school_session_id;
 
         return $this->render('assessment/result_view.html.twig', $data);
       } else {

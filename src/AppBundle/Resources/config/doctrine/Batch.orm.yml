@@ -49,13 +49,3 @@ AppBundle\Entity\Batch:
                 unsigned: false
             column: created_by
     lifecycleCallbacks: {  }
-    manyToOne:
-        school:
-            targetEntity: School
-            inversedBy: batchs
-            joinColumn:
-                name: school_id
-                referencedColumnName: id
-                onDelete: CASCADE
-
-        

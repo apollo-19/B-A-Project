@@ -15,17 +15,17 @@
       <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Assessment Type' : 'Edit Assessment Type' }}</h1>
       <h2>{{ result_message is defined ? result_message : '' }}</h2>
 
-      <label for="form[assessment_id]">Assessment Type</label>
-      <select name="form[assessment_id]">
-        {% for assessment_session in assessment_sessions %}
-          {% if school_session.id in assessment_session.assessmentSession %}
+      <label>School Session</label>
+      <h2>{{ school_session.sessionName ~ '(' ~ school_session.sessionCode | upper ~ ')'}}</h2>
 
-            {% for assessment_type in assessment_types %}
-              {% if assessment_type.id == assessment_session.assessmentId %}
-                <option value="{{ assessment_type.id }}" {{ (form.assessment_id is defined and assessment_type.id == form.assessment_id) ? 'selected' : '' }}>{{ assessment_type.assessmentName ~ ' (' ~ assessment_type.assessmentWorth ~ ')' }}</option>
-              {% endif %}
-            {% endfor %}
-          {% endif %}
+      <label for="form[assessment_session]">Assessment Session</label>
+      <select name="form[assessment_session]">
+        {% for assessment_session in assessment_sessions %}
+          {% for assessment_type in assessment_types %}
+            {% if assessment_type.id == assessment_session.assessmentId %}
+              <option value="{{ assessment_session.id }}" {{ (form.assessment_id is defined and assessment_session.id == form.assessment_id) ? 'selected' : '' }}>{{ assessment_type.assessmentName ~ ' (' ~ assessment_type.assessmentWorth ~ '%)' }}</option>
+            {% endif %}
+          {% endfor %}
         {% endfor %}
       </select>
 
