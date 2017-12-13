@@ -138,4 +138,62 @@ class AssessmentResult
     {
         return $this->createdBy;
     }
+    /**
+     * @var integer
+     */
+    private $assessmentId;
+
+    /**
+     * @var integer
+     */
+    private $sessionId;
+
+
+    /**
+     * Set assessmentId
+     *
+     * @param integer $assessmentId
+     *
+     * @return AssessmentResult
+     */
+    public function setAssessmentId($assessmentId)
+    {
+        $this->assessmentId = $assessmentId;
+
+        return $this;
+    }
+
+    /**
+     * Get assessmentId
+     *
+     * @return integer
+     */
+    public function getAssessmentId()
+    {
+        return $this->assessmentId;
+    }
+
+    /**
+     * Set sessionId
+     *
+     * @param integer $sessionId
+     *
+     * @return AssessmentResult
+     */
+    public function setSessionId($sessionId)
+    {
+        $this->sessionId = $sessionId;
+
+        return $this;
+    }
+
+    /**
+     * Get sessionId
+     *
+     * @return integer
+     */
+    public function getSessionId()
+    {
+        return $this->sessionId;
+    }
 }

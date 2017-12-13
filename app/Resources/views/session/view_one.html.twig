@@ -48,6 +48,17 @@
         </tr>
 
         <tr>
+          <td>Session Grade System:</td>
+          <td>
+            {% for grade_system in grade_systems %}
+              {% if(session.gradeSystemId == grade_system.id) %}
+                {{ grade_system.gradeSystemCode ~ ' (' ~ grade_system.gradeSystemName ~ ')' }}
+              {% endif %}
+            {% endfor %}
+          </td>
+        </tr>
+
+        <tr>
           <td>Session Course/Module:</td>
           <td>
             ({{ session.courseModuleType | capitalize }}) -
@@ -81,9 +92,6 @@
                 {% endfor %}
               {% endif %}
             {% endfor %}
-
-            <p><a href="{{ path('assessment_session_create', {'school_session': session.id}) }}" id="editBtn"> + add assessment</a></p>
-            <p><a href="{{ path('assessment_result_view', {'school_session': session.id}) }}" id="editBtn"> + view assessment results</a></p>
           </td>
         </tr>
 
@@ -102,6 +110,13 @@
             {% endfor %}
 
             {{ assessmentWorthTotal ~ '%' }}
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2" class="tacenter">
+            <a href="{{ path('assessment_session_create', {'school_session_id': session.id}) }}" id="editBtn"> + add assessment</a>
+            <a href="{{ path('assessment_result_view', {'school_session_id': session.id}) }}" id="editBtn"> + view assessment results</a>
           </td>
         </tr>
       </table>

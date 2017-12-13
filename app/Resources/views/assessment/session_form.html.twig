@@ -15,7 +15,7 @@
       <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Assessment Session' : 'Edit Assessment Session' }}</h1>
       <h2>{{ result_message is defined ? result_message : '' }}</h2>
 
-      <label for="form[assessment_session]">Assessment Session</label>
+      <label>Assessment Session</label>
       <h2>{{ school_session.sessionName ~ '(' ~ school_session.sessionCode | upper ~ ')'}}</h2>
 
       <label for="form[assessment_id]">Assessment Name</label>

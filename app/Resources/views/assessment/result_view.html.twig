@@ -11,52 +11,66 @@
 
 {% block body %}
   <div class="container" id="view_container">
+    <a href="{{ path('assessment_result_create', {'school_session_id': school_session_id}) }}">Add Student Result</a>
     <table border="0">
       <thead>
         <tr>
-          {% for assessment_type in assessment_types %}
-            <th>{{ assessment_type.assessmentName }} <br /> {{ '('~ assessment_type.assessmentWorth ~'%)'}}</th>
-          {% endfor %}
-          <th>type</th>
           <th>Assessment Result Student</th>
-          <th>Assessment Result</th>
-          <th colspan="3">Actions</th>
+
+          {% set assessmentWorthTotal = 0 %}
+          {% for assessment_session in assessment_sessions %}
+            <th>
+              {% for assessment_type in assessment_types %}
+                {% if assessment_type.id == assessment_session.assessmentId %}
+                  {% set assessmentWorthTotal = assessmentWorthTotal + assessment_type.assessmentWorth %}
+                  {{ assessment_type.assessmentName }}  {{ '('~ assessment_type.assessmentWorth ~'%)'}}
+                {% endif %}
+              {% endfor %}
+            </th>
+          {% endfor %}
+
+          <th>
+            Total ( {{ assessmentWorthTotal }} %)
+          </th>
+
+          <th>
+            Grade
+          </th>
         </tr>
       </thead>
+
       <tbody>
-        {% for assessment_result in assessment_results %}
+        {% for student in students %}
           <tr>
-            {% for assessment_type in assessment_types %}
-              <td>{{ assessment_type.assessmentName }} <br /> {{ '('~ assessment_type.assessmentWorth ~'%)'}}</td>
+            <td>
+              {% for student in students %}
+                {{ student.firstNameEn ~ ' ' ~ student.middleNameEn ~ ' ' ~ student.lastNameEn }}
+              {% endfor %}
+            </td>
+
+            {% set assessmentResultTotal = 0 %}
+            {% for assessment_session in assessment_sessions %}
+              <td>
+                {% for assessment_result in assessment_results %}
+                  {% if student.id == assessment_result.studentId and assessment_result.assessmentId == assessment_session.id %}
+                    {{ assessment_result.resultValue }}
+                    {% set assessmentResultTotal = assessmentResultTotal + assessment_result.resultValue  %}
+                  {% endif %}
+                {% endfor %}
+              </td>
             {% endfor %}
 
             <td>
-              {% for assessment_session in assessment_sessions %}
-                {% if(assessment_session.id == assessment_result.assessmentSessionId) %}
-                  {% for assessment_type in assessment_types %}
-                    {% if(assessment_type.id == assessment_session.assessmentId) %}
-                      {{ assessment_type.assessmentName ~ ' (' ~ assessment_type.assessmentWorth ~ '%)' }}
-                    {% endif %}
-                  {% endfor %}
-                {% endif %}
-              {% endfor %}
+              {{ assessmentResultTotal }}
             </td>
 
             <td>
-              {% for student in students %}
-                {% if(student.id == assessment_result.studentId) %}
-                  {{ student.firstNameEn ~ ' ' ~ student.middleNameEn ~ ' ' ~ student.lastNameEn ~ ' ' ~ '(' ~ student.userName ~ ')' }}
+              {% for grade in grades %}
+                {% if assessmentResultTotal >= grade.startPoint and assessmentResultTotal <= grade.endPoint %}
+                  {{ grade.grade }}
                 {% endif %}
               {% endfor %}
             </td>
-
-            <td>{{ assessment_result.resultValue }}</td>
-
-            {% if(app.session.get('user_type') == 'admin') %}
-              <td><a href="{{ path('assessment_result_edit', {'assessment_result_id': assessment_result.id}) }}" id="editBtn">edit</button></td>
-              <td><a href="{{ path('assessment_result_delete', {'assessment_result_id': assessment_result.id}) }}" id="deleteBtn"
-                    onclick="return confirm('Are You Sure You Want To Delete Assessment?') ">delete</button></td>
-            {% endif %}
           </tr>
         {% endfor %}
       </tbody>

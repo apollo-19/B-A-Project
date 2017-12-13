@@ -37,6 +37,7 @@ class StudentController extends Controller
         $data['form'] = [];
 
         $form = $this ->createFormBuilder()
+                      ->add('admission_number')
                       ->add('first_name_en')
                       ->add('middle_name_en')
                       ->add('last_name_en')
@@ -127,6 +128,7 @@ class StudentController extends Controller
             $passwordLIT->setUserType('student');
 
             $student = new Student();
+            $student->setAdmissionNumber($student_data['admission_number']);
             $student->setFirstNameEn($student_data['first_name_en']);
             $student->setMiddleNameEn($student_data['middle_name_en']);
             $student->setLastNameEn($student_data['last_name_en']);
@@ -216,6 +218,7 @@ class StudentController extends Controller
       $data['mode'] = 'edit';
 
       $form = $this ->createFormBuilder()
+                    ->add('admission_number')
                     ->add('first_name_en')
                     ->add('middle_name_en')
                     ->add('last_name_en')
@@ -293,6 +296,7 @@ class StudentController extends Controller
                           ->getRepository('AppBundle:Student')
                           ->findOneById($student_id);
 
+      $student_data['admission_number'] = $student->getAdmissionNumber();
       $student_data['first_name_en'] = $student->getFirstNameEn();
       $student_data['middle_name_en'] = $student->getMiddleNameEn();
       $student_data['last_name_en'] = $student->getLastNameEn();
@@ -369,6 +373,7 @@ class StudentController extends Controller
           $student_data = $form->getData();
           $data['form'] = $student_data;
 
+          $student->setAdmissionNumber($student_data['admission_number']);
           $student->setFirstNameEn($student_data['first_name_en']);
           $student->setMiddleNameEn($student_data['middle_name_en']);
           $student->setLastNameEn($student_data['last_name_en']);

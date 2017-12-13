@@ -1785,4 +1785,33 @@ class Student
     {
         return $this->sectionId;
     }
+    /**
+     * @var string
+     */
+    private $admissionNumber;
+
+
+    /**
+     * Set admissionNumber
+     *
+     * @param string $admissionNumber
+     *
+     * @return Student
+     */
+    public function setAdmissionNumber($admissionNumber)
+    {
+        $this->admissionNumber = $admissionNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get admissionNumber
+     *
+     * @return string
+     */
+    public function getAdmissionNumber()
+    {
+        return $this->admissionNumber;
+    }
 }
