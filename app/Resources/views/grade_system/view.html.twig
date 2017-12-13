@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block title %}
+
   Grade System View
+
 {% endblock %}
 
 {% block stylesheet %}
@@ -11,7 +13,9 @@
 
 {% block body %}
   <div class="container" id="view_container">
+
     <a href="{{ path('grade_system_create') }}">New Grade System</a>
+
     <table border="0">
       <thead>
         <tr>
@@ -26,7 +30,9 @@
             <td>{{ grade_system.gradeSystemCode | upper }}</td>
             <td>{{ grade_system.gradeSystemName }}</td>
 
+
             <td><a href="{{ path('grade_view', {'grade_system_id': grade_system.id}) }}" id="editBtn">Grades</button></td>
+
             <td><a href="{{ path('grade_system_edit', {'grade_system_id': grade_system.id}) }}" id="editBtn">edit</button></td>
             <td><a href="{{ path('grade_system_delete', {'grade_system_id': grade_system.id}) }}" id="deleteBtn"
                   onclick="return confirm('Are You Sure You Want To Delete Grade {{ grade_system.gradeSystemCode | upper ~ ' (' ~ grade_system.gradeSystemName ~ ')' }}?') ">delete</button></td>

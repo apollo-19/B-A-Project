@@ -66,7 +66,9 @@ class GradeController extends Controller
           $em->persist($grade);
           $em->flush();
 
+
           return $this->redirect($this->generateUrl('grade_system_view'));
+
         }
 
         return $this->render('grade/form.html.twig', $data);
@@ -85,6 +87,7 @@ class GradeController extends Controller
       $data['mode'] = 'edit';
 
       $form = $this ->createFormBuilder()
+
                     ->add('start_point')
                     ->add('end_point')
                     ->add('grade')
@@ -106,15 +109,20 @@ class GradeController extends Controller
 
       $data['grade_systems'] = $grade_system;
 
+
       $session = new Session();
 
       if($session->get('user_name') && ($session->get('user_type') == 'admin')){
+
         $data['form'] = $grade_data;
+
+
 
         $form->handleRequest($request);
 
         if($form->isSubmitted()){
           $data['form'] = [];
+
           $grade_data = $form->getData();
           $data['form'] = $grade_data;
 
@@ -125,11 +133,14 @@ class GradeController extends Controller
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($grade);
+
           $em->flush();
 
           return $this->redirectToRoute('assessment_result_view');
         }
+
         return $this->render('grade/form.html.twig', $data);
+
       } else {
         $data['message'] = 'You Are Not Qualified to Edit This Assessment Result.';
         return $this->render('accessDenied.html.twig', $data);
@@ -144,6 +155,7 @@ class GradeController extends Controller
       $session = new Session();
 
       if($session->get('user_name') && ($session->get('user_type') == 'admin')){
+
         $grade = $this->getDoctrine()
                             ->getRepository('AppBundle:AssessmentResult')
                             ->findOneById($grade_id);
@@ -151,6 +163,7 @@ class GradeController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $em->remove($grade);
+
         $em->flush();
 
         return $this->redirectToRoute('assessment_result_view');
@@ -161,18 +174,22 @@ class GradeController extends Controller
     }
 
     /**
+
      * @Route("/grade/view/{grade_system_id}", name="grade_view")
      */
     public function assessmentTypeViewAction(Request $request, $grade_system_id)
+
     {
       $session = new Session();
 
       if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'admin')){
         $grade = $this->getDoctrine()
                             ->getRepository('AppBundle:Grade')
+
                             ->findBy(
                               array('gradeSystemId' => $grade_system_id)
                             );
+
 
         $data['grades'] = $grade;
 

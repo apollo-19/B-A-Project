@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 * {
   margin:0px;
   padding:0px;
   font-weight: 200;
+  font-family: 'Roboto', sans-serif;
 }
 
 header, nav, article, section, div, footer {
