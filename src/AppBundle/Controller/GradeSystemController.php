@@ -124,13 +124,15 @@ class GradeSystemController extends Controller
       $session = new Session();
 
       if($session->get('user_name') && ($session->get('user_type') == 'admin')){
-        $assessment_result = $this->getDoctrine()
+
+        $grade_system = $this->getDoctrine()
                             ->getRepository('AppBundle:AssessmentResult')
-                            ->findOneById($assessment_result_id);
+                            ->findOneById($grade_system_id);
 
         $em = $this->getDoctrine()->getManager();
 
-        $em->remove($assessment_result);
+        $em->remove($grade_system);
+
         $em->flush();
 
         return $this->redirectToRoute('assessment_result_view');

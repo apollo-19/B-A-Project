@@ -66,7 +66,9 @@ class GradeController extends Controller
           $em->persist($grade);
           $em->flush();
 
-          return $this->redirect($this->generateUrl('grade_view'));
+
+          return $this->redirect($this->generateUrl('grade_system_view'));
+
         }
 
         return $this->render('grade/form.html.twig', $data);
@@ -85,53 +87,60 @@ class GradeController extends Controller
       $data['mode'] = 'edit';
 
       $form = $this ->createFormBuilder()
-                    ->add('assessment_session_id')
-                    ->add('student_id')
-                    ->add('result_value')
+
+                    ->add('start_point')
+                    ->add('end_point')
+                    ->add('grade')
+                    ->add('grade_system')
                     ->getForm();
 
-      $assessment_session = $this->getDoctrine()
-                          ->getRepository('AppBundle:AssessmentSession')
-                          ->findAll();
+      $grade = $this->getDoctrine()
+                          ->getRepository('AppBundle:Grade')
+                          ->findOneById($grade_id);
 
-      $data['assessment_sessions'] = $assessment_session;
+      $grade_data['start_point'] = $grade->getStartPoint();
+      $grade_data['end_point'] = $grade->getEndPoint();
+      $grade_data['grade'] = $grade->getGrade();
+      $grade_data['grade_system'] = $grade->getGradeSystemId();
 
-      $student = $this->getDoctrine()
-                          ->getRepository('AppBundle:Student')
-                          ->findAll();
-
-      $data['students'] = $student;
-      $assessment_result = $this->getDoctrine()
+      $grade_system = $this->getDoctrine()
                           ->getRepository('AppBundle:GradeSystem')
-                          ->findOneById($assessment_result_id);
+                          ->findAll();
 
-      $assessment_result_data['assessment_id'] = $assessment_result->getAssessmentSessionId();
-      $assessment_result_data['student_id'] = $assessment_result->getStudentId();
-      $assessment_result_data['result_value'] = $assessment_result->getResultValue();
+      $data['grade_systems'] = $grade_system;
+
 
       $session = new Session();
 
       if($session->get('user_name') && ($session->get('user_type') == 'admin')){
-        $data['form'] = $assessment_result_data;
+
+        $data['form'] = $grade_data;
+
+
 
         $form->handleRequest($request);
 
         if($form->isSubmitted()){
           $data['form'] = [];
-          $assessment_result_data = $form->getData();
-          $data['form'] = $assessment_result_data;
 
-          $assessment_result->setAssessmentSessionId($assessment_result_data['assessment_session_id']);
-          $assessment_result->setStudentId($assessment_result_data['student_id']);
-          $assessment_result->setResultValue($assessment_result_data['result_value']);
+          $grade_data = $form->getData();
+          $data['form'] = $grade_data;
+
+          $grade->setStartPoint($grade_data['start_point']);
+          $grade->setEndPoint($grade_data['end_point']);
+          $grade->setGrade($grade_data['grade']);
+          $grade->setGradeSystemId($grade_data['grade_system']);
 
           $em = $this->getDoctrine()->getManager();
-          $em->persist($assessment_result);
+          $em->persist($grade);
+
           $em->flush();
 
           return $this->redirectToRoute('assessment_result_view');
         }
-        return $this->render('assessment/result_form.html.twig', $data);
+
+        return $this->render('grade/form.html.twig', $data);
+
       } else {
         $data['message'] = 'You Are Not Qualified to Edit This Assessment Result.';
         return $this->render('accessDenied.html.twig', $data);
@@ -146,13 +155,15 @@ class GradeController extends Controller
       $session = new Session();
 
       if($session->get('user_name') && ($session->get('user_type') == 'admin')){
-        $assessment_result = $this->getDoctrine()
+
+        $grade = $this->getDoctrine()
                             ->getRepository('AppBundle:AssessmentResult')
-                            ->findOneById($assessment_result_id);
+                            ->findOneById($grade_id);
 
         $em = $this->getDoctrine()->getManager();
 
-        $em->remove($assessment_result);
+        $em->remove($grade);
+
         $em->flush();
 
         return $this->redirectToRoute('assessment_result_view');
@@ -163,16 +174,22 @@ class GradeController extends Controller
     }
 
     /**
-     * @Route("/grade/view", name="grade_view")
+
+     * @Route("/grade/view/{grade_system_id}", name="grade_view")
      */
-    public function assessmentTypeViewAction(Request $request)
+    public function assessmentTypeViewAction(Request $request, $grade_system_id)
+
     {
       $session = new Session();
 
       if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'admin')){
         $grade = $this->getDoctrine()
                             ->getRepository('AppBundle:Grade')
-                            ->findAll();
+
+                            ->findBy(
+                              array('gradeSystemId' => $grade_system_id)
+                            );
+
 
         $data['grades'] = $grade;
 
