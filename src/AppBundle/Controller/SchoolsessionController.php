@@ -39,6 +39,7 @@ class SchoolsessionController extends Controller
                       ->add('session_name')
                       ->add('session_section')
                       ->add('session_teacher')
+                      ->add('grade_system_id')
                       ->add('course_module_type')
                       ->add('course_module_id')
                       ->add('session_start_date')
@@ -69,6 +70,12 @@ class SchoolsessionController extends Controller
 
         $data['courses'] = $course;
 
+        $grade_system = $this->getDoctrine()
+                            ->getRepository('AppBundle:GradeSystem')
+                            ->findAll();
+
+        $data['grade_systems'] = $grade_system;
+
         $form->handleRequest($request);
 
         if($form->isSubmitted()){
@@ -81,6 +88,7 @@ class SchoolsessionController extends Controller
           $school_session->setSessionName($school_session_data['session_name']);
           $school_session->setSectionId($school_session_data['session_section']);
           $school_session->setTeacherId($school_session_data['session_teacher']);
+          $school_session->setGradeSystemId($school_session_data['grade_system_id']);
           $school_session->setCourseModuleType($school_session_data['course_module_type']);
           $school_session->setCourseModuleId($school_session_data['course_module_id']);
           $school_session->setSessionStartDate($school_session_data['session_start_date']);
@@ -114,6 +122,7 @@ class SchoolsessionController extends Controller
                     ->add('session_name')
                     ->add('session_section')
                     ->add('session_teacher')
+                    ->add('grade_system_id')
                     ->add('course_module_type')
                     ->add('course_module_id')
                     ->add('session_start_date')
@@ -148,10 +157,17 @@ class SchoolsessionController extends Controller
 
       $data['courses'] = $course;
 
+      $grade_system = $this->getDoctrine()
+                            ->getRepository('AppBundle:GradeSystem')
+                            ->findAll();
+
+      $data['grade_systems'] = $grade_system;
+
       $school_session_data['session_code'] = $school_session->getSessionCode();
       $school_session_data['session_name'] = $school_session->getSessionName();
       $school_session_data['session_section'] = $school_session->getSectionId();
       $school_session_data['session_teacher'] = $school_session->getTeacherId();
+      $school_session_data['grade_system_id'] = $school_session->getGradeSystemId();
       $school_session_data['course_module_type'] = $school_session->getCourseModuleType();
       $school_session_data['course_module_id'] = $school_session->getCourseModuleId();
       $school_session_data['session_start_date'] = $school_session->getSessionStartDate();
@@ -173,6 +189,7 @@ class SchoolsessionController extends Controller
           $school_session->setSessionName($school_session_data['session_name']);
           $school_session->setSectionId($school_session_data['session_section']);
           $school_session->setTeacherId($school_session_data['session_teacher']);
+          $school_session->setGradeSystemId($school_session_data['grade_system_id']);
           $school_session->setCourseModuleType($school_session_data['course_module_type']);
           $school_session->setCourseModuleId($school_session_data['course_module_id']);
           $school_session->setSessionStartDate($school_session_data['session_start_date']);
@@ -315,6 +332,12 @@ class SchoolsessionController extends Controller
                             ->findAll();
 
         $data['assessment_types'] = $assessment_type;
+
+        $grade_system = $this->getDoctrine()
+                            ->getRepository('AppBundle:GradeSystem')
+                            ->findAll();
+
+        $data['grade_systems'] = $grade_system;
 
         return $this->render('session/view_one.html.twig', $data);
       } else {

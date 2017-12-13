@@ -41,6 +41,12 @@ AppBundle\Entity\Schoolsession:
             options:
                 unsigned: false
             column: teacher_id
+        gradeSystemId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: grade_system_id
         courseModuleType:
             type: string
             nullable: false
@@ -56,14 +62,14 @@ AppBundle\Entity\Schoolsession:
             column: course_module_id
         sessionStartDate:
             type: string
-            nullable: true
+            nullable: false
             length: 100
             options:
                 fixed: false
             column: session_start_date
         sessionEndDate:
             type: string
-            nullable: true
+            nullable: false
             length: 100
             options:
                 fixed: false

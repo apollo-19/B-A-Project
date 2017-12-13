@@ -225,6 +225,16 @@ class AssessmentResultController extends Controller
                             ->findAll();
 
         $data['assessment_types'] = $assessment_type;
+
+        $gradeSystemId = $school_session->getGradeSystemId();
+
+        $grade = $this->getDoctrine()
+                            ->getRepository('AppBundle:Grade')
+                            ->findBy(
+                              array('gradeSystemId' => $gradeSystemId)
+                            );
+
+        $data['grades'] = $grade;
         $data['school_session_id'] = $school_session_id;
 
         return $this->render('assessment/result_view.html.twig', $data);

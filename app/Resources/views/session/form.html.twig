@@ -35,6 +35,13 @@
         {% endfor %}
       </select>
 
+      <label for="form[grade_system_id]">Grade System</label>
+      <select name="form[grade_system_id]">
+        {% for grade_system in grade_systems %}
+          <option value="{{ grade_system.id }}" {{ (form.grade_system_id is defined and form.grade_system_id == grade_system.id) ? 'selected' : '' }}>{{ grade_system.gradeSystemCode }} ({{ grade_system.gradeSystemName }})</option>
+        {% endfor %}
+      </select>
+
       <label for="form[course_module_type]">Session Course/Module Type</label>
       <select name="form[course_module_type]" id="courseModuleType">
         <option value="course" {{ (form.course_module_type is defined and form.course_module_type == 'course') ? 'selected' : '' }}>Course</option>

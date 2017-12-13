@@ -28,6 +28,9 @@
         <h3 class="welcomeText2 tacenter">(1/4) Personal Information</h3>
         <h2>{{ result_message is defined ? result_message : '' }}</h2>
 
+        <label for="form[admission_number]">Admission Number</label>
+        <input type="text" name="form[admission_number]" placeholder="" value="{{ form.admission_number is defined ? form.admission_number : '' }}" required />
+
         <label for="form[first_name_en]">First Name</label>
         <input type="text" name="form[first_name_en]" placeholder="" value="{{ form.first_name_en is defined ? form.first_name_en : '' }}" required />
 

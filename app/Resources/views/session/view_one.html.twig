@@ -48,6 +48,17 @@
         </tr>
 
         <tr>
+          <td>Session Grade System:</td>
+          <td>
+            {% for grade_system in grade_systems %}
+              {% if(session.gradeSystemId == grade_system.id) %}
+                {{ grade_system.gradeSystemCode ~ ' (' ~ grade_system.gradeSystemName ~ ')' }}
+              {% endif %}
+            {% endfor %}
+          </td>
+        </tr>
+
+        <tr>
           <td>Session Course/Module:</td>
           <td>
             ({{ session.courseModuleType | capitalize }}) -
