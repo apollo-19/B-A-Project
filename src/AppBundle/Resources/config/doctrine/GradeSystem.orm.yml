@@ -1,0 +1,24 @@
+AppBundle\Entity\GradeSystem:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\GradeSystemRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        gradeSystemCode:
+            type: string
+            length: '100'
+            unique: true
+            column: grade_system_code
+        gradeSystemName:
+            type: string
+            length: 255
+            column: grade_system_name
+        createdBy:
+            type: integer
+            column: created_by
+    lifecycleCallbacks: {  }
