@@ -283,33 +283,4 @@ class Schoolsession
     {
         return $this->createdBy;
     }
-    /**
-     * @var integer
-     */
-    private $gradeSystemId;
-
-
-    /**
-     * Set gradeSystemId
-     *
-     * @param integer $gradeSystemId
-     *
-     * @return Schoolsession
-     */
-    public function setGradeSystemId($gradeSystemId)
-    {
-        $this->gradeSystemId = $gradeSystemId;
-
-        return $this;
-    }
-
-    /**
-     * Get gradeSystemId
-     *
-     * @return integer
-     */
-    public function getGradeSystemId()
-    {
-        return $this->gradeSystemId;
-    }
 }

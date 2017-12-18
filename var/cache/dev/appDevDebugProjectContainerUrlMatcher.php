@@ -139,6 +139,83 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
 
         }
 
+        elseif (0 === strpos($pathinfo, '/assessment')) {
+            if (0 === strpos($pathinfo, '/assessment_result')) {
+                // assessment_result_create
+                if (0 === strpos($pathinfo, '/assessment_result/create') && preg_match('#^/assessment_result/create/(?P<school_session_id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'assessment_result_create')), array (  '_controller' => 'AppBundle\\Controller\\AssessmentResultController::assessmentResultCreateAction',));
+                }
+
+                // assessment_result_edit
+                if (0 === strpos($pathinfo, '/assessment_result/edit') && preg_match('#^/assessment_result/edit/(?P<assessment_result_id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'assessment_result_edit')), array (  '_controller' => 'AppBundle\\Controller\\AssessmentResultController::assessmentResultEditAction',));
+                }
+
+                // assessment_result_delete
+                if (0 === strpos($pathinfo, '/assessment_result/delete') && preg_match('#^/assessment_result/delete/(?P<assessment_result_id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'assessment_result_delete')), array (  '_controller' => 'AppBundle\\Controller\\AssessmentResultController::assessmentTypeDeleteAction',));
+                }
+
+                // assessment_result_view
+                if (0 === strpos($pathinfo, '/assessment_result/view') && preg_match('#^/assessment_result/view/(?P<school_session_id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'assessment_result_view')), array (  '_controller' => 'AppBundle\\Controller\\AssessmentResultController::assessmentTypeViewAction',));
+                }
+
+            }
+
+            elseif (0 === strpos($pathinfo, '/assessment_session')) {
+                // assessment_session_create
+                if (0 === strpos($pathinfo, '/assessment_session/create') && preg_match('#^/assessment_session/create/(?P<school_session_id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'assessment_session_create')), array (  '_controller' => 'AppBundle\\Controller\\AssessmentSessionController::assessmentSessionCreateAction',));
+                }
+
+                // assessment_session_edit
+                if (0 === strpos($pathinfo, '/assessment_session/edit') && preg_match('#^/assessment_session/edit/(?P<assessment_session_id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'assessment_session_edit')), array (  '_controller' => 'AppBundle\\Controller\\AssessmentSessionController::assessmentSessionEditAction',));
+                }
+
+                // assessment_session_delete
+                if (0 === strpos($pathinfo, '/assessment_session/delete') && preg_match('#^/assessment_session/delete/(?P<assessment_session_id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'assessment_session_delete')), array (  '_controller' => 'AppBundle\\Controller\\AssessmentSessionController::assessmentSessionDeleteAction',));
+                }
+
+                // assessment_session_view
+                if ('/assessment_session/view' === $pathinfo) {
+                    return array (  '_controller' => 'AppBundle\\Controller\\AssessmentSessionController::assessmentSessionViewAction',  '_route' => 'assessment_session_view',);
+                }
+
+            }
+
+            // assessment_home
+            if ('/assessment' === $pathinfo) {
+                return array (  '_controller' => 'AppBundle\\Controller\\AssessmentTypeController::indexAction',  '_route' => 'assessment_home',);
+            }
+
+            if (0 === strpos($pathinfo, '/assessment_type')) {
+                // assessment_type_create
+                if ('/assessment_type/create' === $pathinfo) {
+                    return array (  '_controller' => 'AppBundle\\Controller\\AssessmentTypeController::assessmentTypeCreateAction',  '_route' => 'assessment_type_create',);
+                }
+
+                // assessment_type_edit
+                if (0 === strpos($pathinfo, '/assessment_type/edit') && preg_match('#^/assessment_type/edit/(?P<assessment_type_id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'assessment_type_edit')), array (  '_controller' => 'AppBundle\\Controller\\AssessmentTypeController::assessmentTypeEditAction',));
+                }
+
+                // assessment_type_delete
+                if (0 === strpos($pathinfo, '/assessment_type/delete') && preg_match('#^/assessment_type/delete/(?P<assessment_type_id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'assessment_type_delete')), array (  '_controller' => 'AppBundle\\Controller\\AssessmentTypeController::assessmentTypeDeleteAction',));
+                }
+
+                // assessment_type_view
+                if ('/assessment_type/view' === $pathinfo) {
+                    return array (  '_controller' => 'AppBundle\\Controller\\AssessmentTypeController::assessmentTypeViewAction',  '_route' => 'assessment_type_view',);
+                }
+
+            }
+
+        }
+
         elseif (0 === strpos($pathinfo, '/batch')) {
             // batch_home
             if ('/batch' === $pathinfo) {
@@ -225,11 +302,6 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             // curriculum_edit
             if (0 === strpos($pathinfo, '/curriculum/edit') && preg_match('#^/curriculum/edit/(?P<curriculum_id>[^/]++)$#s', $pathinfo, $matches)) {
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'curriculum_edit')), array (  '_controller' => 'AppBundle\\Controller\\CurriculumController::curriculumEditAction',));
-            }
-
-            // curriculum_struct
-            if (0 === strpos($pathinfo, '/curriculum/struct') && preg_match('#^/curriculum/struct/(?P<curriculum_id>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'curriculum_struct')), array (  '_controller' => 'AppBundle\\Controller\\CurriculumController::curriculumStructAction',));
             }
 
             // curriculum_delete
@@ -321,7 +393,128 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                 return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::signOutAction',  '_route' => 'user_signout',);
             }
 
-            if (0 === strpos($pathinfo, '/school')) {
+            if (0 === strpos($pathinfo, '/se')) {
+                // account_settings
+                if (0 === strpos($pathinfo, '/settings/account') && preg_match('#^/settings/account/(?P<user_id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'account_settings')), array (  '_controller' => 'AppBundle\\Controller\\DefaultController::accountSettingsAction',));
+                }
+
+                if (0 === strpos($pathinfo, '/session')) {
+                    // session_home
+                    if ('/session' === $pathinfo) {
+                        return array (  '_controller' => 'AppBundle\\Controller\\SchoolsessionController::indexAction',  '_route' => 'session_home',);
+                    }
+
+                    // session_create
+                    if ('/session/create' === $pathinfo) {
+                        return array (  '_controller' => 'AppBundle\\Controller\\SchoolsessionController::sessionCreateAction',  '_route' => 'session_create',);
+                    }
+
+                    // session_edit
+                    if (0 === strpos($pathinfo, '/session/edit') && preg_match('#^/session/edit/(?P<session_id>[^/]++)$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'session_edit')), array (  '_controller' => 'AppBundle\\Controller\\SchoolsessionController::sessionEditAction',));
+                    }
+
+                    // session_delete
+                    if (0 === strpos($pathinfo, '/session/delete') && preg_match('#^/session/delete/(?P<session_id>[^/]++)$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'session_delete')), array (  '_controller' => 'AppBundle\\Controller\\SchoolsessionController::sessionDeleteAction',));
+                    }
+
+                    if (0 === strpos($pathinfo, '/session/view')) {
+                        // session_view
+                        if ('/session/view' === $pathinfo) {
+                            return array (  '_controller' => 'AppBundle\\Controller\\SchoolsessionController::sessionViewAction',  '_route' => 'session_view',);
+                        }
+
+                        // session_view_one
+                        if (0 === strpos($pathinfo, '/session/view_one') && preg_match('#^/session/view_one/(?P<session_id>[^/]++)$#s', $pathinfo, $matches)) {
+                            return $this->mergeDefaults(array_replace($matches, array('_route' => 'session_view_one')), array (  '_controller' => 'AppBundle\\Controller\\SchoolsessionController::sessionViewOneAction',));
+                        }
+
+                    }
+
+                    elseif (0 === strpos($pathinfo, '/session_result')) {
+                        // session_result_home
+                        if ('/session_result' === $pathinfo) {
+                            return array (  '_controller' => 'AppBundle\\Controller\\SessionResultController::indexAction',  '_route' => 'session_result_home',);
+                        }
+
+                        // session_result_view
+                        if (0 === strpos($pathinfo, '/session_result/view') && preg_match('#^/session_result/view/(?P<school_session_id>[^/]++)$#s', $pathinfo, $matches)) {
+                            return $this->mergeDefaults(array_replace($matches, array('_route' => 'session_result_view')), array (  '_controller' => 'AppBundle\\Controller\\SessionResultController::sessionResultViewAction',));
+                        }
+
+                    }
+
+                }
+
+                elseif (0 === strpos($pathinfo, '/section')) {
+                    // section_home
+                    if ('/section' === $pathinfo) {
+                        return array (  '_controller' => 'AppBundle\\Controller\\SectionController::indexAction',  '_route' => 'section_home',);
+                    }
+
+                    // section_create
+                    if ('/section/create' === $pathinfo) {
+                        return array (  '_controller' => 'AppBundle\\Controller\\SectionController::sectionCreateAction',  '_route' => 'section_create',);
+                    }
+
+                    // section_edit
+                    if (0 === strpos($pathinfo, '/section/edit') && preg_match('#^/section/edit/(?P<section_id>[^/]++)$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'section_edit')), array (  '_controller' => 'AppBundle\\Controller\\SectionController::sectionEditAction',));
+                    }
+
+                    // section_delete
+                    if (0 === strpos($pathinfo, '/section/delete') && preg_match('#^/section/delete/(?P<section_id>[^/]++)$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'section_delete')), array (  '_controller' => 'AppBundle\\Controller\\SectionController::sectionDeleteAction',));
+                    }
+
+                    if (0 === strpos($pathinfo, '/section/view')) {
+                        // section_view
+                        if ('/section/view' === $pathinfo) {
+                            return array (  '_controller' => 'AppBundle\\Controller\\SectionController::sectionViewAction',  '_route' => 'section_view',);
+                        }
+
+                        // section_view_one
+                        if (0 === strpos($pathinfo, '/section/view_one') && preg_match('#^/section/view_one/(?P<section_id>[^/]++)$#s', $pathinfo, $matches)) {
+                            return $this->mergeDefaults(array_replace($matches, array('_route' => 'section_view_one')), array (  '_controller' => 'AppBundle\\Controller\\SectionController::sectionViewOneAction',));
+                        }
+
+                    }
+
+                }
+
+                elseif (0 === strpos($pathinfo, '/semester')) {
+                    // semester_home
+                    if ('/semester' === $pathinfo) {
+                        return array (  '_controller' => 'AppBundle\\Controller\\SemesterController::indexAction',  '_route' => 'semester_home',);
+                    }
+
+                    // semester_create
+                    if ('/semester/create' === $pathinfo) {
+                        return array (  '_controller' => 'AppBundle\\Controller\\SemesterController::semesterCreateAction',  '_route' => 'semester_create',);
+                    }
+
+                    // semester_edit
+                    if (0 === strpos($pathinfo, '/semester/edit') && preg_match('#^/semester/edit/(?P<semester_id>[^/]++)$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'semester_edit')), array (  '_controller' => 'AppBundle\\Controller\\SemesterController::semesterEditAction',));
+                    }
+
+                    // semester_delete
+                    if (0 === strpos($pathinfo, '/semester/delete') && preg_match('#^/semester/delete/(?P<semester_id>[^/]++)$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'semester_delete')), array (  '_controller' => 'AppBundle\\Controller\\SemesterController::semesterDeleteAction',));
+                    }
+
+                    // semester_view
+                    if ('/semester/view' === $pathinfo) {
+                        return array (  '_controller' => 'AppBundle\\Controller\\SemesterController::semesterViewAction',  '_route' => 'semester_view',);
+                    }
+
+                }
+
+            }
+
+            elseif (0 === strpos($pathinfo, '/school')) {
                 // school_home
                 if ('/school' === $pathinfo) {
                     return array (  '_controller' => 'AppBundle\\Controller\\SchoolController::indexAction',  '_route' => 'school_home',);
@@ -353,70 +546,6 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                         return $this->mergeDefaults(array_replace($matches, array('_route' => 'school_view_one')), array (  '_controller' => 'AppBundle\\Controller\\SchoolController::schoolViewOneAction',));
                     }
 
-                }
-
-            }
-
-            elseif (0 === strpos($pathinfo, '/section')) {
-                // section_home
-                if ('/section' === $pathinfo) {
-                    return array (  '_controller' => 'AppBundle\\Controller\\SectionController::indexAction',  '_route' => 'section_home',);
-                }
-
-                // section_create
-                if ('/section/create' === $pathinfo) {
-                    return array (  '_controller' => 'AppBundle\\Controller\\SectionController::sectionCreateAction',  '_route' => 'section_create',);
-                }
-
-                // section_edit
-                if (0 === strpos($pathinfo, '/section/edit') && preg_match('#^/section/edit/(?P<section_id>[^/]++)$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'section_edit')), array (  '_controller' => 'AppBundle\\Controller\\SectionController::sectionEditAction',));
-                }
-
-                // section_delete
-                if (0 === strpos($pathinfo, '/section/delete') && preg_match('#^/section/delete/(?P<section_id>[^/]++)$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'section_delete')), array (  '_controller' => 'AppBundle\\Controller\\SectionController::sectionDeleteAction',));
-                }
-
-                if (0 === strpos($pathinfo, '/section/view')) {
-                    // section_view
-                    if ('/section/view' === $pathinfo) {
-                        return array (  '_controller' => 'AppBundle\\Controller\\SectionController::sectionViewAction',  '_route' => 'section_view',);
-                    }
-
-                    // section_view_one
-                    if (0 === strpos($pathinfo, '/section/view_one') && preg_match('#^/section/view_one/(?P<section_id>[^/]++)$#s', $pathinfo, $matches)) {
-                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'section_view_one')), array (  '_controller' => 'AppBundle\\Controller\\SectionController::sectionViewOneAction',));
-                    }
-
-                }
-
-            }
-
-            elseif (0 === strpos($pathinfo, '/semester')) {
-                // semester_home
-                if ('/semester' === $pathinfo) {
-                    return array (  '_controller' => 'AppBundle\\Controller\\SemesterController::indexAction',  '_route' => 'semester_home',);
-                }
-
-                // semester_create
-                if ('/semester/create' === $pathinfo) {
-                    return array (  '_controller' => 'AppBundle\\Controller\\SemesterController::semesterCreateAction',  '_route' => 'semester_create',);
-                }
-
-                // semester_edit
-                if (0 === strpos($pathinfo, '/semester/edit') && preg_match('#^/semester/edit/(?P<semester_id>[^/]++)$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'semester_edit')), array (  '_controller' => 'AppBundle\\Controller\\SemesterController::semesterEditAction',));
-                }
-
-                // semester_delete
-                if (0 === strpos($pathinfo, '/semester/delete') && preg_match('#^/semester/delete/(?P<semester_id>[^/]++)$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'semester_delete')), array (  '_controller' => 'AppBundle\\Controller\\SemesterController::semesterDeleteAction',));
-                }
-
-                // semester_view
-                if ('/semester/view' === $pathinfo) {
-                    return array (  '_controller' => 'AppBundle\\Controller\\SemesterController::semesterViewAction',  '_route' => 'semester_view',);
                 }
 
             }
@@ -453,6 +582,70 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                         return $this->mergeDefaults(array_replace($matches, array('_route' => 'student_view_one')), array (  '_controller' => 'AppBundle\\Controller\\StudentController::studentViewOneAction',));
                     }
 
+                }
+
+            }
+
+        }
+
+        elseif (0 === strpos($pathinfo, '/grade')) {
+            // grade_home
+            if ('/grade' === $pathinfo) {
+                return array (  '_controller' => 'AppBundle\\Controller\\GradeController::indexAction',  '_route' => 'grade_home',);
+            }
+
+            // grade_create
+            if ('/grade/create' === $trimmedPathinfo) {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'grade_create');
+                }
+
+                return array (  '_controller' => 'AppBundle\\Controller\\GradeController::gradeSystemCreateAction',  '_route' => 'grade_create',);
+            }
+
+            // grade_edit
+            if (0 === strpos($pathinfo, '/grade/edit') && preg_match('#^/grade/edit/(?P<grade_id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'grade_edit')), array (  '_controller' => 'AppBundle\\Controller\\GradeController::gradeSystemEditAction',));
+            }
+
+            // grade_delete
+            if (0 === strpos($pathinfo, '/grade/delete') && preg_match('#^/grade/delete/(?P<grade_id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'grade_delete')), array (  '_controller' => 'AppBundle\\Controller\\GradeController::assessmentTypeDeleteAction',));
+            }
+
+            // grade_view
+            if (0 === strpos($pathinfo, '/grade/view') && preg_match('#^/grade/view/(?P<grade_system_id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'grade_view')), array (  '_controller' => 'AppBundle\\Controller\\GradeController::assessmentTypeViewAction',));
+            }
+
+            if (0 === strpos($pathinfo, '/grade_system')) {
+                // grade_system_home
+                if ('/grade_system' === $pathinfo) {
+                    return array (  '_controller' => 'AppBundle\\Controller\\GradeSystemController::indexAction',  '_route' => 'grade_system_home',);
+                }
+
+                // grade_system_create
+                if ('/grade_system/create' === $trimmedPathinfo) {
+                    if (substr($pathinfo, -1) !== '/') {
+                        return $this->redirect($pathinfo.'/', 'grade_system_create');
+                    }
+
+                    return array (  '_controller' => 'AppBundle\\Controller\\GradeSystemController::gradeSystemCreateAction',  '_route' => 'grade_system_create',);
+                }
+
+                // grade_system_edit
+                if (0 === strpos($pathinfo, '/grade_system/edit') && preg_match('#^/grade_system/edit/(?P<grade_system_id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'grade_system_edit')), array (  '_controller' => 'AppBundle\\Controller\\GradeSystemController::gradeSystemEditAction',));
+                }
+
+                // grade_system_delete
+                if (0 === strpos($pathinfo, '/grade_system/delete') && preg_match('#^/grade_system/delete/(?P<grade_system_id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'grade_system_delete')), array (  '_controller' => 'AppBundle\\Controller\\GradeSystemController::assessmentTypeDeleteAction',));
+                }
+
+                // grade_system_view
+                if ('/grade_system/view' === $pathinfo) {
+                    return array (  '_controller' => 'AppBundle\\Controller\\GradeSystemController::assessmentTypeViewAction',  '_route' => 'grade_system_view',);
                 }
 
             }
@@ -527,6 +720,24 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                     return $this->mergeDefaults(array_replace($matches, array('_route' => 'prerequisite_view_one')), array (  '_controller' => 'AppBundle\\Controller\\PrerequisiteController::prerequisiteViewOneAction',));
                 }
 
+            }
+
+        }
+
+        elseif (0 === strpos($pathinfo, '/result')) {
+            // result_home
+            if ('/result' === $pathinfo) {
+                return array (  '_controller' => 'AppBundle\\Controller\\ResultController::indexAction',  '_route' => 'result_home',);
+            }
+
+            // result_delete
+            if (0 === strpos($pathinfo, '/result/delete') && preg_match('#^/result/delete/(?P<result_id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'result_delete')), array (  '_controller' => 'AppBundle\\Controller\\ResultController::resultDeleteAction',));
+            }
+
+            // result_view
+            if ('/result/view' === $pathinfo) {
+                return array (  '_controller' => 'AppBundle\\Controller\\ResultController::resultViewAction',  '_route' => 'result_view',);
             }
 
         }

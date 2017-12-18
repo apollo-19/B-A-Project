@@ -36,6 +36,7 @@ class CurriculumController extends Controller
                       ->add('curriculum_name')
                       ->add('curriculum_type')
                       ->add('curriculum_school')
+                      ->add('curriculum_grade_system')
                       ->getForm();
 
         $school = $this->getDoctrine()
@@ -43,6 +44,12 @@ class CurriculumController extends Controller
                             ->findAll();
 
         $data['schools'] = $school;
+
+        $grade_system = $this->getDoctrine()
+                            ->getRepository('AppBundle:GradeSystem')
+                            ->findAll();
+
+        $data['grade_systems'] = $grade_system;
 
         $form->handleRequest($request);
 
@@ -57,7 +64,8 @@ class CurriculumController extends Controller
           $curriculum->setCurriculumCode($form_data['curriculum_code']);
           $curriculum->setCurriculumName($form_data['curriculum_name']);
           $curriculum->setCurriculumType($form_data['curriculum_type']);
-          $curriculum->setSchool($myschool);
+          $curriculum->setSchoolId($form_data['curriculum_school']);
+          $curriculum->setGradeSystemId($form_data['curriculum_grade_system']);
 
           $curriculum->setCreatedBy($session->get('user_id'));
 
@@ -89,16 +97,24 @@ class CurriculumController extends Controller
                     ->add('curriculum_name')
                     ->add('curriculum_type')
                     ->add('curriculum_school')
+                    ->add('curriculum_grade_system')
                     ->getForm();
 
       $curriculum = $this->getDoctrine()
                           ->getRepository('AppBundle:Curriculum')
                           ->findOneById($curriculum_id);
 
+      $grade_system = $this->getDoctrine()
+                          ->getRepository('AppBundle:GradeSystem')
+                          ->findAll();
+
+      $data['grade_systems'] = $grade_system;
+
       $curriculum_data['curriculum_code'] = $curriculum->getCurriculumCode();
       $curriculum_data['curriculum_name'] = $curriculum->getCurriculumName();
       $curriculum_data['curriculum_type'] = $curriculum->getCurriculumType();
       $curriculum_data['curriculum_school'] = $curriculum->getSchoolId();
+      $curriculum_data['curriculum_grade_system'] = $curriculum->getGradeSystemId();
       $curriculum_data['created_by'] = $curriculum->getCreatedBy();
 
       $schools = $this->getDoctrine()
@@ -123,6 +139,7 @@ class CurriculumController extends Controller
           $curriculum->setCurriculumName($curriculum_data['curriculum_name']);
           $curriculum->setCurriculumType($curriculum_data['curriculum_type']);
           $curriculum->setSchoolId($curriculum_data['curriculum_school']);
+          $curriculum->setGradeSystemId($curriculum_data['curriculum_grade_system']);
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($curriculum);
@@ -133,39 +150,6 @@ class CurriculumController extends Controller
         return $this->render('curriculum/form.html.twig', $data);
       } else {
         $data['message'] = 'You Are Not Qualified to Edit This Curriculum.';
-        return $this->render('accessDenied.html.twig', $data);
-      }
-    }
-
-    /**
-     * @Route("/curriculum/struct/{curriculum_id}", name="curriculum_struct")
-     */
-    public function curriculumStructAction(Request $request, $curriculum_id)
-    {
-      $session = new Session();
-
-      if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'admin')){
-        $data = [];
-
-        $form = $this ->createFormBuilder()
-                      ->add('course')
-                      ->getForm();
-
-        $module = $this->getDoctrine()
-                            ->getRepository('AppBundle:Module')
-                            ->findAll();
-
-        $data['modules'] = $module;
-
-        $course = $this->getDoctrine()
-                            ->getRepository('AppBundle:Course')
-                            ->findAll();
-
-        $data['courses'] = $course;
-
-        return $this->render('curriculum/struct.html.twig', $data);
-      } else {
-        $data['message'] = 'You Are Not Qualified to Create a Curriculum.';
         return $this->render('accessDenied.html.twig', $data);
       }
     }
@@ -217,6 +201,11 @@ class CurriculumController extends Controller
 
         $data['schools'] = $school;
 
+        $grade_system = $this->getDoctrine()
+                            ->getRepository('AppBundle:GradeSystem')
+                            ->findAll();
+
+        $data['grade_systems'] = $grade_system;
         return $this->render('curriculum/view.html.twig', $data);
       } else {
         $data['message'] = 'You Are Not Qualified to View Curriculums.';
@@ -243,6 +232,12 @@ class CurriculumController extends Controller
                             ->findOneById($curriculum->getSchoolId());
 
         $data['school'] = $school;
+
+        $grade_system = $this->getDoctrine()
+                            ->getRepository('AppBundle:GradeSystem')
+                            ->findOneById($curriculum->getGradeSystemId());
+
+        $data['grade_system'] = $grade_system;
 
         $data['curriculum'] = $curriculum;
 

@@ -24,61 +24,74 @@ class SessionResultController extends Controller
     }
 
     /**
-     * @Route("/session_result/delete/{session_result_id}", name="session_result_delete")
+     * @Route("/session_result/view/{school_session_id}", name="session_result_view")
      */
-    public function resultDeleteAction(Request $request, $session_result_id)
-    {
-      $session = new Session();
-
-      if($session->get('user_name') && ($session->get('user_type') == 'admin')){
-        $session_result = $this->getDoctrine()
-                            ->getRepository('AppBundle:SessionResult')
-                            ->findOneById($session_result_id);
-
-        $em = $this->getDoctrine()->getManager();
-
-        $em->remove($session_result);
-        $em->flush();
-
-        return $this->redirectToRoute('session_result_view');
-      } else {
-        $data['message'] = 'You Are Not Qualified to Delete This Session Result.';
-        return $this->render('accessDenied.html.twig', $data);
-      }
-    }
-
-    /**
-     * @Route("/session_result/view", name="session_result_view")
-     */
-    public function sessionResultViewAction()
+    public function sessionResultViewAction($school_session_id)
     {
       $session = new Session();
 
       if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'admin')){
-        $data = [];
-        $data['results'] = [];
-
-        $result = $this->getDoctrine()
-                            ->getRepository('AppBundle:SessionResult')
-                            ->findAll();
-
-        $data['results'] = $result;
-
-        $session = $this->getDoctrine()
+        $school_session = $this->getDoctrine()
                             ->getRepository('AppBundle:Schoolsession')
+                            ->findOneById($school_session_id);
+
+        $data['school_session'] = $school_session;
+
+        $section = $this->getDoctrine()
+                            ->getRepository('AppBundle:Section')
+                            ->findOneById($school_session->getSectionId());
+
+        $data['section'] = $section;
+
+        $curriculum = $this->getDoctrine()
+                            ->getRepository('AppBundle:Curriculum')
+                            ->findOneById($section->getCurriculumId());
+
+        $data['curriculum'] = $curriculum;
+
+        $assessment_session = $this->getDoctrine()
+                            ->getRepository('AppBundle:AssessmentSession')
+                            ->findBy(
+                              array('assessmentSession' => $school_session_id)
+                            );
+
+        $data['assessment_sessions'] = $assessment_session;
+
+        $assessment_session_id = $session->getId();
+        $assessment_result = $this->getDoctrine()
+                            ->getRepository('AppBundle:AssessmentResult')
                             ->findAll();
 
-        $data['school_sessions'] = $session;
+        $data['assessment_results'] = $assessment_result;
 
-        $student = $this->getDoctrine()
+        $students = $this->getDoctrine()
                             ->getRepository('AppBundle:Student')
+                            ->findBy(
+                              array('sectionId' => $school_session->getSectionId())
+                            );
+
+        $data['students'] = $students;
+
+        $assessment_type = $this->getDoctrine()
+                            ->getRepository('AppBundle:AssessmentType')
                             ->findAll();
 
-        $data['students'] = $student;
+        $data['assessment_types'] = $assessment_type;
 
-        return $this->render('result/view.html.twig', $data);
+        $gradeSystemId = $curriculum->getGradeSystemId();
+
+        $grade = $this->getDoctrine()
+                            ->getRepository('AppBundle:Grade')
+                            ->findBy(
+                              array('gradeSystemId' => $gradeSystemId)
+                            );
+
+        $data['grades'] = $grade;
+        $data['school_session_id'] = $school_session_id;
+
+        return $this->render('session/result_view.html.twig', $data);
       } else {
-        $data['message'] = 'You Are Not Qualified to View Results.';
+        $data['message'] = 'You Are Not Qualified to View Assessment Types.';
         return $this->render('accessDenied.html.twig', $data);
       }
     }

@@ -34,6 +34,11 @@
           <td>Curriculum School:</td>
           <td>{{ school.schoolName }}</td>
         </tr>
+
+        <tr>
+          <td>Curriculum Grade System:</td>
+          <td>{{ grade_system.gradeSystemName is defined ? grade_system.gradeSystemName : '' }}</td>
+        </tr>
       </table>
     </div>
 

@@ -57,7 +57,7 @@ class AssessmentResultController extends Controller
         $students = $this->getDoctrine()
                             ->getRepository('AppBundle:Student')
                             ->findBy(
-                              array('sectionId' => $school_session_id)
+                              array('sectionId' => $school_session->getSectionId())
                             );
 
         $data['students'] = $students;
@@ -197,6 +197,18 @@ class AssessmentResultController extends Controller
 
         $data['school_session'] = $school_session;
 
+        $section = $this->getDoctrine()
+                            ->getRepository('AppBundle:Section')
+                            ->findOneById($school_session->getSectionId());
+
+        $data['section'] = $section;
+
+        $curriculum = $this->getDoctrine()
+                            ->getRepository('AppBundle:Curriculum')
+                            ->findOneById($section->getCurriculumId());
+
+        $data['curriculum'] = $curriculum;
+
         $assessment_session = $this->getDoctrine()
                             ->getRepository('AppBundle:AssessmentSession')
                             ->findBy(
@@ -215,7 +227,7 @@ class AssessmentResultController extends Controller
         $students = $this->getDoctrine()
                             ->getRepository('AppBundle:Student')
                             ->findBy(
-                              array('sectionId' => $school_session_id)
+                              array('sectionId' => $school_session->getSectionId())
                             );
 
         $data['students'] = $students;
@@ -226,7 +238,7 @@ class AssessmentResultController extends Controller
 
         $data['assessment_types'] = $assessment_type;
 
-        $gradeSystemId = $school_session->getGradeSystemId();
+        $gradeSystemId = $curriculum->getGradeSystemId();
 
         $grade = $this->getDoctrine()
                             ->getRepository('AppBundle:Grade')

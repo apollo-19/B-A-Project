@@ -51,12 +51,11 @@ class DepartmentController extends Controller
                            ->getRepository('AppBundle:School')
                            ->findOneById($form_data['department_school']);
 
-
           $em = $this->getDoctrine()->getManager();
           $department = new Department();
           $department->setDepartmentCode($form_data['department_code']);
           $department->setDepartmentName($form_data['department_name']);
-          $department->setSchool($myschool);
+          $department->setSchoolId($form_data['department_school']);
           $department->setCreatedBy($session->get('user_id'));
 
           $em->persist($department);

@@ -87,7 +87,7 @@ class TeacherController extends Controller
             $teacher->setMobileNumber($form_data['mobile_number']);
             $teacher->setEmailAddress($form_data['email_address']);
             $teacher->setUserName($form_data['user_name']);
-            $teacher->setDepartment($mydepartment);
+            $teacher->setDepartment($form_data['teacher_department']);
 
             $em->persist($teacher);
             $em->persist($passwordLIT);

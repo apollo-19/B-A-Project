@@ -15,20 +15,20 @@ class __TwigTemplate_1006cb356c07f1270455ea1e1f243123479d73ba3df7307a9bf992308f1
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_75104955a39804d7bedccacfd55bb2e4537f2f85959e3e445f598d0f7f24c9dd = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_75104955a39804d7bedccacfd55bb2e4537f2f85959e3e445f598d0f7f24c9dd->enter($__internal_75104955a39804d7bedccacfd55bb2e4537f2f85959e3e445f598d0f7f24c9dd_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@Framework/Form/range_widget.html.php"));
+        $__internal_a00ef994b24b82ce78c8a6224768acd21ff9a1c9868d1f77e5fb7fbff3252d4e = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_a00ef994b24b82ce78c8a6224768acd21ff9a1c9868d1f77e5fb7fbff3252d4e->enter($__internal_a00ef994b24b82ce78c8a6224768acd21ff9a1c9868d1f77e5fb7fbff3252d4e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@Framework/Form/range_widget.html.php"));
 
-        $__internal_27f02443e119bc92035249c892561502fec9a0da9e5da063aa4890471b83a067 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_27f02443e119bc92035249c892561502fec9a0da9e5da063aa4890471b83a067->enter($__internal_27f02443e119bc92035249c892561502fec9a0da9e5da063aa4890471b83a067_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@Framework/Form/range_widget.html.php"));
+        $__internal_b217e0ff1cf1285e2e80dc38a36e95676f63c24a95bc251ed45cfb7668760356 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_b217e0ff1cf1285e2e80dc38a36e95676f63c24a95bc251ed45cfb7668760356->enter($__internal_b217e0ff1cf1285e2e80dc38a36e95676f63c24a95bc251ed45cfb7668760356_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@Framework/Form/range_widget.html.php"));
 
         // line 1
         echo "<?php echo \$view['form']->block(\$form, 'form_widget_simple', array('type' => isset(\$type) ? \$type : 'range'));
 ";
         
-        $__internal_75104955a39804d7bedccacfd55bb2e4537f2f85959e3e445f598d0f7f24c9dd->leave($__internal_75104955a39804d7bedccacfd55bb2e4537f2f85959e3e445f598d0f7f24c9dd_prof);
+        $__internal_a00ef994b24b82ce78c8a6224768acd21ff9a1c9868d1f77e5fb7fbff3252d4e->leave($__internal_a00ef994b24b82ce78c8a6224768acd21ff9a1c9868d1f77e5fb7fbff3252d4e_prof);
 
         
-        $__internal_27f02443e119bc92035249c892561502fec9a0da9e5da063aa4890471b83a067->leave($__internal_27f02443e119bc92035249c892561502fec9a0da9e5da063aa4890471b83a067_prof);
+        $__internal_b217e0ff1cf1285e2e80dc38a36e95676f63c24a95bc251ed45cfb7668760356->leave($__internal_b217e0ff1cf1285e2e80dc38a36e95676f63c24a95bc251ed45cfb7668760356_prof);
 
     }
 
@@ -53,6 +53,6 @@ class __TwigTemplate_1006cb356c07f1270455ea1e1f243123479d73ba3df7307a9bf992308f1
     public function getSourceContext()
     {
         return new Twig_Source("<?php echo \$view['form']->block(\$form, 'form_widget_simple', array('type' => isset(\$type) ? \$type : 'range'));
-", "@Framework/Form/range_widget.html.php", "/home/amanuel/Documents/projects/A-Bnew/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Resources/views/Form/range_widget.html.php");
+", "@Framework/Form/range_widget.html.php", "/home/amanuel/Documents/projects/B-A-Project/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Resources/views/Form/range_widget.html.php");
     }
 }

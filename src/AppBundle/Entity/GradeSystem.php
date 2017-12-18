@@ -110,4 +110,3 @@ class GradeSystem
         return $this->createdBy;
     }
 }
-

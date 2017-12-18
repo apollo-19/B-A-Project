@@ -32,6 +32,10 @@ class Curriculum
      */
     private $isApplied;
 
+    /**
+     * @var integer
+     */
+    private $gradeSystemId;
 
 
     /**
@@ -146,7 +150,7 @@ class Curriculum
         return $this->curriculumType;
     }
 
-    
+
     /**
      * @var integer
      */
@@ -313,5 +317,28 @@ class Curriculum
     public function getBatchs()
     {
         return $this->batchs;
+    }
+    /**
+     * Set gradeSystemId
+     *
+     * @param integer $gradeSystemId
+     *
+     * @return Curriculum
+     */
+    public function setGradeSystemId($gradeSystemId)
+    {
+        $this->gradeSystemId = $gradeSystemId;
+
+        return $this;
+    }
+
+    /**
+     * Get gradeSystemId
+     *
+     * @return integer
+     */
+    public function getGradeSystemId()
+    {
+        return $this->gradeSystemId;
     }
 }

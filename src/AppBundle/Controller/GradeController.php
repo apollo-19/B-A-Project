@@ -66,9 +66,7 @@ class GradeController extends Controller
           $em->persist($grade);
           $em->flush();
 
-
           return $this->redirect($this->generateUrl('grade_system_view'));
-
         }
 
         return $this->render('grade/form.html.twig', $data);
@@ -113,10 +111,7 @@ class GradeController extends Controller
       $session = new Session();
 
       if($session->get('user_name') && ($session->get('user_type') == 'admin')){
-
         $data['form'] = $grade_data;
-
-
 
         $form->handleRequest($request);
 
@@ -136,9 +131,8 @@ class GradeController extends Controller
 
           $em->flush();
 
-          return $this->redirectToRoute('assessment_result_view');
+          return $this->redirectToRoute('grade_system_view');
         }
-
         return $this->render('grade/form.html.twig', $data);
 
       } else {

@@ -1,6 +1,6 @@
 <?php
 
-/* curriculum/view.html.twig */
+/* :curriculum:view.html.twig */
 class __TwigTemplate_b864079b73d85d6f72dc122b99ee6511575ba166e9204725dfed9f73d49c4475 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
@@ -8,7 +8,7 @@ class __TwigTemplate_b864079b73d85d6f72dc122b99ee6511575ba166e9204725dfed9f73d49
         parent::__construct($env);
 
         // line 1
-        $this->parent = $this->loadTemplate("base.html.twig", "curriculum/view.html.twig", 1);
+        $this->parent = $this->loadTemplate("base.html.twig", ":curriculum:view.html.twig", 1);
         $this->blocks = array(
             'title' => array($this, 'block_title'),
             'stylesheet' => array($this, 'block_stylesheet'),
@@ -23,49 +23,49 @@ class __TwigTemplate_b864079b73d85d6f72dc122b99ee6511575ba166e9204725dfed9f73d49
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_7c5de40f47b051ae88faac0a05b089521459ee1573082091a2f8ecb564120966 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_7c5de40f47b051ae88faac0a05b089521459ee1573082091a2f8ecb564120966->enter($__internal_7c5de40f47b051ae88faac0a05b089521459ee1573082091a2f8ecb564120966_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "curriculum/view.html.twig"));
+        $__internal_0b8e0d4a50a39a5c725119e5a3e91fd6e5e991a097e06e732b53d44f7f51940b = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_0b8e0d4a50a39a5c725119e5a3e91fd6e5e991a097e06e732b53d44f7f51940b->enter($__internal_0b8e0d4a50a39a5c725119e5a3e91fd6e5e991a097e06e732b53d44f7f51940b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", ":curriculum:view.html.twig"));
 
-        $__internal_ff30559641dd7789705690449c2ca9a947a7b37fea7cebb52050bc6a4398ce0b = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_ff30559641dd7789705690449c2ca9a947a7b37fea7cebb52050bc6a4398ce0b->enter($__internal_ff30559641dd7789705690449c2ca9a947a7b37fea7cebb52050bc6a4398ce0b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "curriculum/view.html.twig"));
+        $__internal_7ab49d9f825f1ca87473383e94121302cf6f87748df7af6e0dbb8249f4e3c1c3 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_7ab49d9f825f1ca87473383e94121302cf6f87748df7af6e0dbb8249f4e3c1c3->enter($__internal_7ab49d9f825f1ca87473383e94121302cf6f87748df7af6e0dbb8249f4e3c1c3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", ":curriculum:view.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_7c5de40f47b051ae88faac0a05b089521459ee1573082091a2f8ecb564120966->leave($__internal_7c5de40f47b051ae88faac0a05b089521459ee1573082091a2f8ecb564120966_prof);
+        $__internal_0b8e0d4a50a39a5c725119e5a3e91fd6e5e991a097e06e732b53d44f7f51940b->leave($__internal_0b8e0d4a50a39a5c725119e5a3e91fd6e5e991a097e06e732b53d44f7f51940b_prof);
 
         
-        $__internal_ff30559641dd7789705690449c2ca9a947a7b37fea7cebb52050bc6a4398ce0b->leave($__internal_ff30559641dd7789705690449c2ca9a947a7b37fea7cebb52050bc6a4398ce0b_prof);
+        $__internal_7ab49d9f825f1ca87473383e94121302cf6f87748df7af6e0dbb8249f4e3c1c3->leave($__internal_7ab49d9f825f1ca87473383e94121302cf6f87748df7af6e0dbb8249f4e3c1c3_prof);
 
     }
 
     // line 2
     public function block_title($context, array $blocks = array())
     {
-        $__internal_70d543cafc372d7bc604b446017fd9482f312ad644e9e444f06d08a9f6c6b26a = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_70d543cafc372d7bc604b446017fd9482f312ad644e9e444f06d08a9f6c6b26a->enter($__internal_70d543cafc372d7bc604b446017fd9482f312ad644e9e444f06d08a9f6c6b26a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
+        $__internal_360b2da7cc13a19d8eab4acc94b3c220ed72828a44b4f51302c0a895d182575d = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_360b2da7cc13a19d8eab4acc94b3c220ed72828a44b4f51302c0a895d182575d->enter($__internal_360b2da7cc13a19d8eab4acc94b3c220ed72828a44b4f51302c0a895d182575d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
 
-        $__internal_71edf30f83bea8caf424fa0de57fedaafa5e0f67e71785eb2a6015125d3f63cc = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_71edf30f83bea8caf424fa0de57fedaafa5e0f67e71785eb2a6015125d3f63cc->enter($__internal_71edf30f83bea8caf424fa0de57fedaafa5e0f67e71785eb2a6015125d3f63cc_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
+        $__internal_9a7f05a4a7b1c74d68f849f9b7d47df961e3488e8687b82c9fedb151e7de9ad6 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_9a7f05a4a7b1c74d68f849f9b7d47df961e3488e8687b82c9fedb151e7de9ad6->enter($__internal_9a7f05a4a7b1c74d68f849f9b7d47df961e3488e8687b82c9fedb151e7de9ad6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
 
         // line 3
         echo "  Curriculum View
 ";
         
-        $__internal_71edf30f83bea8caf424fa0de57fedaafa5e0f67e71785eb2a6015125d3f63cc->leave($__internal_71edf30f83bea8caf424fa0de57fedaafa5e0f67e71785eb2a6015125d3f63cc_prof);
+        $__internal_9a7f05a4a7b1c74d68f849f9b7d47df961e3488e8687b82c9fedb151e7de9ad6->leave($__internal_9a7f05a4a7b1c74d68f849f9b7d47df961e3488e8687b82c9fedb151e7de9ad6_prof);
 
         
-        $__internal_70d543cafc372d7bc604b446017fd9482f312ad644e9e444f06d08a9f6c6b26a->leave($__internal_70d543cafc372d7bc604b446017fd9482f312ad644e9e444f06d08a9f6c6b26a_prof);
+        $__internal_360b2da7cc13a19d8eab4acc94b3c220ed72828a44b4f51302c0a895d182575d->leave($__internal_360b2da7cc13a19d8eab4acc94b3c220ed72828a44b4f51302c0a895d182575d_prof);
 
     }
 
     // line 6
     public function block_stylesheet($context, array $blocks = array())
     {
-        $__internal_03b149f886a09fb6e84f0fde069d2acac1fc36130ff3f0b91263ecfa93135ecf = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_03b149f886a09fb6e84f0fde069d2acac1fc36130ff3f0b91263ecfa93135ecf->enter($__internal_03b149f886a09fb6e84f0fde069d2acac1fc36130ff3f0b91263ecfa93135ecf_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "stylesheet"));
+        $__internal_5789c0b1ad272484943486438bd8bebc6abaa4109be9feaeb6179892a3454d18 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_5789c0b1ad272484943486438bd8bebc6abaa4109be9feaeb6179892a3454d18->enter($__internal_5789c0b1ad272484943486438bd8bebc6abaa4109be9feaeb6179892a3454d18_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "stylesheet"));
 
-        $__internal_48805502769d75fc334bffb45fb89878b365c686fe37e10ae919df993e152d55 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_48805502769d75fc334bffb45fb89878b365c686fe37e10ae919df993e152d55->enter($__internal_48805502769d75fc334bffb45fb89878b365c686fe37e10ae919df993e152d55_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "stylesheet"));
+        $__internal_48a54b95a7312d94b5ca14d353ff5d66b27275f5a6109e70d9d85a085fd4d0ce = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_48a54b95a7312d94b5ca14d353ff5d66b27275f5a6109e70d9d85a085fd4d0ce->enter($__internal_48a54b95a7312d94b5ca14d353ff5d66b27275f5a6109e70d9d85a085fd4d0ce_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "stylesheet"));
 
         // line 7
         echo "<style>
@@ -73,28 +73,28 @@ class __TwigTemplate_b864079b73d85d6f72dc122b99ee6511575ba166e9204725dfed9f73d49
 </style>
 ";
         
-        $__internal_48805502769d75fc334bffb45fb89878b365c686fe37e10ae919df993e152d55->leave($__internal_48805502769d75fc334bffb45fb89878b365c686fe37e10ae919df993e152d55_prof);
+        $__internal_48a54b95a7312d94b5ca14d353ff5d66b27275f5a6109e70d9d85a085fd4d0ce->leave($__internal_48a54b95a7312d94b5ca14d353ff5d66b27275f5a6109e70d9d85a085fd4d0ce_prof);
 
         
-        $__internal_03b149f886a09fb6e84f0fde069d2acac1fc36130ff3f0b91263ecfa93135ecf->leave($__internal_03b149f886a09fb6e84f0fde069d2acac1fc36130ff3f0b91263ecfa93135ecf_prof);
+        $__internal_5789c0b1ad272484943486438bd8bebc6abaa4109be9feaeb6179892a3454d18->leave($__internal_5789c0b1ad272484943486438bd8bebc6abaa4109be9feaeb6179892a3454d18_prof);
 
     }
 
     // line 12
     public function block_body($context, array $blocks = array())
     {
-        $__internal_98495b8abe47add357ed62035a7a37f4676b2c064a6ea37dea69019c4dd34ff2 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_98495b8abe47add357ed62035a7a37f4676b2c064a6ea37dea69019c4dd34ff2->enter($__internal_98495b8abe47add357ed62035a7a37f4676b2c064a6ea37dea69019c4dd34ff2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
+        $__internal_8809b8163a6286de87b10ffd3a8293efb26e408605930488b3a060c2caab8d2a = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_8809b8163a6286de87b10ffd3a8293efb26e408605930488b3a060c2caab8d2a->enter($__internal_8809b8163a6286de87b10ffd3a8293efb26e408605930488b3a060c2caab8d2a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
 
-        $__internal_875dd42018c5ce96af762d1e2a931a8ec2b95bbbbc61bf0efcf5e8c08c430b80 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_875dd42018c5ce96af762d1e2a931a8ec2b95bbbbc61bf0efcf5e8c08c430b80->enter($__internal_875dd42018c5ce96af762d1e2a931a8ec2b95bbbbc61bf0efcf5e8c08c430b80_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
+        $__internal_423271eb99397c51a8b9f5d4af5b7da53b098d2a7010964233d6e533264e4ba8 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_423271eb99397c51a8b9f5d4af5b7da53b098d2a7010964233d6e533264e4ba8->enter($__internal_423271eb99397c51a8b9f5d4af5b7da53b098d2a7010964233d6e533264e4ba8_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
 
         // line 13
         echo "  <div class=\"container\" id=\"view_container\">
     <a href=\"";
         // line 14
         echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("curriculum_create");
-        echo "\">Create a New Curriculum</a>
+        echo "\">New Curriculum</a>
 
     <table border=\"0\">
       <thead>
@@ -103,71 +103,91 @@ class __TwigTemplate_b864079b73d85d6f72dc122b99ee6511575ba166e9204725dfed9f73d49
           <th>Curriculum Name</th>
           <th>Curriculum Type</th>
           <th>Curriculum School</th>
+          <th>Curriculum Grade System</th>
           <th colspan=\"4\">Actions</th>
         </tr>
       </thead>
       <tbody>
         ";
-        // line 27
+        // line 28
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable(($context["curriculums"] ?? $this->getContext($context, "curriculums")));
         foreach ($context['_seq'] as $context["_key"] => $context["curriculum"]) {
-            // line 28
+            // line 29
             echo "          <tr>
             <td>";
-            // line 29
+            // line 30
             echo twig_escape_filter($this->env, $this->getAttribute($context["curriculum"], "curriculumCode", array()), "html", null, true);
             echo "</td>
             <td>";
-            // line 30
+            // line 31
             echo twig_escape_filter($this->env, $this->getAttribute($context["curriculum"], "curriculumName", array()), "html", null, true);
             echo "</td>
             <td>";
-            // line 31
+            // line 32
             echo twig_escape_filter($this->env, twig_capitalize_string_filter($this->env, $this->getAttribute($context["curriculum"], "curriculumType", array())), "html", null, true);
             echo "</td>
             <td>
               ";
-            // line 33
+            // line 34
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable(($context["schools"] ?? $this->getContext($context, "schools")));
             foreach ($context['_seq'] as $context["_key"] => $context["school"]) {
-                // line 34
+                // line 35
                 echo "                ";
                 if (($this->getAttribute($context["curriculum"], "schoolId", array()) == $this->getAttribute($context["school"], "id", array()))) {
-                    // line 35
+                    // line 36
                     echo "                  ";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["school"], "schoolName", array()), "html", null, true);
                     echo "
                 ";
                 }
-                // line 37
+                // line 38
                 echo "              ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['school'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 38
+            // line 39
+            echo "            </td>
+            <td>
+              ";
+            // line 41
+            $context['_parent'] = $context;
+            $context['_seq'] = twig_ensure_traversable(($context["grade_systems"] ?? $this->getContext($context, "grade_systems")));
+            foreach ($context['_seq'] as $context["_key"] => $context["grade_system"]) {
+                // line 42
+                echo "                ";
+                if (($this->getAttribute($context["curriculum"], "gradeSystemId", array()) == $this->getAttribute($context["grade_system"], "id", array()))) {
+                    // line 43
+                    echo "                  ";
+                    echo twig_escape_filter($this->env, $this->getAttribute($context["grade_system"], "gradeSystemName", array()), "html", null, true);
+                    echo "
+                ";
+                }
+                // line 45
+                echo "              ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['grade_system'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 46
             echo "            </td>
 
             <td><a href=\"";
-            // line 40
+            // line 48
             echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("curriculum_view_one", array("curriculum_id" => $this->getAttribute($context["curriculum"], "id", array()))), "html", null, true);
             echo "\">view</a></td>
             <td><a href=\"";
-            // line 41
+            // line 49
             echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("curriculum_edit", array("curriculum_id" => $this->getAttribute($context["curriculum"], "id", array()))), "html", null, true);
             echo "\" id=\"editBtn\">edit</button></td>
             <td><a href=\"";
-            // line 42
-            echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("curriculum_struct", array("curriculum_id" => $this->getAttribute($context["curriculum"], "id", array()))), "html", null, true);
-            echo "\">structure</a></td>
-            <td><a href=\"";
-            // line 43
+            // line 50
             echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("curriculum_delete", array("curriculum_id" => $this->getAttribute($context["curriculum"], "id", array()))), "html", null, true);
             echo "\" id=\"deleteBtn\"
                   onclick=\"return confirm('Are You Sure You Want To Delete ";
-            // line 44
+            // line 51
             echo twig_escape_filter($this->env, $this->getAttribute($context["curriculum"], "curriculumName", array()), "html", null, true);
             echo " (";
             echo twig_escape_filter($this->env, $this->getAttribute($context["curriculum"], "curriculumCode", array()), "html", null, true);
@@ -178,22 +198,22 @@ class __TwigTemplate_b864079b73d85d6f72dc122b99ee6511575ba166e9204725dfed9f73d49
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['curriculum'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 47
+        // line 54
         echo "      </tbody>
     </table>
   </div>
 ";
         
-        $__internal_875dd42018c5ce96af762d1e2a931a8ec2b95bbbbc61bf0efcf5e8c08c430b80->leave($__internal_875dd42018c5ce96af762d1e2a931a8ec2b95bbbbc61bf0efcf5e8c08c430b80_prof);
+        $__internal_423271eb99397c51a8b9f5d4af5b7da53b098d2a7010964233d6e533264e4ba8->leave($__internal_423271eb99397c51a8b9f5d4af5b7da53b098d2a7010964233d6e533264e4ba8_prof);
 
         
-        $__internal_98495b8abe47add357ed62035a7a37f4676b2c064a6ea37dea69019c4dd34ff2->leave($__internal_98495b8abe47add357ed62035a7a37f4676b2c064a6ea37dea69019c4dd34ff2_prof);
+        $__internal_8809b8163a6286de87b10ffd3a8293efb26e408605930488b3a060c2caab8d2a->leave($__internal_8809b8163a6286de87b10ffd3a8293efb26e408605930488b3a060c2caab8d2a_prof);
 
     }
 
     public function getTemplateName()
     {
-        return "curriculum/view.html.twig";
+        return ":curriculum:view.html.twig";
     }
 
     public function isTraitable()
@@ -203,7 +223,7 @@ class __TwigTemplate_b864079b73d85d6f72dc122b99ee6511575ba166e9204725dfed9f73d49
 
     public function getDebugInfo()
     {
-        return array (  182 => 47,  171 => 44,  167 => 43,  163 => 42,  159 => 41,  155 => 40,  151 => 38,  145 => 37,  139 => 35,  136 => 34,  132 => 33,  127 => 31,  123 => 30,  119 => 29,  116 => 28,  112 => 27,  96 => 14,  93 => 13,  84 => 12,  71 => 7,  62 => 6,  51 => 3,  42 => 2,  11 => 1,);
+        return array (  202 => 54,  191 => 51,  187 => 50,  183 => 49,  179 => 48,  175 => 46,  169 => 45,  163 => 43,  160 => 42,  156 => 41,  152 => 39,  146 => 38,  140 => 36,  137 => 35,  133 => 34,  128 => 32,  124 => 31,  120 => 30,  117 => 29,  113 => 28,  96 => 14,  93 => 13,  84 => 12,  71 => 7,  62 => 6,  51 => 3,  42 => 2,  11 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -229,7 +249,7 @@ class __TwigTemplate_b864079b73d85d6f72dc122b99ee6511575ba166e9204725dfed9f73d49
 
 {% block body %}
   <div class=\"container\" id=\"view_container\">
-    <a href=\"{{ path('curriculum_create') }}\">Create a New Curriculum</a>
+    <a href=\"{{ path('curriculum_create') }}\">New Curriculum</a>
 
     <table border=\"0\">
       <thead>
@@ -238,6 +258,7 @@ class __TwigTemplate_b864079b73d85d6f72dc122b99ee6511575ba166e9204725dfed9f73d49
           <th>Curriculum Name</th>
           <th>Curriculum Type</th>
           <th>Curriculum School</th>
+          <th>Curriculum Grade System</th>
           <th colspan=\"4\">Actions</th>
         </tr>
       </thead>
@@ -254,10 +275,16 @@ class __TwigTemplate_b864079b73d85d6f72dc122b99ee6511575ba166e9204725dfed9f73d49
                 {% endif %}
               {% endfor %}
             </td>
+            <td>
+              {% for grade_system in grade_systems %}
+                {% if(curriculum.gradeSystemId == grade_system.id) %}
+                  {{ grade_system.gradeSystemName }}
+                {% endif %}
+              {% endfor %}
+            </td>
 
             <td><a href=\"{{ path('curriculum_view_one', {'curriculum_id': curriculum.id}) }}\">view</a></td>
             <td><a href=\"{{ path('curriculum_edit', {'curriculum_id': curriculum.id}) }}\" id=\"editBtn\">edit</button></td>
-            <td><a href=\"{{ path('curriculum_struct', {'curriculum_id': curriculum.id}) }}\">structure</a></td>
             <td><a href=\"{{ path('curriculum_delete', {'curriculum_id': curriculum.id}) }}\" id=\"deleteBtn\"
                   onclick=\"return confirm('Are You Sure You Want To Delete {{ curriculum.curriculumName }} ({{ curriculum.curriculumCode }})?') \">delete</button></td>
           </tr>
@@ -266,6 +293,6 @@ class __TwigTemplate_b864079b73d85d6f72dc122b99ee6511575ba166e9204725dfed9f73d49
     </table>
   </div>
 {% endblock %}
-", "curriculum/view.html.twig", "/home/apollo-19/github/B-A-Project/app/Resources/views/curriculum/view.html.twig");
+", ":curriculum:view.html.twig", "/home/amanuel/Documents/projects/B-A-Project/app/Resources/views/curriculum/view.html.twig");
     }
 }

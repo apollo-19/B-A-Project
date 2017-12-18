@@ -22,7 +22,9 @@
       <table border="0">
         <tr valign="middle">
           <td><a href=" {{ path('default_home') }} ">home</a></td>
+
           {% if(app.session.get('user_name') and app.session.get('user_type')) %}
+            <td><a href="{{ path('account_settings', {'user_id': app.session.get('user_id_lit')} ) }}">profile</a></td>
             <td><a href=" {{ path('dashboard') }} ">dashboard</a></td>
             <td><a href=" {{ path('user_signout') }} "
                 onclick="return confirm('Are You Sure You Want To Sign Out?') ">sign out</a></td>

@@ -20,6 +20,7 @@
           <th>Curriculum Name</th>
           <th>Curriculum Type</th>
           <th>Curriculum School</th>
+          <th>Curriculum Grade System</th>
           <th colspan="4">Actions</th>
         </tr>
       </thead>
@@ -33,6 +34,13 @@
               {% for school in schools %}
                 {% if(curriculum.schoolId == school.id) %}
                   {{ school.schoolName }}
+                {% endif %}
+              {% endfor %}
+            </td>
+            <td>
+              {% for grade_system in grade_systems %}
+                {% if(curriculum.gradeSystemId == grade_system.id) %}
+                  {{ grade_system.gradeSystemName }}
                 {% endif %}
               {% endfor %}
             </td>

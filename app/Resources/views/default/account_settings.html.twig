@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container taright">
+    <form class="form fright" method="post">
+      <h1 class="welcomeText tacenter">
+        Edit Account<br />
+        (
+          {% if user_type == 'student' %}
+            {{ user_details.firstNameEn ~ ' ' ~ user_details.middleNameEn ~ ' ' ~ user_details.lastNameEn }}
+          {% else %}
+            {{ user_details.firstName ~ ' ' ~ user_details.middleName ~ ' ' ~ user_details.lastName }}
+          {% endif %}
+        )
+      </h1>
+      <h2 id="resultMessage">{{ result_message is defined ? result_message : '' }}</h2>
+
+      <label for="form[user_name]">User Name</label>
+      <input type="text" name="form[user_name]" placeholder="user_21" value="{{ form.user_name is defined ? form.user_name : '' }}" required />
+
+      <label for="form[new_password]">New Password</label>
+      <input type="password" name="form[new_password]" placeholder="A minimum of 6 characters" />
+
+      <label for="form[confirm_new_password]">Confirm New Password</label>
+      <input type="password" name="form[confirm_new_password]" placeholder="A minimum of 6 characters" />
+
+      <label for="form[old_password]">Old Password</label>
+      <input type="password" name="form[old_password]" placeholder="A minimum of 6 characters" required />
+
+      <button>Save Changes</button>
+    </form>
+
+    <hr class="clear" width="0" />
+  </div>
+{% endblock %}

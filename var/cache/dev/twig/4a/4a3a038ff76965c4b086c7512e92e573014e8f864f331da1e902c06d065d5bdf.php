@@ -15,20 +15,20 @@ class __TwigTemplate_b02dfd81140eb2a24a8fb18cd6332cff44805b1d92cb2302754604add0b
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_6c54fa2117864934bcb97d2df956dd7dc9c0ee38c93acd64da0e77b421d784ce = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_6c54fa2117864934bcb97d2df956dd7dc9c0ee38c93acd64da0e77b421d784ce->enter($__internal_6c54fa2117864934bcb97d2df956dd7dc9c0ee38c93acd64da0e77b421d784ce_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@Framework/Form/form_enctype.html.php"));
+        $__internal_8eca6362fa4483fc51bec283a09d08af75d34c3ef44a43ae48cf8aa81f3827a5 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_8eca6362fa4483fc51bec283a09d08af75d34c3ef44a43ae48cf8aa81f3827a5->enter($__internal_8eca6362fa4483fc51bec283a09d08af75d34c3ef44a43ae48cf8aa81f3827a5_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@Framework/Form/form_enctype.html.php"));
 
-        $__internal_47e7545aa7e1c624ef2270080df339f22f9d5420ae79d2b135116d7c4201fdea = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_47e7545aa7e1c624ef2270080df339f22f9d5420ae79d2b135116d7c4201fdea->enter($__internal_47e7545aa7e1c624ef2270080df339f22f9d5420ae79d2b135116d7c4201fdea_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@Framework/Form/form_enctype.html.php"));
+        $__internal_6ad4a8457188f096bc52685f8c0ed32f53f1f675ac62377147a77f08f5270081 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_6ad4a8457188f096bc52685f8c0ed32f53f1f675ac62377147a77f08f5270081->enter($__internal_6ad4a8457188f096bc52685f8c0ed32f53f1f675ac62377147a77f08f5270081_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@Framework/Form/form_enctype.html.php"));
 
         // line 1
         echo "<?php if (\$form->vars['multipart']): ?>enctype=\"multipart/form-data\"<?php endif ?>
 ";
         
-        $__internal_6c54fa2117864934bcb97d2df956dd7dc9c0ee38c93acd64da0e77b421d784ce->leave($__internal_6c54fa2117864934bcb97d2df956dd7dc9c0ee38c93acd64da0e77b421d784ce_prof);
+        $__internal_8eca6362fa4483fc51bec283a09d08af75d34c3ef44a43ae48cf8aa81f3827a5->leave($__internal_8eca6362fa4483fc51bec283a09d08af75d34c3ef44a43ae48cf8aa81f3827a5_prof);
 
         
-        $__internal_47e7545aa7e1c624ef2270080df339f22f9d5420ae79d2b135116d7c4201fdea->leave($__internal_47e7545aa7e1c624ef2270080df339f22f9d5420ae79d2b135116d7c4201fdea_prof);
+        $__internal_6ad4a8457188f096bc52685f8c0ed32f53f1f675ac62377147a77f08f5270081->leave($__internal_6ad4a8457188f096bc52685f8c0ed32f53f1f675ac62377147a77f08f5270081_prof);
 
     }
 
@@ -53,6 +53,6 @@ class __TwigTemplate_b02dfd81140eb2a24a8fb18cd6332cff44805b1d92cb2302754604add0b
     public function getSourceContext()
     {
         return new Twig_Source("<?php if (\$form->vars['multipart']): ?>enctype=\"multipart/form-data\"<?php endif ?>
-", "@Framework/Form/form_enctype.html.php", "/home/amanuel/Documents/projects/A-Bnew/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Resources/views/Form/form_enctype.html.php");
+", "@Framework/Form/form_enctype.html.php", "/home/amanuel/Documents/projects/B-A-Project/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Resources/views/Form/form_enctype.html.php");
     }
 }

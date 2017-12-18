@@ -15,11 +15,11 @@ class __TwigTemplate_2ec95887635f7f9e31f0aed95da2f95113b36e08e59ea8c0977b6c95cb5
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_b9a1ad5dcbc0de4e8876b9a859477bb9b5ccddeaa6a63d851ec68a0e6d939699 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_b9a1ad5dcbc0de4e8876b9a859477bb9b5ccddeaa6a63d851ec68a0e6d939699->enter($__internal_b9a1ad5dcbc0de4e8876b9a859477bb9b5ccddeaa6a63d851ec68a0e6d939699_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@Framework/Form/button_widget.html.php"));
+        $__internal_f8c99a5cfba3cb1ce44c3f3181db26bfc1b7b53932c5ecc3853ebeeefdecbc04 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_f8c99a5cfba3cb1ce44c3f3181db26bfc1b7b53932c5ecc3853ebeeefdecbc04->enter($__internal_f8c99a5cfba3cb1ce44c3f3181db26bfc1b7b53932c5ecc3853ebeeefdecbc04_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@Framework/Form/button_widget.html.php"));
 
-        $__internal_20177479e84d9b248f4b7fedd08281f395eaa241ea4c77ac3fd1e89546b28990 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_20177479e84d9b248f4b7fedd08281f395eaa241ea4c77ac3fd1e89546b28990->enter($__internal_20177479e84d9b248f4b7fedd08281f395eaa241ea4c77ac3fd1e89546b28990_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@Framework/Form/button_widget.html.php"));
+        $__internal_d0cfaff737e55d1262eb5de543eef148eaaddbffd0a332278e4767c04d1a1857 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_d0cfaff737e55d1262eb5de543eef148eaaddbffd0a332278e4767c04d1a1857->enter($__internal_d0cfaff737e55d1262eb5de543eef148eaaddbffd0a332278e4767c04d1a1857_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@Framework/Form/button_widget.html.php"));
 
         // line 1
         echo "<?php if (!\$label) { \$label = isset(\$label_format)
@@ -28,10 +28,10 @@ class __TwigTemplate_2ec95887635f7f9e31f0aed95da2f95113b36e08e59ea8c0977b6c95cb5
 <button type=\"<?php echo isset(\$type) ? \$view->escape(\$type) : 'button' ?>\" <?php echo \$view['form']->block(\$form, 'button_attributes') ?>><?php echo \$view->escape(false !== \$translation_domain ? \$view['translator']->trans(\$label, array(), \$translation_domain) : \$label) ?></button>
 ";
         
-        $__internal_b9a1ad5dcbc0de4e8876b9a859477bb9b5ccddeaa6a63d851ec68a0e6d939699->leave($__internal_b9a1ad5dcbc0de4e8876b9a859477bb9b5ccddeaa6a63d851ec68a0e6d939699_prof);
+        $__internal_f8c99a5cfba3cb1ce44c3f3181db26bfc1b7b53932c5ecc3853ebeeefdecbc04->leave($__internal_f8c99a5cfba3cb1ce44c3f3181db26bfc1b7b53932c5ecc3853ebeeefdecbc04_prof);
 
         
-        $__internal_20177479e84d9b248f4b7fedd08281f395eaa241ea4c77ac3fd1e89546b28990->leave($__internal_20177479e84d9b248f4b7fedd08281f395eaa241ea4c77ac3fd1e89546b28990_prof);
+        $__internal_d0cfaff737e55d1262eb5de543eef148eaaddbffd0a332278e4767c04d1a1857->leave($__internal_d0cfaff737e55d1262eb5de543eef148eaaddbffd0a332278e4767c04d1a1857_prof);
 
     }
 
@@ -59,6 +59,6 @@ class __TwigTemplate_2ec95887635f7f9e31f0aed95da2f95113b36e08e59ea8c0977b6c95cb5
     ? strtr(\$label_format, array('%name%' => \$name, '%id%' => \$id))
     : \$view['form']->humanize(\$name); } ?>
 <button type=\"<?php echo isset(\$type) ? \$view->escape(\$type) : 'button' ?>\" <?php echo \$view['form']->block(\$form, 'button_attributes') ?>><?php echo \$view->escape(false !== \$translation_domain ? \$view['translator']->trans(\$label, array(), \$translation_domain) : \$label) ?></button>
-", "@Framework/Form/button_widget.html.php", "/home/amanuel/Documents/projects/A-Bnew/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Resources/views/Form/button_widget.html.php");
+", "@Framework/Form/button_widget.html.php", "/home/amanuel/Documents/projects/B-A-Project/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Resources/views/Form/button_widget.html.php");
     }
 }

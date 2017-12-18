@@ -22,12 +22,12 @@
         <img src="images/icons/school.png" draggable="false" /><br />Schools
       </a></div>
 
-      <div><a href="{{ path('department_view') }}">
-        <img src="images/icons/department.png" draggable="false" /><br />Departments
-      </a></div>
-
       <div><a href="{{ path('curriculum_view') }}">
         <img src="images/icons/curriculum.svg" draggable="false" /><br />Curriculums
+      </a></div>
+
+      <div><a href="{{ path('department_view') }}">
+        <img src="images/icons/department.png" draggable="false" /><br />Departments
       </a></div>
 
       <div><a href="{{ path('teacher_view') }}">
@@ -78,9 +78,8 @@
         <img src="images/icons/assessment.png" draggable="false" /><br />Assessment Sessions
       </a></div>
 
-      <div><a href="{{ path('session_result_view') }}">
-        <img src="images/icons/result.png" draggable="false" /><br />Session Results
-
+      <div><a href="{{ path('account_settings', {'user_id': app.session.get('user_id_lit')} ) }}">
+        <img src="images/icons/account_settings.png" draggable="false" /><br />Account Settings
       </a></div>
 
       <div><a href=" {{ path('user_signout') }} " onclick="return confirm('Are You Sure You Want To Sign Out?') ">

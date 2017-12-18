@@ -139,4 +139,3 @@ class Grade
         return $this->gradeSystemId;
     }
 }
-

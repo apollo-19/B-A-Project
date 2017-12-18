@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  School Assessments View
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container" id="view_container">
+    <table border="0">
+      <thead>
+        <tr>
+          <th>Assessment Result Student</th>
+
+          <th>
+            {% set assessmentWorthTotal = 0 %}
+            {% for assessment_session in assessment_sessions %}
+              {% for assessment_type in assessment_types %}
+                {% if assessment_type.id == assessment_session.assessmentId %}
+                  {% set assessmentWorthTotal = assessmentWorthTotal + assessment_type.assessmentWorth %}
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+            Total ( {{ assessmentWorthTotal }} %)
+          </th>
+
+          <th>
+            Grade
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for student in students %}
+          <tr>
+            <td>
+              {% for student in students %}
+                {{ student.firstNameEn ~ ' ' ~ student.middleNameEn ~ ' ' ~ student.lastNameEn }}
+              {% endfor %}
+            </td>
+
+            <td>
+              {% set assessmentResultTotal = 0 %}
+              {% for assessment_session in assessment_sessions %}
+                {% for assessment_result in assessment_results %}
+                  {% if student.id == assessment_result.studentId and assessment_result.assessmentId == assessment_session.id %}
+                    {% set assessmentResultTotal = assessmentResultTotal + assessment_result.resultValue  %}
+                  {% endif %}
+                {% endfor %}
+              {% endfor %}
+              {{ assessmentResultTotal }}
+            </td>
+
+            <td>
+              {% for grade in grades %}
+                {% if assessmentResultTotal >= grade.startPoint and assessmentResultTotal <= grade.endPoint %}
+                  {{ grade.grade }}
+                {% endif %}
+              {% endfor %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

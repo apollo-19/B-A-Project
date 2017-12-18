@@ -69,7 +69,7 @@ class ModuleController extends Controller
           $module->setModuleName($module_data['module_name']);
           $module->setModuleCreditHour($module_data['module_credit_hour']);
           $module->setModuleDuration($module_data['module_duration']);
-          $module->setSchool($myschool);
+          $module->setSchoolId($module_data['batch_school']);
           $module->setCurriculum($mycurriculum);
 
           $module->setCreatedBy($session->get('user_id'));

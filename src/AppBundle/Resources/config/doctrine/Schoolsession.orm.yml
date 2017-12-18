@@ -41,12 +41,6 @@ AppBundle\Entity\Schoolsession:
             options:
                 unsigned: false
             column: teacher_id
-        gradeSystemId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: grade_system_id
         courseModuleType:
             type: string
             nullable: false
