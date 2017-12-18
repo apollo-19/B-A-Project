@@ -109,4 +109,50 @@ class GradeSystem
     {
         return $this->createdBy;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $curriculums;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->curriculums = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add curriculum
+     *
+     * @param \AppBundle\Entity\Curriculum $curriculum
+     *
+     * @return GradeSystem
+     */
+    public function addCurriculum(\AppBundle\Entity\Curriculum $curriculum)
+    {
+        $this->curriculums[] = $curriculum;
+
+        return $this;
+    }
+
+    /**
+     * Remove curriculum
+     *
+     * @param \AppBundle\Entity\Curriculum $curriculum
+     */
+    public function removeCurriculum(\AppBundle\Entity\Curriculum $curriculum)
+    {
+        $this->curriculums->removeElement($curriculum);
+    }
+
+    /**
+     * Get curriculums
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCurriculums()
+    {
+        return $this->curriculums;
+    }
 }

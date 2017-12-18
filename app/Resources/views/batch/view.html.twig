@@ -29,7 +29,7 @@
             <td>{{ batch.batchName }}</td>
             <td>{{ batch.batchYear }}</td>
             {% for school in schools %}
-              {% if(batch.schoolId == school.id) %}
+              {% if(batch.schoolId == school) %}
                 <td> {{ school.schoolName }} </td>
               {% endif %}
             {% endfor %}

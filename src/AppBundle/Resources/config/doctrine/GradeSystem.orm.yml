@@ -22,3 +22,7 @@ AppBundle\Entity\GradeSystem:
             type: integer
             column: created_by
     lifecycleCallbacks: {  }
+    oneToMany:
+      curriculums:
+        targetEntity: Curriculum
+        mappedBy: gradeSystem

@@ -27,7 +27,7 @@
             <td>{{ department.departmentCode }}</td>
             <td>{{ department.departmentName }}</td>
             {% for school in schools %}
-              {% if(department.schoolId == school.id) %}
+              {% if(department.schoolId == school) %}
                 <td> {{ school.schoolName }} </td>
               {% endif %}
             {% endfor %}

@@ -30,14 +30,14 @@
       <label for="form[curriculum_school]">Curriculum School</label>
       <select name="form[curriculum_school]">
         {% for school in schools %}
-          <option value="{{ school.id }}" {{ (school.id == (form.curriculum_school is defined ? form.curriculum_school : '')) ? 'selected' : '' }} >{{ school.schoolName }}</option>
+          <option value="{{ school.id }}" {{ (school== (form.curriculum_school is defined ? form.curriculum_school : '')) ? 'selected' : '' }} >{{ school.schoolName }}</option>
         {% endfor %}
       </select>
 
       <label for="form[curriculum_grade_system]">Curriculum Grade System</label>
       <select name="form[curriculum_grade_system]">
         {% for grade_system in grade_systems %}
-          <option value="{{ grade_system.id }}" {{ (grade_system.id == (form.curriculum_grade_system is defined ? form.curriculum_grade_system : '')) ? 'selected' : '' }} >{{ grade_system.gradeSystemName }}</option>
+          <option value="{{ grade_system.id}}" {{ (grade_system == (form.curriculum_grade_system is defined ? form.curriculum_grade_system : '')) ? 'selected' : '' }} >{{ grade_system.gradeSystemName }}</option>
         {% endfor %}
       </select>
 

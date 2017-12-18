@@ -32,10 +32,6 @@ class Module
      */
     private $moduleDuration;
 
-    /**
-     * @var int
-     */
-    private $schoolId;
 
     /**
      * @var int
@@ -149,37 +145,7 @@ class Module
         return $this->moduleDuration;
     }
 
-    /**
-     * Set schoolId
-     *
-     * @param integer $schoolId
-     *
-     * @return Module
-     */
-    public function setSchoolId($schoolId)
-    {
-        $this->schoolId = $schoolId;
 
-        return $this;
-    }
-
-    /**
-     * Get schoolId
-     *
-     * @return int
-     */
-    public function getSchoolId()
-    {
-        return $this->schoolId;
-    }
-
-    /**
-     * Set createdBy
-     *
-     * @param integer $createdBy
-     *
-     * @return Module
-     */
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
@@ -197,30 +163,24 @@ class Module
         return $this->createdBy;
     }
 
-    /**
-     * @var integer
-     */
-    private $curriculumId;
 
-    /**
-     * @var \AppBundle\Entity\School
-     */
-    private $school;
 
+
+  
     /**
      * @var \AppBundle\Entity\Curriculum
      */
-    private $curriculum;
+    private $curriculumId;
 
 
     /**
      * Set curriculumId
      *
-     * @param integer $curriculumId
+     * @param \AppBundle\Entity\Curriculum $curriculumId
      *
      * @return Module
      */
-    public function setCurriculumId($curriculumId)
+    public function setCurriculumId(\AppBundle\Entity\Curriculum $curriculumId)
     {
         $this->curriculumId = $curriculumId;
 
@@ -230,58 +190,39 @@ class Module
     /**
      * Get curriculumId
      *
-     * @return integer
+     * @return \AppBundle\Entity\Curriculum
      */
     public function getCurriculumId()
     {
         return $this->curriculumId;
     }
+    /**
+     * @var \AppBundle\Entity\School
+     */
+    private $schoolId;
+
 
     /**
-     * Set school
+     * Set schoolId
      *
-     * @param \AppBundle\Entity\School $school
+     * @param \AppBundle\Entity\School $schoolId
      *
      * @return Module
      */
-    public function setSchool(\AppBundle\Entity\School $school = null)
+    public function setSchoolId(\AppBundle\Entity\School $schoolId)
     {
-        $this->school = $school;
+        $this->schoolId = $schoolId;
 
         return $this;
     }
 
     /**
-     * Get school
+     * Get schoolId
      *
      * @return \AppBundle\Entity\School
      */
-    public function getSchool()
+    public function getSchoolId()
     {
-        return $this->school;
-    }
-
-    /**
-     * Set curriculum
-     *
-     * @param \AppBundle\Entity\Curriculum $curriculum
-     *
-     * @return Module
-     */
-    public function setCurriculum(\AppBundle\Entity\Curriculum $curriculum = null)
-    {
-        $this->curriculum = $curriculum;
-
-        return $this;
-    }
-
-    /**
-     * Get curriculum
-     *
-     * @return \AppBundle\Entity\Curriculum
-     */
-    public function getCurriculum()
-    {
-        return $this->curriculum;
+        return $this->schoolId;
     }
 }

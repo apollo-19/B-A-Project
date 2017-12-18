@@ -31,7 +31,7 @@
       <select name="form[module_curriculum]">
         {% for curriculum in curriculums %}
           {% if (curriculum.curriculumType == 'modularized') %}
-            <option value="{{ curriculum.id }}" {{ (form.module_curriculum is defined and form.module_curriculum == curriculum.id) ? 'selected' : '' }}>{{ curriculum.curriculumName }}</option>
+            <option value="{{ curriculum.id }}" {{ (form.module_curriculum is defined and form.module_curriculum == curriculum) ? 'selected' : '' }}>{{ curriculum.curriculumName }}</option>
           {% endif %}
         {% endfor %}
       </select>
@@ -39,7 +39,7 @@
       <label for="form[module_school]">Module School</label>
       <select name="form[module_school]">
         {% for school in schools %}
-          <option value="{{ school.id }}" {{ (form.module_school is defined and form.module_school == school.id) ? 'selected' : '' }} >{{ school.schoolName }}</option>
+          <option value="{{ school.id }}" {{ (form.module_school is defined and form.module_school == school) ? 'selected' : '' }} >{{ school.schoolName }}</option>
         {% endfor %}
       </select>
 

@@ -30,7 +30,7 @@
             <td>{{ module.moduleName }}</td>
             <td>
               {% for school in schools %}
-                {% if(module.schoolId == school.id) %}
+                {% if(module.schoolId == school) %}
                   {{ school.schoolName }}
                 {% endif %}
               {% endfor %}
@@ -38,7 +38,7 @@
             <td>{{ module.moduleCreditHour }}</td>
             <td>
               {% for curriculum in curriculums %}
-                {% if(module.curriculumId == curriculum.id) %}
+                {% if(module.curriculumId == curriculum) %}
                   {{ curriculum.curriculumName }}
                 {% endif %}
               {% endfor %}

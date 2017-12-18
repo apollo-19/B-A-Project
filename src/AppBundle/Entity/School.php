@@ -110,8 +110,7 @@ class School
         return $this->createdBy;
     }
 
-
-
+  
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -164,6 +163,16 @@ class School
      */
     private $batchs;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $modules;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $curriculums;
+
 
     /**
      * Add batch
@@ -199,12 +208,39 @@ class School
         return $this->batchs;
     }
 
-    
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * Add module
+     *
+     * @param \AppBundle\Entity\Module $module
+     *
+     * @return School
      */
-    private $curriculums;
+    public function addModule(\AppBundle\Entity\Module $module)
+    {
+        $this->modules[] = $module;
 
+        return $this;
+    }
+
+    /**
+     * Remove module
+     *
+     * @param \AppBundle\Entity\Module $module
+     */
+    public function removeModule(\AppBundle\Entity\Module $module)
+    {
+        $this->modules->removeElement($module);
+    }
+
+    /**
+     * Get modules
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getModules()
+    {
+        return $this->modules;
+    }
 
     /**
      * Add curriculum
@@ -238,44 +274,5 @@ class School
     public function getCurriculums()
     {
         return $this->curriculums;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $modules;
-
-
-    /**
-     * Add module
-     *
-     * @param \AppBundle\Entity\Module $module
-     *
-     * @return School
-     */
-    public function addModule(\AppBundle\Entity\Module $module)
-    {
-        $this->modules[] = $module;
-
-        return $this;
-    }
-
-    /**
-     * Remove module
-     *
-     * @param \AppBundle\Entity\Module $module
-     */
-    public function removeModule(\AppBundle\Entity\Module $module)
-    {
-        $this->modules->removeElement($module);
-    }
-
-    /**
-     * Get modules
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getModules()
-    {
-        return $this->modules;
     }
 }

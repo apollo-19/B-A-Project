@@ -105,26 +105,20 @@ class Department
         return $this->createdBy;
     }
 
-
-    /**
-     * @var integer
-     */
-    private $schoolId;
-
     /**
      * @var \AppBundle\Entity\School
      */
-    private $school;
+    private $schoolId;
 
 
     /**
      * Set schoolId
      *
-     * @param integer $schoolId
+     * @param \AppBundle\Entity\School $schoolId
      *
      * @return Department
      */
-    public function setSchoolId($schoolId)
+    public function setSchoolId(\AppBundle\Entity\School $schoolId = null)
     {
         $this->schoolId = $schoolId;
 
@@ -134,87 +128,10 @@ class Department
     /**
      * Get schoolId
      *
-     * @return integer
+     * @return \AppBundle\Entity\School
      */
     public function getSchoolId()
     {
         return $this->schoolId;
-    }
-
-    /**
-     * Set school
-     *
-     * @param \AppBundle\Entity\School $school
-     *
-     * @return Department
-     */
-    public function setSchool(\AppBundle\Entity\School $school = null)
-    {
-        $this->school = $school;
-
-        return $this;
-    }
-
-    /**
-     * Get school
-     *
-     * @return \AppBundle\Entity\School
-     */
-    public function getSchool()
-    {
-        return $this->school;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $departments;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->departments = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-  
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $teachers;
-
-
-    /**
-     * Add teacher
-     *
-     * @param \AppBundle\Entity\Teacher $teacher
-     *
-     * @return Department
-     */
-    public function addTeacher(\AppBundle\Entity\Teacher $teacher)
-    {
-        $this->teachers[] = $teacher;
-
-        return $this;
-    }
-
-    /**
-     * Remove teacher
-     *
-     * @param \AppBundle\Entity\Teacher $teacher
-     */
-    public function removeTeacher(\AppBundle\Entity\Teacher $teacher)
-    {
-        $this->teachers->removeElement($teacher);
-    }
-
-    /**
-     * Get teachers
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTeachers()
-    {
-        return $this->teachers;
     }
 }

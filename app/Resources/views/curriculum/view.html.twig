@@ -32,14 +32,14 @@
             <td>{{ curriculum.curriculumType | capitalize }}</td>
             <td>
               {% for school in schools %}
-                {% if(curriculum.schoolId == school.id) %}
+                {% if(curriculum.schoolId == school) %}
                   {{ school.schoolName }}
                 {% endif %}
               {% endfor %}
             </td>
             <td>
               {% for grade_system in grade_systems %}
-                {% if(curriculum.gradeSystemId == grade_system.id) %}
+                {% if(curriculum.gradeSystemId == grade_system) %}
                   {{ grade_system.gradeSystemName }}
                 {% endif %}
               {% endfor %}

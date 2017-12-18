@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use AppBundle\Entity\Curriculum;
+use AppBundle\Entity\GradeSystem;
 
 class CurriculumController extends Controller
 {
@@ -59,13 +60,17 @@ class CurriculumController extends Controller
           $myschool = $this->getDoctrine()
                            ->getRepository('AppBundle:School')
                            ->findOneById($form_data['curriculum_school']);
+
+          $mygradeSystem = $this->getDoctrine()
+                          ->getRepository('AppBundle:GradeSystem')
+                          ->findOneById($form_data['curriculum_grade_system']);
           $em = $this->getDoctrine()->getManager();
           $curriculum = new Curriculum();
           $curriculum->setCurriculumCode($form_data['curriculum_code']);
           $curriculum->setCurriculumName($form_data['curriculum_name']);
           $curriculum->setCurriculumType($form_data['curriculum_type']);
-          $curriculum->setSchoolId($form_data['curriculum_school']);
-          $curriculum->setGradeSystemId($form_data['curriculum_grade_system']);
+          $curriculum->setSchoolId($myschool);
+          $curriculum->setGradeSystemId($mygradeSystem);
 
           $curriculum->setCreatedBy($session->get('user_id'));
 
@@ -134,12 +139,18 @@ class CurriculumController extends Controller
           $data['form'] = [];
           $curriculum_data = $form->getData();
           $data['form'] = $curriculum_data;
+          $myschool = $this->getDoctrine()
+                           ->getRepository('AppBundle:School')
+                           ->findOneById($curriculum_data['curriculum_grade_system']);
+          $mygradeSystem = $this->getDoctrine()
+                          ->getRepository('AppBundle:GradeSystem')
+                          ->findOneById($curriculum_data['curriculum_grade_system']);
 
           $curriculum->setCurriculumCode($curriculum_data['curriculum_code']);
           $curriculum->setCurriculumName($curriculum_data['curriculum_name']);
           $curriculum->setCurriculumType($curriculum_data['curriculum_type']);
-          $curriculum->setSchoolId($curriculum_data['curriculum_school']);
-          $curriculum->setGradeSystemId($curriculum_data['curriculum_grade_system']);
+          $curriculum->setSchoolId($myschool);
+          $curriculum->setGradeSystemId($mygradeSystem);
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($curriculum);

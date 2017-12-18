@@ -55,7 +55,7 @@ class DepartmentController extends Controller
           $department = new Department();
           $department->setDepartmentCode($form_data['department_code']);
           $department->setDepartmentName($form_data['department_name']);
-          $department->setSchoolId($form_data['department_school']);
+          $department->setSchoolId($myschool);
           $department->setCreatedBy($session->get('user_id'));
 
           $em->persist($department);
@@ -113,10 +113,12 @@ class DepartmentController extends Controller
           $data['form'] = [];
           $department_data = $form->getData();
           $data['form'] = $department_data;
-
+          $myschool = $this->getDoctrine()
+                           ->getRepository('AppBundle:School')
+                           ->findOneById($department_data['department_school']);
           $department->setDepartmentCode($department_data['department_code']);
           $department->setDepartmentName($department_data['department_name']);
-          $department->setSchoolId($department_data['department_school']);
+          $department->setSchoolId($myschool);
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($department);

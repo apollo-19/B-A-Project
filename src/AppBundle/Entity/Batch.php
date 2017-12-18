@@ -134,37 +134,10 @@ class Batch
     {
         return $this->createdBy;
     }
+
+
     /**
      * @var \AppBundle\Entity\School
-     */
-    private $school;
-
-
-    /**
-     * Set school
-     *
-     * @param \AppBundle\Entity\School $school
-     *
-     * @return Batch
-     */
-    public function setSchool(\AppBundle\Entity\School $school = null)
-    {
-        $this->school = $school;
-
-        return $this;
-    }
-
-    /**
-     * Get school
-     *
-     * @return \AppBundle\Entity\School
-     */
-    public function getSchool()
-    {
-        return $this->school;
-    }
-    /**
-     * @var integer
      */
     private $schoolId;
 
@@ -172,11 +145,11 @@ class Batch
     /**
      * Set schoolId
      *
-     * @param integer $schoolId
+     * @param \AppBundle\Entity\School $schoolId
      *
      * @return Batch
      */
-    public function setSchoolId($schoolId)
+    public function setSchoolId(\AppBundle\Entity\School $schoolId)
     {
         $this->schoolId = $schoolId;
 
@@ -186,11 +159,10 @@ class Batch
     /**
      * Get schoolId
      *
-     * @return integer
+     * @return \AppBundle\Entity\School
      */
     public function getSchoolId()
     {
         return $this->schoolId;
-
-}
+    }
 }

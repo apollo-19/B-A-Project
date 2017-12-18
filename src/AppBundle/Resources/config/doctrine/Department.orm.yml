@@ -29,12 +29,7 @@ AppBundle\Entity\Department:
             options:
                 fixed: false
             column: department_name
-        schoolId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: school_id
+
         createdBy:
             type: integer
             nullable: false
@@ -42,3 +37,12 @@ AppBundle\Entity\Department:
                 unsigned: false
             column: created_by
     lifecycleCallbacks: {  }
+    manyToOne:
+      schoolId:
+        targetEntity: School
+        inversedBy: department
+        joinColumn:
+          name: school_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE

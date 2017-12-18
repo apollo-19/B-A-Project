@@ -42,18 +42,8 @@ AppBundle\Entity\Module:
             options:
                 fixed: false
             column: module_duration
-        schoolId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: school_id
-        curriculumId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: curriculum_id
+
+
         createdBy:
             type: integer
             nullable: false
@@ -61,3 +51,20 @@ AppBundle\Entity\Module:
                 unsigned: false
             column: created_by
     lifecycleCallbacks: {  }
+    manyToOne:
+      schoolId:
+        targetEntity: School
+        inversedBy: module
+        joinColumn:
+          name: school_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE
+      curriculumId:
+        targetEntity: Curriculum
+        inversedBy: module
+        joinColumn:
+          name: curriculum_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE

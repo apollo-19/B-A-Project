@@ -40,18 +40,8 @@ AppBundle\Entity\Curriculum:
             type: boolean
             nullable: true
             column: is_applied
-        schoolId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: school_id
-        gradeSystemId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: grade_system_id
+
+
         createdBy:
             type: integer
             nullable: false
@@ -59,3 +49,24 @@ AppBundle\Entity\Curriculum:
                 unsigned: false
             column: created_by
     lifecycleCallbacks: {  }
+    oneToMany:
+      modules:
+        targetEntity: Module
+        mappedBy: curriculum
+    manyToOne:
+      schoolId:
+        targetEntity: School
+        inversedBy: curriculum
+        joinColumn:
+          name: school_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE
+      gradeSystemId:
+        targetEntity: GradeSystem
+        inversedBy: curriculum
+        joinColumn:
+          name: gradeSystemId
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE

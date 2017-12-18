@@ -27,7 +27,7 @@
       <label for="form[batch_school]">Batch School</label>
       <select name="form[batch_school]">
         {% for school in schools %}
-          <option value="{{ school.id }}" {{ (form.batch_school is defined and school.id == form.batch_school) ? 'selected' : '' }}>{{ school.schoolName }}</option>
+          <option value="{{ school.id }}" {{ (school == (form.batch_school is defined ? form.batch_school : '')) ? 'selected' : '' }} >{{ school.schoolName }}</option>
         {% endfor %}
       </select>
 

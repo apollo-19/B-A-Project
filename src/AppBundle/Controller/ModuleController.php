@@ -61,16 +61,17 @@ class ModuleController extends Controller
                            ->getRepository('AppBundle:School')
                            ->findOneById($module_data['module_school']);
           $mycurriculum = $this->getDoctrine()
-                               ->getRepository('AppBundle:Curriculum')
-                               ->findOneById($module_data['module_curriculum']);
+                          ->getRepository('AppBundle:Curriculum')
+                          ->findOneById($module_data['module_curriculum']);
+
           $em = $this->getDoctrine()->getManager();
           $module = new Module();
           $module->setModuleCode($module_data['module_code']);
           $module->setModuleName($module_data['module_name']);
           $module->setModuleCreditHour($module_data['module_credit_hour']);
           $module->setModuleDuration($module_data['module_duration']);
-          $module->setSchoolId($module_data['batch_school']);
-          $module->setCurriculum($mycurriculum);
+          $module->setSchoolId($myschool);
+          $module->setCurriculumId($mycurriculum);
 
           $module->setCreatedBy($session->get('user_id'));
 
@@ -141,13 +142,19 @@ class ModuleController extends Controller
           $data['form'] = [];
           $module_data = $form->getData();
           $data['form'] = $module_data;
+          $myschool = $this->getDoctrine()
+                           ->getRepository('AppBundle:School')
+                           ->findOneById($module_data['module_school']);
+          $mycurriculum = $this->getDoctrine()
+                              ->getRepository('AppBundle:Curriculum')
+                              ->findOneById($module_data['module_curriculum']);
 
           $module->setModuleCode($module_data['module_code']);
           $module->setModuleName($module_data['module_name']);
           $module->setModuleCreditHour($module_data['module_credit_hour']);
           $module->setModuleDuration($module_data['module_duration']);
-          $module->setSchoolId($module_data['module_school']);
-          $module->setCurriculumId($module_data['module_curriculum']);
+          $module->setSchoolId($myschool);
+          $module->setCurriculumId($mycurriculum);
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($module);

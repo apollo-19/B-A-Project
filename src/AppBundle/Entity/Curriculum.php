@@ -32,10 +32,6 @@ class Curriculum
      */
     private $isApplied;
 
-    /**
-     * @var integer
-     */
-    private $gradeSystemId;
 
 
     /**
@@ -151,40 +147,7 @@ class Curriculum
     }
 
 
-    /**
-     * @var integer
-     */
-    private $schoolId;
 
-    /**
-     * @var \AppBundle\Entity\School
-     */
-    private $school;
-
-
-    /**
-     * Set schoolId
-     *
-     * @param integer $schoolId
-     *
-     * @return Curriculum
-     */
-    public function setSchoolId($schoolId)
-    {
-        $this->schoolId = $schoolId;
-
-        return $this;
-    }
-
-    /**
-     * Get schoolId
-     *
-     * @return integer
-     */
-    public function getSchoolId()
-    {
-        return $this->schoolId;
-    }
 
     /**
      * Set createdBy
@@ -210,41 +173,7 @@ class Curriculum
         return $this->createdBy;
     }
 
-    /**
-     * Set school
-     *
-     * @param \AppBundle\Entity\School $school
-     *
-     * @return Curriculum
-     */
-    public function setSchool(\AppBundle\Entity\School $school = null)
-    {
-        $this->school = $school;
 
-        return $this;
-    }
-
-    /**
-     * Get school
-     *
-     * @return \AppBundle\Entity\School
-     */
-    public function getSchool()
-    {
-        return $this->school;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $modules;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->modules = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add module
@@ -279,53 +208,65 @@ class Curriculum
     {
         return $this->modules;
     }
+
+
+  
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \AppBundle\Entity\School
      */
-    private $batchs;
+    private $schoolId;
 
 
     /**
-     * Add batch
+     * Set schoolId
      *
-     * @param \AppBundle\Entity\Batch $batch
+     * @param \AppBundle\Entity\School $schoolId
      *
      * @return Curriculum
      */
-    public function addBatch(\AppBundle\Entity\Batch $batch)
+    public function setSchoolId(\AppBundle\Entity\School $schoolId)
     {
-        $this->batchs[] = $batch;
+        $this->schoolId = $schoolId;
 
         return $this;
     }
 
     /**
-     * Remove batch
+     * Get schoolId
      *
-     * @param \AppBundle\Entity\Batch $batch
+     * @return \AppBundle\Entity\School
      */
-    public function removeBatch(\AppBundle\Entity\Batch $batch)
+    public function getSchoolId()
     {
-        $this->batchs->removeElement($batch);
+        return $this->schoolId;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $modules;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->modules = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Get batchs
-     *
-     * @return \Doctrine\Common\Collections\Collection
+     * @var \AppBundle\Entity\GradeSystem
      */
-    public function getBatchs()
-    {
-        return $this->batchs;
-    }
+    private $gradeSystemId;
+
+
     /**
      * Set gradeSystemId
      *
-     * @param integer $gradeSystemId
+     * @param \AppBundle\Entity\GradeSystem $gradeSystemId
      *
      * @return Curriculum
      */
-    public function setGradeSystemId($gradeSystemId)
+    public function setGradeSystemId(\AppBundle\Entity\GradeSystem $gradeSystemId)
     {
         $this->gradeSystemId = $gradeSystemId;
 
@@ -335,7 +276,7 @@ class Curriculum
     /**
      * Get gradeSystemId
      *
-     * @return integer
+     * @return \AppBundle\Entity\GradeSystem
      */
     public function getGradeSystemId()
     {
