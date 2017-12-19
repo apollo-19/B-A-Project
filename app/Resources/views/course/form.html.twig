@@ -43,7 +43,7 @@
       <select name="form[semester_id]" class="courseSemesters">
         <option value="">No Semester</option>
         {% for semester in semesters %}
-          <option value="{{ semester.id }}" {{ (form.semester_id is defined and semester.id == form.semester_id) ? 'selected' : '' }}>{{ semester.semester ~ '/' ~ semester.year }}</option>
+          <option value="{{ semester.id }}" {{ (form.semester_id is defined and semester == form.semester_id) ? 'selected' : '' }}>{{ semester.semester ~ '/' ~ semester.year }}</option>
         {% endfor %}
       </select>
 
