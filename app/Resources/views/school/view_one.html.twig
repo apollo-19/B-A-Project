@@ -24,6 +24,24 @@
           <td>School Name:</td>
           <td>{{ school.schoolName }}</td>
         </tr>
+
+        <tr>
+          <td>Curriculums:</td>
+          <td>
+            {% for curriculum in curriculums %}
+              <p>{{ curriculum.curriculumCode | upper ~ ' (' ~ curriculum.curriculumName ~ ')' }}</p>
+            {% endfor %}
+          </td>
+        </tr>
+
+        <tr>
+          <td>Departments:</td>
+          <td>
+            {% for department in departments %}
+              <p>{{ department.departmentCode | upper ~ ' (' ~ department.departmentName ~ ')' }}</p>
+            {% endfor %}
+          </td>
+        </tr>
       </table>
     </div>
 
