@@ -29,7 +29,7 @@
             <td>
               {% for curriculum in curriculums %}
                 {% if(semester.curriculumId == curriculum) %}
-                  {{ curriculum.curriculumName }}
+                  <a href="{{ path('curriculum_view_one', {'curriculum_id': curriculum.id}) }}" id="moreDetBtn">{{ curriculum.curriculumName }}</a>
                 {% endif %}
               {% endfor %}
             </td>
