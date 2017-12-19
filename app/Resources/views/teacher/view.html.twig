@@ -32,7 +32,7 @@
             <td>{{ teacher.emailAddress }}</td>
             <td>
               {% for department in departments %}
-                {% if(teacher.departmentId == department.id) %}
+                {% if(teacher.departmentId == department) %}
                   {{ department.departmentName }}
                 {% endif %}
               {% endfor %}

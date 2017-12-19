@@ -166,7 +166,7 @@ class Module
 
 
 
-  
+
     /**
      * @var \AppBundle\Entity\Curriculum
      */
@@ -196,33 +196,51 @@ class Module
     {
         return $this->curriculumId;
     }
+    
     /**
-     * @var \AppBundle\Entity\School
+     * @var \Doctrine\Common\Collections\Collection
      */
-    private $schoolId;
-
+    private $courses;
 
     /**
-     * Set schoolId
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->courses = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add course
      *
-     * @param \AppBundle\Entity\School $schoolId
+     * @param \AppBundle\Entity\Course $course
      *
      * @return Module
      */
-    public function setSchoolId(\AppBundle\Entity\School $schoolId)
+    public function addCourse(\AppBundle\Entity\Course $course)
     {
-        $this->schoolId = $schoolId;
+        $this->courses[] = $course;
 
         return $this;
     }
 
     /**
-     * Get schoolId
+     * Remove course
      *
-     * @return \AppBundle\Entity\School
+     * @param \AppBundle\Entity\Course $course
      */
-    public function getSchoolId()
+    public function removeCourse(\AppBundle\Entity\Course $course)
     {
-        return $this->schoolId;
+        $this->courses->removeElement($course);
+    }
+
+    /**
+     * Get courses
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCourses()
+    {
+        return $this->courses;
     }
 }

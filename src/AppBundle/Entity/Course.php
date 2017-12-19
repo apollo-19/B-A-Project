@@ -138,26 +138,35 @@ class Course
     {
         return $this->createdBy;
     }
-    
+
+
+
+
+  
     /**
-     * @var integer
+     * @var \AppBundle\Entity\Curriculum
      */
     private $curriculumId;
 
     /**
-     * @var integer
+     * @var \AppBundle\Entity\Module
      */
     private $moduleId;
+
+    /**
+     * @var \AppBundle\Entity\Semester
+     */
+    private $semesterId;
 
 
     /**
      * Set curriculumId
      *
-     * @param integer $curriculumId
+     * @param \AppBundle\Entity\Curriculum $curriculumId
      *
      * @return Course
      */
-    public function setCurriculumId($curriculumId)
+    public function setCurriculumId(\AppBundle\Entity\Curriculum $curriculumId)
     {
         $this->curriculumId = $curriculumId;
 
@@ -167,7 +176,7 @@ class Course
     /**
      * Get curriculumId
      *
-     * @return integer
+     * @return \AppBundle\Entity\Curriculum
      */
     public function getCurriculumId()
     {
@@ -177,11 +186,11 @@ class Course
     /**
      * Set moduleId
      *
-     * @param integer $moduleId
+     * @param \AppBundle\Entity\Module $moduleId
      *
      * @return Course
      */
-    public function setModuleId($moduleId)
+    public function setModuleId(\AppBundle\Entity\Module $moduleId = null)
     {
         $this->moduleId = $moduleId;
 
@@ -191,26 +200,21 @@ class Course
     /**
      * Get moduleId
      *
-     * @return integer
+     * @return \AppBundle\Entity\Module
      */
     public function getModuleId()
     {
         return $this->moduleId;
     }
-    /**
-     * @var integer
-     */
-    private $semesterId;
-
 
     /**
      * Set semesterId
      *
-     * @param integer $semesterId
+     * @param \AppBundle\Entity\Semester $semesterId
      *
      * @return Course
      */
-    public function setSemesterId($semesterId)
+    public function setSemesterId(\AppBundle\Entity\Semester $semesterId = null)
     {
         $this->semesterId = $semesterId;
 
@@ -220,7 +224,7 @@ class Course
     /**
      * Get semesterId
      *
-     * @return integer
+     * @return \AppBundle\Entity\Semester
      */
     public function getSemesterId()
     {

@@ -68,15 +68,16 @@ class TeacherController extends Controller
           if($form_data['password'] != $form_data['confirm_password'])
             $data['resultMessage'] = 'Passwords Must Match!';
           else {
-            $mydepartment = $this->getDoctrine()
-                             ->getRepository('AppBundle:Department')
-                             ->findOneById($form_data['teacher_department']);
+
             $em = $this->getDoctrine()->getManager();
 
             $passwordLIT = new LogInTable();
             $passwordLIT->setUserName($form_data['user_name']);
-            $passwordLIT->setPassword($form_data['password']);
+            $passwordLIT->setPassword(md5($form_data['password']));
             $passwordLIT->setUserType('teacher');
+            $mydepartment = $this->getDoctrine()
+                                 ->getRepository('AppBundle:Department')
+                                 ->findOneById($form_data['teacher_department']);
 
             $teacher = new Teacher();
             $teacher->setRegisteredBy($session->get('user_id'));
@@ -87,7 +88,7 @@ class TeacherController extends Controller
             $teacher->setMobileNumber($form_data['mobile_number']);
             $teacher->setEmailAddress($form_data['email_address']);
             $teacher->setUserName($form_data['user_name']);
-            $teacher->setDepartment($form_data['teacher_department']);
+            $teacher->setDepartmentId($mydepartment);
 
             $em->persist($teacher);
             $em->persist($passwordLIT);
@@ -155,6 +156,9 @@ class TeacherController extends Controller
             $data['form'] = [];
             $teacher_data = $form->getData();
             $data['form'] = $teacher_data;
+            $mydepartment = $this->getDoctrine()
+                                 ->getRepository('AppBundle:Department')
+                                 ->findOneById($teacher_data['teacher_department']);
 
             $teacher->setFirstName($teacher_data['first_name']);
             $teacher->setMiddleName($teacher_data['middle_name']);
@@ -162,7 +166,7 @@ class TeacherController extends Controller
             $teacher->setSex($teacher_data['sex']);
             $teacher->setMobileNumber($teacher_data['mobile_number']);
             $teacher->setEmailAddress($teacher_data['email_address']);
-            $teacher->setDepartmentId($teacher_data['teacher_department']);
+            $teacher->setDepartmentId($mydepartment);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($teacher);

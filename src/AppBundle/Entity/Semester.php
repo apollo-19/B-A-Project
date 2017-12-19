@@ -80,35 +80,7 @@ class Semester
     {
         return $this->year;
     }
-    /**
-     * @var integer
-     */
-    private $curriculumId;
 
-
-    /**
-     * Set curriculumId
-     *
-     * @param integer $curriculumId
-     *
-     * @return Semester
-     */
-    public function setCurriculumId($curriculumId)
-    {
-        $this->curriculumId = $curriculumId;
-
-        return $this;
-    }
-
-    /**
-     * Get curriculumId
-     *
-     * @return integer
-     */
-    public function getCurriculumId()
-    {
-        return $this->curriculumId;
-    }
     /**
      * @var integer
      */
@@ -137,5 +109,80 @@ class Semester
     public function getCreatedBy()
     {
         return $this->createdBy;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $courses;
+
+    /**
+     * @var \AppBundle\Entity\Curriculum
+     */
+    private $curriculumId;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->courses = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add course
+     *
+     * @param \AppBundle\Entity\Course $course
+     *
+     * @return Semester
+     */
+    public function addCourse(\AppBundle\Entity\Course $course)
+    {
+        $this->courses[] = $course;
+
+        return $this;
+    }
+
+    /**
+     * Remove course
+     *
+     * @param \AppBundle\Entity\Course $course
+     */
+    public function removeCourse(\AppBundle\Entity\Course $course)
+    {
+        $this->courses->removeElement($course);
+    }
+
+    /**
+     * Get courses
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCourses()
+    {
+        return $this->courses;
+    }
+
+    /**
+     * Set curriculumId
+     *
+     * @param \AppBundle\Entity\Curriculum $curriculumId
+     *
+     * @return Semester
+     */
+    public function setCurriculumId(\AppBundle\Entity\Curriculum $curriculumId)
+    {
+        $this->curriculumId = $curriculumId;
+
+        return $this;
+    }
+
+    /**
+     * Get curriculumId
+     *
+     * @return \AppBundle\Entity\Curriculum
+     */
+    public function getCurriculumId()
+    {
+        return $this->curriculumId;
     }
 }

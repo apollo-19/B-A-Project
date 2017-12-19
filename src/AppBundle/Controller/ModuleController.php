@@ -28,15 +28,12 @@ class ModuleController extends Controller
       if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'admin')){
         $data = [];
         $data['mode'] = 'new';
-        $data['form'] = [];
-        $data['school'] = [];
 
         $form = $this ->createFormBuilder()
                       ->add('module_code')
                       ->add('module_name')
                       ->add('module_credit_hour')
                       ->add('module_duration')
-                      ->add('module_school')
                       ->add('module_curriculum')
                       ->getForm();
 
@@ -46,20 +43,12 @@ class ModuleController extends Controller
 
         $data['curriculums'] = $curriculum;
 
-        $school = $this->getDoctrine()
-                            ->getRepository('AppBundle:School')
-                            ->findAll();
-
-        $data['schools'] = $school;
-
         $form->handleRequest($request);
 
         if($form->isSubmitted()){
           $module_data = $form->getData();
           $data['form'] = $module_data;
-          $myschool = $this->getDoctrine()
-                           ->getRepository('AppBundle:School')
-                           ->findOneById($module_data['module_school']);
+
           $mycurriculum = $this->getDoctrine()
                           ->getRepository('AppBundle:Curriculum')
                           ->findOneById($module_data['module_curriculum']);
@@ -70,7 +59,6 @@ class ModuleController extends Controller
           $module->setModuleName($module_data['module_name']);
           $module->setModuleCreditHour($module_data['module_credit_hour']);
           $module->setModuleDuration($module_data['module_duration']);
-          $module->setSchoolId($myschool);
           $module->setCurriculumId($mycurriculum);
 
           $module->setCreatedBy($session->get('user_id'));
@@ -95,15 +83,12 @@ class ModuleController extends Controller
     {
       $data = [];
       $data['mode'] = 'edit';
-      $data['form'] = [];
-      $data['school'] = [];
 
       $form = $this ->createFormBuilder()
                     ->add('module_code')
                     ->add('module_name')
                     ->add('module_credit_hour')
                     ->add('module_duration')
-                    ->add('module_school')
                     ->add('module_curriculum')
                     ->getForm();
 
@@ -121,15 +106,8 @@ class ModuleController extends Controller
       $module_data['module_name'] = $module->getModuleName();
       $module_data['module_credit_hour'] = $module->getModuleCreditHour();
       $module_data['module_duration'] = $module->getModuleDuration();
-      $module_data['module_school'] = $module->getSchoolId();
       $module_data['module_curriculum'] = $module->getCurriculumId();
       $module_data['created_by'] = $module->getCreatedBy();
-
-      $schools = $this->getDoctrine()
-                          ->getRepository('AppBundle:School')
-                          ->findAll();
-
-      $data['schools'] = $schools;
 
       $session = new Session();
 
@@ -142,9 +120,7 @@ class ModuleController extends Controller
           $data['form'] = [];
           $module_data = $form->getData();
           $data['form'] = $module_data;
-          $myschool = $this->getDoctrine()
-                           ->getRepository('AppBundle:School')
-                           ->findOneById($module_data['module_school']);
+
           $mycurriculum = $this->getDoctrine()
                               ->getRepository('AppBundle:Curriculum')
                               ->findOneById($module_data['module_curriculum']);
@@ -153,7 +129,6 @@ class ModuleController extends Controller
           $module->setModuleName($module_data['module_name']);
           $module->setModuleCreditHour($module_data['module_credit_hour']);
           $module->setModuleDuration($module_data['module_duration']);
-          $module->setSchoolId($myschool);
           $module->setCurriculumId($mycurriculum);
 
           $em = $this->getDoctrine()->getManager();
@@ -210,12 +185,6 @@ class ModuleController extends Controller
 
         $data['modules'] = $module;
 
-        $school = $this->getDoctrine()
-                            ->getRepository('AppBundle:School')
-                            ->findAll();
-
-        $data['schools'] = $school;
-
         $curriculum = $this->getDoctrine()
                             ->getRepository('AppBundle:Curriculum')
                             ->findAll();
@@ -242,14 +211,6 @@ class ModuleController extends Controller
         $module = $this->getDoctrine()
                             ->getRepository('AppBundle:Module')
                             ->findOneById($module_id);
-
-        $module_school = $module->getSchoolId();
-
-        $school = $this->getDoctrine()
-                            ->getRepository('AppBundle:School')
-                            ->findOneById($module_school);
-
-        $data['school'] = $school;
 
         $data['module'] = $module;
 

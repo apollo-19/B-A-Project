@@ -252,28 +252,21 @@ class Teacher
     {
         return $this->userName;
     }
-
-
     
-    /**
-     * @var integer
-     */
-    private $departmentId;
-
     /**
      * @var \AppBundle\Entity\Department
      */
-    private $department;
+    private $departmentId;
 
 
     /**
      * Set departmentId
      *
-     * @param integer $departmentId
+     * @param \AppBundle\Entity\Department $departmentId
      *
      * @return Teacher
      */
-    public function setDepartmentId($departmentId)
+    public function setDepartmentId(\AppBundle\Entity\Department $departmentId)
     {
         $this->departmentId = $departmentId;
 
@@ -283,34 +276,10 @@ class Teacher
     /**
      * Get departmentId
      *
-     * @return integer
+     * @return \AppBundle\Entity\Department
      */
     public function getDepartmentId()
     {
         return $this->departmentId;
-    }
-
-    /**
-     * Set department
-     *
-     * @param \AppBundle\Entity\Department $department
-     *
-     * @return Teacher
-     */
-    public function setDepartment(\AppBundle\Entity\Department $department = null)
-    {
-        $this->department = $department;
-
-        return $this;
-    }
-
-    /**
-     * Get department
-     *
-     * @return \AppBundle\Entity\Department
-     */
-    public function getDepartment()
-    {
-        return $this->department;
     }
 }

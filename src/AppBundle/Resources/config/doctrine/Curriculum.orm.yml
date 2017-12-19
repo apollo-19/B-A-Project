@@ -53,6 +53,18 @@ AppBundle\Entity\Curriculum:
       modules:
         targetEntity: Module
         mappedBy: curriculum
+      semesters:
+        targetEntity: Semester
+        mappedBy: curriculum
+      courses:
+        targetEntity: Course
+        mappedBy: curriculum
+      batchs:
+        targetEntity: Batch
+        mappedBy: curriculum
+      sections:
+        targetEntity: Section
+        mappedBy: curriculum     
     manyToOne:
       schoolId:
         targetEntity: School

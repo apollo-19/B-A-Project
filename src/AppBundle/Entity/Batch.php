@@ -165,4 +165,79 @@ class Batch
     {
         return $this->schoolId;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sections;
+
+    /**
+     * @var \AppBundle\Entity\Curriculum
+     */
+    private $curriculumId;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->sections = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add section
+     *
+     * @param \AppBundle\Entity\Section $section
+     *
+     * @return Batch
+     */
+    public function addSection(\AppBundle\Entity\Section $section)
+    {
+        $this->sections[] = $section;
+
+        return $this;
+    }
+
+    /**
+     * Remove section
+     *
+     * @param \AppBundle\Entity\Section $section
+     */
+    public function removeSection(\AppBundle\Entity\Section $section)
+    {
+        $this->sections->removeElement($section);
+    }
+
+    /**
+     * Get sections
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSections()
+    {
+        return $this->sections;
+    }
+
+    /**
+     * Set curriculumId
+     *
+     * @param \AppBundle\Entity\Curriculum $curriculumId
+     *
+     * @return Batch
+     */
+    public function setCurriculumId(\AppBundle\Entity\Curriculum $curriculumId)
+    {
+        $this->curriculumId = $curriculumId;
+
+        return $this;
+    }
+
+    /**
+     * Get curriculumId
+     *
+     * @return \AppBundle\Entity\Curriculum
+     */
+    public function getCurriculumId()
+    {
+        return $this->curriculumId;
+    }
 }

@@ -134,4 +134,50 @@ class Department
     {
         return $this->schoolId;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $teachers;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->teachers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add teacher
+     *
+     * @param \AppBundle\Entity\Teacher $teacher
+     *
+     * @return Department
+     */
+    public function addTeacher(\AppBundle\Entity\Teacher $teacher)
+    {
+        $this->teachers[] = $teacher;
+
+        return $this;
+    }
+
+    /**
+     * Remove teacher
+     *
+     * @param \AppBundle\Entity\Teacher $teacher
+     */
+    public function removeTeacher(\AppBundle\Entity\Teacher $teacher)
+    {
+        $this->teachers->removeElement($teacher);
+    }
+
+    /**
+     * Get teachers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTeachers()
+    {
+        return $this->teachers;
+    }
 }

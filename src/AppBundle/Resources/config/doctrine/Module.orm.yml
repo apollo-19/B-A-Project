@@ -51,15 +51,11 @@ AppBundle\Entity\Module:
                 unsigned: false
             column: created_by
     lifecycleCallbacks: {  }
+    oneToMany:
+      courses:
+        targetEntity: Course
+        mappedBy: module
     manyToOne:
-      schoolId:
-        targetEntity: School
-        inversedBy: module
-        joinColumn:
-          name: school_id
-          referencedColumnName: id
-          nullable: false
-          onDelete: CASCADE
       curriculumId:
         targetEntity: Curriculum
         inversedBy: module
