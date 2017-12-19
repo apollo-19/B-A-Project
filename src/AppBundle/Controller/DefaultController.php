@@ -14,8 +14,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-      $data['md5'] = md5('1234');
-      return $this->render('default/index.html.twig', $data);
+      return $this->render('default/index.html.twig');
     }
 
     /**

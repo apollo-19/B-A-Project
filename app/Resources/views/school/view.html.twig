@@ -24,8 +24,9 @@
         {% for school in schools %}
           <tr>
             <td>{{ school.schoolCode }}</td>
-            <td><a href="{{ path('school_view_one', {'school_id': school.id}) }}" id="moreDetBtn">{{ school.schoolName }}</a></td>
+            <td>{{ school.schoolName }}</td>
 
+            <td><a href="{{ path('school_view_one', {'school_id': school.id}) }}">view</a></td>
             {% if(app.session.get('user_type') == 'admin') %}
               <td><a href="{{ path('school_edit', {'school_id': school.id}) }}" id="editBtn">edit</button></td>
               <td><a href="{{ path('school_delete', {'school_id': school.id}) }}" id="deleteBtn"

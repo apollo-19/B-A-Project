@@ -29,7 +29,9 @@
           <td>Curriculums:</td>
           <td>
             {% for curriculum in curriculums %}
-              <p>{{ curriculum.curriculumCode | upper ~ ' (' ~ curriculum.curriculumName ~ ')' }}</p>
+              <p><a href="{{ path('curriculum_view_one', {'curriculum_id': curriculum.id}) }}">
+                {{ curriculum.curriculumCode | upper ~ ' (' ~ curriculum.curriculumName ~ ')' }}
+              </a></p>
             {% endfor %}
           </td>
         </tr>
@@ -38,7 +40,9 @@
           <td>Departments:</td>
           <td>
             {% for department in departments %}
-              <p>{{ department.departmentCode | upper ~ ' (' ~ department.departmentName ~ ')' }}</p>
+              <p><a href="{{ path('department_view_one', {'department_id': department.id}) }}">
+                {{ department.departmentCode | upper ~ ' (' ~ department.departmentName ~ ')' }}
+              </a></p>
             {% endfor %}
           </td>
         </tr>
