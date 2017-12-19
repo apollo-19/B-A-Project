@@ -52,11 +52,15 @@ class SemesterController extends Controller
           $data['form'] = [];
           $semester_data = $form->getData();
           $data['form'] = $semester_data;
+          $mycurriculum = $this->getDoctrine()
+                              ->getRepository('AppBundle:Curriculum')
+                              ->findOneById($semester_data['semester_curriculum']);
 
           $semester = new Semester();
           $semester->setSemester($semester_data['semester']);
           $semester->setYear($semester_data['year']);
-          $semester->setCurriculumId($semester_data['semester_curriculum']);
+          $semester->setCurriculumId($mycurriculum);
+          $semester->setCreatedBy($session->get('user_id'));
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($semester);
@@ -111,10 +115,15 @@ class SemesterController extends Controller
           $data['form'] = [];
           $semester_data = $form->getData();
           $data['form'] = $semester_data;
+          $mycurriculum = $this->getDoctrine()
+                               ->getRepository('AppBundle:Curriculum')
+                               ->findOneById($semester_data['semester_curriculum']);
+
 
           $semester->setSemester($semester_data['semester']);
           $semester->setYear($semester_data['year']);
-          $semester->setCurriculumId($semester_data['semester_curriculum']);
+          $semester->setCurriculumId($mycurriculum);
+
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($semester);
