@@ -174,7 +174,7 @@ class SchoolController extends Controller
                             ->findOneById($school_id);
 
         $data['school'] = $school;
-
+//guigiu
         return $this->render('school/view_one.html.twig', $data);
       } else {
         $data['message'] = 'You Are Not Qualified to View This School.';
