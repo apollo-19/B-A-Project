@@ -15,6 +15,9 @@
       <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Grade' : 'Edit Grade' }}</h1>
       <h2>{{ result_message is defined ? result_message : '' }}</h2>
 
+      <label for="form[grade_system]">Grade System</label>
+      <h2>{{ grade_system.gradeSystemName ~ '(' ~ grade_system.gradeSystemCode | upper ~ ')'}}</h2>
+
       <label for="form[start_point]">Starting Point</label>
       <input type="text" name="form[start_point]" value="{{ form.start_point is defined ? form.start_point : '' }}" required />
 
@@ -23,14 +26,6 @@
 
       <label for="form[grade]">Grade</label>
       <input type="text" name="form[grade]" value="{{ form.grade is defined ? form.grade : '' }}" required />
-
-
-      <label for="form[grade_system]">Grade System</label>
-      <select name="form[grade_system]">
-        {% for grade_system in grade_systems %}
-          <option value="{{ grade_system.id }}">{{ grade_system.gradeSystemCode | upper ~ ' (' ~ grade_system.gradeSystemName ~ ')' }}</option>
-        {% endfor %}
-      </select>
 
       <button>{{ (mode == 'new') ? 'Create Grade' : 'Save Changes' }}</button>
     </form>

@@ -251,6 +251,12 @@ header table tr td a:hover {
 }
 
 /* view.html.twig ss */
+#view_container h1 {
+  font-size: 20px;
+  color: #1872B8;
+  margin: 10px 0px;
+}
+
 #view_container table {
 	width: inherit;
 	overflow: hidden;
@@ -323,6 +329,25 @@ header table tr td a:hover {
 #view_container #deleteBtn:hover {
   background-color: #EE0000;
   color: #FFFFFF;
+}
+
+#view_container #moreDetBtn {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  color: #000000;
+
+  border: none;
+
+  margin: 0px;
+  padding: 0px;
+  width: auto;
+}
+
+#view_container #moreDetBtn:hover {
+  background-color: rgba(1, 1, 1, 0);
+  text-decoration: underline;
+  color: #1872B8;
 }
 
 #view_container #view_one_link {
