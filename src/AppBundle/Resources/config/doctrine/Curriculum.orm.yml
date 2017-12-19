@@ -59,12 +59,10 @@ AppBundle\Entity\Curriculum:
       courses:
         targetEntity: Course
         mappedBy: curriculum
-      batchs:
-        targetEntity: Batch
-        mappedBy: curriculum
+    
       sections:
         targetEntity: Section
-        mappedBy: curriculum     
+        mappedBy: curriculum
     manyToOne:
       schoolId:
         targetEntity: School

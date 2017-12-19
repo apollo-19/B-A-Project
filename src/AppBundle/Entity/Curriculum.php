@@ -292,10 +292,7 @@ class Curriculum
      */
     private $courses;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $batchs;
+
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -369,40 +366,6 @@ class Curriculum
     public function getCourses()
     {
         return $this->courses;
-    }
-
-    /**
-     * Add batch
-     *
-     * @param \AppBundle\Entity\Batch $batch
-     *
-     * @return Curriculum
-     */
-    public function addBatch(\AppBundle\Entity\Batch $batch)
-    {
-        $this->batchs[] = $batch;
-
-        return $this;
-    }
-
-    /**
-     * Remove batch
-     *
-     * @param \AppBundle\Entity\Batch $batch
-     */
-    public function removeBatch(\AppBundle\Entity\Batch $batch)
-    {
-        $this->batchs->removeElement($batch);
-    }
-
-    /**
-     * Get batchs
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getBatchs()
-    {
-        return $this->batchs;
     }
 
     /**

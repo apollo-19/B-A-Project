@@ -170,10 +170,6 @@ class Batch
      */
     private $sections;
 
-    /**
-     * @var \AppBundle\Entity\Curriculum
-     */
-    private $curriculumId;
 
     /**
      * Constructor
@@ -217,27 +213,5 @@ class Batch
         return $this->sections;
     }
 
-    /**
-     * Set curriculumId
-     *
-     * @param \AppBundle\Entity\Curriculum $curriculumId
-     *
-     * @return Batch
-     */
-    public function setCurriculumId(\AppBundle\Entity\Curriculum $curriculumId)
-    {
-        $this->curriculumId = $curriculumId;
-
-        return $this;
-    }
-
-    /**
-     * Get curriculumId
-     *
-     * @return \AppBundle\Entity\Curriculum
-     */
-    public function getCurriculumId()
-    {
-        return $this->curriculumId;
-    }
+    
 }
