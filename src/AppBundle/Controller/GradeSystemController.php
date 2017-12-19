@@ -26,7 +26,7 @@ class GradeSystemController extends Controller
     /**
      * @Route("/grade_system/create/", name="grade_system_create")
      */
-    public function gradeSystemCreateAction(Request $request)
+    public function createAction(Request $request)
     {
       $session = new Session();
 
@@ -69,7 +69,7 @@ class GradeSystemController extends Controller
     /**
      * @Route("/grade_system/edit/{grade_system_id}", name="grade_system_edit")
      */
-    public function gradeSystemEditAction(Request $request, $grade_system_id)
+    public function editAction(Request $request, $grade_system_id)
     {
       $data = [];
       $data['mode'] = 'edit';
@@ -119,7 +119,7 @@ class GradeSystemController extends Controller
     /**
      * @Route("/grade_system/delete/{grade_system_id}", name="grade_system_delete")
      */
-    public function assessmentTypeDeleteAction(Request $request, $grade_system_id)
+    public function deleteAction(Request $request, $grade_system_id)
     {
       $session = new Session();
 
@@ -145,7 +145,7 @@ class GradeSystemController extends Controller
     /**
      * @Route("/grade_system/view", name="grade_system_view")
      */
-    public function assessmentTypeViewAction(Request $request)
+    public function viewAction(Request $request)
     {
       $session = new Session();
 

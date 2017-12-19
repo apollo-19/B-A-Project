@@ -22,14 +22,14 @@
           <th colspan="3">Actions</th>
         </tr>
       </thead>
+
       <tbody>
         {% for grade_system in grade_systems %}
           <tr>
             <td>{{ grade_system.gradeSystemCode | upper }}</td>
-            <td>
-              <a href="{{ path('grade_view', {'grade_system_id': grade_system.id}) }}" id="moreDetBtn">{{ grade_system.gradeSystemName }}</a>
-            </td>
+            <td>{{ grade_system.gradeSystemName }}</td>
 
+            <td><a href="{{ path('grade_view', {'grade_system_id': grade_system.id}) }}">view</a></td>
             <td><a href="{{ path('grade_system_edit', {'grade_system_id': grade_system.id}) }}" id="editBtn">edit</a></td>
             <td><a href="{{ path('grade_system_delete', {'grade_system_id': grade_system.id}) }}" id="deleteBtn"
                   onclick="return confirm('Are You Sure You Want To Delete Grade {{ grade_system.gradeSystemCode | upper ~ ' (' ~ grade_system.gradeSystemName ~ ')' }}?') ">delete</a></td>

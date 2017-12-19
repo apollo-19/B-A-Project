@@ -167,14 +167,13 @@ class SchoolController extends Controller
       $session = new Session();
 
       if($session->get('user_id') && ($session->get('user_type') == 'admin' || $session->get('user_type') == 'teacher')){
-        $em = $this->getDoctrine()->getManager();
-
         $school = $school = $this->getDoctrine()
-                            ->getRepository('AppBundle:School')
-                            ->findOneById($school_id);
+                                  ->getRepository('AppBundle:School')
+                                  ->findOneById($school_id);
 
         $data['school'] = $school;
 
+        $em = $this->getDoctrine()->getManager();
 
         $curriculum = $em->getRepository('AppBundle:Curriculum')
                           ->createQueryBuilder('e')
@@ -194,6 +193,14 @@ class SchoolController extends Controller
 
         $data['departments'] = $department;
 
+        $batch = $em->getRepository('AppBundle:Batch')
+                          ->createQueryBuilder('e')
+                          ->andWhere('e.schoolId = ' . $school_id)
+                          ->addOrderBy('e.batchCode', 'ASC')
+                          ->getQuery()
+                          ->execute();
+
+        $data['batches'] = $batch;
 
         return $this->render('school/view_one.html.twig', $data);
       } else {

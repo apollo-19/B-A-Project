@@ -32,12 +32,48 @@
 
         <tr>
           <td>Curriculum School:</td>
-          <td>{{ school.schoolName }}</td>
+          <td><a href="{{ path('school_view_one', {'school_id': school.id}) }}">
+            {{ school.schoolName }}
+          </a></td>
         </tr>
 
         <tr>
           <td>Curriculum Grade System:</td>
-          <td>{{ grade_system.gradeSystemName is defined ? grade_system.gradeSystemName : '' }}</td>
+          <td>
+            <p><a href="{{ path('grade_view', {'grade_system_id': grade_system.id}) }}">
+              {{ grade_system.gradeSystemName }}
+            </a></p>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Curriculum Semesters:</td>
+          <td>
+            <p>
+              {% for semester in semesters %}
+                {{ semester.semester ~ ' / ' ~ semester.year }}
+              {% endfor %}
+            </p>
+        </tr>
+
+        <tr>
+          <td>Curriculum Module:</td>
+          <td>
+            <p>
+              {% for module in modules %}
+                {{ '(' ~ module.moduleCode | upper ~ ') ' ~ module.moduleName }}
+              {% endfor %}
+            </p>
+        </tr>
+
+        <tr>
+          <td>Curriculum Courses:</td>
+          <td>
+            <p>
+              {% for course in courses %}
+                {{ '(' ~ course.courseCode | upper ~ ') ' ~ course.courseName }}
+              {% endfor %}
+            </p>
         </tr>
       </table>
     </div>

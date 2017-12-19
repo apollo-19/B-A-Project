@@ -238,6 +238,8 @@ class CurriculumController extends Controller
                             ->getRepository('AppBundle:Curriculum')
                             ->findOneById($curriculum_id);
 
+        $data['curriculum'] = $curriculum;
+
         $school = $this->getDoctrine()
                             ->getRepository('AppBundle:School')
                             ->findOneById($curriculum->getSchoolId());
@@ -250,7 +252,34 @@ class CurriculumController extends Controller
 
         $data['grade_system'] = $grade_system;
 
-        $data['curriculum'] = $curriculum;
+        $em = $this->getDoctrine()->getManager();
+
+        $semester = $em->getRepository('AppBundle:Semester')
+                          ->createQueryBuilder('e')
+                          ->andWhere('e.curriculumId = ' . $curriculum_id)
+                          ->addOrderBy('e.year', 'ASC')
+                          ->getQuery()
+                          ->execute();
+
+        $data['semesters'] = $semester;
+
+        $module = $em->getRepository('AppBundle:Module')
+                          ->createQueryBuilder('e')
+                          ->andWhere('e.curriculumId = ' . $curriculum_id)
+                          ->addOrderBy('e.moduleCode', 'ASC')
+                          ->getQuery()
+                          ->execute();
+
+        $data['modules'] = $module;
+
+        $course = $em->getRepository('AppBundle:Course')
+                          ->createQueryBuilder('e')
+                          ->andWhere('e.curriculumId = ' . $curriculum_id)
+                          ->addOrderBy('e.courseCode', 'ASC')
+                          ->getQuery()
+                          ->execute();
+
+        $data['courses'] = $course;
 
         return $this->render('curriculum/view_one.html.twig', $data);
       } else {

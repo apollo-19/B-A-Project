@@ -46,6 +46,17 @@
             {% endfor %}
           </td>
         </tr>
+
+        <tr>
+          <td>Batches:</td>
+          <td>
+            {% for batch in batches %}
+              <p><a href="{{ path('batch_view_one', {'batch_id': batch.id}) }}">
+                {{ batch.batchCode | upper ~ ' (' ~ batch.batchName ~ ')' }}
+              </a></p>
+            {% endfor %}
+          </td>
+        </tr>
       </table>
     </div>
 

@@ -26,7 +26,7 @@ class GradeController extends Controller
     /**
      * @Route("/grade/create/{grade_system_id}", name="grade_create")
      */
-    public function gradeSystemCreateAction(Request $request, $grade_system_id)
+    public function createAction(Request $request, $grade_system_id)
     {
       $session = new Session();
 
@@ -80,7 +80,7 @@ class GradeController extends Controller
     /**
      * @Route("/grade/edit/{grade_id}", name="grade_edit")
      */
-    public function gradeSystemEditAction(Request $request, $grade_id)
+    public function editAction(Request $request, $grade_id)
     {
       $data = [];
       $data['mode'] = 'edit';
@@ -104,9 +104,9 @@ class GradeController extends Controller
 
       $grade_system = $this->getDoctrine()
                           ->getRepository('AppBundle:GradeSystem')
-                          ->findAll();
+                          ->findOneById($grade_data['grade_system']);
 
-      $data['grade_systems'] = $grade_system;
+      $data['grade_system'] = $grade_system;
 
 
       $session = new Session();
@@ -145,7 +145,7 @@ class GradeController extends Controller
     /**
      * @Route("/grade/delete/{grade_id}", name="grade_delete")
      */
-    public function assessmentTypeDeleteAction(Request $request, $grade_id)
+    public function deleteAction(Request $request, $grade_id)
     {
       $session = new Session();
 
@@ -171,10 +171,9 @@ class GradeController extends Controller
     }
 
     /**
-
      * @Route("/grade/view/{grade_system_id}", name="grade_view")
      */
-    public function assessmentTypeViewAction(Request $request, $grade_system_id)
+    public function viewAction(Request $request, $grade_system_id)
     {
       $session = new Session();
 
