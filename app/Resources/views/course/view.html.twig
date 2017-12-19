@@ -32,7 +32,7 @@
             <td>{{ course.courseCreditHour }}</td>
             <td>
               {% for curriculum in curriculums %}
-                {% if(course.curriculumId == curriculum.id) %}
+                {% if(course.curriculumId == curriculum) %}
                   {{ curriculum.curriculumName }}
                   {% set currCurriculumType = curriculum.curriculumType %}
                 {% endif %}
@@ -40,13 +40,13 @@
             </td>
             <td>
               {% for module in modules %}
-                {% if(course.moduleId == module.id and currCurriculumType == 'modularized') %}
+                {% if(course.moduleId == module and currCurriculumType == 'modularized') %}
                   {{ module.moduleName }} Module
                 {% endif %}
               {% endfor %}
 
               {% for semester in semesters %}
-                {% if(course.semesterId == semester.id and currCurriculumType == 'semester') %}
+                {% if(course.semesterId == semester and currCurriculumType == 'semester') %}
                   {{ semester.semester ~ ' ' ~ semester.year }} Semester
                 {% endif %}
               {% endfor %}

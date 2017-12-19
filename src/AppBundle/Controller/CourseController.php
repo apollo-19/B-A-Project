@@ -61,15 +61,25 @@ class CourseController extends Controller
         if($form->isSubmitted()){
           $course_data = $form->getData();
           $data['form'] = $course_data;
+          $mysemester = $this->getDoctrine()
+                              ->getRepository('AppBundle:Semester')
+                              ->findOneById($course_data['semester_id']);
+          $mymodule = $this->getDoctrine()
+                              ->getRepository('AppBundle:Module')
+                              ->findOneById($course_data['module_id']);
+         $mycurriculum = $this->getDoctrine()
+                              ->getRepository('AppBundle:Curriculum')
+                              ->findOneById($course_data['curriculum_id']);
+
 
           $em = $this->getDoctrine()->getManager();
           $course = new Course();
           $course->setCourseCode($course_data['course_code']);
           $course->setCourseName($course_data['course_name']);
           $course->setCourseCreditHour($course_data['course_credit_hour']);
-          $course->setCurriculumId($course_data['curriculum_id']);
-          $course->setModuleId($course_data['module_id']);
-          $course->setSemesterId($course_data['semester_id']);
+          $course->setCurriculumId($mycurriculum);
+          $course->setModuleId($mymodule);
+          $course->setSemesterId($mysemester);
 
           $course->setCreatedBy($session->get('user_id'));
 
@@ -146,13 +156,22 @@ class CourseController extends Controller
           $data['form'] = [];
           $course_data = $form->getData();
           $data['form'] = $course_data;
+          $mysemester = $this->getDoctrine()
+                              ->getRepository('AppBundle:Semester')
+                              ->findOneById($course_data['semester_id']);
+          $mymodule = $this->getDoctrine()
+                              ->getRepository('AppBundle:Module')
+                              ->findOneById($course_data['module_id']);
+         $mycurriculum = $this->getDoctrine()
+                             ->getRepository('AppBundle:Curriculum')
+                             ->findOneById($course_data['curriculum_id']);
 
           $course->setCourseCode($course_data['course_code']);
           $course->setCourseName($course_data['course_name']);
-          $course->setModuleId($course_data['module_id']);
-          $course->setSemesterId($course_data['semester_id']);
+          $course->setModuleId($mymodule);
+          $course->setSemesterId($mysemester);
           $course->setCourseCreditHour($course_data['course_credit_hour']);
-          $course->setCurriculumId($course_data['curriculum_id']);
+          $course->setCurriculumId( $mycurriculum);
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($course);
@@ -219,7 +238,7 @@ class CourseController extends Controller
                             ->findAll();
 
         $data['curriculums'] = $curriculum;
-        
+
         $semester = $this->getDoctrine()
                             ->getRepository('AppBundle:Semester')
                             ->findAll();

@@ -29,7 +29,7 @@
             <td>{{ section.sectionName }}</td>
             <td>
               {% for batch in batches %}
-                {% if(section.batchId == batch.id) %}
+                {% if(section.batchId == batch) %}
                   {{ batch.batchName }}
                 {% endif %}
               {% endfor %}
@@ -37,7 +37,7 @@
 
             <td>
               {% for curriculum in curriculums %}
-                {% if(section.curriculumId == curriculum.id) %}
+                {% if(section.curriculumId == curriculum) %}
                   {{ curriculum.curriculumName }}
                 {% endif %}
               {% endfor %}

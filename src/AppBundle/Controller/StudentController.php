@@ -121,6 +121,9 @@ class StudentController extends Controller
             $data['resultMessage'] = 'Passwords Must Match!';
           else {
             $em = $this->getDoctrine()->getManager();
+            $mysection = $this->getDoctrine()
+                                ->getRepository('AppBundle:Section')
+                                ->findOneById($student_data['section_id']);
 
             $passwordLIT = new LogInTable();
             $passwordLIT->setUserName($student_data['user_name']);
@@ -192,7 +195,7 @@ class StudentController extends Controller
 
             $student->setRegisteredBy($session->get('user_id'));
             $student->setUserName($student_data['user_name']);
-            $student->setSectionId($student_data['section_id']);
+            $student->setSectionId(  $mysection);
 
             $em->persist($student);
             $em->persist($passwordLIT);
@@ -296,6 +299,7 @@ class StudentController extends Controller
                           ->getRepository('AppBundle:Student')
                           ->findOneById($student_id);
 
+
       $student_data['admission_number'] = $student->getAdmissionNumber();
       $student_data['first_name_en'] = $student->getFirstNameEn();
       $student_data['middle_name_en'] = $student->getMiddleNameEn();
@@ -372,7 +376,11 @@ class StudentController extends Controller
           $data['form'] = [];
           $student_data = $form->getData();
           $data['form'] = $student_data;
+          $mysection = $this->getDoctrine()
+                              ->getRepository('AppBundle:Section')
+                              ->findOneById($student_data['section_id']);
 
+                              
           $student->setAdmissionNumber($student_data['admission_number']);
           $student->setFirstNameEn($student_data['first_name_en']);
           $student->setMiddleNameEn($student_data['middle_name_en']);
@@ -435,7 +443,7 @@ class StudentController extends Controller
           $student->setMotherZone($student_data['mother_zone']);
           $student->setMotherRegion($student_data['mother_region']);
 
-          $student->setSectionId($student_data['section_id']);
+          $student->setSectionId($mysection);
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($student);

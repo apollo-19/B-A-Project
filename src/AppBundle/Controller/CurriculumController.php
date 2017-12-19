@@ -141,7 +141,7 @@ class CurriculumController extends Controller
           $data['form'] = $curriculum_data;
           $myschool = $this->getDoctrine()
                            ->getRepository('AppBundle:School')
-                           ->findOneById($curriculum_data['curriculum_grade_system']);
+                           ->findOneById($curriculum_data['curriculum_school']);
           $mygradeSystem = $this->getDoctrine()
                           ->getRepository('AppBundle:GradeSystem')
                           ->findOneById($curriculum_data['curriculum_grade_system']);

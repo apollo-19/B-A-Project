@@ -28,7 +28,7 @@
             <td>{{ semester.year }}</td>
             <td>
               {% for curriculum in curriculums %}
-                {% if(semester.curriculumId == curriculum.id) %}
+                {% if(semester.curriculumId == curriculum) %}
                   {{ curriculum.curriculumName }}
                 {% endif %}
               {% endfor %}

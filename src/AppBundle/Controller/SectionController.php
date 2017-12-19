@@ -54,13 +54,20 @@ class SectionController extends Controller
         if($form->isSubmitted()){
           $section_data = $form->getData();
           $data['form'] = $section_data;
+          $mybatch = $this->getDoctrine()
+                              ->getRepository('AppBundle:Batch')
+                              ->findOneById($section_data['section_batch']);
+
+          $mycurriculum = $this->getDoctrine()
+                        ->getRepository('AppBundle:Curriculum')
+                        ->findOneById($section_data['section_curriculum']);
 
           $em = $this->getDoctrine()->getManager();
           $section = new Section();
           $section->setSectionCode($section_data['section_code']);
           $section->setSectionName($section_data['section_name']);
-          $section->setBatchId($section_data['section_batch']);
-          $section->setCurriculumId($section_data['section_curriculum']);
+          $section->setBatchId($mybatch);
+          $section->setCurriculumId($mycurriculum);
           $section->setCreatedBy($session->get('user_id'));
 
           $em->persist($section);
@@ -127,11 +134,18 @@ class SectionController extends Controller
           $data['form'] = [];
           $section_data = $form->getData();
           $data['form'] = $section_data;
+          $mybatch = $this->getDoctrine()
+                              ->getRepository('AppBundle:Batch')
+                              ->findOneById($section_data['section_batch']);
+
+          $mycurriculum = $this->getDoctrine()
+                        ->getRepository('AppBundle:Curriculum')
+                        ->findOneById($section_data['section_curriculum']);
 
           $section->setSectionCode($section_data['section_code']);
           $section->setSectionName($section_data['section_name']);
-          $section->setbatchId($section_data['section_batch']);
-          $section->setCurriculumId($section_data['section_curriculum']);
+          $section->setbatchId($mybatch);
+          $section->setCurriculumId($mycurriculum);
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($section);

@@ -27,7 +27,7 @@
       <label for="form[curriculum_id]">Course Curriculum</label>
       <select name="form[curriculum_id]" id="courseCurriculum">
         {% for curriculum in curriculums %}
-          <option value="{{ curriculum.id }}" title="{{ curriculum.curriculumType }}" {{ (form.curriculum_id is defined and curriculum.id == form.curriculum_id) ? 'selected' : '' }}>{{ curriculum.curriculumName ~ ' (' ~ curriculum.curriculumType | capitalize ~ ')' }}</option>
+          <option value="{{ curriculum.id }}" title="{{ curriculum.curriculumType }}" {{ (form.curriculum_id is defined and curriculum== form.curriculum_id) ? 'selected' : '' }}>{{ curriculum.curriculumName ~ ' (' ~ curriculum.curriculumType | capitalize ~ ')' }}</option>
         {% endfor %}
       </select>
 
@@ -43,7 +43,7 @@
       <select name="form[semester_id]" class="courseSemesters">
         <option value="">No Semester</option>
         {% for semester in semesters %}
-          <option value="{{ semester.id }}" {{ (form.semester_id is defined and semester.id == form.semester_id) ? 'selected' : '' }}>{{ semester.semester ~ '/' ~ semester.year }}</option>
+          <option value="{{ semester.id }}" {{ (form.semester_id is defined and semester == form.semester_id) ? 'selected' : '' }}>{{ semester.semester ~ '/' ~ semester.year }}</option>
         {% endfor %}
       </select>
 
