@@ -62,12 +62,7 @@ AppBundle\Entity\Teacher:
             options:
                 unsigned: false
             column: registered_by
-        departmentId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: department_id
+      
         userName:
             type: string
             nullable: false
@@ -76,3 +71,12 @@ AppBundle\Entity\Teacher:
                 fixed: false
             column: user_name
     lifecycleCallbacks: {  }
+    manyToOne:
+      departmentId:
+        targetEntity: Department
+        inversedBy: teacher
+        joinColumn:
+          name: department_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE

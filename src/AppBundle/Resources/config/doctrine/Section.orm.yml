@@ -29,18 +29,8 @@ AppBundle\Entity\Section:
             options:
                 fixed: false
             column: section_name
-        batchId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: batch_id
-        curriculumId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: curriculum_id
+
+
         createdBy:
             type: integer
             nullable: false
@@ -48,3 +38,24 @@ AppBundle\Entity\Section:
                 unsigned: false
             column: created_by
     lifecycleCallbacks: {  }
+    oneToMany:
+      students:
+        targetEntity: Student
+        mappedBy: section
+    manyToOne:
+      curriculumId:
+        targetEntity: Curriculum
+        inversedBy: section
+        joinColumn:
+          name: curriculum_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE
+      batchId:
+        targetEntity: Batch
+        inversedBy: section
+        joinColumn:
+          name: batchId
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE

@@ -23,12 +23,7 @@ AppBundle\Entity\Semester:
             length: 10
             options:
                 fixed: false
-        curriculumId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: curriculum_id
+
         createdBy:
             type: integer
             nullable: false
@@ -36,3 +31,16 @@ AppBundle\Entity\Semester:
                 unsigned: false
             column: created_by
     lifecycleCallbacks: {  }
+    oneToMany:
+      courses:
+        targetEntity: Course
+        mappedBy: semester
+    manyToOne:
+      curriculumId:
+        targetEntity: Curriculum
+        inversedBy: semester
+        joinColumn:
+          name: curriculum_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE

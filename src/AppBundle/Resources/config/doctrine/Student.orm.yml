@@ -424,10 +424,13 @@ AppBundle\Entity\Student:
             options:
                 fixed: false
             column: user_name
-        sectionId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: section_id
+
     lifecycleCallbacks: {  }
+    manyToOne:
+      sectionId:
+        targetEntity: Section
+        inversedBy: student
+        joinColumn:
+          name: section_id
+          referencedColumnName: id
+          nullable: false

@@ -51,6 +51,10 @@ AppBundle\Entity\Module:
                 unsigned: false
             column: created_by
     lifecycleCallbacks: {  }
+    oneToMany:
+      courses:
+        targetEntity: Course
+        mappedBy: module
     manyToOne:
       schoolId:
         targetEntity: School

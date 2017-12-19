@@ -210,7 +210,7 @@ class Curriculum
     }
 
 
-  
+
     /**
      * @var \AppBundle\Entity\School
      */
@@ -281,5 +281,161 @@ class Curriculum
     public function getGradeSystemId()
     {
         return $this->gradeSystemId;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $semesters;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $courses;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $batchs;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sections;
+
+
+    /**
+     * Add semester
+     *
+     * @param \AppBundle\Entity\Semester $semester
+     *
+     * @return Curriculum
+     */
+    public function addSemester(\AppBundle\Entity\Semester $semester)
+    {
+        $this->semesters[] = $semester;
+
+        return $this;
+    }
+
+    /**
+     * Remove semester
+     *
+     * @param \AppBundle\Entity\Semester $semester
+     */
+    public function removeSemester(\AppBundle\Entity\Semester $semester)
+    {
+        $this->semesters->removeElement($semester);
+    }
+
+    /**
+     * Get semesters
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSemesters()
+    {
+        return $this->semesters;
+    }
+
+    /**
+     * Add course
+     *
+     * @param \AppBundle\Entity\Course $course
+     *
+     * @return Curriculum
+     */
+    public function addCourse(\AppBundle\Entity\Course $course)
+    {
+        $this->courses[] = $course;
+
+        return $this;
+    }
+
+    /**
+     * Remove course
+     *
+     * @param \AppBundle\Entity\Course $course
+     */
+    public function removeCourse(\AppBundle\Entity\Course $course)
+    {
+        $this->courses->removeElement($course);
+    }
+
+    /**
+     * Get courses
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCourses()
+    {
+        return $this->courses;
+    }
+
+    /**
+     * Add batch
+     *
+     * @param \AppBundle\Entity\Batch $batch
+     *
+     * @return Curriculum
+     */
+    public function addBatch(\AppBundle\Entity\Batch $batch)
+    {
+        $this->batchs[] = $batch;
+
+        return $this;
+    }
+
+    /**
+     * Remove batch
+     *
+     * @param \AppBundle\Entity\Batch $batch
+     */
+    public function removeBatch(\AppBundle\Entity\Batch $batch)
+    {
+        $this->batchs->removeElement($batch);
+    }
+
+    /**
+     * Get batchs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBatchs()
+    {
+        return $this->batchs;
+    }
+
+    /**
+     * Add section
+     *
+     * @param \AppBundle\Entity\Section $section
+     *
+     * @return Curriculum
+     */
+    public function addSection(\AppBundle\Entity\Section $section)
+    {
+        $this->sections[] = $section;
+
+        return $this;
+    }
+
+    /**
+     * Remove section
+     *
+     * @param \AppBundle\Entity\Section $section
+     */
+    public function removeSection(\AppBundle\Entity\Section $section)
+    {
+        $this->sections->removeElement($section);
+    }
+
+    /**
+     * Get sections
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSections()
+    {
+        return $this->sections;
     }
 }

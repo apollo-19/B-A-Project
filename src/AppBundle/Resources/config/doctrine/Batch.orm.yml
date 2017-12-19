@@ -36,7 +36,7 @@ AppBundle\Entity\Batch:
             options:
                 fixed: false
             column: batch_year
-      
+
         createdBy:
             type: integer
             nullable: false
@@ -44,12 +44,24 @@ AppBundle\Entity\Batch:
                 unsigned: false
             column: created_by
     lifecycleCallbacks: {  }
+    oneToMany:
+      sections:
+        targetEntity: Section
+        mappedBy: batch
     manyToOne:
       schoolId:
         targetEntity: School
         inversedBy: batch
         joinColumn:
           name: school_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE
+      curriculumId:
+        targetEntity: Curriculum
+        inversedBy: batch
+        joinColumn:
+          name: curriculum_id
           referencedColumnName: id
           nullable: false
           onDelete: CASCADE

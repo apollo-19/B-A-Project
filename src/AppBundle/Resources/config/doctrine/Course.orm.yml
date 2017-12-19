@@ -35,24 +35,9 @@ AppBundle\Entity\Course:
             options:
                 unsigned: false
             column: course_credit_hour
-        curriculumId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: curriculum_id
-        moduleId:
-            type: integer
-            nullable: true
-            options:
-                unsigned: false
-            column: module_id
-        semesterId:
-            type: integer
-            nullable: true
-            options:
-                unsigned: false
-            column: semester_id
+
+
+
         createdBy:
             type: integer
             nullable: false
@@ -60,3 +45,28 @@ AppBundle\Entity\Course:
                 unsigned: false
             column: created_by
     lifecycleCallbacks: {  }
+    manyToOne:
+      curriculumId:
+        targetEntity: Curriculum
+        inversedBy: course
+        joinColumn:
+          name: curriculum_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE
+      moduleId:
+        targetEntity: Module
+        inversedBy: course
+        joinColumn:
+          name: module_id
+          referencedColumnName: id
+          nullable: true
+          onDelete: CASCADE
+      semesterId:
+        targetEntity: Semester
+        inversedBy: course
+        joinColumn:
+          name: semester_id
+          referencedColumnName: id
+          nullable: true
+          onDelete: CASCADE

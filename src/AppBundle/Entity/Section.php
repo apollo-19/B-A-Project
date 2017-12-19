@@ -43,6 +43,50 @@ class Section
         return $this->id;
     }
 
+
+
+    /**
+     * Set createdBy
+     *
+     * @param integer $createdBy
+     *
+     * @return Section
+     */
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return int
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $students;
+
+    /**
+     * @var \AppBundle\Entity\Curriculum
+     */
+    private $curriculumId;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->students = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     /**
      * Set sectionCode
      *
@@ -92,66 +136,47 @@ class Section
     }
 
     /**
-     * Set batchId
+     * Add student
      *
-     * @param integer $batchId
+     * @param \AppBundle\Entity\Student $student
      *
      * @return Section
      */
-    public function setBatchId($batchId)
+    public function addStudent(\AppBundle\Entity\Student $student)
     {
-        $this->batchId = $batchId;
+        $this->students[] = $student;
 
         return $this;
     }
 
     /**
-     * Get batchId
+     * Remove student
      *
-     * @return int
+     * @param \AppBundle\Entity\Student $student
      */
-    public function getBatchId()
+    public function removeStudent(\AppBundle\Entity\Student $student)
     {
-        return $this->batchId;
+        $this->students->removeElement($student);
     }
 
     /**
-     * Set createdBy
+     * Get students
      *
-     * @param integer $createdBy
-     *
-     * @return Section
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function setCreatedBy($createdBy)
+    public function getStudents()
     {
-        $this->createdBy = $createdBy;
-
-        return $this;
+        return $this->students;
     }
-
-    /**
-     * Get createdBy
-     *
-     * @return int
-     */
-    public function getCreatedBy()
-    {
-        return $this->createdBy;
-    }
-    /**
-     * @var integer
-     */
-    private $curriculumId;
-
 
     /**
      * Set curriculumId
      *
-     * @param integer $curriculumId
+     * @param \AppBundle\Entity\Curriculum $curriculumId
      *
      * @return Section
      */
-    public function setCurriculumId($curriculumId)
+    public function setCurriculumId(\AppBundle\Entity\Curriculum $curriculumId)
     {
         $this->curriculumId = $curriculumId;
 
@@ -161,10 +186,34 @@ class Section
     /**
      * Get curriculumId
      *
-     * @return integer
+     * @return \AppBundle\Entity\Curriculum
      */
     public function getCurriculumId()
     {
         return $this->curriculumId;
+    }
+
+    /**
+     * Set batchId
+     *
+     * @param \AppBundle\Entity\Batch $batchId
+     *
+     * @return Section
+     */
+    public function setBatchId(\AppBundle\Entity\Batch $batchId)
+    {
+        $this->batchId = $batchId;
+
+        return $this;
+    }
+
+    /**
+     * Get batchId
+     *
+     * @return \AppBundle\Entity\Batch
+     */
+    public function getBatchId()
+    {
+        return $this->batchId;
     }
 }

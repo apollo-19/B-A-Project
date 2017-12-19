@@ -1756,35 +1756,7 @@ class Student
     {
         return $this->dateOfBirthEc;
     }
-    /**
-     * @var integer
-     */
-    private $sectionId;
-
-
-    /**
-     * Set sectionId
-     *
-     * @param integer $sectionId
-     *
-     * @return Student
-     */
-    public function setSectionId($sectionId)
-    {
-        $this->sectionId = $sectionId;
-
-        return $this;
-    }
-
-    /**
-     * Get sectionId
-     *
-     * @return integer
-     */
-    public function getSectionId()
-    {
-        return $this->sectionId;
-    }
+  
     /**
      * @var string
      */
@@ -1813,5 +1785,34 @@ class Student
     public function getAdmissionNumber()
     {
         return $this->admissionNumber;
+    }
+    /**
+     * @var \AppBundle\Entity\Section
+     */
+    private $sectionId;
+
+
+    /**
+     * Set sectionId
+     *
+     * @param \AppBundle\Entity\Section $sectionId
+     *
+     * @return Student
+     */
+    public function setSectionId(\AppBundle\Entity\Section $sectionId)
+    {
+        $this->sectionId = $sectionId;
+
+        return $this;
+    }
+
+    /**
+     * Get sectionId
+     *
+     * @return \AppBundle\Entity\Section
+     */
+    public function getSectionId()
+    {
+        return $this->sectionId;
     }
 }
