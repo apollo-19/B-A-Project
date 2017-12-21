@@ -65,8 +65,8 @@
             </td>
 
             {% if(app.session.get('user_type') == 'admin') %}
-              <td><a href="{{ path('session_edit', {'session_id': session.id}) }}" id="editBtn">edit</button></td>
-              <td><a href="{{ path('session_delete', {'session_id': session.id}) }}" id="deleteBtn"
+              <td id="actions"><a href="{{ path('session_edit', {'session_id': session.id}) }}" id="editBtn">edit</button></td>
+              <td id="actions"><a href="{{ path('session_delete', {'session_id': session.id}) }}" id="deleteBtn"
                     onclick="return confirm('Are You Sure You Want To Delete {{ session.sessionName }} ({{ session.sessionCode }})?') ">delete</button></td>
             {% endif %}
           </tr>

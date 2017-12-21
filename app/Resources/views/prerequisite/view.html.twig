@@ -28,14 +28,14 @@
               {% if (prerequisite.courseModuleType == 'course') %}
                 {% for course in courses %}
                   {% if ( prerequisite.courseModuleId == course.id ) %}
-                    {{ course.courseName }}
+                    <a href="{{ path('course_view_one', {'course_id': course.id}) }}" id="moreDetBtn">{{ course.courseName }}</a>
                   {% endif %}
                 {% endfor %}
 
               {% elseif (prerequisite.courseModuleType == 'module') %}
                 {% for module in modules %}
                   {% if ( prerequisite.courseModuleId == module.id ) %}
-                    {{ module.moduleName }}
+                    <a href="{{ path('module_view_one', {'module_id': module.id}) }}" id="moreDetBtn">{{ module.moduleName }}</a>
                   {% endif %}
                 {% endfor %}
               {% endif %}
@@ -47,22 +47,22 @@
               {% if (prerequisite.prerequisiteType == 'course') %}
                 {% for course in courses %}
                   {% if ( prerequisite.prerequisiteId == course.id ) %}
-                    {{ course.courseName }}
+                    <a href="{{ path('course_view_one', {'course_id': course.id}) }}" id="moreDetBtn">{{ course.courseName }}</a>
                   {% endif %}
                 {% endfor %}
 
               {% elseif (prerequisite.prerequisiteType == 'module') %}
                 {% for module in modules %}
                   {% if ( prerequisite.prerequisiteId == module.id ) %}
-                    {{ module.moduleName }}
+                    <a href="{{ path('module_view_one', {'module_id': module.id}) }}" id="moreDetBtn">{{ module.moduleName }}</a>
                   {% endif %}
                 {% endfor %}
               {% endif %}
             </td>
 
             {% if(app.session.get('user_type') == 'admin') %}
-              <td><a href="{{ path('prerequisite_edit', {'prerequisite_id': prerequisite.id}) }}" id="editBtn">edit</button></td>
-              <td><a href="{{ path('prerequisite_delete', {'prerequisite_id': prerequisite.id}) }}" id="deleteBtn"
+              <td id="actions"><a href="{{ path('prerequisite_edit', {'prerequisite_id': prerequisite.id}) }}" id="editBtn">edit</button></td>
+              <td id="actions"><a href="{{ path('prerequisite_delete', {'prerequisite_id': prerequisite.id}) }}" id="deleteBtn"
                     onclick="return confirm('Are You Sure You Want To Delete ?') ">delete</button></td>
             {% endif %}
           </tr>

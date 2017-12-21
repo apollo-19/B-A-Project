@@ -214,6 +214,14 @@ class ModuleController extends Controller
 
         $data['module'] = $module;
 
+        $curriculum = $this->getDoctrine()
+                            ->getRepository('AppBundle:Curriculum')
+                            ->findOneBy(
+                              array('curriculum_id' => $module->getCurriculumId())
+                            );
+
+        $data['module'] = $module;
+
         return $this->render('module/view_one.html.twig', $data);
       } else {
         $data['message'] = 'You Are Not Qualified to View This Module.';

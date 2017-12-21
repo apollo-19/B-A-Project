@@ -27,8 +27,8 @@
             <td>{{ assessment.assessmentWorth }}</td>
 
             {% if(app.session.get('user_type') == 'admin') %}
-              <td><a href="{{ path('assessment_type_edit', {'assessment_type_id': assessment.id}) }}" id="editBtn">edit</button></td>
-              <td><a href="{{ path('assessment_type_delete', {'assessment_type_id': assessment.id}) }}" id="deleteBtn"
+              <td id="actions"><a href="{{ path('assessment_type_edit', {'assessment_type_id': assessment.id}) }}" id="editBtn">edit</button></td>
+              <td id="actions"><a href="{{ path('assessment_type_delete', {'assessment_type_id': assessment.id}) }}" id="deleteBtn"
                     onclick="return confirm('Are You Sure You Want To Delete {{ assessment.assessmentName ~ ' (' ~ assessment.assessmentWorth }})?') ">delete</button></td>
             {% endif %}
           </tr>

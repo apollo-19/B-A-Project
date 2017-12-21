@@ -30,11 +30,11 @@
             <td>{{ admin.emailAddress }}</td>
             <td>{{ admin.adminClass | capitalize }}</td>
 
-            <td><a href="{{ path('admin_view_one', {'admin_id': admin.id}) }}">view</a></td>
+            <td id="actions"><a href="{{ path('admin_view_one', {'admin_id': admin.id}) }}">view</a></td>
 
             {% if(app.session.get('user_type') == 'admin') %}
-              <td><a href="{{ path('admin_edit', {'admin_id': admin.id}) }}" id="editBtn">edit</button></td>
-              <td><a href="{{ path('admin_delete', {'admin_id': admin.id}) }}" id="deleteBtn"
+              <td id="actions"><a href="{{ path('admin_edit', {'admin_id': admin.id}) }}" id="editBtn">edit</button></td>
+              <td id="actions"><a href="{{ path('admin_delete', {'admin_id': admin.id}) }}" id="deleteBtn"
                   onclick="return confirm('Are You Sure You Want To Delete {{ admin.firstName }} {{ admin.middleName }} {{ admin.lastName }}?') ">delete</button></td>
             {% endif %}
           </tr>

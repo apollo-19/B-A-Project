@@ -35,8 +35,8 @@
             </td>
 
             {% if(app.session.get('user_type') == 'admin') %}
-              <td><a href="{{ path('semester_edit', {'semester_id': semester.id}) }}" id="editBtn">edit</button></td>
-              <td><a href="{{ path('semester_delete', {'semester_id': semester.id}) }}" id="deleteBtn"
+              <td id="actions"><a href="{{ path('semester_edit', {'semester_id': semester.id}) }}" id="editBtn">edit</button></td>
+              <td id="actions"><a href="{{ path('semester_delete', {'semester_id': semester.id}) }}" id="deleteBtn"
                     onclick="return confirm('Are You Sure You Want To Delete {{ semester.semester }} ({{ semester.year }})?') ">delete</button></td>
             {% endif %}
           </tr>

@@ -285,7 +285,7 @@ header table tr td a:hover {
   color: #000000;
 }
 
-#view_container tr #actions {
+#view_container #actions {
   width: 100px;
 }
 
@@ -318,7 +318,6 @@ header table tr td a:hover {
   color: #1872B8;
 
   padding: 5px 15px;
-  max-width: 100px;
 }
 
 #view_container tr td a:hover {

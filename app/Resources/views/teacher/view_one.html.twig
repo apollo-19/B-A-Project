@@ -51,7 +51,9 @@
 
         <tr>
           <td>Teacher Department:</td>
-          <td>{{ department.departmentName }}</td>
+          <td><a href="{{ path('department_view_one', {'department_id': department.id}) }}" id="moreDetBtn">
+            {{ department.departmentName }}
+          </td>
         </tr>
 
         <tr>

@@ -27,7 +27,7 @@
 
         <tr>
           <td>Department School:</td>
-          <td>{{ school.schoolName }}</td>
+          <td><a href="{{ path('school_view_one', {'school_id': school.id}) }}" id="moreDetBtn">{{ school.schoolName }}</a></td>
         </tr>
       </table>
     </div>

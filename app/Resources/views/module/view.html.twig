@@ -31,16 +31,16 @@
             <td>
               {% for curriculum in curriculums %}
                 {% if(module.curriculumId == curriculum) %}
-                  {{ curriculum.curriculumName }}
+                  <a href="{{ path('', {'': }) }}" id="moreDetBtn">{{ curriculum.curriculumName }}</a>
                 {% endif %}
               {% endfor %}
             </td>
 
-            <td><a href="{{ path('module_view_one', {'module_id': module.id}) }}">view</a></td>
+            <td id="actions"><a href="{{ path('module_view_one', {'module_id': module.id}) }}">view</a></td>
 
             {% if(app.session.get('user_type') == 'admin') %}
-              <td><a href="{{ path('module_edit', {'module_id': module.id}) }}" id="editBtn">edit</button></td>
-              <td><a href="{{ path('module_delete', {'module_id': module.id}) }}" id="deleteBtn"
+              <td id="actions"><a href="{{ path('module_edit', {'module_id': module.id}) }}" id="editBtn">edit</button></td>
+              <td id="actions"><a href="{{ path('module_delete', {'module_id': module.id}) }}" id="deleteBtn"
                     onclick="return confirm('Are You Sure You Want To Delete {{ module.moduleName }} ({{ module.moduleCode }})?') ">delete</button></td>
             {% endif %}
           </tr>
