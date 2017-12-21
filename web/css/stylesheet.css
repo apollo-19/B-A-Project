@@ -285,6 +285,10 @@ header table tr td a:hover {
   color: #000000;
 }
 
+#view_container tr #actions {
+  width: 100px;
+}
+
 #view_container tr:nth-child(odd) td {
 	background-color: #EDF7F8;
 }
@@ -314,7 +318,7 @@ header table tr td a:hover {
   color: #1872B8;
 
   padding: 5px 15px;
-  width: auto;
+  max-width: 100px;
 }
 
 #view_container tr td a:hover {
@@ -341,7 +345,6 @@ header table tr td a:hover {
 
   margin: 0px;
   padding: 0px;
-  width: auto;
 }
 
 #view_container #moreDetBtn:hover {

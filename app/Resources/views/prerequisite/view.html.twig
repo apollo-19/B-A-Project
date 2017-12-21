@@ -29,7 +29,6 @@
                 {% for course in courses %}
                   {% if ( prerequisite.courseModuleId == course.id ) %}
                     {{ course.courseName }}
-
                   {% endif %}
                 {% endfor %}
 

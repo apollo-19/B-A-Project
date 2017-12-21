@@ -25,7 +25,7 @@
       <select name="form[course_module_id]" id="modules1">
         <optgroup label="Modules">
           {% for module in modules %}
-            <option value="{{ module.id }}" {{ ((form.courseModuleType is defined and form.courseModuleType == 'module' ? module.id : 0) == (form.courseModuleType is defined ? form.courseModuleType : '')) ? 'selected' : '' }}>{{ module.moduleName }}</option>
+            <option value="{{ module.id }}" {{ (form.courseModuleId is defined and form.courseModuleId == module.id) ? 'selected' : '' }}>{{ module.moduleName }}</option>
           {% endfor %}
         </optgroup>
       </select>
@@ -33,7 +33,7 @@
       <select name="form[course_module_id]" id="courses1">
         <optgroup label="Courses">
           {% for course in courses %}
-            <option value="{{ course.id }}" {{ ((form.courseModuleType is defined and form.courseModuleType == 'course' ? course.id : 0) == (form.courseModuleType is defined ? form.courseModuleType : '')) ? 'selected' : '' }}>{{ course.courseName }}</option>
+            <option value="{{ course.id }}" {{ (form.courseModuleId is defined and form.courseModuleId == course.id) ? 'selected' : '' }}>{{ course.courseName }}</option>
           {% endfor %}
         </optgroup>
       </select>
@@ -48,7 +48,7 @@
       <select name="form[prerequisite_id]" id="modules2">
         <optgroup label="Modules">
           {% for module in modules %}
-            <option value="{{ module.id }}" {{ ((form.prerequisiteType is defined and form.prerequisiteType == 'module' ? module.id : 0) == (form.prerequisiteType is defined ? form.prerequisiteType : '')) ? 'selected' : '' }}>{{ module.moduleName }}</option>
+            <option value="{{ module.id }}" {{ (form.prerequisiteId is defined and form.prerequisiteId == module.id) ? 'selected' : '' }}>{{ module.moduleName }}</option>
           {% endfor %}
         </optgroup>
       </select>
@@ -56,7 +56,7 @@
       <select name="form[prerequisite_id]" id="courses2">
         <optgroup label="Courses" id="courses2">
           {% for course in courses %}
-            <option value="{{ course.id }}" {{ ((form.prerequisiteType is defined and form.prerequisiteType == 'course' ? course.id : 0) == (form.prerequisiteType is defined ? form.prerequisiteType : '')) ? 'selected' : '' }}>{{ course.courseName }}</option>
+            <option value="{{ course.id }}" {{ (form.prerequisiteId is defined and form.prerequisiteId == course.id) ? 'selected' : '' }}>{{ course.courseName }}</option>
           {% endfor %}
         </optgroup>
       </select>
