@@ -271,4 +271,43 @@ class Module
     {
         return $this->courses;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $schoolsessions;
+
+
+    /**
+     * Add schoolsession
+     *
+     * @param \AppBundle\Entity\Schoolsession $schoolsession
+     *
+     * @return Module
+     */
+    public function addSchoolsession(\AppBundle\Entity\Schoolsession $schoolsession)
+    {
+        $this->schoolsessions[] = $schoolsession;
+
+        return $this;
+    }
+
+    /**
+     * Remove schoolsession
+     *
+     * @param \AppBundle\Entity\Schoolsession $schoolsession
+     */
+    public function removeSchoolsession(\AppBundle\Entity\Schoolsession $schoolsession)
+    {
+        $this->schoolsessions->removeElement($schoolsession);
+    }
+
+    /**
+     * Get schoolsessions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSchoolsessions()
+    {
+        return $this->schoolsessions;
+    }
 }

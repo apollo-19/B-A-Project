@@ -42,6 +42,9 @@ AppBundle\Entity\Section:
       students:
         targetEntity: Student
         mappedBy: section
+      schoolsessions:
+        targetEntity: Schoolsession
+        mappedBy: section     
     manyToOne:
       curriculumId:
         targetEntity: Curriculum

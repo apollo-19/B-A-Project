@@ -22,25 +22,6 @@ class Schoolsession
      */
     private $sessionName;
 
-    /**
-     * @var integer
-     */
-    private $sectionId;
-
-    /**
-     * @var integer
-     */
-    private $teacherId;
-
-    /**
-     * @var string
-     */
-    private $courseModuleType;
-
-    /**
-     * @var integer
-     */
-    private $courseModuleId;
 
     /**
      * @var string
@@ -116,102 +97,7 @@ class Schoolsession
         return $this->sessionName;
     }
 
-    /**
-     * Set sectionId
-     *
-     * @param integer $sectionId
-     *
-     * @return Schoolsession
-     */
-    public function setSectionId($sectionId)
-    {
-        $this->sectionId = $sectionId;
-
-        return $this;
-    }
-
-    /**
-     * Get sectionId
-     *
-     * @return integer
-     */
-    public function getSectionId()
-    {
-        return $this->sectionId;
-    }
-
-    /**
-     * Set teacherId
-     *
-     * @param integer $teacherId
-     *
-     * @return Schoolsession
-     */
-    public function setTeacherId($teacherId)
-    {
-        $this->teacherId = $teacherId;
-
-        return $this;
-    }
-
-    /**
-     * Get teacherId
-     *
-     * @return integer
-     */
-    public function getTeacherId()
-    {
-        return $this->teacherId;
-    }
-
-    /**
-     * Set courseModuleType
-     *
-     * @param string $courseModuleType
-     *
-     * @return Schoolsession
-     */
-    public function setCourseModuleType($courseModuleType)
-    {
-        $this->courseModuleType = $courseModuleType;
-
-        return $this;
-    }
-
-    /**
-     * Get courseModuleType
-     *
-     * @return string
-     */
-    public function getCourseModuleType()
-    {
-        return $this->courseModuleType;
-    }
-
-    /**
-     * Set courseModuleId
-     *
-     * @param integer $courseModuleId
-     *
-     * @return Schoolsession
-     */
-    public function setCourseModuleId($courseModuleId)
-    {
-        $this->courseModuleId = $courseModuleId;
-
-        return $this;
-    }
-
-    /**
-     * Get courseModuleId
-     *
-     * @return integer
-     */
-    public function getCourseModuleId()
-    {
-        return $this->courseModuleId;
-    }
-
+  
     /**
      * Set sessionStartDate
      *
@@ -282,5 +168,179 @@ class Schoolsession
     public function getCreatedBy()
     {
         return $this->createdBy;
+    }
+    /**
+     * @var string
+     */
+    private $courseModuleType;
+
+    /**
+     * @var \AppBundle\Entity\Section
+     */
+    private $sectionId;
+
+    /**
+     * @var \AppBundle\Entity\Teacher
+     */
+    private $techerId;
+
+    /**
+     * @var \AppBundle\Entity\Course
+     */
+    private $courseId;
+
+    /**
+     * @var \AppBundle\Entity\Module
+     */
+    private $moduleId;
+
+
+    /**
+     * Set courseModuleType
+     *
+     * @param string $courseModuleType
+     *
+     * @return Schoolsession
+     */
+    public function setCourseModuleType($courseModuleType)
+    {
+        $this->courseModuleType = $courseModuleType;
+
+        return $this;
+    }
+
+    /**
+     * Get courseModuleType
+     *
+     * @return string
+     */
+    public function getCourseModuleType()
+    {
+        return $this->courseModuleType;
+    }
+
+    /**
+     * Set sectionId
+     *
+     * @param \AppBundle\Entity\Section $sectionId
+     *
+     * @return Schoolsession
+     */
+    public function setSectionId(\AppBundle\Entity\Section $sectionId)
+    {
+        $this->sectionId = $sectionId;
+
+        return $this;
+    }
+
+    /**
+     * Get sectionId
+     *
+     * @return \AppBundle\Entity\Section
+     */
+    public function getSectionId()
+    {
+        return $this->sectionId;
+    }
+
+    /**
+     * Set techerId
+     *
+     * @param \AppBundle\Entity\Teacher $techerId
+     *
+     * @return Schoolsession
+     */
+    public function setTecherId(\AppBundle\Entity\Teacher $techerId)
+    {
+        $this->techerId = $techerId;
+
+        return $this;
+    }
+
+    /**
+     * Get techerId
+     *
+     * @return \AppBundle\Entity\Teacher
+     */
+    public function getTecherId()
+    {
+        return $this->techerId;
+    }
+
+    /**
+     * Set courseId
+     *
+     * @param \AppBundle\Entity\Course $courseId
+     *
+     * @return Schoolsession
+     */
+    public function setCourseId(\AppBundle\Entity\Course $courseId = null)
+    {
+        $this->courseId = $courseId;
+
+        return $this;
+    }
+
+    /**
+     * Get courseId
+     *
+     * @return \AppBundle\Entity\Course
+     */
+    public function getCourseId()
+    {
+        return $this->courseId;
+    }
+
+    /**
+     * Set moduleId
+     *
+     * @param \AppBundle\Entity\Module $moduleId
+     *
+     * @return Schoolsession
+     */
+    public function setModuleId(\AppBundle\Entity\Module $moduleId = null)
+    {
+        $this->moduleId = $moduleId;
+
+        return $this;
+    }
+
+    /**
+     * Get moduleId
+     *
+     * @return \AppBundle\Entity\Module
+     */
+    public function getModuleId()
+    {
+        return $this->moduleId;
+    }
+    /**
+     * @var \AppBundle\Entity\Teacher
+     */
+    private $teacherId;
+
+
+    /**
+     * Set teacherId
+     *
+     * @param \AppBundle\Entity\Teacher $teacherId
+     *
+     * @return Schoolsession
+     */
+    public function setTeacherId(\AppBundle\Entity\Teacher $teacherId)
+    {
+        $this->teacherId = $teacherId;
+
+        return $this;
+    }
+
+    /**
+     * Get teacherId
+     *
+     * @return \AppBundle\Entity\Teacher
+     */
+    public function getTeacherId()
+    {
+        return $this->teacherId;
     }
 }

@@ -40,7 +40,8 @@ class SchoolsessionController extends Controller
                       ->add('session_section')
                       ->add('session_teacher')
                       ->add('course_module_type')
-                      ->add('course_module_id')
+                      ->add('course_id')
+                      ->add('module_id')
                       ->add('session_start_date')
                       ->add('session_end_date')
                       ->getForm();
@@ -77,12 +78,27 @@ class SchoolsessionController extends Controller
           $data['form'] = $school_session_data;
 
           $school_session = new Schoolsession();
+          $mysection = $this->getDoctrine()
+                              ->getRepository('AppBundle:Section')
+                              ->findOneById($school_session_data['session_section']);
+          $myteacher = $this->getDoctrine()
+                              ->getRepository('AppBundle:Teacher')
+                              ->findOneById($school_session_data['session_teacher']);
+          $mymodule = $this->getDoctrine()
+                              ->getRepository('AppBundle:Module')
+                              ->findOneById($school_session_data['module_id']);
+          $mycourse = $this->getDoctrine()
+                              ->getRepository('AppBundle:Course')
+                              ->findOneById($school_session_data['course_id']);
+
+
           $school_session->setSessionCode($school_session_data['session_code']);
           $school_session->setSessionName($school_session_data['session_name']);
-          $school_session->setSectionId($school_session_data['session_section']);
-          $school_session->setTeacherId($school_session_data['session_teacher']);
+          $school_session->setSectionId($mysection);
+          $school_session->setTeacherId($myteacher);
           $school_session->setCourseModuleType($school_session_data['course_module_type']);
-          $school_session->setCourseModuleId($school_session_data['course_module_id']);
+          $school_session->setCourseId($mycourse);
+          $school_session->setModuleId($mymodule);
           $school_session->setSessionStartDate($school_session_data['session_start_date']);
           $school_session->setSessionEndDate($school_session_data['session_end_date']);
           $school_session->setCreatedBy($session->get('user_id'));
@@ -169,12 +185,27 @@ class SchoolsessionController extends Controller
           $school_session_data = $form->getData();
           $data['form'] = $school_session_data;
 
+          $mysection = $this->getDoctrine()
+                              ->getRepository('AppBundle:Section')
+                              ->findOneById($school_session_data['session_section']);
+          $myteacher = $this->getDoctrine()
+                              ->getRepository('AppBundle:Teacher')
+                              ->findOneById($school_session_data['session_teacher']);
+          $mymodule = $this->getDoctrine()
+                              ->getRepository('AppBundle:Module')
+                              ->findOneById($school_session_data['course_module_id']);
+          $mycourse = $this->getDoctrine()
+                              ->getRepository('AppBundle:Course')
+                              ->findOneById($school_session_data['course_module_id']);
+
+
           $school_session->setSessionCode($school_session_data['session_code']);
           $school_session->setSessionName($school_session_data['session_name']);
-          $school_session->setSectionId($school_session_data['session_section']);
-          $school_session->setTeacherId($school_session_data['session_teacher']);
+          $school_session->setSectionId($mysection);
+          $school_session->setTeacherId($myteacher);
           $school_session->setCourseModuleType($school_session_data['course_module_type']);
-          $school_session->setCourseModuleId($school_session_data['course_module_id']);
+          $school_session->setCourseId($mymodule);
+          $school_session->setModuleId($mycourse);
           $school_session->setSessionStartDate($school_session_data['session_start_date']);
           $school_session->setSessionEndDate($school_session_data['session_end_date']);
 

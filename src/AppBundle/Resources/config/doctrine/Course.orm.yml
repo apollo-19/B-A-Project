@@ -45,6 +45,10 @@ AppBundle\Entity\Course:
                 unsigned: false
             column: created_by
     lifecycleCallbacks: {  }
+    oneToMany:
+      schoolsessions:
+        targetEntity: Schoolsession
+        mappedBy: module
     manyToOne:
       curriculumId:
         targetEntity: Curriculum

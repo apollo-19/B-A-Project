@@ -62,7 +62,7 @@ AppBundle\Entity\Teacher:
             options:
                 unsigned: false
             column: registered_by
-      
+
         userName:
             type: string
             nullable: false
@@ -71,6 +71,10 @@ AppBundle\Entity\Teacher:
                 fixed: false
             column: user_name
     lifecycleCallbacks: {  }
+    oneToMany:
+      schoolsessions:
+        targetEntity: Schoolsession
+        mappedBy: module
     manyToOne:
       departmentId:
         targetEntity: Department

@@ -31,7 +31,7 @@
 
             <td>
               {% for section in sections %}
-                {% if(session.sectionId == section.id) %}
+                {% if(session.sectionId == section) %}
                   {{ section.sectionName }}
                 {% endif %}
               {% endfor %}
@@ -39,7 +39,7 @@
 
             <td>
               {% for teacher in teachers %}
-                {% if(session.teacherId == teacher.id) %}
+                {% if(session.teacherId == teacher) %}
                   {{ teacher.firstName }} {{ teacher.middleName }}
                 {% endif %}
               {% endfor %}
@@ -49,7 +49,7 @@
               ({{ session.courseModuleType | capitalize }}) -
               {% if (session.courseModuleType == 'course') %}
                 {% for course in courses %}
-                  {% if ( session.courseModuleId == course.id ) %}
+                  {% if ( session.courseId == course ) %}
                     {{ course.courseName }}
 
                   {% endif %}
@@ -57,7 +57,7 @@
 
               {% elseif (session.courseModuleType == 'module') %}
                 {% for module in modules %}
-                  {% if ( session.courseModuleId == module.id ) %}
+                  {% if ( session.moduleId == module ) %}
                     {{ module.moduleName }}
                   {% endif %}
                 {% endfor %}

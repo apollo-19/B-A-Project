@@ -29,18 +29,7 @@ AppBundle\Entity\Schoolsession:
             options:
                 fixed: false
             column: session_name
-        sectionId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: section_id
-        teacherId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: teacher_id
+
         courseModuleType:
             type: string
             nullable: false
@@ -48,12 +37,7 @@ AppBundle\Entity\Schoolsession:
             options:
                 fixed: false
             column: course_module_type
-        courseModuleId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: course_module_id
+
         sessionStartDate:
             type: string
             nullable: false
@@ -75,3 +59,36 @@ AppBundle\Entity\Schoolsession:
                 unsigned: false
             column: created_by
     lifecycleCallbacks: {  }
+    manyToOne:
+      sectionId:
+        targetEntity: Section
+        inversedBy: schoolsession
+        joinColumn:
+          name: section_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE
+      teacherId:
+        targetEntity: Teacher
+        inversedBy: schoolsession
+        joinColumn:
+          name: teacher_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE
+      courseId:
+        targetEntity: Course
+        inversedBy: schoolsession
+        joinColumn:
+          name: course_id
+          referencedColumnName: id
+          nullable: true
+          onDelete: CASCADE
+      moduleId:
+        targetEntity: Module
+        inversedBy: schoolsession
+        joinColumn:
+          name: module_id
+          referencedColumnName: id
+          nullable: true
+          onDelete: CASCADE

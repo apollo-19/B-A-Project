@@ -41,8 +41,8 @@
         <option value="module" {{ (form.course_module_type is defined and form.course_module_type == 'module') ? 'selected' : '' }}>Module</option>
       </select>
 
-      <label for="form[course_module_id]">Session Course/Module</label>
-      <select name="form[course_module_id]" id="modules">
+      <label for="form[module_id]">Session Course/Module</label>
+      <select name="form[module_id]" id="modules">
         <optgroup label="Modules">
           {% for module in modules %}
             <option value="{{ module.id }}" {{ ((form.course_module_id is defined and form.course_module_id == 'module' ? module.id : 0) == (form.course_module_id is defined ? form.course_module_id : '')) ? 'selected' : '' }}>{{ module.moduleName }}</option>
@@ -50,7 +50,7 @@
         </optgroup>
       </select>
 
-      <select name="form[course_module_id]" id="courses">
+      <select name="form[course_id]" id="courses">
         <optgroup label="Courses">
           {% for course in courses %}
             <option value="{{ course.id }}" {{ ((form.course_module_id is defined and form.course_module_id == 'course' ? course.id : 0) == (form.course_module_id is defined ? form.course_module_id : '')) ? 'selected' : '' }}>{{ course.courseName }}</option>

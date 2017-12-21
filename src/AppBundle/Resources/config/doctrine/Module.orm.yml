@@ -55,6 +55,9 @@ AppBundle\Entity\Module:
       courses:
         targetEntity: Course
         mappedBy: module
+      schoolsessions:
+        targetEntity: Schoolsession
+        mappedBy: module  
     manyToOne:
       schoolId:
         targetEntity: School
