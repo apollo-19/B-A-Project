@@ -1,0 +1,26 @@
+AppBundle\Entity\AssessmentTypeSystem:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\AssessmentTypeSystemRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        assessmentTypeSystemCode:
+            type: string
+            length: '100'
+            column: assessment_type_system_code
+        assessmentTypeSystemName:
+            type: string
+            length: 255
+            column: assessment_type_system_name
+        createdBy:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: created_by
+    lifecycleCallbacks: {  }
