@@ -14,10 +14,6 @@
     <h1 class="welcomeText aright taright">Welcome {{ si_user_name }}.</h1>
 
     <article class="tasks">
-      <div><a href="{{ path('school_view') }}">
-        <img src="images/icons/school.png" draggable="false" /><br />Schools
-      </a></div>
-
       <div><a href="{{ path('module_view') }}">
         <img src="images/icons/module.png" draggable="false" /><br />Modules
       </a></div>
@@ -26,16 +22,24 @@
         <img src="images/icons/course.png" draggable="false" /><br />Courses
       </a></div>
 
+      <div><a href="{{ path('prerequisite_view') }}">
+        <img src="images/icons/prerequisite.png" draggable="false" /><br />Prerequisites
+      </a></div>
+      
       <div><a href="{{ path('section_view') }}">
-        <img src="images/icons/session.png" draggable="false" /><br />My Sessions
+        <img src="images/icons/section.png" draggable="false" /><br />Sections
       </a></div>
 
-      <div><a href="{{ path('section_view') }}">
-        <img src="images/icons/result.png" draggable="false" /><br />Results
+      <div><a href="{{ path('student_view') }}">
+        <img src="images/icons/student.png" draggable="false" /><br />Students
       </a></div>
 
-      <div><a href="{{ path('section_view') }}">
-        <img src="images/icons/assessment.png" draggable="false" /><br />Assessment
+      <div><a href="{{ path('session_view') }}">
+        <img src="images/icons/session.png" draggable="false" /><br />School Sessions
+      </a></div>
+
+      <div><a href="{{ path('account_settings', {'user_id': app.session.get('user_id_lit')} ) }}">
+        <img src="images/icons/account_settings.png" draggable="false" /><br />Account Settings
       </a></div>
 
       <div><a href=" {{ path('user_signout') }} " onclick="return confirm('Are You Sure You Want To Sign Out?') ">

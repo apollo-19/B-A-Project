@@ -64,8 +64,9 @@
               {% endif %}
             </td>
 
+            <td id="actions"><a href="{{ path('session_view_one', {'session_id': session.id}) }}" id="editBtn">view</a></td>
+            
             {% if(app.session.get('user_type') == 'admin') %}
-              <td id="actions"><a href="{{ path('session_view_one', {'session_id': session.id}) }}" id="editBtn">view</a></td>
               <td id="actions"><a href="{{ path('session_edit', {'session_id': session.id}) }}" id="editBtn">edit</a></td>
               <td id="actions"><a href="{{ path('session_delete', {'session_id': session.id}) }}" id="deleteBtn"
                     onclick="return confirm('Are You Sure You Want To Delete {{ session.sessionName }} ({{ session.sessionCode }})?') ">delete</a></td>

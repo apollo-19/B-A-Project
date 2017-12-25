@@ -11,7 +11,11 @@
 
 {% block body %}
   <div class="container" id="view_container">
-    <a href="{{ path('assessment_type_create') }}">New School Assessment</a>
+    <a href="{{ path('assessment_type_system_view') }}"> << Go Back </a>
+    <a href="{{ path('assessment_type_create', {'assessment_type_system_id': assessment_type_system.id}) }}">New School Assessment</a>
+
+    <h1>{{ assessment_type_system.assessmentTypeSystemCode | upper ~ ' (' ~ assessment_type_system.assessmentTypeSystemName ~ ')' }}</h1>
+
     <table border="0">
       <thead>
         <tr>

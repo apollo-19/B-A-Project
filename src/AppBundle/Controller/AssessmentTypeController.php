@@ -24,9 +24,9 @@ class AssessmentTypeController extends Controller
     }
 
     /**
-     * @Route("/assessment_type/create", name="assessment_type_create")
+     * @Route("/assessment_type/create/{assessment_type_system_id}", name="assessment_type_create")
      */
-    public function assessmentTypeCreateAction(Request $request)
+    public function assessmentTypeCreateAction(Request $request, $assessment_type_system_id)
     {
       $session = new Session();
 
@@ -39,6 +39,12 @@ class AssessmentTypeController extends Controller
                       ->add('assessment_worth')
                       ->getForm();
 
+        $assessment_type_system = $this->getDoctrine()
+                            ->getRepository('AppBundle:AssessmentTypeSystem')
+                            ->findOneById($assessment_type_system_id);
+
+        $data['assessment_type_system'] = $assessment_type_system;
+
         $form->handleRequest($request);
 
         if($form->isSubmitted()){
@@ -49,6 +55,7 @@ class AssessmentTypeController extends Controller
           $assessment_type = new AssessmentType();
           $assessment_type->setAssessmentName($assessment_type_data['assessment_name']);
           $assessment_type->setAssessmentWorth($assessment_type_data['assessment_worth']);
+          $assessment_type->setAssessmentTypeSystemId($assessment_type_system_id);
 
           $assessment_type->setCreatedBy($session->get('user_id'));
 
@@ -56,7 +63,7 @@ class AssessmentTypeController extends Controller
           $em->persist($assessment_type);
           $em->flush();
 
-          return $this->redirectToRoute('assessment_type_view');
+          return $this->redirect($this->generateUrl('assessment_type_view', array('assessment_type_system_id' => $assessment_type_system_id)));
         }
 
         return $this->render('assessment/type_form.html.twig', $data);
@@ -77,7 +84,14 @@ class AssessmentTypeController extends Controller
       $form = $this ->createFormBuilder()
                     ->add('assessment_name')
                     ->add('assessment_worth')
+                    ->add('assessment_type_system')
                     ->getForm();
+
+      $assessment_type_system = $this->getDoctrine()
+                          ->getRepository('AppBundle:AssessmentTypeSystem')
+                          ->findAll();
+
+      $data['assessment_type_systems'] = $assessment_type_system;
 
       $assessment_type = $this->getDoctrine()
                           ->getRepository('AppBundle:AssessmentType')
@@ -85,6 +99,7 @@ class AssessmentTypeController extends Controller
 
       $assessment_type_data['assessment_name'] = $assessment_type->getAssessmentName();
       $assessment_type_data['assessment_worth'] = $assessment_type->getAssessmentWorth();
+      $assessment_type_data['assessment_type_system'] = $assessment_type->getAssessmentTypeSystemId();
 
       $session = new Session();
 
@@ -100,12 +115,13 @@ class AssessmentTypeController extends Controller
 
           $assessment_type->setAssessmentName($assessment_type_data['assessment_name']);
           $assessment_type->setAssessmentWorth($assessment_type_data['assessment_worth']);
+          $assessment_type->setAssessmentTypeSystemId($assessment_type_data['assessment_type_system']);
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($assessment_type);
           $em->flush();
 
-          return $this->redirectToRoute('assessment_type_view');
+          return $this->redirect($this->generateUrl('assessment_type_view', array('assessment_type_system_id' => $assessment_type_data['assessment_type_system'])));
         }
         return $this->render('assessment/type_form.html.twig', $data);
       } else {
@@ -139,9 +155,9 @@ class AssessmentTypeController extends Controller
     }
 
     /**
-     * @Route("/assessment_type/view", name="assessment_type_view")
+     * @Route("/assessment_type/view/{assessment_type_system_id}", name="assessment_type_view")
      */
-    public function assessmentTypeViewAction()
+    public function assessmentTypeViewAction($assessment_type_system_id)
     {
       $session = new Session();
 
@@ -150,9 +166,17 @@ class AssessmentTypeController extends Controller
 
         $assessment_type = $this->getDoctrine()
                             ->getRepository('AppBundle:AssessmentType')
-                            ->findAll();
+                            ->findBy(
+                              array('assessmentTypeSystemId' => $assessment_type_system_id)
+                            );
 
         $data['assessment_types'] = $assessment_type;
+
+        $assessment_type_system = $this->getDoctrine()
+                            ->getRepository('AppBundle:AssessmentTypeSystem')
+                            ->findOneById($assessment_type_system_id);
+
+        $data['assessment_type_system'] = $assessment_type_system;
 
         return $this->render('assessment/type_view.html.twig', $data);
       } else {

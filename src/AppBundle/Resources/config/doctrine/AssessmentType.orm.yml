@@ -24,6 +24,9 @@ AppBundle\Entity\AssessmentType:
             options:
                 unsigned: false
             column: assessment_worth
+        assessmentTypeSystemId:
+            type: integer
+            column: assessment_type_system_id
         createdBy:
             type: integer
             nullable: false

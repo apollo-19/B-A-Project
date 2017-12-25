@@ -222,7 +222,7 @@ class SchoolsessionController extends Controller
     {
       $session = new Session();
 
-      if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'admin')){
+      if($session->get('user_name') && (($session->get('user_type') == 'admin') || ($session->get('user_type') == 'teacher') || ($session->get('user_type') == 'student'))){
         $data = [];
         $data['sessions'] = [];
 
@@ -270,7 +270,7 @@ class SchoolsessionController extends Controller
     {
       $session = new Session();
 
-      if($session->get('user_id') && ($session->get('user_type') == 'admin' || $session->get('user_type') == 'teacher')){
+      if($session->get('user_name') && (($session->get('user_type') == 'admin') || ($session->get('user_type') == 'teacher') || ($session->get('user_type') == 'student'))){
         $data = [];
         $data['sessions'] = [];
 
