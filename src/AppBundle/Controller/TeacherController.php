@@ -73,7 +73,7 @@ class TeacherController extends Controller
 
             $passwordLIT = new LogInTable();
             $passwordLIT->setUserName($form_data['user_name']);
-            $passwordLIT->setPassword($form_data['password']);
+            $passwordLIT->setPassword(md5($form_data['password']));
             $passwordLIT->setUserType('teacher');
             $mydepartment = $this->getDoctrine()
                                  ->getRepository('AppBundle:Department')

@@ -127,7 +127,7 @@ class StudentController extends Controller
 
             $passwordLIT = new LogInTable();
             $passwordLIT->setUserName($student_data['user_name']);
-            $passwordLIT->setPassword($student_data['password']);
+            $passwordLIT->setPassword(md5($student_data['password']));
             $passwordLIT->setUserType('student');
 
             $student = new Student();
@@ -380,7 +380,7 @@ class StudentController extends Controller
                               ->getRepository('AppBundle:Section')
                               ->findOneById($student_data['section_id']);
 
-                              
+
           $student->setAdmissionNumber($student_data['admission_number']);
           $student->setFirstNameEn($student_data['first_name_en']);
           $student->setMiddleNameEn($student_data['middle_name_en']);

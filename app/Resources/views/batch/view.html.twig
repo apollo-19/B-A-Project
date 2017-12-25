@@ -34,9 +34,9 @@
               {% endif %}
             {% endfor %}
 
-            <td><a href="{{ path('batch_view_one', {'batch_id': batch.id}) }}">view</button></td>
-            <td><a href="{{ path('batch_edit', {'batch_id': batch.id}) }}" id="editBtn">edit</button></td>
-            <td><a href="{{ path('batch_delete', {'batch_id': batch.id}) }}" id="deleteBtn"
+            <td id="actions"><a href="{{ path('batch_view_one', {'batch_id': batch.id}) }}">view</button></td>
+            <td id="actions"><a href="{{ path('batch_edit', {'batch_id': batch.id}) }}" id="editBtn">edit</button></td>
+            <td id="actions"><a href="{{ path('batch_delete', {'batch_id': batch.id}) }}" id="deleteBtn"
                   onclick="return confirm('Are You Sure You Want To Delete {{ batch.batchName }} ({{ batch.batchCode }})?') ">delete</button></td>
           </tr>
         {% endfor %}

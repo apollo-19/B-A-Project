@@ -28,13 +28,15 @@
             <td>{{ department.departmentName }}</td>
             {% for school in schools %}
               {% if(department.schoolId == school) %}
-                <td> {{ school.schoolName }} </td>
+                <td><a href="{{ path('school_view_one', {'school_id': school.id}) }}" id="moreDetBtn">
+                  {{ school.schoolName }}
+                </td>
               {% endif %}
             {% endfor %}
 
-            <td><a href="{{ path('department_view_one', {'department_id': department.id}) }}">view</button></td>
-            <td><a href="{{ path('department_edit', {'department_id': department.id}) }}" id="editBtn">edit</button></td>
-            <td><a href="{{ path('department_delete', {'department_id': department.id}) }}" id="deleteBtn"
+            <td id="actions"><a href="{{ path('department_view_one', {'department_id': department.id}) }}">view</button></td>
+            <td id="actions"><a href="{{ path('department_edit', {'department_id': department.id}) }}" id="editBtn">edit</button></td>
+            <td id="actions"><a href="{{ path('department_delete', {'department_id': department.id}) }}" id="deleteBtn"
                   onclick="return confirm('Are You Sure You Want To Delete {{ department.departmentName }} ({{ department.departmentCode }})?') ">delete</button></td>
           </tr>
         {% endfor %}

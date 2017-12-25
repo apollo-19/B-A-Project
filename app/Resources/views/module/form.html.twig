@@ -36,13 +36,6 @@
         {% endfor %}
       </select>
 
-      <label for="form[module_school]">Module School</label>
-      <select name="form[module_school]">
-        {% for school in schools %}
-          <option value="{{ school.id }}" {{ (form.module_school is defined and form.module_school == school) ? 'selected' : '' }} >{{ school.schoolName }}</option>
-        {% endfor %}
-      </select>
-
       <button>{{ (mode == 'new') ? 'Create Module' : 'Save Changes' }}</button>
     </form>
 

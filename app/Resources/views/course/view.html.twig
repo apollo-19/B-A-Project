@@ -41,22 +41,22 @@
             <td>
               {% for module in modules %}
                 {% if(course.moduleId == module and currCurriculumType == 'modularized') %}
-                  {{ module.moduleName }} Module
+                  (Module) - {{ module.moduleName }}
                 {% endif %}
               {% endfor %}
 
               {% for semester in semesters %}
                 {% if(course.semesterId == semester and currCurriculumType == 'semester') %}
-                  {{ semester.semester ~ ' ' ~ semester.year }} Semester
+                  (Semester) - {{ semester.semester ~ ' ' ~ semester.year }}
                 {% endif %}
               {% endfor %}
             </td>
 
-            <td><a href="{{ path('course_view_one', {'course_id': course.id}) }}">view</a></td>
+            <td id="actions"><a href="{{ path('course_view_one', {'course_id': course.id}) }}">view</a></td>
 
             {% if(app.session.get('user_type') == 'admin') %}
-              <td><a href="{{ path('course_edit', {'course_id': course.id}) }}" id="editBtn">edit</button></td>
-              <td><a href="{{ path('course_delete', {'course_id': course.id}) }}" id="deleteBtn"
+              <td id="actions"><a href="{{ path('course_edit', {'course_id': course.id}) }}" id="editBtn">edit</button></td>
+              <td id="actions"><a href="{{ path('course_delete', {'course_id': course.id}) }}" id="deleteBtn"
                     onclick="return confirm('Are You Sure You Want To Delete {{ course.courseName }} ({{ course.courseCode }})?') ">delete</button></td>
             {% endif %}
           </tr>

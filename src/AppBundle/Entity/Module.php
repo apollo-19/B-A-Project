@@ -166,7 +166,7 @@ class Module
 
 
 
-  
+
     /**
      * @var \AppBundle\Entity\Curriculum
      */
@@ -196,35 +196,7 @@ class Module
     {
         return $this->curriculumId;
     }
-    /**
-     * @var \AppBundle\Entity\School
-     */
-    private $schoolId;
-
-
-    /**
-     * Set schoolId
-     *
-     * @param \AppBundle\Entity\School $schoolId
-     *
-     * @return Module
-     */
-    public function setSchoolId(\AppBundle\Entity\School $schoolId)
-    {
-        $this->schoolId = $schoolId;
-
-        return $this;
-    }
-
-    /**
-     * Get schoolId
-     *
-     * @return \AppBundle\Entity\School
-     */
-    public function getSchoolId()
-    {
-        return $this->schoolId;
-    }
+    
     /**
      * @var \Doctrine\Common\Collections\Collection
      */

@@ -109,4 +109,33 @@ class AssessmentType
     {
         return $this->createdBy;
     }
+    /**
+     * @var integer
+     */
+    private $assessmentTypeSystemId;
+
+
+    /**
+     * Set assessmentTypeSystemId
+     *
+     * @param integer $assessmentTypeSystemId
+     *
+     * @return AssessmentType
+     */
+    public function setAssessmentTypeSystemId($assessmentTypeSystemId)
+    {
+        $this->assessmentTypeSystemId = $assessmentTypeSystemId;
+
+        return $this;
+    }
+
+    /**
+     * Get assessmentTypeSystemId
+     *
+     * @return integer
+     */
+    public function getAssessmentTypeSystemId()
+    {
+        return $this->assessmentTypeSystemId;
+    }
 }

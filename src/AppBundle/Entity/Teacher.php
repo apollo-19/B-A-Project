@@ -252,9 +252,6 @@ class Teacher
     {
         return $this->userName;
     }
-
-
-
     
     /**
      * @var \AppBundle\Entity\Department

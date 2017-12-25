@@ -32,12 +32,16 @@
 
         <tr>
           <td>Curriculum School:</td>
-          <td>{{ school.schoolName }}</td>
+          <td><a href="{{ path('school_view_one', {'school_id': curriculum.schoolId.id}) }}">
+            {{ school.schoolName }}
+          </a></td>
         </tr>
 
         <tr>
           <td>Curriculum Grade System:</td>
-          <td>{{ grade_system.gradeSystemName is defined ? grade_system.gradeSystemName : '' }}</td>
+          <td><a href="{{ path('grade_view', {'grade_system_id': curriculum.gradeSystemId.id }) }}">
+            {{ grade_system.gradeSystemName is defined ? grade_system.gradeSystemName : '' }}
+          </a></td>
         </tr>
       </table>
     </div>

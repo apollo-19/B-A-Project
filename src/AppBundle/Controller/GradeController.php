@@ -24,9 +24,9 @@ class GradeController extends Controller
     }
 
     /**
-     * @Route("/grade/create/", name="grade_create")
+     * @Route("/grade/create/{grade_system_id}", name="grade_create")
      */
-    public function gradeSystemCreateAction(Request $request)
+    public function gradeSystemCreateAction(Request $request, $grade_system_id)
     {
       $session = new Session();
 
@@ -38,14 +38,13 @@ class GradeController extends Controller
                       ->add('start_point')
                       ->add('end_point')
                       ->add('grade')
-                      ->add('grade_system')
                       ->getForm();
 
         $grade_system = $this->getDoctrine()
                             ->getRepository('AppBundle:GradeSystem')
-                            ->findAll();
+                            ->findOneById($grade_system_id);
 
-        $data['grade_systems'] = $grade_system;
+        $data['grade_system'] = $grade_system;
 
         $form->handleRequest($request);
 
@@ -58,15 +57,13 @@ class GradeController extends Controller
           $grade->setStartPoint($grade_data['start_point']);
           $grade->setEndPoint($grade_data['end_point']);
           $grade->setGrade($grade_data['grade']);
-          $grade->setGradeSystemId($grade_data['grade_system']);
-
-          //$grade->setCreatedBy($session->get('user_id'));
+          $grade->setGradeSystemId($grade_system_id);
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($grade);
           $em->flush();
 
-          return $this->redirect($this->generateUrl('grade_system_view'));
+          return $this->redirect($this->generateUrl('grade_view', array('grade_system_id' => $grade_system_id)));
         }
 
         return $this->render('grade/form.html.twig', $data);
@@ -107,7 +104,6 @@ class GradeController extends Controller
 
       $data['grade_systems'] = $grade_system;
 
-
       $session = new Session();
 
       if($session->get('user_name') && ($session->get('user_type') == 'admin')){
@@ -131,7 +127,7 @@ class GradeController extends Controller
 
           $em->flush();
 
-          return $this->redirectToRoute('grade_system_view');
+          return $this->redirect($this->generateUrl('grade_view', array('grade_system_id' => $grade_data['grade_system'])));
         }
         return $this->render('grade/form.html.twig', $data);
 
@@ -168,11 +164,9 @@ class GradeController extends Controller
     }
 
     /**
-
      * @Route("/grade/view/{grade_system_id}", name="grade_view")
      */
     public function assessmentTypeViewAction(Request $request, $grade_system_id)
-
     {
       $session = new Session();
 
@@ -184,14 +178,13 @@ class GradeController extends Controller
                               array('gradeSystemId' => $grade_system_id)
                             );
 
-
         $data['grades'] = $grade;
 
         $grade_system = $this->getDoctrine()
                             ->getRepository('AppBundle:GradeSystem')
-                            ->findAll();
+                            ->findOneById($grade_system_id);
 
-        $data['grade_systems'] = $grade_system;
+        $data['grade_system'] = $grade_system;
 
         return $this->render('grade/view.html.twig', $data);
       } else {

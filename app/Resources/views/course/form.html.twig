@@ -35,7 +35,7 @@
       <select name="form[module_id]" class="courseModules">
         <option value="">No Module</option>
         {% for module in modules %}
-          <option value="{{ module.id }}" {{ (form.module_id is defined and module.id == form.module_id) ? 'selected' : '' }}>{{ module.moduleName }}</option>
+          <option value="{{ module.id }}" {{ (form.module_id is defined and module == form.module_id) ? 'selected' : '' }}>{{ module.moduleName }}</option>
         {% endfor %}
       </select>
 
