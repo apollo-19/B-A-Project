@@ -169,7 +169,8 @@ class SchoolsessionController extends Controller
       $school_session_data['session_section'] = $school_session->getSectionId();
       $school_session_data['session_teacher'] = $school_session->getTeacherId();
       $school_session_data['course_module_type'] = $school_session->getCourseModuleType();
-      $school_session_data['course_module_id'] = $school_session->getCourseModuleId();
+      $school_session_data['course_id']=$school_session->getCourseId();
+      $school_session_data['module_id']=$school_session->getModuleId();
       $school_session_data['session_start_date'] = $school_session->getSessionStartDate();
       $school_session_data['session_end_date'] = $school_session->getSessionEndDate();
 

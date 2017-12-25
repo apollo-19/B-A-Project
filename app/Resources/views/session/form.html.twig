@@ -24,14 +24,14 @@
       <label for="form[session_section]">Session Section</label>
       <select name="form[session_section]">
         {% for section in sections %}
-          <option value="{{ section.id }}" {{ (form.session_section is defined and section.id == form.session_section) ? 'selected' : '' }} >{{ section.sectionName }}</option>
+          <option value="{{ section.id }}" {{ (form.session_section is defined and section == form.session_section) ? 'selected' : '' }} >{{ section.sectionName }}</option>
         {% endfor %}
       </select>
 
       <label for="form[session_teacher]">Session Teacher</label>
       <select name="form[session_teacher]">
         {% for teacher in teachers %}
-          <option value="{{ teacher.id }}" {{ (form.session_teacher is defined and form.session_teacher == teacher.id) ? 'selected' : '' }}>{{ teacher.userName }} ({{ teacher.firstName }} {{ teacher.middleName }} {{ teacher.lastName }})</option>
+          <option value="{{ teacher.id }}" {{ (form.session_teacher is defined and form.session_teacher == teacher) ? 'selected' : '' }}>{{ teacher.userName }} ({{ teacher.firstName }} {{ teacher.middleName }} {{ teacher.lastName }})</option>
         {% endfor %}
       </select>
 
