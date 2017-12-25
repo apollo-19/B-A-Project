@@ -196,4 +196,62 @@ class AssessmentResult
     {
         return $this->sessionId;
     }
+    /**
+     * @var integer
+     */
+    private $schoolSessionId;
+
+
+    /**
+     * Set schoolSessionId
+     *
+     * @param integer $schoolSessionId
+     *
+     * @return AssessmentResult
+     */
+    public function setSchoolSessionId($schoolSessionId)
+    {
+        $this->schoolSessionId = $schoolSessionId;
+
+        return $this;
+    }
+
+    /**
+     * Get schoolSessionId
+     *
+     * @return integer
+     */
+    public function getSchoolSessionId()
+    {
+        return $this->schoolSessionId;
+    }
+    /**
+     * @var integer
+     */
+    private $assessmentTypeId;
+
+
+    /**
+     * Set assessmentTypeId
+     *
+     * @param integer $assessmentTypeId
+     *
+     * @return AssessmentResult
+     */
+    public function setAssessmentTypeId($assessmentTypeId)
+    {
+        $this->assessmentTypeId = $assessmentTypeId;
+
+        return $this;
+    }
+
+    /**
+     * Get assessmentTypeId
+     *
+     * @return integer
+     */
+    public function getAssessmentTypeId()
+    {
+        return $this->assessmentTypeId;
+    }
 }

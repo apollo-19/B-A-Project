@@ -8,7 +8,7 @@ AppBundle\Entity\Student:
     id:
         id:
             type: integer
-            nullable: false
+            nullable: true
             options:
                 unsigned: false
             id: true
@@ -17,409 +17,409 @@ AppBundle\Entity\Student:
     fields:
         admissionNumber:
             type: string
-            nullable: false
+            nullable: true
             length: 15
             options:
                 fixed: false
             column: admission_number
         firstNameEn:
             type: string
-            nullable: false
+            nullable: true
             length: 50
             options:
                 fixed: false
             column: first_name_en
         middleNameEn:
             type: string
-            nullable: false
+            nullable: true
             length: 50
             options:
                 fixed: false
             column: middle_name_en
         lastNameEn:
             type: string
-            nullable: false
+            nullable: true
             length: 50
             options:
                 fixed: false
             column: last_name_en
         firstNameAm:
             type: string
-            nullable: false
+            nullable: true
             length: 100
             options:
                 fixed: false
             column: first_name_am
         middleNameAm:
             type: string
-            nullable: false
+            nullable: true
             length: 100
             options:
                 fixed: false
             column: middle_name_am
         lastNameAm:
             type: string
-            nullable: false
+            nullable: true
             length: 100
             options:
                 fixed: false
             column: last_name_am
         sex:
             type: string
-            nullable: false
+            nullable: true
             length: 10
             options:
                 fixed: false
         nationality:
             type: string
-            nullable: false
+            nullable: true
             length: 100
             options:
                 fixed: false
         placeOfBirthTown:
             type: string
-            nullable: false
+            nullable: true
             length: 100
             options:
                 fixed: false
             column: place_of_birth_town
         placeOfBirthRegion:
             type: string
-            nullable: false
+            nullable: true
             length: 100
             options:
                 fixed: false
             column: place_of_birth_region
         dateOfBirthGc:
             type: string
-            nullable: false
+            nullable: true
             length: 100
             options:
                 fixed: false
             column: date_of_birth_gc
         dateOfBirthEc:
             type: string
-            nullable: false
+            nullable: true
             length: 100
             options:
                 fixed: false
             column: date_of_birth_ec
         houseNumber:
             type: string
-            nullable: false
+            nullable: true
             length: 10
             options:
                 fixed: false
             column: house_number
         kebele:
             type: integer
-            nullable: false
+            nullable: true
             options:
                 unsigned: false
         woredaSubcity:
             type: string
-            nullable: false
+            nullable: true
             length: 20
             options:
                 fixed: false
             column: woreda_subcity
         town:
             type: string
-            nullable: false
+            nullable: true
             length: 100
             options:
                 fixed: false
         zone:
             type: string
-            nullable: false
+            nullable: true
             length: 20
             options:
                 fixed: false
         region:
             type: string
-            nullable: false
+            nullable: true
             length: 20
             options:
                 fixed: false
         poBox:
             type: string
-            nullable: false
+            nullable: true
             length: 20
             options:
                 fixed: false
             column: po_box
         telephoneHome:
             type: string
-            nullable: false
+            nullable: true
             length: 25
             options:
                 fixed: false
             column: telephone_home
         telephoneMobile:
             type: string
-            nullable: false
+            nullable: true
             length: 25
             options:
                 fixed: false
             column: telephone_mobile
         emailAddress:
             type: string
-            nullable: false
+            nullable: true
             length: 255
             options:
                 fixed: false
             column: email_address
         nativeLanguage:
             type: string
-            nullable: false
+            nullable: true
             length: 100
             options:
                 fixed: false
             column: native_language
         maritalStatus:
             type: string
-            nullable: false
+            nullable: true
             length: 50
             options:
                 fixed: false
             column: marital_status
         pceFullName:
             type: string
-            nullable: false
+            nullable: true
             length: 150
             options:
                 fixed: false
             column: pce_full_name
         pceRelationship:
             type: string
-            nullable: false
+            nullable: true
             length: 50
             options:
                 fixed: false
             column: pce_relationship
         pceOther:
             type: string
-            nullable: false
+            nullable: true
             length: 100
             options:
                 fixed: false
             column: pce_other
         pceTelephoneHome:
             type: string
-            nullable: false
+            nullable: true
             length: 10
             options:
                 fixed: false
             column: pce_telephone_home
         pceTelephoneOffice:
             type: string
-            nullable: false
+            nullable: true
             length: 25
             options:
                 fixed: false
             column: pce_telephone_office
         pceHouseNumber:
             type: string
-            nullable: false
+            nullable: true
             length: 10
             options:
                 fixed: false
             column: pce_house_number
         pceKebele:
             type: integer
-            nullable: false
+            nullable: true
             options:
                 unsigned: false
             column: pce_kebele
         pceWoredaSubcity:
             type: string
-            nullable: false
+            nullable: true
             length: 20
             options:
                 fixed: false
             column: pce_woreda_subcity
         pceTown:
             type: string
-            nullable: false
+            nullable: true
             length: 100
             options:
                 fixed: false
             column: pce_town
         pceZone:
             type: string
-            nullable: false
+            nullable: true
             length: 20
             options:
                 fixed: false
             column: pce_zone
         pceRegion:
             type: string
-            nullable: false
+            nullable: true
             length: 20
             options:
                 fixed: false
             column: pce_region
         fatherFullName:
             type: string
-            nullable: false
+            nullable: true
             length: 150
             options:
                 fixed: false
             column: father_full_name
         fatherOccupation:
             type: string
-            nullable: false
+            nullable: true
             length: 50
             options:
                 fixed: false
             column: father_occupation
         fatherEducationalLevel:
             type: string
-            nullable: false
+            nullable: true
             length: 25
             options:
                 fixed: false
             column: father_educational_level
         fatherTelephoneHome:
             type: string
-            nullable: false
+            nullable: true
             length: 25
             options:
                 fixed: false
             column: father_telephone_home
         fatherTelephoneOffice:
             type: string
-            nullable: false
+            nullable: true
             length: 25
             options:
                 fixed: false
             column: father_telephone_office
         fatherHouseNumber:
             type: string
-            nullable: false
+            nullable: true
             length: 10
             options:
                 fixed: false
             column: father_house_number
         fatherKebele:
             type: integer
-            nullable: false
+            nullable: true
             options:
                 unsigned: false
             column: father_kebele
         fatherWoredaSubcity:
             type: string
-            nullable: false
+            nullable: true
             length: 20
             options:
                 fixed: false
             column: father_woreda_subcity
         fatherTown:
             type: string
-            nullable: false
+            nullable: true
             length: 100
             options:
                 fixed: false
             column: father_town
         fatherZone:
             type: string
-            nullable: false
+            nullable: true
             length: 20
             options:
                 fixed: false
             column: father_zone
         fatherRegion:
             type: string
-            nullable: false
+            nullable: true
             length: 20
             options:
                 fixed: false
             column: father_region
         motherFullName:
             type: string
-            nullable: false
+            nullable: true
             length: 150
             options:
                 fixed: false
             column: mother_full_name
         motherOccupation:
             type: string
-            nullable: false
+            nullable: true
             length: 50
             options:
                 fixed: false
             column: mother_occupation
         motherEducationalLevel:
             type: string
-            nullable: false
+            nullable: true
             length: 25
             options:
                 fixed: false
             column: mother_educational_level
         motherTelephoneHome:
             type: string
-            nullable: false
+            nullable: true
             length: 25
             options:
                 fixed: false
             column: mother_telephone_home
         motherTelephoneOffice:
             type: string
-            nullable: false
+            nullable: true
             length: 25
             options:
                 fixed: false
             column: mother_telephone_office
         motherHouseNumber:
             type: string
-            nullable: false
+            nullable: true
             length: 10
             options:
                 fixed: false
             column: mother_house_number
         motherKebele:
             type: integer
-            nullable: false
+            nullable: true
             options:
                 unsigned: false
             column: mother_kebele
         motherWoredaSubcity:
             type: string
-            nullable: false
+            nullable: true
             length: 20
             options:
                 fixed: false
             column: mother_woreda_subcity
         motherTown:
             type: string
-            nullable: false
+            nullable: true
             length: 100
             options:
                 fixed: false
             column: mother_town
         motherZone:
             type: string
-            nullable: false
+            nullable: true
             length: 20
             options:
                 fixed: false
             column: mother_zone
         motherRegion:
             type: string
-            nullable: false
+            nullable: true
             length: 20
             options:
                 fixed: false
             column: mother_region
         registeredBy:
             type: integer
-            nullable: false
+            nullable: true
             options:
                 unsigned: false
             column: registered_by
         userName:
             type: string
-            nullable: false
+            nullable: true
             length: 255
             options:
                 fixed: false
@@ -433,4 +433,4 @@ AppBundle\Entity\Student:
         joinColumn:
           name: section_id
           referencedColumnName: id
-          nullable: false
+          nullable: true

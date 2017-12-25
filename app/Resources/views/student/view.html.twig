@@ -15,9 +15,9 @@
     <table border="0">
       <thead>
         <tr>
+          <th>Admission Number</th>
           <th>Student Name</th>
-          <th>Sex</th>
-          <th>Email Address</th>
+          <th>Student Section</th>
           <th>User Name</th>
           <th colspan="3">Actions</th>
         </tr>
@@ -25,9 +25,9 @@
       <tbody>
         {% for student in students %}
           <tr>
+            <td>{{ student.admissionNumber }}</td>
             <td>{{ student.firstNameEn }} {{ student.middleNameEn }} {{ student.lastNameEn }}</td>
-            <td>{{ student.sex | capitalize }}</td>
-            <td>{{ student.emailAddress}}</td>
+            <td>{{ student.sectionId.sectionName }}</td>
             <td>{{ student.userName }}</td>
 
             <td id="actions"><a href="{{ path('student_view_one', {'student_id': student.id}) }}">view</button></td>

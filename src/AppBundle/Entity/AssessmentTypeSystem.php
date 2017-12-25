@@ -109,4 +109,50 @@ class AssessmentTypeSystem
     {
         return $this->createdBy;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $schoolsessions;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->schoolsessions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add schoolsession
+     *
+     * @param \AppBundle\Entity\Schoolsession $schoolsession
+     *
+     * @return AssessmentTypeSystem
+     */
+    public function addSchoolsession(\AppBundle\Entity\Schoolsession $schoolsession)
+    {
+        $this->schoolsessions[] = $schoolsession;
+
+        return $this;
+    }
+
+    /**
+     * Remove schoolsession
+     *
+     * @param \AppBundle\Entity\Schoolsession $schoolsession
+     */
+    public function removeSchoolsession(\AppBundle\Entity\Schoolsession $schoolsession)
+    {
+        $this->schoolsessions->removeElement($schoolsession);
+    }
+
+    /**
+     * Get schoolsessions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSchoolsessions()
+    {
+        return $this->schoolsessions;
+    }
 }

@@ -92,3 +92,11 @@ AppBundle\Entity\Schoolsession:
           referencedColumnName: id
           nullable: true
           onDelete: CASCADE
+      assessmentTypeSystemId:
+        targetEntity: AssessmentTypeSystem
+        inversedBy: schoolsession
+        joinColumn:
+          name: assessment_type_system_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE

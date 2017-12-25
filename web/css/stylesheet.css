@@ -293,6 +293,10 @@ header table tr td a:hover {
 	background-color: #EDF7F8;
 }
 
+#view_container #total_row {
+  padding: 10px 10px;
+}
+
 #view_container a {
   display: inline-block;
   text-decoration: none;

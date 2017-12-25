@@ -1756,7 +1756,7 @@ class Student
     {
         return $this->dateOfBirthEc;
     }
-  
+
     /**
      * @var string
      */
@@ -1799,7 +1799,7 @@ class Student
      *
      * @return Student
      */
-    public function setSectionId(\AppBundle\Entity\Section $sectionId)
+    public function setSectionId(\AppBundle\Entity\Section $sectionId = null)
     {
         $this->sectionId = $sectionId;
 

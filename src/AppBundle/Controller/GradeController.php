@@ -140,7 +140,7 @@ class GradeController extends Controller
     /**
      * @Route("/grade/delete/{grade_id}", name="grade_delete")
      */
-    public function assessmentTypeDeleteAction(Request $request, $grade_id)
+    public function gradeDeleteAction(Request $request, $grade_id)
     {
       $session = new Session();
 
@@ -166,17 +166,19 @@ class GradeController extends Controller
     /**
      * @Route("/grade/view/{grade_system_id}", name="grade_view")
      */
-    public function assessmentTypeViewAction(Request $request, $grade_system_id)
+    public function gradeViewAction(Request $request, $grade_system_id)
     {
       $session = new Session();
 
       if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'admin')){
-        $grade = $this->getDoctrine()
-                            ->getRepository('AppBundle:Grade')
+        $em = $this->getDoctrine()->getManager();
 
-                            ->findBy(
-                              array('gradeSystemId' => $grade_system_id)
-                            );
+        $grade = $em->getRepository('AppBundle:Grade')
+                    ->createQueryBuilder('e')
+                    ->addOrderBy('e.startPoint', 'DESC')
+                    ->andWhere('e.gradeSystemId = ' . $grade_system_id)
+                    ->getQuery()
+                    ->execute();
 
         $data['grades'] = $grade;
 

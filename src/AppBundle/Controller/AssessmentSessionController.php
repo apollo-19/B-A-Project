@@ -46,7 +46,7 @@ class AssessmentSessionController extends Controller
         $data['school_session'] = $assessment_session;
 
         $assessment_type = $this->getDoctrine()
-                            ->getRepository('AppBundle:AssessmentType')
+                            ->getRepository('AppBundle:AssessmentTypeSystem')
                             ->findAll();
 
         $data['assessment_types'] = $assessment_type;

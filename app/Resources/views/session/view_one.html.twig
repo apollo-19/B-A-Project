@@ -36,7 +36,7 @@
           <td>Session Teacher:</td>
           <td>
             {% for teacher in teachers %}
-              {% if(session.teacherId == teacher.id) %}
+              {% if(session.teacherId == teacher) %}
                 {{ teacher.firstName }} {{ teacher.middleName }}
               {% endif %}
             {% endfor %}
@@ -56,7 +56,7 @@
             ({{ session.courseModuleType | capitalize }}) -
             {% if (session.courseModuleType == 'course') %}
               {% for course in courses %}
-                {% if ( session.courseModuleId == course.id ) %}
+                {% if ( session.courseId == course ) %}
                   {{ course.courseName }}
 
                 {% endif %}
@@ -64,7 +64,7 @@
 
             {% elseif (session.courseModuleType == 'module') %}
               {% for module in modules %}
-                {% if ( session.courseModuleId == module.id ) %}
+                {% if ( session.moduleId == module ) %}
                   {{ module.moduleName }}
                 {% endif %}
               {% endfor %}
@@ -73,16 +73,22 @@
         </tr>
 
         <tr>
-          <td>Session Assessment:</td>
+          <td>Session Assessment System:</td>
           <td>
-            {% for assessment_session in assessment_sessions %}
-              {% if(session.id == assessment_session.assessmentSession) %}
-                {% for assessment_type in assessment_types %}
-                  {% if assessment_type.id == assessment_session.assessmentId %}
-                    <p> {{ assessment_type.assessmentName ~ ' (' ~ assessment_type.assessmentWorth ~ '%) ' }} </p>
-                  {% endif %}
-                {% endfor %}
-              {% endif %}
+              {{ assessment_type_system.assessmentTypeSystemCode | upper }} <br />
+              {{ '(' ~ assessment_type_system.assessmentTypeSystemName ~ ')' }}
+          </td>
+        </tr>
+
+        <tr>
+          <td>Session Assessments:</td>
+          <td>
+            {% set assessmentWorthTotal = 0 %}
+            {% for assessment_type in assessment_types %}
+              {% set assessmentWorthTotal = assessmentWorthTotal + assessment_type.assessmentWorth %}
+              <p>
+                {{ assessment_type.assessmentName ~ ' (' ~ assessment_type.assessmentWorth ~ '%)' }}
+              </p>
             {% endfor %}
           </td>
         </tr>
@@ -90,24 +96,12 @@
         <tr>
           <td>Session Assessment Total:</td>
           <td>
-            {% set assessmentWorthTotal = 0 %}
-            {% for assessment_session in assessment_sessions %}
-              {% if(session.id == assessment_session.assessmentSession) %}
-                {% for assessment_type in assessment_types %}
-                  {% if assessment_type.id == assessment_session.assessmentId %}
-                  {% set assessmentWorthTotal = assessmentWorthTotal + assessment_type.assessmentWorth  %}
-                  {% endif %}
-                {% endfor %}
-              {% endif %}
-            {% endfor %}
-
             {{ assessmentWorthTotal ~ '%' }}
           </td>
         </tr>
 
         <tr>
           <td colspan="2">
-            <p class="clear fright"><a href="{{ path('assessment_session_create', {'school_session_id': session.id}) }}" id="editBtn"> + add assessment type</a></p>
             <p class="clear fright"><a href="{{ path('assessment_result_view', {'school_session_id': session.id}) }}" id="editBtn"> + view assessment results</a></p>
             <p class="clear fright"><a href="{{ path('session_result_view', {'school_session_id': session.id}) }}" id="editBtn"> + view session results</a></p>
           </td>

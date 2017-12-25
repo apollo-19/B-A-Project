@@ -11,19 +11,6 @@ use AppBundle\Entity\Schoolsession;
 class SchoolsessionController extends Controller
 {
     /**
-     * @Route("/session", name="session_home")
-     */
-    public function indexAction()
-    {
-      $session = new Session();
-
-      if($session->get('user_name') && $session->get('user_type')){
-        return $this->render('session/index.html.twig', $data);
-      } else
-        return $this->redirectToRoute('user_signin');
-    }
-
-    /**
      * @Route("/session/create", name="session_create")
      */
     public function sessionCreateAction(Request $request)
@@ -42,6 +29,7 @@ class SchoolsessionController extends Controller
                       ->add('course_module_type')
                       ->add('course_id')
                       ->add('module_id')
+                      ->add('assessment_type_system_id')
                       ->add('session_start_date')
                       ->add('session_end_date')
                       ->getForm();
@@ -70,6 +58,12 @@ class SchoolsessionController extends Controller
 
         $data['courses'] = $course;
 
+        $assessment_type_system = $this->getDoctrine()
+                            ->getRepository('AppBundle:AssessmentTypeSystem')
+                            ->findAll();
+
+        $data['assessment_type_systems'] = $assessment_type_system;
+
         $form->handleRequest($request);
 
         if($form->isSubmitted()){
@@ -90,7 +84,9 @@ class SchoolsessionController extends Controller
           $mycourse = $this->getDoctrine()
                               ->getRepository('AppBundle:Course')
                               ->findOneById($school_session_data['course_id']);
-
+          $assessment_type_system_id = $this->getDoctrine()
+                                            ->getRepository('AppBundle:AssessmentTypeSystem')
+                                            ->findOneById($school_session_data['assessment_type_system_id']);
 
           $school_session->setSessionCode($school_session_data['session_code']);
           $school_session->setSessionName($school_session_data['session_name']);
@@ -99,6 +95,7 @@ class SchoolsessionController extends Controller
           $school_session->setCourseModuleType($school_session_data['course_module_type']);
           $school_session->setCourseId($mycourse);
           $school_session->setModuleId($mymodule);
+          $school_session->setAssessmentTypeSystemId($assessment_type_system_id);
           $school_session->setSessionStartDate($school_session_data['session_start_date']);
           $school_session->setSessionEndDate($school_session_data['session_end_date']);
           $school_session->setCreatedBy($session->get('user_id'));
@@ -131,7 +128,8 @@ class SchoolsessionController extends Controller
                     ->add('session_section')
                     ->add('session_teacher')
                     ->add('course_module_type')
-                    ->add('course_module_id')
+                    ->add('course_id')
+                    ->add('module_id')
                     ->add('session_start_date')
                     ->add('session_end_date')
                     ->getForm();
@@ -169,8 +167,8 @@ class SchoolsessionController extends Controller
       $school_session_data['session_section'] = $school_session->getSectionId();
       $school_session_data['session_teacher'] = $school_session->getTeacherId();
       $school_session_data['course_module_type'] = $school_session->getCourseModuleType();
-      $school_session_data['course_id']=$school_session->getCourseId();
-      $school_session_data['module_id']=$school_session->getModuleId();
+      $school_session_data['course_id'] = $school_session->getCourseId();
+      $school_session_data['module_id'] = $school_session->getModuleId();
       $school_session_data['session_start_date'] = $school_session->getSessionStartDate();
       $school_session_data['session_end_date'] = $school_session->getSessionEndDate();
 
@@ -192,13 +190,14 @@ class SchoolsessionController extends Controller
           $myteacher = $this->getDoctrine()
                               ->getRepository('AppBundle:Teacher')
                               ->findOneById($school_session_data['session_teacher']);
-          $mymodule = $this->getDoctrine()
-                              ->getRepository('AppBundle:Module')
-                              ->findOneById($school_session_data['course_module_id']);
-          $mycourse = $this->getDoctrine()
-                              ->getRepository('AppBundle:Course')
-                              ->findOneById($school_session_data['course_module_id']);
 
+          $mymodule = $this->getDoctrine()
+                            ->getRepository('AppBundle:Module')
+                            ->findOneById($school_session_data['module_id']);
+
+          $mycourse = $this->getDoctrine()
+                            ->getRepository('AppBundle:Course')
+                            ->findOneById($school_session_data['course_id']);
 
           $school_session->setSessionCode($school_session_data['session_code']);
           $school_session->setSessionName($school_session_data['session_name']);
@@ -342,15 +341,17 @@ class SchoolsessionController extends Controller
 
         $data['teachers'] = $teacher;
 
-        $assessment_session = $this->getDoctrine()
-                            ->getRepository('AppBundle:AssessmentSession')
-                            ->findAll();
+        $assessment_type_system = $this->getDoctrine()
+                            ->getRepository('AppBundle:AssessmentTypeSystem')
+                            ->findOneById($session->getAssessmentTypeSystemId());
 
-        $data['assessment_sessions'] = $assessment_session;
+        $data['assessment_type_system'] = $assessment_type_system;
 
         $assessment_type = $this->getDoctrine()
                             ->getRepository('AppBundle:AssessmentType')
-                            ->findAll();
+                            ->findBy(
+                              array('assessmentTypeSystemId' => $assessment_type_system->getId())
+                            );
 
         $data['assessment_types'] = $assessment_type;
 

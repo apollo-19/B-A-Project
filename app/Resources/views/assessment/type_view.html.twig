@@ -20,7 +20,7 @@
       <thead>
         <tr>
           <th>Assessment Name</th>
-          <th>Assessment Worth</th>
+          <th>Assessment Weight</th>
           <th colspan="3">Actions</th>
         </tr>
       </thead>
@@ -28,7 +28,7 @@
         {% for assessment in assessment_types %}
           <tr>
             <td>{{ assessment.assessmentName }}</td>
-            <td>{{ assessment.assessmentWorth }}</td>
+            <td>{{ assessment.assessmentWorth ~ '%' }}</td>
 
             {% if(app.session.get('user_type') == 'admin') %}
               <td id="actions"><a href="{{ path('assessment_type_edit', {'assessment_type_id': assessment.id}) }}" id="editBtn">edit</button></td>
@@ -37,6 +37,21 @@
             {% endif %}
           </tr>
         {% endfor %}
+
+        <tr>
+          <td id="total_row">Total</td>
+          <td>
+            {% set assessmentWorthTotal = 0 %}
+
+            {% for assessment_type in assessment_types %}
+              {% set assessmentWorthTotal = assessmentWorthTotal + assessment_type.assessmentWorth %}
+            {% endfor %}
+
+            {{ assessmentWorthTotal ~ '%' }}
+          </td>
+
+          <td colspan="3"></td>
+        </tr>
       </tbody>
     </table>
   </div>

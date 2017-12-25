@@ -11,19 +11,6 @@ use AppBundle\Entity\AssessmentResult;
 class AssessmentResultController extends Controller
 {
     /**
-     * @Route("/assessment", name="assessment_home")
-     */
-    public function indexAction()
-    {
-      $session = new Session();
-
-      if($session->get('user_name') && $session->get('user_type')){
-        return $this->render('assessment/index.html.twig', $data);
-      } else
-        return $this->redirectToRoute('user_signin');
-    }
-
-    /**
      * @Route("/assessment_result/create/{school_session_id}", name="assessment_result_create")
      */
     public function assessmentResultCreateAction(Request $request, $school_session_id)
@@ -35,7 +22,7 @@ class AssessmentResultController extends Controller
         $data['mode'] = 'new';
 
         $form = $this ->createFormBuilder()
-                      ->add('assessment_session')
+                      ->add('assessment_type')
                       ->add('student_id')
                       ->add('result_value')
                       ->getForm();
@@ -46,14 +33,6 @@ class AssessmentResultController extends Controller
 
         $data['school_session'] = $school_session;
 
-        $assessment_session = $this->getDoctrine()
-                            ->getRepository('AppBundle:AssessmentSession')
-                            ->findBy(
-                              array('assessmentSession' => $school_session_id)
-                            );
-
-        $data['assessment_sessions'] = $assessment_session;
-
         $students = $this->getDoctrine()
                             ->getRepository('AppBundle:Student')
                             ->findBy(
@@ -62,9 +41,14 @@ class AssessmentResultController extends Controller
 
         $data['students'] = $students;
 
-        $assessment_type = $this->getDoctrine()
-                            ->getRepository('AppBundle:AssessmentType')
-                            ->findAll();
+        $em = $this->getDoctrine()->getManager();
+
+        $assessment_type = $em->getRepository('AppBundle:AssessmentType')
+                                ->createQueryBuilder('e')
+                                ->addOrderBy('e.assessmentWorth', 'ASC')
+                                ->andWhere('e.assessmentTypeSystemId = ' . $school_session->getAssessmentTypeSystemId()->getId())
+                                ->getQuery()
+                                ->execute();
 
         $data['assessment_types'] = $assessment_type;
 
@@ -76,7 +60,7 @@ class AssessmentResultController extends Controller
           $data['form'] = $assessment_result_data;
 
           $assessment_result = new AssessmentResult();
-          $assessment_result->setAssessmentId($assessment_result_data['assessment_session']);
+          $assessment_result->setAssessmentTypeId($assessment_result_data['assessment_type']);
           $assessment_result->setSessionId($school_session->getId());
           $assessment_result->setStudentId($assessment_result_data['student_id']);
           $assessment_result->setResultValue($assessment_result_data['result_value']);
@@ -209,18 +193,14 @@ class AssessmentResultController extends Controller
 
         $data['curriculum'] = $curriculum;
 
-        $assessment_session = $this->getDoctrine()
-                            ->getRepository('AppBundle:AssessmentSession')
-                            ->findBy(
-                              array('assessmentSession' => $school_session_id)
-                            );
+        $em = $this->getDoctrine()->getManager();
 
-        $data['assessment_sessions'] = $assessment_session;
-
-        $assessment_session_id = $session->getId();
-        $assessment_result = $this->getDoctrine()
-                            ->getRepository('AppBundle:AssessmentResult')
-                            ->findAll();
+        $assessment_result = $em->getRepository('AppBundle:AssessmentResult')
+                                ->createQueryBuilder('e')
+                                ->addOrderBy('e.assessmentTypeId', 'DESC')
+                                ->andWhere('e.sessionId = ' . $school_session_id)
+                                ->getQuery()
+                                ->execute();
 
         $data['assessment_results'] = $assessment_result;
 
@@ -232,19 +212,21 @@ class AssessmentResultController extends Controller
 
         $data['students'] = $students;
 
-        $assessment_type = $this->getDoctrine()
-                            ->getRepository('AppBundle:AssessmentType')
-                            ->findAll();
+        $assessment_type = $em->getRepository('AppBundle:AssessmentType')
+                                ->createQueryBuilder('at')
+                                ->addOrderBy('at.assessmentWorth', 'ASC')
+                                ->andWhere('at.assessmentTypeSystemId = ' . $school_session->getAssessmentTypeSystemId()->getId())
+                                ->getQuery()
+                                ->execute();
 
         $data['assessment_types'] = $assessment_type;
 
-        $gradeSystemId = $curriculum->getGradeSystemId();
-
-        $grade = $this->getDoctrine()
-                            ->getRepository('AppBundle:Grade')
-                            ->findBy(
-                              array('gradeSystemId' => $gradeSystemId)
-                            );
+        $grade = $em->getRepository('AppBundle:Grade')
+                                ->createQueryBuilder('gr')
+                                ->addOrderBy('gr.startPoint', 'DESC')
+                                ->andWhere('gr.gradeSystemId = ' . $curriculum->getGradeSystemId()->getId())
+                                ->getQuery()
+                                ->execute();
 
         $data['grades'] = $grade;
         $data['school_session_id'] = $school_session_id;

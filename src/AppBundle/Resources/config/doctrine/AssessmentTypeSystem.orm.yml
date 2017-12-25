@@ -24,3 +24,7 @@ AppBundle\Entity\AssessmentTypeSystem:
                 unsigned: false
             column: created_by
     lifecycleCallbacks: {  }
+    oneToMany:
+      schoolsessions:
+        targetEntity: Schoolsession
+        mappedBy: assessmentTypeSystem

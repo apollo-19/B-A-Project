@@ -21,6 +21,13 @@
             {{ user_details.firstName ~ ' ' ~ user_details.middleName ~ ' ' ~ user_details.lastName }}
           {% endif %}
         )
+        {% if user_type == 'student' %}
+          <table>
+            <tr>
+              <td class="taright"><a href="{{ path('student_profile_view', {'student_id': user_details.id}) }}">Full Profile</a></td>
+            </tr>
+          </table>
+        {% endif %}
       </h1>
       <h2 id="resultMessage">{{ result_message is defined ? result_message : '' }}</h2>
 

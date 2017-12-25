@@ -35,9 +35,6 @@ AppBundle\Entity\Course:
             options:
                 unsigned: false
             column: course_credit_hour
-
-
-
         createdBy:
             type: integer
             nullable: false

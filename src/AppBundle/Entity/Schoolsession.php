@@ -343,4 +343,33 @@ class Schoolsession
     {
         return $this->teacherId;
     }
+    /**
+     * @var \AppBundle\Entity\AssessmentTypeSystem
+     */
+    private $assessmentTypeSystemId;
+
+
+    /**
+     * Set assessmentTypeSystemId
+     *
+     * @param \AppBundle\Entity\AssessmentTypeSystem $assessmentTypeSystemId
+     *
+     * @return Schoolsession
+     */
+    public function setAssessmentTypeSystemId(\AppBundle\Entity\AssessmentTypeSystem $assessmentTypeSystemId)
+    {
+        $this->assessmentTypeSystemId = $assessmentTypeSystemId;
+
+        return $this;
+    }
+
+    /**
+     * Get assessmentTypeSystemId
+     *
+     * @return \AppBundle\Entity\AssessmentTypeSystem
+     */
+    public function getAssessmentTypeSystemId()
+    {
+        return $this->assessmentTypeSystemId;
+    }
 }
