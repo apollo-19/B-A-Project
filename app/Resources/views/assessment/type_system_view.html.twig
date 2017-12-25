@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  School Assessments View
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container" id="view_container">
+    <a href="{{ path('assessment_type_system_create') }}">New School Assessment</a>
+    <table border="0">
+      <thead>
+        <tr>
+          <th>Assessment System Code</th>
+          <th>Assessment System Name</th>
+          <th colspan="3">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for assessment in assessment_type_systems %}
+          <tr>
+            <td>{{ assessment.assessmentTypeSystemName }}</td>
+            <td>{{ assessment.assessmentTypeSystemCode }}</td>
+
+            <td id="actions"><a href="{{ path('assessment_type_view', {'assessment_type_system_id': assessment.id}) }}">assessments</a></td>
+
+            {% if(app.session.get('user_type') == 'admin') %}
+              <td id="actions"><a href="{{ path('assessment_type_system_edit', {'assessment_type_system_id': assessment.id}) }}" id="editBtn">edit</button></td>
+              <td id="actions"><a href="{{ path('assessment_type_system_delete', {'assessment_type_system_id': assessment.id}) }}" id="deleteBtn"
+                    onclick="return confirm('Are You Sure You Want To Delete {{ assessment.assessmentTypeSystemName ~ ' (' ~ assessment.assessmentTypeSystemCode }})?') ">delete</button></td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
