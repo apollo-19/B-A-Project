@@ -26,18 +26,9 @@
             <td>
               ({{ prerequisite.courseModuleType | capitalize }}) -
               {% if (prerequisite.courseModuleType == 'course') %}
-                {% for course in courses %}
-                  {% if ( prerequisite.courseModuleId == course.id ) %}
-                    <a href="{{ path('course_view_one', {'course_id': course.id}) }}" id="moreDetBtn">{{ course.courseName }}</a>
-                  {% endif %}
-                {% endfor %}
-
+                <a href="{{ path('course_view_one', {'course_id': prerequisite.courseId.id}) }}" id="moreDetBtn">{{ prerequisite.courseId.courseName }}</a>
               {% elseif (prerequisite.courseModuleType == 'module') %}
-                {% for module in modules %}
-                  {% if ( prerequisite.courseModuleId == module.id ) %}
-                    <a href="{{ path('module_view_one', {'module_id': module.id}) }}" id="moreDetBtn">{{ module.moduleName }}</a>
-                  {% endif %}
-                {% endfor %}
+                <a href="{{ path('module_view_one', {'module_id': prerequisite.moduleId.id}) }}" id="moreDetBtn">{{ prerequisite.moduleId.moduleName }}</a>
               {% endif %}
             </td>
 
@@ -45,18 +36,9 @@
               ({{ prerequisite.prerequisiteType | capitalize }}) -
 
               {% if (prerequisite.prerequisiteType == 'course') %}
-                {% for course in courses %}
-                  {% if ( prerequisite.prerequisiteId == course.id ) %}
-                    <a href="{{ path('course_view_one', {'course_id': course.id}) }}" id="moreDetBtn">{{ course.courseName }}</a>
-                  {% endif %}
-                {% endfor %}
-
+                <a href="{{ path('course_view_one', {'course_id': prerequisite.prerequisiteCourseId.id}) }}" id="moreDetBtn">{{ prerequisite.prerequisiteCourseId.courseName }}</a>
               {% elseif (prerequisite.prerequisiteType == 'module') %}
-                {% for module in modules %}
-                  {% if ( prerequisite.prerequisiteId == module.id ) %}
-                    <a href="{{ path('module_view_one', {'module_id': module.id}) }}" id="moreDetBtn">{{ module.moduleName }}</a>
-                  {% endif %}
-                {% endfor %}
+                <a href="{{ path('module_view_one', {'module_id': prerequisite.prerequisiteModuleId.id}) }}" id="moreDetBtn">{{ prerequisite.prerequisiteModuleId.moduleName }}</a>
               {% endif %}
             </td>
 

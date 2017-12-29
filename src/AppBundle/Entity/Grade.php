@@ -8,7 +8,7 @@ namespace AppBundle\Entity;
 class Grade
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
@@ -28,15 +28,25 @@ class Grade
     private $grade;
 
     /**
-     * @var int
+     * @var integer
      */
     private $gradeSystemId;
+
+    /**
+     * @var string
+     */
+    private $gradeRemark;
+
+    /**
+     * @var integer
+     */
+    private $createdBy;
 
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -132,10 +142,58 @@ class Grade
     /**
      * Get gradeSystemId
      *
-     * @return int
+     * @return integer
      */
     public function getGradeSystemId()
     {
         return $this->gradeSystemId;
+    }
+
+    /**
+     * Set gradeRemark
+     *
+     * @param string $gradeRemark
+     *
+     * @return Grade
+     */
+    public function setGradeRemark($gradeRemark)
+    {
+        $this->gradeRemark = $gradeRemark;
+
+        return $this;
+    }
+
+    /**
+     * Get gradeRemark
+     *
+     * @return string
+     */
+    public function getGradeRemark()
+    {
+        return $this->gradeRemark;
+    }
+
+    /**
+     * Set createdBy
+     *
+     * @param integer $createdBy
+     *
+     * @return Grade
+     */
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return integer
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
     }
 }

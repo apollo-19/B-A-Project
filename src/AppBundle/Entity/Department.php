@@ -8,7 +8,7 @@ namespace AppBundle\Entity;
 class Department
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
@@ -23,16 +23,32 @@ class Department
     private $departmentName;
 
     /**
-     * @var int
+     * @var integer
      */
-
     private $createdBy;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $teachers;
+
+    /**
+     * @var \AppBundle\Entity\School
+     */
+    private $schoolId;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->teachers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -87,7 +103,13 @@ class Department
         return $this->departmentName;
     }
 
-
+    /**
+     * Set createdBy
+     *
+     * @param integer $createdBy
+     *
+     * @return Department
+     */
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
@@ -98,53 +120,11 @@ class Department
     /**
      * Get createdBy
      *
-     * @return int
+     * @return integer
      */
     public function getCreatedBy()
     {
         return $this->createdBy;
-    }
-
-    /**
-     * @var \AppBundle\Entity\School
-     */
-    private $schoolId;
-
-
-    /**
-     * Set schoolId
-     *
-     * @param \AppBundle\Entity\School $schoolId
-     *
-     * @return Department
-     */
-    public function setSchoolId(\AppBundle\Entity\School $schoolId = null)
-    {
-        $this->schoolId = $schoolId;
-
-        return $this;
-    }
-
-    /**
-     * Get schoolId
-     *
-     * @return \AppBundle\Entity\School
-     */
-    public function getSchoolId()
-    {
-        return $this->schoolId;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $teachers;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->teachers = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -179,5 +159,29 @@ class Department
     public function getTeachers()
     {
         return $this->teachers;
+    }
+
+    /**
+     * Set schoolId
+     *
+     * @param \AppBundle\Entity\School $schoolId
+     *
+     * @return Department
+     */
+    public function setSchoolId(\AppBundle\Entity\School $schoolId)
+    {
+        $this->schoolId = $schoolId;
+
+        return $this;
+    }
+
+    /**
+     * Get schoolId
+     *
+     * @return \AppBundle\Entity\School
+     */
+    public function getSchoolId()
+    {
+        return $this->schoolId;
     }
 }

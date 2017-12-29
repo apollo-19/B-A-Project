@@ -426,6 +426,11 @@ AppBundle\Entity\Student:
             column: user_name
 
     lifecycleCallbacks: {  }
+    oneToMany:
+      sessionresult:
+        targetEntity: SessionResult
+        mappedBy: student
+
     manyToOne:
       sectionId:
         targetEntity: Section

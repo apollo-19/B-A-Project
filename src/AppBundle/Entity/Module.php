@@ -8,7 +8,7 @@ namespace AppBundle\Entity;
 class Module
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
@@ -23,7 +23,7 @@ class Module
     private $moduleName;
 
     /**
-     * @var string
+     * @var integer
      */
     private $moduleCreditHour;
 
@@ -32,17 +32,39 @@ class Module
      */
     private $moduleDuration;
 
-
     /**
-     * @var int
+     * @var integer
      */
     private $createdBy;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $courses;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $schoolsessions;
+
+    /**
+     * @var \AppBundle\Entity\Curriculum
+     */
+    private $curriculumId;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->courses = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->schoolsessions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -100,7 +122,7 @@ class Module
     /**
      * Set moduleCreditHour
      *
-     * @param string $moduleCreditHour
+     * @param integer $moduleCreditHour
      *
      * @return Module
      */
@@ -114,7 +136,7 @@ class Module
     /**
      * Get moduleCreditHour
      *
-     * @return string
+     * @return integer
      */
     public function getModuleCreditHour()
     {
@@ -145,7 +167,13 @@ class Module
         return $this->moduleDuration;
     }
 
-
+    /**
+     * Set createdBy
+     *
+     * @param integer $createdBy
+     *
+     * @return Module
+     */
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
@@ -156,58 +184,11 @@ class Module
     /**
      * Get createdBy
      *
-     * @return int
+     * @return integer
      */
     public function getCreatedBy()
     {
         return $this->createdBy;
-    }
-
-
-
-
-
-    /**
-     * @var \AppBundle\Entity\Curriculum
-     */
-    private $curriculumId;
-
-
-    /**
-     * Set curriculumId
-     *
-     * @param \AppBundle\Entity\Curriculum $curriculumId
-     *
-     * @return Module
-     */
-    public function setCurriculumId(\AppBundle\Entity\Curriculum $curriculumId)
-    {
-        $this->curriculumId = $curriculumId;
-
-        return $this;
-    }
-
-    /**
-     * Get curriculumId
-     *
-     * @return \AppBundle\Entity\Curriculum
-     */
-    public function getCurriculumId()
-    {
-        return $this->curriculumId;
-    }
-    
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $courses;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->courses = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -243,11 +224,6 @@ class Module
     {
         return $this->courses;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $schoolsessions;
-
 
     /**
      * Add schoolsession
@@ -281,5 +257,68 @@ class Module
     public function getSchoolsessions()
     {
         return $this->schoolsessions;
+    }
+
+    /**
+     * Set curriculumId
+     *
+     * @param \AppBundle\Entity\Curriculum $curriculumId
+     *
+     * @return Module
+     */
+    public function setCurriculumId(\AppBundle\Entity\Curriculum $curriculumId)
+    {
+        $this->curriculumId = $curriculumId;
+
+        return $this;
+    }
+
+    /**
+     * Get curriculumId
+     *
+     * @return \AppBundle\Entity\Curriculum
+     */
+    public function getCurriculumId()
+    {
+        return $this->curriculumId;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $prerequisiteModule;
+
+
+    /**
+     * Add prerequisiteModule
+     *
+     * @param \AppBundle\Entity\Prerequisite $prerequisiteModule
+     *
+     * @return Module
+     */
+    public function addPrerequisiteModule(\AppBundle\Entity\Prerequisite $prerequisiteModule)
+    {
+        $this->prerequisiteModule[] = $prerequisiteModule;
+
+        return $this;
+    }
+
+    /**
+     * Remove prerequisiteModule
+     *
+     * @param \AppBundle\Entity\Prerequisite $prerequisiteModule
+     */
+    public function removePrerequisiteModule(\AppBundle\Entity\Prerequisite $prerequisiteModule)
+    {
+        $this->prerequisiteModule->removeElement($prerequisiteModule);
+    }
+
+    /**
+     * Get prerequisiteModule
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPrerequisiteModule()
+    {
+        return $this->prerequisiteModule;
     }
 }

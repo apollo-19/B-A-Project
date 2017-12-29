@@ -3,12 +3,12 @@
 namespace AppBundle\Entity;
 
 /**
- * curriculum
+ * Curriculum
  */
 class Curriculum
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
@@ -28,11 +28,9 @@ class Curriculum
     private $curriculumType;
 
     /**
-     * @var bool
+     * @var boolean
      */
     private $isApplied;
-
-
 
     /**
      * @var integer
@@ -40,9 +38,50 @@ class Curriculum
     private $createdBy;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $modules;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $semesters;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $courses;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sections;
+
+    /**
+     * @var \AppBundle\Entity\School
+     */
+    private $schoolId;
+
+    /**
+     * @var \AppBundle\Entity\GradeSystem
+     */
+    private $gradeSystemId;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->modules = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->semesters = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->courses = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sections = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -54,7 +93,7 @@ class Curriculum
      *
      * @param string $curriculumCode
      *
-     * @return curriculum
+     * @return Curriculum
      */
     public function setCurriculumCode($curriculumCode)
     {
@@ -78,7 +117,7 @@ class Curriculum
      *
      * @param string $curriculumName
      *
-     * @return curriculum
+     * @return Curriculum
      */
     public function setCurriculumName($curriculumName)
     {
@@ -96,31 +135,6 @@ class Curriculum
     {
         return $this->curriculumName;
     }
-
-    /**
-     * Set isApplied
-     *
-     * @param boolean $isApplied
-     *
-     * @return curriculum
-     */
-    public function setIsApplied($isApplied)
-    {
-        $this->isApplied = $isApplied;
-
-        return $this;
-    }
-
-    /**
-     * Get isApplied
-     *
-     * @return bool
-     */
-    public function getIsApplied()
-    {
-        return $this->isApplied;
-    }
-
 
     /**
      * Set curriculumType
@@ -146,8 +160,29 @@ class Curriculum
         return $this->curriculumType;
     }
 
+    /**
+     * Set isApplied
+     *
+     * @param boolean $isApplied
+     *
+     * @return Curriculum
+     */
+    public function setIsApplied($isApplied)
+    {
+        $this->isApplied = $isApplied;
 
+        return $this;
+    }
 
+    /**
+     * Get isApplied
+     *
+     * @return boolean
+     */
+    public function getIsApplied()
+    {
+        return $this->isApplied;
+    }
 
     /**
      * Set createdBy
@@ -172,8 +207,6 @@ class Curriculum
     {
         return $this->createdBy;
     }
-
-
 
     /**
      * Add module
@@ -208,97 +241,6 @@ class Curriculum
     {
         return $this->modules;
     }
-
-
-
-    /**
-     * @var \AppBundle\Entity\School
-     */
-    private $schoolId;
-
-
-    /**
-     * Set schoolId
-     *
-     * @param \AppBundle\Entity\School $schoolId
-     *
-     * @return Curriculum
-     */
-    public function setSchoolId(\AppBundle\Entity\School $schoolId)
-    {
-        $this->schoolId = $schoolId;
-
-        return $this;
-    }
-
-    /**
-     * Get schoolId
-     *
-     * @return \AppBundle\Entity\School
-     */
-    public function getSchoolId()
-    {
-        return $this->schoolId;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $modules;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->modules = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * @var \AppBundle\Entity\GradeSystem
-     */
-    private $gradeSystemId;
-
-
-    /**
-     * Set gradeSystemId
-     *
-     * @param \AppBundle\Entity\GradeSystem $gradeSystemId
-     *
-     * @return Curriculum
-     */
-    public function setGradeSystemId(\AppBundle\Entity\GradeSystem $gradeSystemId)
-    {
-        $this->gradeSystemId = $gradeSystemId;
-
-        return $this;
-    }
-
-    /**
-     * Get gradeSystemId
-     *
-     * @return \AppBundle\Entity\GradeSystem
-     */
-    public function getGradeSystemId()
-    {
-        return $this->gradeSystemId;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $semesters;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $courses;
-
-
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $sections;
-
 
     /**
      * Add semester
@@ -400,5 +342,53 @@ class Curriculum
     public function getSections()
     {
         return $this->sections;
+    }
+
+    /**
+     * Set schoolId
+     *
+     * @param \AppBundle\Entity\School $schoolId
+     *
+     * @return Curriculum
+     */
+    public function setSchoolId(\AppBundle\Entity\School $schoolId)
+    {
+        $this->schoolId = $schoolId;
+
+        return $this;
+    }
+
+    /**
+     * Get schoolId
+     *
+     * @return \AppBundle\Entity\School
+     */
+    public function getSchoolId()
+    {
+        return $this->schoolId;
+    }
+
+    /**
+     * Set gradeSystemId
+     *
+     * @param \AppBundle\Entity\GradeSystem $gradeSystemId
+     *
+     * @return Curriculum
+     */
+    public function setGradeSystemId(\AppBundle\Entity\GradeSystem $gradeSystemId)
+    {
+        $this->gradeSystemId = $gradeSystemId;
+
+        return $this;
+    }
+
+    /**
+     * Get gradeSystemId
+     *
+     * @return \AppBundle\Entity\GradeSystem
+     */
+    public function getGradeSystemId()
+    {
+        return $this->gradeSystemId;
     }
 }

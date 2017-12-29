@@ -59,6 +59,11 @@
         </tr>
 
         <tr>
+          <td>User Name</td>
+          <td>{{ student.userName }}</td>
+        </tr>
+
+        <tr>
           <td>Section</td>
           <td><a href="{{ path('section_view_one', {'section_id': student.sectionId.id}) }}">
             {{ student.sectionId.sectionName }}

@@ -38,6 +38,7 @@ class GradeController extends Controller
                       ->add('start_point')
                       ->add('end_point')
                       ->add('grade')
+                      ->add('grade_remark')
                       ->getForm();
 
         $grade_system = $this->getDoctrine()
@@ -58,6 +59,8 @@ class GradeController extends Controller
           $grade->setEndPoint($grade_data['end_point']);
           $grade->setGrade($grade_data['grade']);
           $grade->setGradeSystemId($grade_system_id);
+          $grade->setGradeRemark($grade_data['grade_remark']);
+          $grade->setCreatedBy($session->get('user_id'));
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($grade);
@@ -87,6 +90,7 @@ class GradeController extends Controller
                     ->add('end_point')
                     ->add('grade')
                     ->add('grade_system')
+                    ->add('grade_remark')
                     ->getForm();
 
       $grade = $this->getDoctrine()
@@ -97,6 +101,7 @@ class GradeController extends Controller
       $grade_data['end_point'] = $grade->getEndPoint();
       $grade_data['grade'] = $grade->getGrade();
       $grade_data['grade_system'] = $grade->getGradeSystemId();
+      $grade_data['grade_remark'] = $grade->getGradeRemark();
 
       $grade_system = $this->getDoctrine()
                           ->getRepository('AppBundle:GradeSystem')
@@ -121,6 +126,8 @@ class GradeController extends Controller
           $grade->setEndPoint($grade_data['end_point']);
           $grade->setGrade($grade_data['grade']);
           $grade->setGradeSystemId($grade_data['grade_system']);
+          $grade->setGradeRemark($grade_data['grade_remark']);
+          $grade->setCreatedBy($session->get('user_id'));
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($grade);

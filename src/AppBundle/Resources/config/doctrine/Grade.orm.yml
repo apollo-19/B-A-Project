@@ -23,4 +23,14 @@ AppBundle\Entity\Grade:
         gradeSystemId:
             type: integer
             column: grade_system_id
+        gradeRemark:
+            type: string
+            length: '10'
+            column: grade_remark
+        createdBy:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: created_by
     lifecycleCallbacks: {  }

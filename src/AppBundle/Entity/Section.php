@@ -8,7 +8,7 @@ namespace AppBundle\Entity;
 class Section
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
@@ -23,51 +23,9 @@ class Section
     private $sectionName;
 
     /**
-     * @var int
-     */
-    private $batchId;
-
-    /**
-     * @var int
+     * @var integer
      */
     private $createdBy;
-
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-
-
-    /**
-     * Set createdBy
-     *
-     * @param integer $createdBy
-     *
-     * @return Section
-     */
-    public function setCreatedBy($createdBy)
-    {
-        $this->createdBy = $createdBy;
-
-        return $this;
-    }
-
-    /**
-     * Get createdBy
-     *
-     * @return int
-     */
-    public function getCreatedBy()
-    {
-        return $this->createdBy;
-    }
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -75,9 +33,19 @@ class Section
     private $students;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $schoolsessions;
+
+    /**
      * @var \AppBundle\Entity\Curriculum
      */
     private $curriculumId;
+
+    /**
+     * @var \AppBundle\Entity\Batch
+     */
+    private $batchId;
 
     /**
      * Constructor
@@ -85,6 +53,17 @@ class Section
     public function __construct()
     {
         $this->students = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->schoolsessions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -136,6 +115,30 @@ class Section
     }
 
     /**
+     * Set createdBy
+     *
+     * @param integer $createdBy
+     *
+     * @return Section
+     */
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return integer
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
      * Add student
      *
      * @param \AppBundle\Entity\Student $student
@@ -167,6 +170,40 @@ class Section
     public function getStudents()
     {
         return $this->students;
+    }
+
+    /**
+     * Add schoolsession
+     *
+     * @param \AppBundle\Entity\Schoolsession $schoolsession
+     *
+     * @return Section
+     */
+    public function addSchoolsession(\AppBundle\Entity\Schoolsession $schoolsession)
+    {
+        $this->schoolsessions[] = $schoolsession;
+
+        return $this;
+    }
+
+    /**
+     * Remove schoolsession
+     *
+     * @param \AppBundle\Entity\Schoolsession $schoolsession
+     */
+    public function removeSchoolsession(\AppBundle\Entity\Schoolsession $schoolsession)
+    {
+        $this->schoolsessions->removeElement($schoolsession);
+    }
+
+    /**
+     * Get schoolsessions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSchoolsessions()
+    {
+        return $this->schoolsessions;
     }
 
     /**
@@ -215,44 +252,5 @@ class Section
     public function getBatchId()
     {
         return $this->batchId;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $schoolsessions;
-
-
-    /**
-     * Add schoolsession
-     *
-     * @param \AppBundle\Entity\Schoolsession $schoolsession
-     *
-     * @return Section
-     */
-    public function addSchoolsession(\AppBundle\Entity\Schoolsession $schoolsession)
-    {
-        $this->schoolsessions[] = $schoolsession;
-
-        return $this;
-    }
-
-    /**
-     * Remove schoolsession
-     *
-     * @param \AppBundle\Entity\Schoolsession $schoolsession
-     */
-    public function removeSchoolsession(\AppBundle\Entity\Schoolsession $schoolsession)
-    {
-        $this->schoolsessions->removeElement($schoolsession);
-    }
-
-    /**
-     * Get schoolsessions
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSchoolsessions()
-    {
-        return $this->schoolsessions;
     }
 }

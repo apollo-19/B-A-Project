@@ -28,10 +28,26 @@ class AssessmentResultController extends Controller
                       ->getForm();
 
         $school_session = $this->getDoctrine()
-                            ->getRepository('AppBundle:Schoolsession')
-                            ->findOneById($school_session_id);
+                                ->getRepository('AppBundle:Schoolsession')
+                                ->findOneById($school_session_id);
 
         $data['school_session'] = $school_session;
+
+        if ($school_session->getCourseModuleType() == 'course'){
+          $prerequisites = $this->getDoctrine()
+                                ->getRepository('AppBundle:Prerequisite')
+                                ->findBy(
+                                  array('courseId' => $school_session->getCourseId())
+                                );
+        } else {
+          $prerequisites = $this->getDoctrine()
+                                ->getRepository('AppBundle:Prerequisite')
+                                ->findBy(
+                                  array('moduleId' => $school_session->getModuleId())
+                                );
+        }
+
+        $data['prerequisites'] = $prerequisites;
 
         $students = $this->getDoctrine()
                             ->getRepository('AppBundle:Student')
@@ -40,6 +56,54 @@ class AssessmentResultController extends Controller
                             );
 
         $data['students'] = $students;
+
+        foreach ($prerequisites as $prerequisite){
+          if ($school_session->getCourseModuleType() == 'course'){
+            $prerequisite_school_session = $this->getDoctrine()
+                                                  ->getRepository('AppBundle:Schoolsession')
+                                                  ->findOneBy(
+                                                    array('courseId' => $prerequisite->getCourseId())
+                                                  );
+          } else {
+            $prerequisite_school_session = $this->getDoctrine()
+                                                  ->getRepository('AppBundle:Schoolsession')
+                                                  ->findOneBy(
+                                                    array('moduleId' => $prerequisite->getModuleId())
+                                                  );
+          }
+
+          $session_results = $this->getDoctrine()
+                                  ->getRepository('AppBundle:SessionResult')
+                                  ->findBy(
+                                    array('sessionId' => $prerequisite_school_session)
+                                  );
+
+          foreach ($students as $student){
+            foreach ($session_results as $session_result) {
+              if( ($session_result->getStudentId() == $student) && ($session_result->getSessionResultRemark() == 'fail') ){
+
+                $student->getId();
+                $students->add($student);
+
+                $students = $this->getDoctrine()
+                                    ->getRepository('AppBundle:Student')
+                                    ->findBy(
+                                      array('sectionId' => $school_session->getSectionId())
+                                    );
+
+                $data['students'] = $students;
+              }
+            }
+          }
+        }
+
+
+
+
+
+
+
+
 
         $em = $this->getDoctrine()->getManager();
 
@@ -193,7 +257,32 @@ class AssessmentResultController extends Controller
 
         $data['curriculum'] = $curriculum;
 
+        if ($school_session->getCourseModuleType() == 'course'){
+          $prerequisite = $this->getDoctrine()
+                                ->getRepository('AppBundle:Prerequisite')
+                                ->findBy(
+                                  array('courseId' => $school_session->getCourseId())
+                                );
+        } else {
+          $prerequisite = $this->getDoctrine()
+                                ->getRepository('AppBundle:Prerequisite')
+                                ->findBy(
+                                  array('moduleId' => $school_session->getModuleId())
+                                );
+        }
+
+        $data['prerequisites'] = $prerequisite;
+
         $em = $this->getDoctrine()->getManager();
+
+        $students = $em->getRepository('AppBundle:Student')
+                        ->createQueryBuilder('e')
+                        ->addOrderBy('e.admissionNumber', 'ASC')
+                        ->andWhere('e.sectionId = ' . $school_session->getSectionId()->getId())
+                        ->getQuery()
+                        ->execute();
+
+        $data['students'] = $students;
 
         $assessment_result = $em->getRepository('AppBundle:AssessmentResult')
                                 ->createQueryBuilder('e')
@@ -204,13 +293,6 @@ class AssessmentResultController extends Controller
 
         $data['assessment_results'] = $assessment_result;
 
-        $students = $this->getDoctrine()
-                            ->getRepository('AppBundle:Student')
-                            ->findBy(
-                              array('sectionId' => $school_session->getSectionId())
-                            );
-
-        $data['students'] = $students;
 
         $assessment_type = $em->getRepository('AppBundle:AssessmentType')
                                 ->createQueryBuilder('at')

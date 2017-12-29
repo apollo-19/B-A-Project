@@ -32,6 +32,33 @@ class Course
      */
     private $createdBy;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $schoolsessions;
+
+    /**
+     * @var \AppBundle\Entity\Curriculum
+     */
+    private $curriculumId;
+
+    /**
+     * @var \AppBundle\Entity\Module
+     */
+    private $moduleId;
+
+    /**
+     * @var \AppBundle\Entity\Semester
+     */
+    private $semesterId;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->schoolsessions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -139,25 +166,39 @@ class Course
         return $this->createdBy;
     }
 
-
-
-
-  
     /**
-     * @var \AppBundle\Entity\Curriculum
+     * Add schoolsession
+     *
+     * @param \AppBundle\Entity\Schoolsession $schoolsession
+     *
+     * @return Course
      */
-    private $curriculumId;
+    public function addSchoolsession(\AppBundle\Entity\Schoolsession $schoolsession)
+    {
+        $this->schoolsessions[] = $schoolsession;
+
+        return $this;
+    }
 
     /**
-     * @var \AppBundle\Entity\Module
+     * Remove schoolsession
+     *
+     * @param \AppBundle\Entity\Schoolsession $schoolsession
      */
-    private $moduleId;
+    public function removeSchoolsession(\AppBundle\Entity\Schoolsession $schoolsession)
+    {
+        $this->schoolsessions->removeElement($schoolsession);
+    }
 
     /**
-     * @var \AppBundle\Entity\Semester
+     * Get schoolsessions
+     *
+     * @return \Doctrine\Common\Collections\Collection
      */
-    private $semesterId;
-
+    public function getSchoolsessions()
+    {
+        return $this->schoolsessions;
+    }
 
     /**
      * Set curriculumId
@@ -233,47 +274,40 @@ class Course
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $schoolsessions;
+    private $prerequisiteCourse;
+
 
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->schoolsessions = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add schoolsession
+     * Add prerequisiteCourse
      *
-     * @param \AppBundle\Entity\Schoolsession $schoolsession
+     * @param \AppBundle\Entity\Prerequisite $prerequisiteCourse
      *
      * @return Course
      */
-    public function addSchoolsession(\AppBundle\Entity\Schoolsession $schoolsession)
+    public function addPrerequisiteCourse(\AppBundle\Entity\Prerequisite $prerequisiteCourse)
     {
-        $this->schoolsessions[] = $schoolsession;
+        $this->prerequisiteCourse[] = $prerequisiteCourse;
 
         return $this;
     }
 
     /**
-     * Remove schoolsession
+     * Remove prerequisiteCourse
      *
-     * @param \AppBundle\Entity\Schoolsession $schoolsession
+     * @param \AppBundle\Entity\Prerequisite $prerequisiteCourse
      */
-    public function removeSchoolsession(\AppBundle\Entity\Schoolsession $schoolsession)
+    public function removePrerequisiteCourse(\AppBundle\Entity\Prerequisite $prerequisiteCourse)
     {
-        $this->schoolsessions->removeElement($schoolsession);
+        $this->prerequisiteCourse->removeElement($prerequisiteCourse);
     }
 
     /**
-     * Get schoolsessions
+     * Get prerequisiteCourse
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSchoolsessions()
+    public function getPrerequisiteCourse()
     {
-        return $this->schoolsessions;
+        return $this->prerequisiteCourse;
     }
 }

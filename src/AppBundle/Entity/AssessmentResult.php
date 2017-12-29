@@ -8,17 +8,22 @@ namespace AppBundle\Entity;
 class AssessmentResult
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
     /**
-     * @var int
+     * @var integer
      */
-    private $assessmentSessionId;
+    private $assessmentTypeId;
 
     /**
-     * @var int
+     * @var integer
+     */
+    private $sessionId;
+
+    /**
+     * @var integer
      */
     private $studentId;
 
@@ -27,11 +32,16 @@ class AssessmentResult
      */
     private $resultValue;
 
+    /**
+     * @var integer
+     */
+    private $createdBy;
+
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -39,27 +49,51 @@ class AssessmentResult
     }
 
     /**
-     * Set assessmentSessionId
+     * Set assessmentTypeId
      *
-     * @param integer $assessmentSessionId
+     * @param integer $assessmentTypeId
      *
      * @return AssessmentResult
      */
-    public function setAssessmentSessionId($assessmentSessionId)
+    public function setAssessmentTypeId($assessmentTypeId)
     {
-        $this->assessmentSessionId = $assessmentSessionId;
+        $this->assessmentTypeId = $assessmentTypeId;
 
         return $this;
     }
 
     /**
-     * Get assessmentSessionId
+     * Get assessmentTypeId
      *
-     * @return int
+     * @return integer
      */
-    public function getAssessmentSessionId()
+    public function getAssessmentTypeId()
     {
-        return $this->assessmentSessionId;
+        return $this->assessmentTypeId;
+    }
+
+    /**
+     * Set sessionId
+     *
+     * @param integer $sessionId
+     *
+     * @return AssessmentResult
+     */
+    public function setSessionId($sessionId)
+    {
+        $this->sessionId = $sessionId;
+
+        return $this;
+    }
+
+    /**
+     * Get sessionId
+     *
+     * @return integer
+     */
+    public function getSessionId()
+    {
+        return $this->sessionId;
     }
 
     /**
@@ -79,7 +113,7 @@ class AssessmentResult
     /**
      * Get studentId
      *
-     * @return int
+     * @return integer
      */
     public function getStudentId()
     {
@@ -109,11 +143,6 @@ class AssessmentResult
     {
         return $this->resultValue;
     }
-    /**
-     * @var integer
-     */
-    private $createdBy;
-
 
     /**
      * Set createdBy
@@ -137,121 +166,5 @@ class AssessmentResult
     public function getCreatedBy()
     {
         return $this->createdBy;
-    }
-    /**
-     * @var integer
-     */
-    private $assessmentId;
-
-    /**
-     * @var integer
-     */
-    private $sessionId;
-
-
-    /**
-     * Set assessmentId
-     *
-     * @param integer $assessmentId
-     *
-     * @return AssessmentResult
-     */
-    public function setAssessmentId($assessmentId)
-    {
-        $this->assessmentId = $assessmentId;
-
-        return $this;
-    }
-
-    /**
-     * Get assessmentId
-     *
-     * @return integer
-     */
-    public function getAssessmentId()
-    {
-        return $this->assessmentId;
-    }
-
-    /**
-     * Set sessionId
-     *
-     * @param integer $sessionId
-     *
-     * @return AssessmentResult
-     */
-    public function setSessionId($sessionId)
-    {
-        $this->sessionId = $sessionId;
-
-        return $this;
-    }
-
-    /**
-     * Get sessionId
-     *
-     * @return integer
-     */
-    public function getSessionId()
-    {
-        return $this->sessionId;
-    }
-    /**
-     * @var integer
-     */
-    private $schoolSessionId;
-
-
-    /**
-     * Set schoolSessionId
-     *
-     * @param integer $schoolSessionId
-     *
-     * @return AssessmentResult
-     */
-    public function setSchoolSessionId($schoolSessionId)
-    {
-        $this->schoolSessionId = $schoolSessionId;
-
-        return $this;
-    }
-
-    /**
-     * Get schoolSessionId
-     *
-     * @return integer
-     */
-    public function getSchoolSessionId()
-    {
-        return $this->schoolSessionId;
-    }
-    /**
-     * @var integer
-     */
-    private $assessmentTypeId;
-
-
-    /**
-     * Set assessmentTypeId
-     *
-     * @param integer $assessmentTypeId
-     *
-     * @return AssessmentResult
-     */
-    public function setAssessmentTypeId($assessmentTypeId)
-    {
-        $this->assessmentTypeId = $assessmentTypeId;
-
-        return $this;
-    }
-
-    /**
-     * Get assessmentTypeId
-     *
-     * @return integer
-     */
-    public function getAssessmentTypeId()
-    {
-        return $this->assessmentTypeId;
     }
 }

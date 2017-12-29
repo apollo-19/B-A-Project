@@ -8,17 +8,17 @@ namespace AppBundle\Entity;
 class SessionResult
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
     /**
-     * @var int
+     * @var integer
      */
     private $sessionId;
 
     /**
-     * @var int
+     * @var integer
      */
     private $studentId;
 
@@ -33,6 +33,11 @@ class SessionResult
     private $resultInAlphabet;
 
     /**
+     * @var string
+     */
+    private $sessionResultRemark;
+
+    /**
      * @var integer
      */
     private $createdBy;
@@ -41,7 +46,7 @@ class SessionResult
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -65,7 +70,7 @@ class SessionResult
     /**
      * Get sessionId
      *
-     * @return int
+     * @return integer
      */
     public function getSessionId()
     {
@@ -89,7 +94,7 @@ class SessionResult
     /**
      * Get studentId
      *
-     * @return int
+     * @return integer
      */
     public function getStudentId()
     {
@@ -145,6 +150,30 @@ class SessionResult
     }
 
     /**
+     * Set sessionResultRemark
+     *
+     * @param string $sessionResultRemark
+     *
+     * @return SessionResult
+     */
+    public function setSessionResultRemark($sessionResultRemark)
+    {
+        $this->sessionResultRemark = $sessionResultRemark;
+
+        return $this;
+    }
+
+    /**
+     * Get sessionResultRemark
+     *
+     * @return string
+     */
+    public function getSessionResultRemark()
+    {
+        return $this->sessionResultRemark;
+    }
+
+    /**
      * Set createdBy
      *
      * @param integer $createdBy
@@ -166,5 +195,34 @@ class SessionResult
     public function getCreatedBy()
     {
         return $this->createdBy;
+    }
+    /**
+     * @var integer
+     */
+    private $sessionWeight;
+
+
+    /**
+     * Set sessionWeight
+     *
+     * @param integer $sessionWeight
+     *
+     * @return SessionResult
+     */
+    public function setSessionWeight($sessionWeight)
+    {
+        $this->sessionWeight = $sessionWeight;
+
+        return $this;
+    }
+
+    /**
+     * Get sessionWeight
+     *
+     * @return integer
+     */
+    public function getSessionWeight()
+    {
+        return $this->sessionWeight;
     }
 }

@@ -11,18 +11,6 @@ AppBundle\Entity\SessionResult:
             generator:
                 strategy: IDENTITY
     fields:
-        sessionId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: session_id
-        studentId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: student_id
         resultInNumber:
             type: string
             nullable: false
@@ -37,6 +25,10 @@ AppBundle\Entity\SessionResult:
             options:
                 fixed: false
             column: result_in_alphabet
+        sessionResultRemark:
+            type: string
+            length: '10'
+            column: session_result_remark
         createdBy:
             type: integer
             nullable: false
@@ -44,3 +36,20 @@ AppBundle\Entity\SessionResult:
                 unsigned: false
             column: created_by
     lifecycleCallbacks: {  }
+    manyToOne:
+      sessionId:
+        targetEntity: Schoolsession
+        inversedBy: session_result
+        joinColumn:
+          name: session_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE
+      studentId:
+        targetEntity: Student
+        inversedBy: session_result
+        joinColumn:
+          name: student_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE

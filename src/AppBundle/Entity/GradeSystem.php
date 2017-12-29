@@ -8,7 +8,7 @@ namespace AppBundle\Entity;
 class GradeSystem
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
@@ -23,15 +23,27 @@ class GradeSystem
     private $gradeSystemName;
 
     /**
-     * @var int
+     * @var integer
      */
     private $createdBy;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $curriculums;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->curriculums = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -103,23 +115,11 @@ class GradeSystem
     /**
      * Get createdBy
      *
-     * @return int
+     * @return integer
      */
     public function getCreatedBy()
     {
         return $this->createdBy;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $curriculums;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->curriculums = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

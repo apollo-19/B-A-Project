@@ -8,9 +8,14 @@ namespace AppBundle\Entity;
 class Student
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
+
+    /**
+     * @var string
+     */
+    private $admissionNumber;
 
     /**
      * @var string
@@ -63,12 +68,12 @@ class Student
     private $placeOfBirthRegion;
 
     /**
-     * @var \DateTime
+     * @var string
      */
     private $dateOfBirthGc;
 
     /**
-     * @var \DateTime
+     * @var string
      */
     private $dateOfBirthEc;
 
@@ -78,7 +83,7 @@ class Student
     private $houseNumber;
 
     /**
-     * @var int
+     * @var integer
      */
     private $kebele;
 
@@ -163,7 +168,7 @@ class Student
     private $pceHouseNumber;
 
     /**
-     * @var int
+     * @var integer
      */
     private $pceKebele;
 
@@ -218,7 +223,7 @@ class Student
     private $fatherHouseNumber;
 
     /**
-     * @var int
+     * @var integer
      */
     private $fatherKebele;
 
@@ -273,7 +278,7 @@ class Student
     private $motherHouseNumber;
 
     /**
-     * @var int
+     * @var integer
      */
     private $motherKebele;
 
@@ -298,7 +303,7 @@ class Student
     private $motherRegion;
 
     /**
-     * @var int
+     * @var integer
      */
     private $registeredBy;
 
@@ -308,13 +313,43 @@ class Student
     private $userName;
 
     /**
+     * @var \AppBundle\Entity\Section
+     */
+    private $sectionId;
+
+
+    /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set admissionNumber
+     *
+     * @param string $admissionNumber
+     *
+     * @return Student
+     */
+    public function setAdmissionNumber($admissionNumber)
+    {
+        $this->admissionNumber = $admissionNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get admissionNumber
+     *
+     * @return string
+     */
+    public function getAdmissionNumber()
+    {
+        return $this->admissionNumber;
     }
 
     /**
@@ -560,7 +595,7 @@ class Student
     /**
      * Set dateOfBirthGc
      *
-     * @param \DateTime $dateOfBirthGc
+     * @param string $dateOfBirthGc
      *
      * @return Student
      */
@@ -574,7 +609,7 @@ class Student
     /**
      * Get dateOfBirthGc
      *
-     * @return \DateTime
+     * @return string
      */
     public function getDateOfBirthGc()
     {
@@ -582,27 +617,27 @@ class Student
     }
 
     /**
-     * Set dateOfB
+     * Set dateOfBirthEc
      *
-     * @param \DateTime $dateOfBirthEc
+     * @param string $dateOfBirthEc
      *
      * @return Student
      */
-    public function setDateOfB($dateOfBirthEc)
+    public function setDateOfBirthEc($dateOfBirthEc)
     {
-        $this->dateOfB = $dateOfBirthEc;
+        $this->dateOfBirthEc = $dateOfBirthEc;
 
         return $this;
     }
 
     /**
-     * Get dateOfB
+     * Get dateOfBirthEc
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getDateOfB()
+    public function getDateOfBirthEc()
     {
-        return $this->dateOfB;
+        return $this->dateOfBirthEc;
     }
 
     /**
@@ -646,7 +681,7 @@ class Student
     /**
      * Get kebele
      *
-     * @return int
+     * @return integer
      */
     public function getKebele()
     {
@@ -1054,7 +1089,7 @@ class Student
     /**
      * Get pceKebele
      *
-     * @return int
+     * @return integer
      */
     public function getPceKebele()
     {
@@ -1318,7 +1353,7 @@ class Student
     /**
      * Get fatherKebele
      *
-     * @return int
+     * @return integer
      */
     public function getFatherKebele()
     {
@@ -1582,7 +1617,7 @@ class Student
     /**
      * Get motherKebele
      *
-     * @return int
+     * @return integer
      */
     public function getMotherKebele()
     {
@@ -1702,7 +1737,7 @@ class Student
     /**
      * Get registeredBy
      *
-     * @return int
+     * @return integer
      */
     public function getRegisteredBy()
     {
@@ -1734,65 +1769,6 @@ class Student
     }
 
     /**
-     * Set dateOfBirthEc
-     *
-     * @param \DateTime $dateOfBirthEc
-     *
-     * @return Student
-     */
-    public function setDateOfBirthEc($dateOfBirthEc)
-    {
-        $this->dateOfBirthEc = $dateOfBirthEc;
-
-        return $this;
-    }
-
-    /**
-     * Get dateOfBirthEc
-     *
-     * @return \DateTime
-     */
-    public function getDateOfBirthEc()
-    {
-        return $this->dateOfBirthEc;
-    }
-
-    /**
-     * @var string
-     */
-    private $admissionNumber;
-
-
-    /**
-     * Set admissionNumber
-     *
-     * @param string $admissionNumber
-     *
-     * @return Student
-     */
-    public function setAdmissionNumber($admissionNumber)
-    {
-        $this->admissionNumber = $admissionNumber;
-
-        return $this;
-    }
-
-    /**
-     * Get admissionNumber
-     *
-     * @return string
-     */
-    public function getAdmissionNumber()
-    {
-        return $this->admissionNumber;
-    }
-    /**
-     * @var \AppBundle\Entity\Section
-     */
-    private $sectionId;
-
-
-    /**
      * Set sectionId
      *
      * @param \AppBundle\Entity\Section $sectionId
@@ -1814,5 +1790,51 @@ class Student
     public function getSectionId()
     {
         return $this->sectionId;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sessionresult;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->sessionresult = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add sessionresult
+     *
+     * @param \AppBundle\Entity\SessionResult $sessionresult
+     *
+     * @return Student
+     */
+    public function addSessionresult(\AppBundle\Entity\SessionResult $sessionresult)
+    {
+        $this->sessionresult[] = $sessionresult;
+
+        return $this;
+    }
+
+    /**
+     * Remove sessionresult
+     *
+     * @param \AppBundle\Entity\SessionResult $sessionresult
+     */
+    public function removeSessionresult(\AppBundle\Entity\SessionResult $sessionresult)
+    {
+        $this->sessionresult->removeElement($sessionresult);
+    }
+
+    /**
+     * Get sessionresult
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSessionresult()
+    {
+        return $this->sessionresult;
     }
 }

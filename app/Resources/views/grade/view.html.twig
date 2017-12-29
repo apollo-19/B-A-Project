@@ -21,6 +21,7 @@
         <tr>
           <th>Range (%)</th>
           <th>Grade</th>
+          <th>Remark</th>
           <th colspan="3">Actions</th>
         </tr>
       </thead>
@@ -29,6 +30,7 @@
           <tr>
             <td>{{ '(' ~ grade.startPoint ~ ' - ' ~ grade.endPoint ~')' }}</td>
             <td>{{ grade.grade }}</td>
+            <td>{{ grade.gradeRemark | capitalize }}</td>
 
             <td id="actions"><a href="{{ path('grade_edit', {'grade_id': grade.id}) }}" id="editBtn">edit</button></td>
             <td id="actions"><a href="{{ path('grade_delete', {'grade_id': grade.id}) }}" id="deleteBtn"

@@ -8,7 +8,7 @@ namespace AppBundle\Entity;
 class AssessmentTypeSystem
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
@@ -22,11 +22,28 @@ class AssessmentTypeSystem
      */
     private $assessmentTypeSystemName;
 
+    /**
+     * @var integer
+     */
+    private $createdBy;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $schoolsessions;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->schoolsessions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -80,11 +97,6 @@ class AssessmentTypeSystem
     {
         return $this->assessmentTypeSystemName;
     }
-    /**
-     * @var integer
-     */
-    private $createdBy;
-
 
     /**
      * Set createdBy
@@ -108,18 +120,6 @@ class AssessmentTypeSystem
     public function getCreatedBy()
     {
         return $this->createdBy;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $schoolsessions;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->schoolsessions = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

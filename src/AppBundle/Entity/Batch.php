@@ -8,7 +8,7 @@ namespace AppBundle\Entity;
 class Batch
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
@@ -27,18 +27,33 @@ class Batch
      */
     private $batchYear;
 
-
-
     /**
-     * @var int
+     * @var integer
      */
     private $createdBy;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sections;
+
+    /**
+     * @var \AppBundle\Entity\School
+     */
+    private $schoolId;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->sections = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -117,7 +132,13 @@ class Batch
         return $this->batchYear;
     }
 
-
+    /**
+     * Set createdBy
+     *
+     * @param integer $createdBy
+     *
+     * @return Batch
+     */
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
@@ -128,55 +149,11 @@ class Batch
     /**
      * Get createdBy
      *
-     * @return int
+     * @return integer
      */
     public function getCreatedBy()
     {
         return $this->createdBy;
-    }
-
-
-    /**
-     * @var \AppBundle\Entity\School
-     */
-    private $schoolId;
-
-
-    /**
-     * Set schoolId
-     *
-     * @param \AppBundle\Entity\School $schoolId
-     *
-     * @return Batch
-     */
-    public function setSchoolId(\AppBundle\Entity\School $schoolId)
-    {
-        $this->schoolId = $schoolId;
-
-        return $this;
-    }
-
-    /**
-     * Get schoolId
-     *
-     * @return \AppBundle\Entity\School
-     */
-    public function getSchoolId()
-    {
-        return $this->schoolId;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $sections;
-
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->sections = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -213,5 +190,27 @@ class Batch
         return $this->sections;
     }
 
-    
+    /**
+     * Set schoolId
+     *
+     * @param \AppBundle\Entity\School $schoolId
+     *
+     * @return Batch
+     */
+    public function setSchoolId(\AppBundle\Entity\School $schoolId)
+    {
+        $this->schoolId = $schoolId;
+
+        return $this;
+    }
+
+    /**
+     * Get schoolId
+     *
+     * @return \AppBundle\Entity\School
+     */
+    public function getSchoolId()
+    {
+        return $this->schoolId;
+    }
 }

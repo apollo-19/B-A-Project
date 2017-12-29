@@ -57,7 +57,10 @@ AppBundle\Entity\Module:
         mappedBy: module
       schoolsessions:
         targetEntity: Schoolsession
-        mappedBy: module  
+        mappedBy: module
+      prerequisiteModule:
+        targetEntity: Prerequisite
+        mappedBy: module
     manyToOne:
       curriculumId:
         targetEntity: Curriculum

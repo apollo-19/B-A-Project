@@ -8,17 +8,17 @@ namespace AppBundle\Entity;
 class Result
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
     /**
-     * @var int
+     * @var integer
      */
     private $sessionId;
 
     /**
-     * @var int
+     * @var integer
      */
     private $studentId;
 
@@ -41,7 +41,7 @@ class Result
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -65,7 +65,7 @@ class Result
     /**
      * Get sessionId
      *
-     * @return int
+     * @return integer
      */
     public function getSessionId()
     {
@@ -89,7 +89,7 @@ class Result
     /**
      * Get studentId
      *
-     * @return int
+     * @return integer
      */
     public function getStudentId()
     {

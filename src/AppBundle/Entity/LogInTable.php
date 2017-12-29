@@ -8,7 +8,7 @@ namespace AppBundle\Entity;
 class LogInTable
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
@@ -27,10 +27,11 @@ class LogInTable
      */
     private $userType;
 
+
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -108,5 +109,4 @@ class LogInTable
     {
         return $this->userType;
     }
-
 }

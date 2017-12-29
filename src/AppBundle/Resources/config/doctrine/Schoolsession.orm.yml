@@ -52,6 +52,10 @@ AppBundle\Entity\Schoolsession:
             options:
                 fixed: false
             column: session_end_date
+        sessionRemark:
+            type: string
+            length: '10'
+            column: session_remark
         createdBy:
             type: integer
             nullable: false
@@ -59,6 +63,10 @@ AppBundle\Entity\Schoolsession:
                 unsigned: false
             column: created_by
     lifecycleCallbacks: {  }
+    oneToMany:
+      sessionresult:
+        targetEntity: SessionResult
+        mappedBy: schoolsession
     manyToOne:
       sectionId:
         targetEntity: Section

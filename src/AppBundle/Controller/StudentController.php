@@ -84,9 +84,10 @@ class StudentController extends Controller
             $student->setFirstNameAm($student_data['first_name_am']);
             $student->setMiddleNameAm($student_data['middle_name_am']);
             $student->setLastNameAm($student_data['last_name_am']);
+            $student->setUserName($student_data['user_name']);
 
-            $student->setSectionId($student_data['section_id']);
-            $student->setRegisteredBy($student_data['registered_by']);
+            $student->setSectionId($mysection);
+            $student->setRegisteredBy($session->get('user_id'));
 
             $em->persist($student);
             $em->persist($passwordLIT);
@@ -198,11 +199,9 @@ class StudentController extends Controller
                             ->getRepository('AppBundle:Student')
                             ->findOneById($student_id);
 
-        $student_user_name = $student->getUserName();
-
         $student_log_in_info = $this->getDoctrine()
-                            ->getRepository('AppBundle:LogInTable')
-                            ->findOneByUserName($student_user_name);
+                                    ->getRepository('AppBundle:LogInTable')
+                                    ->findOneByUserName($student->getUserName());
 
         $em = $this->getDoctrine()->getManager();
 

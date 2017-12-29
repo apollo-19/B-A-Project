@@ -8,7 +8,7 @@ namespace AppBundle\Entity;
 class Teacher
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
@@ -43,7 +43,7 @@ class Teacher
     private $emailAddress;
 
     /**
-     * @var int
+     * @var integer
      */
     private $registeredBy;
 
@@ -53,9 +53,28 @@ class Teacher
     private $userName;
 
     /**
-     * @var string
+     * @var \Doctrine\Common\Collections\Collection
      */
+    private $schoolsessions;
 
+    /**
+     * @var \AppBundle\Entity\Department
+     */
+    private $departmentId;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->schoolsessions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
     public function getId()
     {
         return $this->id;
@@ -222,7 +241,7 @@ class Teacher
     /**
      * Get registeredBy
      *
-     * @return int
+     * @return integer
      */
     public function getRegisteredBy()
     {
@@ -251,48 +270,6 @@ class Teacher
     public function getUserName()
     {
         return $this->userName;
-    }
-    
-    /**
-     * @var \AppBundle\Entity\Department
-     */
-    private $departmentId;
-
-
-    /**
-     * Set departmentId
-     *
-     * @param \AppBundle\Entity\Department $departmentId
-     *
-     * @return Teacher
-     */
-    public function setDepartmentId(\AppBundle\Entity\Department $departmentId)
-    {
-        $this->departmentId = $departmentId;
-
-        return $this;
-    }
-
-    /**
-     * Get departmentId
-     *
-     * @return \AppBundle\Entity\Department
-     */
-    public function getDepartmentId()
-    {
-        return $this->departmentId;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $schoolsessions;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->schoolsessions = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -327,5 +304,29 @@ class Teacher
     public function getSchoolsessions()
     {
         return $this->schoolsessions;
+    }
+
+    /**
+     * Set departmentId
+     *
+     * @param \AppBundle\Entity\Department $departmentId
+     *
+     * @return Teacher
+     */
+    public function setDepartmentId(\AppBundle\Entity\Department $departmentId)
+    {
+        $this->departmentId = $departmentId;
+
+        return $this;
+    }
+
+    /**
+     * Get departmentId
+     *
+     * @return \AppBundle\Entity\Department
+     */
+    public function getDepartmentId()
+    {
+        return $this->departmentId;
     }
 }

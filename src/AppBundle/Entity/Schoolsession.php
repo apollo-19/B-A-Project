@@ -22,6 +22,10 @@ class Schoolsession
      */
     private $sessionName;
 
+    /**
+     * @var string
+     */
+    private $courseModuleType;
 
     /**
      * @var string
@@ -34,9 +38,39 @@ class Schoolsession
     private $sessionEndDate;
 
     /**
+     * @var string
+     */
+    private $sessionRemark;
+
+    /**
      * @var integer
      */
     private $createdBy;
+
+    /**
+     * @var \AppBundle\Entity\Section
+     */
+    private $sectionId;
+
+    /**
+     * @var \AppBundle\Entity\Teacher
+     */
+    private $teacherId;
+
+    /**
+     * @var \AppBundle\Entity\Course
+     */
+    private $courseId;
+
+    /**
+     * @var \AppBundle\Entity\Module
+     */
+    private $moduleId;
+
+    /**
+     * @var \AppBundle\Entity\AssessmentTypeSystem
+     */
+    private $assessmentTypeSystemId;
 
 
     /**
@@ -97,7 +131,30 @@ class Schoolsession
         return $this->sessionName;
     }
 
-  
+    /**
+     * Set courseModuleType
+     *
+     * @param string $courseModuleType
+     *
+     * @return Schoolsession
+     */
+    public function setCourseModuleType($courseModuleType)
+    {
+        $this->courseModuleType = $courseModuleType;
+
+        return $this;
+    }
+
+    /**
+     * Get courseModuleType
+     *
+     * @return string
+     */
+    public function getCourseModuleType()
+    {
+        return $this->courseModuleType;
+    }
+
     /**
      * Set sessionStartDate
      *
@@ -147,6 +204,30 @@ class Schoolsession
     }
 
     /**
+     * Set sessionRemark
+     *
+     * @param string $sessionRemark
+     *
+     * @return Schoolsession
+     */
+    public function setSessionRemark($sessionRemark)
+    {
+        $this->sessionRemark = $sessionRemark;
+
+        return $this;
+    }
+
+    /**
+     * Get sessionRemark
+     *
+     * @return string
+     */
+    public function getSessionRemark()
+    {
+        return $this->sessionRemark;
+    }
+
+    /**
      * Set createdBy
      *
      * @param integer $createdBy
@@ -168,55 +249,6 @@ class Schoolsession
     public function getCreatedBy()
     {
         return $this->createdBy;
-    }
-    /**
-     * @var string
-     */
-    private $courseModuleType;
-
-    /**
-     * @var \AppBundle\Entity\Section
-     */
-    private $sectionId;
-
-    /**
-     * @var \AppBundle\Entity\Teacher
-     */
-    private $techerId;
-
-    /**
-     * @var \AppBundle\Entity\Course
-     */
-    private $courseId;
-
-    /**
-     * @var \AppBundle\Entity\Module
-     */
-    private $moduleId;
-
-
-    /**
-     * Set courseModuleType
-     *
-     * @param string $courseModuleType
-     *
-     * @return Schoolsession
-     */
-    public function setCourseModuleType($courseModuleType)
-    {
-        $this->courseModuleType = $courseModuleType;
-
-        return $this;
-    }
-
-    /**
-     * Get courseModuleType
-     *
-     * @return string
-     */
-    public function getCourseModuleType()
-    {
-        return $this->courseModuleType;
     }
 
     /**
@@ -244,27 +276,27 @@ class Schoolsession
     }
 
     /**
-     * Set techerId
+     * Set teacherId
      *
-     * @param \AppBundle\Entity\Teacher $techerId
+     * @param \AppBundle\Entity\Teacher $teacherId
      *
      * @return Schoolsession
      */
-    public function setTecherId(\AppBundle\Entity\Teacher $techerId)
+    public function setTeacherId(\AppBundle\Entity\Teacher $teacherId)
     {
-        $this->techerId = $techerId;
+        $this->teacherId = $teacherId;
 
         return $this;
     }
 
     /**
-     * Get techerId
+     * Get teacherId
      *
      * @return \AppBundle\Entity\Teacher
      */
-    public function getTecherId()
+    public function getTeacherId()
     {
-        return $this->techerId;
+        return $this->teacherId;
     }
 
     /**
@@ -314,40 +346,6 @@ class Schoolsession
     {
         return $this->moduleId;
     }
-    /**
-     * @var \AppBundle\Entity\Teacher
-     */
-    private $teacherId;
-
-
-    /**
-     * Set teacherId
-     *
-     * @param \AppBundle\Entity\Teacher $teacherId
-     *
-     * @return Schoolsession
-     */
-    public function setTeacherId(\AppBundle\Entity\Teacher $teacherId)
-    {
-        $this->teacherId = $teacherId;
-
-        return $this;
-    }
-
-    /**
-     * Get teacherId
-     *
-     * @return \AppBundle\Entity\Teacher
-     */
-    public function getTeacherId()
-    {
-        return $this->teacherId;
-    }
-    /**
-     * @var \AppBundle\Entity\AssessmentTypeSystem
-     */
-    private $assessmentTypeSystemId;
-
 
     /**
      * Set assessmentTypeSystemId
@@ -371,5 +369,51 @@ class Schoolsession
     public function getAssessmentTypeSystemId()
     {
         return $this->assessmentTypeSystemId;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sessionresult;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->sessionresult = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add sessionresult
+     *
+     * @param \AppBundle\Entity\SessionResult $sessionresult
+     *
+     * @return Schoolsession
+     */
+    public function addSessionresult(\AppBundle\Entity\SessionResult $sessionresult)
+    {
+        $this->sessionresult[] = $sessionresult;
+
+        return $this;
+    }
+
+    /**
+     * Remove sessionresult
+     *
+     * @param \AppBundle\Entity\SessionResult $sessionresult
+     */
+    public function removeSessionresult(\AppBundle\Entity\SessionResult $sessionresult)
+    {
+        $this->sessionresult->removeElement($sessionresult);
+    }
+
+    /**
+     * Get sessionresult
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSessionresult()
+    {
+        return $this->sessionresult;
     }
 }

@@ -3,22 +3,17 @@
 namespace AppBundle\Entity;
 
 /**
- * Minor_Coordinator
+ * MinorCoordinator
  */
 class MinorCoordinator
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
     /**
-     * @var int
-     */
-    private $adminId;
-
-    /**
-     * @var int
+     * @var integer
      */
     private $minorId;
 
@@ -26,7 +21,7 @@ class MinorCoordinator
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -34,35 +29,11 @@ class MinorCoordinator
     }
 
     /**
-     * Set adminId
-     *
-     * @param integer $adminId
-     *
-     * @return Minor_Coordinator
-     */
-    public function setAdminId($adminId)
-    {
-        $this->adminId = $adminId;
-
-        return $this;
-    }
-
-    /**
-     * Get adminId
-     *
-     * @return int
-     */
-    public function getAdminId()
-    {
-        return $this->adminId;
-    }
-
-    /**
      * Set minorId
      *
      * @param integer $minorId
      *
-     * @return Minor_Coordinator
+     * @return MinorCoordinator
      */
     public function setMinorId($minorId)
     {
@@ -74,7 +45,7 @@ class MinorCoordinator
     /**
      * Get minorId
      *
-     * @return int
+     * @return integer
      */
     public function getMinorId()
     {

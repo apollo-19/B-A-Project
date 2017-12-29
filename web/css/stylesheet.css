@@ -40,6 +40,12 @@ header, nav, article, section, div, footer {
   min-height: 81.75vh;
 }
 
+.wide_container {
+  margin: 1.5vh 5%;
+  width: 90%;
+  min-height: 81.75vh;
+}
+
 #accessDenied {
   text-align: center;
   color: #FF0000;
@@ -258,7 +264,7 @@ header table tr td a:hover {
 }
 
 #view_container table {
-	width: inherit;
+  width: 100%;
 	overflow: hidden;
 	border-collapse: collapse;
 	box-shadow: 0 0 20px rgba(0,0,0,0.1);
@@ -294,7 +300,7 @@ header table tr td a:hover {
 }
 
 #view_container #total_row {
-  padding: 10px 10px;
+  padding: 15px 10px;
 }
 
 #view_container a {

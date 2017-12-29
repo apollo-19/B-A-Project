@@ -8,7 +8,7 @@ namespace AppBundle\Entity;
 class AssessmentType
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
@@ -18,15 +18,25 @@ class AssessmentType
     private $assessmentName;
 
     /**
-     * @var string
+     * @var integer
      */
     private $assessmentWorth;
+
+    /**
+     * @var integer
+     */
+    private $assessmentTypeSystemId;
+
+    /**
+     * @var integer
+     */
+    private $createdBy;
 
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -60,7 +70,7 @@ class AssessmentType
     /**
      * Set assessmentWorth
      *
-     * @param string $assessmentWorth
+     * @param integer $assessmentWorth
      *
      * @return AssessmentType
      */
@@ -74,46 +84,12 @@ class AssessmentType
     /**
      * Get assessmentWorth
      *
-     * @return string
+     * @return integer
      */
     public function getAssessmentWorth()
     {
         return $this->assessmentWorth;
     }
-    /**
-     * @var integer
-     */
-    private $createdBy;
-
-
-    /**
-     * Set createdBy
-     *
-     * @param integer $createdBy
-     *
-     * @return AssessmentType
-     */
-    public function setCreatedBy($createdBy)
-    {
-        $this->createdBy = $createdBy;
-
-        return $this;
-    }
-
-    /**
-     * Get createdBy
-     *
-     * @return integer
-     */
-    public function getCreatedBy()
-    {
-        return $this->createdBy;
-    }
-    /**
-     * @var integer
-     */
-    private $assessmentTypeSystemId;
-
 
     /**
      * Set assessmentTypeSystemId
@@ -137,5 +113,29 @@ class AssessmentType
     public function getAssessmentTypeSystemId()
     {
         return $this->assessmentTypeSystemId;
+    }
+
+    /**
+     * Set createdBy
+     *
+     * @param integer $createdBy
+     *
+     * @return AssessmentType
+     */
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return integer
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
     }
 }

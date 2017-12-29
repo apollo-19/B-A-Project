@@ -3,22 +3,22 @@
 namespace AppBundle\Entity;
 
 /**
- * Module_Coordinator
+ * ModuleCoordinator
  */
 class ModuleCoordinator
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
     /**
-     * @var int
+     * @var integer
      */
     private $adminId;
 
     /**
-     * @var int
+     * @var integer
      */
     private $moduleId;
 
@@ -26,7 +26,7 @@ class ModuleCoordinator
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -38,7 +38,7 @@ class ModuleCoordinator
      *
      * @param integer $adminId
      *
-     * @return Module_Coordinator
+     * @return ModuleCoordinator
      */
     public function setAdminId($adminId)
     {
@@ -50,7 +50,7 @@ class ModuleCoordinator
     /**
      * Get adminId
      *
-     * @return int
+     * @return integer
      */
     public function getAdminId()
     {
@@ -62,7 +62,7 @@ class ModuleCoordinator
      *
      * @param integer $moduleId
      *
-     * @return Module_Coordinator
+     * @return ModuleCoordinator
      */
     public function setModuleId($moduleId)
     {
@@ -74,7 +74,7 @@ class ModuleCoordinator
     /**
      * Get moduleId
      *
-     * @return int
+     * @return integer
      */
     public function getModuleId()
     {

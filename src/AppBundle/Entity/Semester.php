@@ -8,7 +8,7 @@ namespace AppBundle\Entity;
 class Semester
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
@@ -22,11 +22,33 @@ class Semester
      */
     private $year;
 
+    /**
+     * @var integer
+     */
+    private $createdBy;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $courses;
+
+    /**
+     * @var \AppBundle\Entity\Curriculum
+     */
+    private $curriculumId;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->courses = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -82,12 +104,6 @@ class Semester
     }
 
     /**
-     * @var integer
-     */
-    private $createdBy;
-
-
-    /**
      * Set createdBy
      *
      * @param integer $createdBy
@@ -109,23 +125,6 @@ class Semester
     public function getCreatedBy()
     {
         return $this->createdBy;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $courses;
-
-    /**
-     * @var \AppBundle\Entity\Curriculum
-     */
-    private $curriculumId;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->courses = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

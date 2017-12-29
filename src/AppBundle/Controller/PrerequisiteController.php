@@ -12,14 +12,6 @@ use AppBundle\Entity\Prerequisite;
 class PrerequisiteController extends Controller
 {
     /**
-     * @Route("/prerequisite", name="prerequisite_home")
-     */
-    public function indexAction()
-    {
-        return $this->render('prerequisite/index.html.twig');
-    }
-
-    /**
      * @Route("/prerequisite/create", name="prerequisite_create")
      */
     public function prerequisiteCreateAction(Request $request)
@@ -32,9 +24,11 @@ class PrerequisiteController extends Controller
 
         $form = $this ->createFormBuilder()
                       ->add('course_module_type')
-                      ->add('course_module_id')
+                      ->add('course_id')
+                      ->add('module_id')
                       ->add('prerequisite_type')
-                      ->add('prerequisite_id')
+                      ->add('prerequisite_course_id')
+                      ->add('prerequisite_module_id')
                       ->getForm();
 
         $module = $this->getDoctrine()
@@ -55,12 +49,28 @@ class PrerequisiteController extends Controller
           $form_data = $form->getData();
           $data['form'] = $form_data;
 
+          $mycourse = $this->getDoctrine()
+                              ->getRepository('AppBundle:Course')
+                              ->findOneById($form_data['course_id']);
+          $mymodule = $this->getDoctrine()
+                              ->getRepository('AppBundle:Module')
+                              ->findOneById($form_data['module_id']);
+
+          $myprerequisitecourse = $this->getDoctrine()
+                                        ->getRepository('AppBundle:Course')
+                                        ->findOneById($form_data['prerequisite_course_id']);
+          $myprerequisitemodule = $this->getDoctrine()
+                                        ->getRepository('AppBundle:Module')
+                                        ->findOneById($form_data['prerequisite_module_id']);
+
           $em = $this->getDoctrine()->getManager();
           $prerequisite = new Prerequisite();
           $prerequisite->setCourseModuleType($form_data['course_module_type']);
-          $prerequisite->setCourseModuleId($form_data['course_module_id']);
+          $prerequisite->setCourseId($mycourse);
+          $prerequisite->setModuleId($mymodule);
           $prerequisite->setPrerequisiteType($form_data['prerequisite_type']);
-          $prerequisite->setPrerequisiteId($form_data['prerequisite_id']);
+          $prerequisite->setPrerequisiteCourseId($myprerequisitecourse);
+          $prerequisite->setPrerequisiteModuleId($myprerequisitemodule);
 
           $em->persist($prerequisite);
 
@@ -85,9 +95,11 @@ class PrerequisiteController extends Controller
 
       $form = $this ->createFormBuilder()
                     ->add('course_module_type')
-                    ->add('course_module_id')
+                    ->add('course_id')
+                    ->add('module_id')
                     ->add('prerequisite_type')
-                    ->add('prerequisite_id')
+                    ->add('prerequisite_course_id')
+                    ->add('prerequisite_module_id')
                     ->getForm();
 
       $prerequisite = $this->getDoctrine()
@@ -95,9 +107,11 @@ class PrerequisiteController extends Controller
                           ->findOneById($prerequisite_id);
 
       $prerequisite_data['course_module_type'] = $prerequisite->getCourseModuleType();
-      $prerequisite_data['course_module_id'] = $prerequisite->getCourseModuleId();
+      $prerequisite_data['course_id'] = $prerequisite->getCourseId();
+      $prerequisite_data['module_id'] = $prerequisite->getModuleId();
       $prerequisite_data['prerequisite_type'] = $prerequisite->getPrerequisiteType();
-      $prerequisite_data['prerequisite_id'] = $prerequisite->getPrerequisiteId();
+      $prerequisite_data['prerequisite_course_id'] = $prerequisite->getPrerequisiteCourseId();
+      $prerequisite_data['prerequisite_module_id'] = $prerequisite->getPrerequisiteModuleId();
 
       $module = $this->getDoctrine()
                           ->getRepository('AppBundle:Module')
@@ -123,10 +137,26 @@ class PrerequisiteController extends Controller
           $form_data = $form->getData();
           $data['form'] = $form_data;
 
+          $mycourse = $this->getDoctrine()
+                              ->getRepository('AppBundle:Course')
+                              ->findOneById($form_data['course_id']);
+          $mymodule = $this->getDoctrine()
+                              ->getRepository('AppBundle:Module')
+                              ->findOneById($form_data['module_id']);
+
+          $myprerequisitecourse = $this->getDoctrine()
+                                        ->getRepository('AppBundle:Course')
+                                        ->findOneById($form_data['prerequisite_course_id']);
+          $myprerequisitemodule = $this->getDoctrine()
+                                        ->getRepository('AppBundle:Module')
+                                        ->findOneById($form_data['prerequisite_module_id']);
+
           $prerequisite->setCourseModuleType($form_data['course_module_type']);
-          $prerequisite->setCourseModuleId($form_data['course_module_id']);
+          $prerequisite->setCourseId($mycourse);
+          $prerequisite->setModuleId($mymodule);
           $prerequisite->setPrerequisiteType($form_data['prerequisite_type']);
-          $prerequisite->setPrerequisiteId($form_data['prerequisite_id']);
+          $prerequisite->setPrerequisiteCourseId($myprerequisitecourse);
+          $prerequisite->setPrerequisiteModuleId($myprerequisitemodule);
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($prerequisite);
@@ -180,18 +210,6 @@ class PrerequisiteController extends Controller
                             ->findAll();
 
         $data['prerequisites'] = $prerequisite;
-
-        $module = $this->getDoctrine()
-                            ->getRepository('AppBundle:Module')
-                            ->findAll();
-
-        $data['modules'] = $module;
-
-        $course = $this->getDoctrine()
-                            ->getRepository('AppBundle:Course')
-                            ->findAll();
-
-        $data['courses'] = $course;
 
         return $this->render('prerequisite/view.html.twig', $data);
       } else {

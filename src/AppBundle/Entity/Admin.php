@@ -8,7 +8,7 @@ namespace AppBundle\Entity;
 class Admin
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
@@ -57,10 +57,11 @@ class Admin
      */
     private $createdBy;
 
+
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {

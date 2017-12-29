@@ -8,7 +8,7 @@ namespace AppBundle\Entity;
 class School
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
@@ -23,15 +23,45 @@ class School
     private $schoolName;
 
     /**
-     * @var int
+     * @var integer
      */
     private $createdBy;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $departments;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $batchs;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $modules;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $curriculums;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->departments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->batchs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->modules = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->curriculums = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -103,26 +133,11 @@ class School
     /**
      * Get createdBy
      *
-     * @return int
+     * @return integer
      */
     public function getCreatedBy()
     {
         return $this->createdBy;
-    }
-
-  
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $departments;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->departments = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -158,21 +173,6 @@ class School
     {
         return $this->departments;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $batchs;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $modules;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $curriculums;
-
 
     /**
      * Add batch

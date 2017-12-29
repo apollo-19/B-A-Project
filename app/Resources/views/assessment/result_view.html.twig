@@ -10,9 +10,12 @@
 {% endblock %}
 
 {% block body %}
-  <div class="container" id="view_container">
+  <div class="wide_container" id="view_container">
     <a href="{{ path('assessment_result_create', {'school_session_id': school_session_id}) }}">Add Student Result</a>
-    <table border="0">
+
+    <h1>{{ school_session.courseId.courseName ~ ' (' ~ school_session.courseId.courseCode | upper ~ ')' }}</h1>
+
+    <table id="wide_table">
       <thead>
         <tr>
           <th>Addmission Number</th>
@@ -30,13 +33,16 @@
             Total ({{ assessmentWorthTotal }}%)
           </th>
 
-          <th>
-            Grade
-          </th>
+          <th>Grade</th>
+          <th>Remark</th>
         </tr>
       </thead>
 
       <tbody>
+        {% for prerequisite in prerequisites %}
+          {{ prerequisite.courseId.courseName ~ ', ' }}
+        {% endfor %}
+
         {% for student in students %}
           <tr>
             <td id="total_row">
@@ -62,18 +68,18 @@
               {{ assessmentResultTotal }}
             </td>
 
-            <td>
-              {% set break = false %}
-              {% for grade in grades if not break %}
-                {% if assessmentResultTotal >= grade.startPoint and assessmentResultTotal <= grade.endPoint %}
-                  {{ grade.grade }}
-                  {% set break = true %}
-                {% endif %}
-              {% endfor %}
-            </td>
+            {% for grade in grades %}
+              {% if assessmentResultTotal >= grade.startPoint and assessmentResultTotal < grade.endPoint %}
+              <td>{{ grade.grade }}</td>
+              <td>{{ grade.gradeRemark | capitalize }}</td>
+              {% endif %}
+            {% endfor %}
           </tr>
         {% endfor %}
       </tbody>
     </table>
+
+      <a href="{{ path('session_result_create', {'school_session_id': school_session_id}) }}" class="fright"
+      onclick="return confirm('Results will be displayed to students. Are you sure?')">Publish Results</a>
   </div>
 {% endblock %}
