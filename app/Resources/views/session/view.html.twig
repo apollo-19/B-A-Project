@@ -15,6 +15,7 @@
     <table border="0">
       <thead>
         <tr>
+          <th>id</th>
           <th>Session Code</th>
           <th>Session Name</th>
           <th>Session Section</th>
@@ -26,6 +27,7 @@
       <tbody>
         {% for session in school_sessions %}
           <tr>
+            <td>{{ session.id }}</td>
             <td>{{ session.sessionCode }}</td>
             <td>{{ session.sessionName }}</td>
 
@@ -65,7 +67,7 @@
             </td>
 
             <td id="actions"><a href="{{ path('session_view_one', {'session_id': session.id}) }}" id="editBtn">view</a></td>
-            
+
             {% if(app.session.get('user_type') == 'admin') %}
               <td id="actions"><a href="{{ path('session_edit', {'session_id': session.id}) }}" id="editBtn">edit</a></td>
               <td id="actions"><a href="{{ path('session_delete', {'session_id': session.id}) }}" id="deleteBtn"

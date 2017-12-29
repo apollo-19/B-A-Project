@@ -15,6 +15,13 @@
 
     <h1>{{ school_session.courseId.courseName ~ ' (' ~ school_session.courseId.courseCode | upper ~ ')' }}</h1>
 
+    <h2>
+      Prerequisites:
+      {% for prerequisite in prerequisites %}
+      {{ prerequisite.prerequisiteCourseId.courseName ~ ', ' }}
+      {% endfor %}
+    </h2>
+
     <table id="wide_table">
       <thead>
         <tr>
@@ -32,17 +39,10 @@
           <th>
             Total ({{ assessmentWorthTotal }}%)
           </th>
-
-          <th>Grade</th>
-          <th>Remark</th>
         </tr>
       </thead>
 
       <tbody>
-        {% for prerequisite in prerequisites %}
-          {{ prerequisite.courseId.courseName ~ ', ' }}
-        {% endfor %}
-
         {% for student in students %}
           <tr>
             <td id="total_row">
@@ -56,7 +56,7 @@
             {% for assessment_type in assessment_types %}
               <td>
                 {% for assessment_result in assessment_results %}
-                  {% if assessment_result.assessmentTypeId == assessment_type.id and assessment_result.studentId == student.id %}
+                  {% if assessment_result.assessmentTypeId == assessment_type and assessment_result.studentId == student %}
                     {% set assessmentResultTotal = assessmentResultTotal + assessment_result.resultValue %}
                     {{ assessment_result.resultValue }}
                   {% endif %}
@@ -67,13 +67,6 @@
             <td>
               {{ assessmentResultTotal }}
             </td>
-
-            {% for grade in grades %}
-              {% if assessmentResultTotal >= grade.startPoint and assessmentResultTotal < grade.endPoint %}
-              <td>{{ grade.grade }}</td>
-              <td>{{ grade.gradeRemark | capitalize }}</td>
-              {% endif %}
-            {% endfor %}
           </tr>
         {% endfor %}
       </tbody>

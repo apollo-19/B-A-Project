@@ -430,7 +430,9 @@ AppBundle\Entity\Student:
       sessionresult:
         targetEntity: SessionResult
         mappedBy: student
-
+      assessmentResults:
+          targetEntity: AssessmentResult
+          mappedBy: student
     manyToOne:
       sectionId:
         targetEntity: Section

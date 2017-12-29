@@ -29,7 +29,6 @@ AppBundle\Entity\Schoolsession:
             options:
                 fixed: false
             column: session_name
-
         courseModuleType:
             type: string
             nullable: false
@@ -37,7 +36,6 @@ AppBundle\Entity\Schoolsession:
             options:
                 fixed: false
             column: course_module_type
-
         sessionStartDate:
             type: string
             nullable: false
@@ -54,6 +52,7 @@ AppBundle\Entity\Schoolsession:
             column: session_end_date
         sessionRemark:
             type: string
+            nullable: true
             length: '10'
             column: session_remark
         createdBy:
@@ -66,6 +65,9 @@ AppBundle\Entity\Schoolsession:
     oneToMany:
       sessionresult:
         targetEntity: SessionResult
+        mappedBy: schoolsession
+    assessmentResults:
+        targetEntity: AssessmentResult
         mappedBy: schoolsession
     manyToOne:
       sectionId:

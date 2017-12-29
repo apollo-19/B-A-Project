@@ -11,6 +11,15 @@
 
 {% block body %}
   <div class="wide_container" id="view_container">
+    <h1>{{ school_session.courseId.courseName ~ ' (' ~ school_session.courseId.courseCode | upper ~ ')' }} Results</h1>
+
+
+    <h2>
+      Prerequisites:
+      {% for prerequisite in prerequisites %}
+      {{ prerequisite.prerequisiteCourseId.courseName ~ ', ' }}
+      {% endfor %}
+    </h2>
 
     <table border="0" id="wide_table">
       <thead>

@@ -263,6 +263,11 @@ header table tr td a:hover {
   margin: 10px 0px;
 }
 
+#view_container h2 {
+  font-size: 15px;
+  margin: 10px 0px;
+}
+
 #view_container table {
   width: 100%;
 	overflow: hidden;

@@ -1837,4 +1837,43 @@ class Student
     {
         return $this->sessionresult;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $assessmentResults;
+
+
+    /**
+     * Add assessmentResult
+     *
+     * @param \AppBundle\Entity\AssessmentResult $assessmentResult
+     *
+     * @return Student
+     */
+    public function addAssessmentResult(\AppBundle\Entity\AssessmentResult $assessmentResult)
+    {
+        $this->assessmentResults[] = $assessmentResult;
+
+        return $this;
+    }
+
+    /**
+     * Remove assessmentResult
+     *
+     * @param \AppBundle\Entity\AssessmentResult $assessmentResult
+     */
+    public function removeAssessmentResult(\AppBundle\Entity\AssessmentResult $assessmentResult)
+    {
+        $this->assessmentResults->removeElement($assessmentResult);
+    }
+
+    /**
+     * Get assessmentResults
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAssessmentResults()
+    {
+        return $this->assessmentResults;
+    }
 }

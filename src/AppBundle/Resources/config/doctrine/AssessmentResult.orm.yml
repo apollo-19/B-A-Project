@@ -11,27 +11,9 @@ AppBundle\Entity\AssessmentResult:
             generator:
                 strategy: IDENTITY
     fields:
-        assessmentTypeId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: assessment_type_id
-        sessionId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: session_id
-        studentId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: student_id
         resultValue:
             type: string
-            nullable: false
+            nullable: true
             length: 10
             options:
                 fixed: false
@@ -43,3 +25,28 @@ AppBundle\Entity\AssessmentResult:
                 unsigned: false
             column: created_by
     lifecycleCallbacks: {  }
+    manyToOne:
+      sessionId:
+        targetEntity: Schoolsession
+        inversedBy: assessment_result
+        joinColumn:
+          name: session_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE
+      studentId:
+        targetEntity: Student
+        inversedBy: assessment_result
+        joinColumn:
+          name: student_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE
+      assessmentTypeId:
+        targetEntity: AssessmentType
+        inversedBy: assessment_result
+        joinColumn:
+          name: assessment_type_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE

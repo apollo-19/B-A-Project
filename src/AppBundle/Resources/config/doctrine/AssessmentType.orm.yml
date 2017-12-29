@@ -34,3 +34,7 @@ AppBundle\Entity\AssessmentType:
                 unsigned: false
             column: created_by
     lifecycleCallbacks: {  }
+    oneToMany:
+        assessmentResults:
+            targetEntity: AssessmentResult
+            mappedBy: assessment_type

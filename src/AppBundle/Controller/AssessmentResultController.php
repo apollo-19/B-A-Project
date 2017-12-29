@@ -33,22 +33,6 @@ class AssessmentResultController extends Controller
 
         $data['school_session'] = $school_session;
 
-        if ($school_session->getCourseModuleType() == 'course'){
-          $prerequisites = $this->getDoctrine()
-                                ->getRepository('AppBundle:Prerequisite')
-                                ->findBy(
-                                  array('courseId' => $school_session->getCourseId())
-                                );
-        } else {
-          $prerequisites = $this->getDoctrine()
-                                ->getRepository('AppBundle:Prerequisite')
-                                ->findBy(
-                                  array('moduleId' => $school_session->getModuleId())
-                                );
-        }
-
-        $data['prerequisites'] = $prerequisites;
-
         $students = $this->getDoctrine()
                             ->getRepository('AppBundle:Student')
                             ->findBy(
@@ -56,54 +40,6 @@ class AssessmentResultController extends Controller
                             );
 
         $data['students'] = $students;
-
-        foreach ($prerequisites as $prerequisite){
-          if ($school_session->getCourseModuleType() == 'course'){
-            $prerequisite_school_session = $this->getDoctrine()
-                                                  ->getRepository('AppBundle:Schoolsession')
-                                                  ->findOneBy(
-                                                    array('courseId' => $prerequisite->getCourseId())
-                                                  );
-          } else {
-            $prerequisite_school_session = $this->getDoctrine()
-                                                  ->getRepository('AppBundle:Schoolsession')
-                                                  ->findOneBy(
-                                                    array('moduleId' => $prerequisite->getModuleId())
-                                                  );
-          }
-
-          $session_results = $this->getDoctrine()
-                                  ->getRepository('AppBundle:SessionResult')
-                                  ->findBy(
-                                    array('sessionId' => $prerequisite_school_session)
-                                  );
-
-          foreach ($students as $student){
-            foreach ($session_results as $session_result) {
-              if( ($session_result->getStudentId() == $student) && ($session_result->getSessionResultRemark() == 'fail') ){
-
-                $student->getId();
-                $students->add($student);
-
-                $students = $this->getDoctrine()
-                                    ->getRepository('AppBundle:Student')
-                                    ->findBy(
-                                      array('sectionId' => $school_session->getSectionId())
-                                    );
-
-                $data['students'] = $students;
-              }
-            }
-          }
-        }
-
-
-
-
-
-
-
-
 
         $em = $this->getDoctrine()->getManager();
 
@@ -219,14 +155,15 @@ class AssessmentResultController extends Controller
                             ->getRepository('AppBundle:AssessmentResult')
                             ->findOneById($assessment_result_id);
 
+        $school_session = $assessment_result->getSessionId();
         $em = $this->getDoctrine()->getManager();
 
         $em->remove($assessment_result);
         $em->flush();
 
-        return $this->redirectToRoute('assessment_result_view');
+        return $this->redirectToRoute($this->generateUrl('assessment_result_view', array('school_session_id' => $school_session)));
       } else {
-        $data['message'] = 'You Are Not Qualified to Delete This Assessment Type.';
+        $data['message'] = 'You Are Not Qualified to Delete This Assessment Result.';
         return $this->render('accessDenied.html.twig', $data);
       }
     }

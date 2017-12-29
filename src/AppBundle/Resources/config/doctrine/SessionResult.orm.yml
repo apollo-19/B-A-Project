@@ -13,25 +13,26 @@ AppBundle\Entity\SessionResult:
     fields:
         resultInNumber:
             type: string
-            nullable: false
+            nullable: true
             length: 7
             options:
                 fixed: false
             column: result_in_number
         resultInAlphabet:
             type: string
-            nullable: false
+            nullable: true
             length: 2
             options:
                 fixed: false
             column: result_in_alphabet
         sessionResultRemark:
             type: string
+            nullable: true
             length: '10'
             column: session_result_remark
         createdBy:
             type: integer
-            nullable: false
+            nullable: true
             options:
                 unsigned: false
             column: created_by

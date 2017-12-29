@@ -138,4 +138,50 @@ class AssessmentType
     {
         return $this->createdBy;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $assessmentResults;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->assessmentResults = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add assessmentResult
+     *
+     * @param \AppBundle\Entity\AssessmentResult $assessmentResult
+     *
+     * @return AssessmentType
+     */
+    public function addAssessmentResult(\AppBundle\Entity\AssessmentResult $assessmentResult)
+    {
+        $this->assessmentResults[] = $assessmentResult;
+
+        return $this;
+    }
+
+    /**
+     * Remove assessmentResult
+     *
+     * @param \AppBundle\Entity\AssessmentResult $assessmentResult
+     */
+    public function removeAssessmentResult(\AppBundle\Entity\AssessmentResult $assessmentResult)
+    {
+        $this->assessmentResults->removeElement($assessmentResult);
+    }
+
+    /**
+     * Get assessmentResults
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAssessmentResults()
+    {
+        return $this->assessmentResults;
+    }
 }

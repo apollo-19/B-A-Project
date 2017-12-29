@@ -56,6 +56,12 @@ class SessionResultController extends Controller
                     );
 
       foreach ($students as $student){
+        $session_result = $this->getDoctrine()
+                                    ->getRepository('AppBundle:SessionResult')
+                                    ->findOneBy(
+                                      array('studentId' => $student->getId(), 'sessionId' => $school_session->getId())
+                                    );
+
         $sessionWeightTotal=0; $assessmentResultTotal=0; $resultInAlphabet=''; $sessionResultRemark='';
 
         foreach ($assessment_types as $assessment_type){
@@ -73,10 +79,6 @@ class SessionResultController extends Controller
           }
         }
 
-        $session_result = new SessionResult();
-
-        $session_result->setSessionId($school_session);
-        $session_result->setStudentId($student);
         $session_result->setResultInNumber($assessmentResultTotal);
         $session_result->setResultInAlphabet($resultInAlphabet);
         $session_result->setSessionResultRemark($sessionResultRemark);
@@ -118,6 +120,24 @@ class SessionResultController extends Controller
       $school_session = $this->getDoctrine()
                           ->getRepository('AppBundle:Schoolsession')
                           ->findOneById($school_session_id);
+
+      $data['school_session'] = $school_session;
+
+      if ($school_session->getCourseModuleType() == 'course'){
+        $prerequisite = $this->getDoctrine()
+        ->getRepository('AppBundle:Prerequisite')
+        ->findBy(
+          array('courseId' => $school_session->getCourseId())
+        );
+      } else {
+        $prerequisite = $this->getDoctrine()
+        ->getRepository('AppBundle:Prerequisite')
+        ->findBy(
+          array('moduleId' => $school_session->getModuleId())
+        );
+      }
+
+      $data['prerequisites'] = $prerequisite;
 
       $assessment_types = $this->getDoctrine()
                               ->getRepository('AppBundle:AssessmentType')

@@ -13,21 +13,6 @@ class AssessmentResult
     private $id;
 
     /**
-     * @var integer
-     */
-    private $assessmentTypeId;
-
-    /**
-     * @var integer
-     */
-    private $sessionId;
-
-    /**
-     * @var integer
-     */
-    private $studentId;
-
-    /**
      * @var string
      */
     private $resultValue;
@@ -36,6 +21,21 @@ class AssessmentResult
      * @var integer
      */
     private $createdBy;
+
+    /**
+     * @var \AppBundle\Entity\Schoolsession
+     */
+    private $sessionId;
+
+    /**
+     * @var \AppBundle\Entity\Student
+     */
+    private $studentId;
+
+    /**
+     * @var \AppBundle\Entity\AssessmentType
+     */
+    private $assessmentTypeId;
 
 
     /**
@@ -46,78 +46,6 @@ class AssessmentResult
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set assessmentTypeId
-     *
-     * @param integer $assessmentTypeId
-     *
-     * @return AssessmentResult
-     */
-    public function setAssessmentTypeId($assessmentTypeId)
-    {
-        $this->assessmentTypeId = $assessmentTypeId;
-
-        return $this;
-    }
-
-    /**
-     * Get assessmentTypeId
-     *
-     * @return integer
-     */
-    public function getAssessmentTypeId()
-    {
-        return $this->assessmentTypeId;
-    }
-
-    /**
-     * Set sessionId
-     *
-     * @param integer $sessionId
-     *
-     * @return AssessmentResult
-     */
-    public function setSessionId($sessionId)
-    {
-        $this->sessionId = $sessionId;
-
-        return $this;
-    }
-
-    /**
-     * Get sessionId
-     *
-     * @return integer
-     */
-    public function getSessionId()
-    {
-        return $this->sessionId;
-    }
-
-    /**
-     * Set studentId
-     *
-     * @param integer $studentId
-     *
-     * @return AssessmentResult
-     */
-    public function setStudentId($studentId)
-    {
-        $this->studentId = $studentId;
-
-        return $this;
-    }
-
-    /**
-     * Get studentId
-     *
-     * @return integer
-     */
-    public function getStudentId()
-    {
-        return $this->studentId;
     }
 
     /**
@@ -167,4 +95,77 @@ class AssessmentResult
     {
         return $this->createdBy;
     }
+
+    /**
+     * Set sessionId
+     *
+     * @param \AppBundle\Entity\Schoolsession $sessionId
+     *
+     * @return AssessmentResult
+     */
+    public function setSessionId(\AppBundle\Entity\Schoolsession $sessionId)
+    {
+        $this->sessionId = $sessionId;
+
+        return $this;
+    }
+
+    /**
+     * Get sessionId
+     *
+     * @return \AppBundle\Entity\Schoolsession
+     */
+    public function getSessionId()
+    {
+        return $this->sessionId;
+    }
+
+    /**
+     * Set studentId
+     *
+     * @param \AppBundle\Entity\Student $studentId
+     *
+     * @return AssessmentResult
+     */
+    public function setStudentId(\AppBundle\Entity\Student $studentId)
+    {
+        $this->studentId = $studentId;
+
+        return $this;
+    }
+
+    /**
+     * Get studentId
+     *
+     * @return \AppBundle\Entity\Student
+     */
+    public function getStudentId()
+    {
+        return $this->studentId;
+    }
+
+    /**
+     * Set assessmentTypeId
+     *
+     * @param \AppBundle\Entity\AssessmentType $assessmentTypeId
+     *
+     * @return AssessmentResult
+     */
+    public function setAssessmentTypeId(\AppBundle\Entity\AssessmentType $assessmentTypeId)
+    {
+        $this->assessmentTypeId = $assessmentTypeId;
+
+        return $this;
+    }
+
+    /**
+     * Get assessmentTypeId
+     *
+     * @return \AppBundle\Entity\AssessmentType
+     */
+    public function getAssessmentTypeId()
+    {
+        return $this->assessmentTypeId;
+    }
 }
+
