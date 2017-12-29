@@ -6,7 +6,7 @@
   font-family: 'Roboto', sans-serif;
 }
 
-header, nav, article, section, div, footer {
+header, nav, article, section, div, footer , side-nav {
   display: block;
 }
 
@@ -34,7 +34,7 @@ header, nav, article, section, div, footer {
   text-align: right;
 }
 
-.container {
+.container  {
   margin: 1.5vh auto;
   width: 1250px;
   min-height: 81.75vh;
@@ -386,7 +386,7 @@ footer {
 
   height: 7vh;
   width: inherit;
-  //border-top: 0.25vh solid #000000;
+
 }
 
 footer div {
@@ -395,3 +395,52 @@ footer div {
   width: auto;
   padding: 22.5px;
 }
+/* Sidebar style*/
+
+.side-nav{
+   min-height: 86.1vh;
+   width:0;
+   position:absolute;
+   z-index:1;
+   top:0;
+   left:0;
+   background-color:#111;
+   opacity:0.9;
+   overflow-x:hidden;
+   margin-top: 8vh;
+   padding-top:60px;
+   transition:0.5s;
+}
+
+.side-nav a{
+  padding:10px 10px 10px 30px;
+  text-decoration:none;
+  font-size:22px;
+  color:#ccc;
+  display:block;
+  transition:0.3s;
+}
+
+.side-nav a:hover{
+  color:#fff;
+}
+
+.side-nav .btn-close{
+  position:absolute;
+  top:0;
+  right:22px;
+  font-size:36px;
+  margin-left:50px;
+}
+
+#main{
+  transition:margin-left 0.5s;
+  padding:20px;
+  overflow:hidden;
+  width:100%;
+}
+
+
+
+
+/* end of side bar Style*/
