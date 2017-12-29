@@ -66,7 +66,7 @@ class SessionResultController extends Controller
 
         foreach ($assessment_types as $assessment_type){
           foreach ($assessment_results as $assessment_result){
-            if ($assessment_result->getAssessmentTypeId() == $assessment_type->getId() && $assessment_result->getStudentId() == $student->getId()){
+            if ($assessment_result->getAssessmentTypeId() == $assessment_type && $assessment_result->getStudentId() == $student){
               $assessmentResultTotal += $assessment_result->getResultValue();
             }
           }

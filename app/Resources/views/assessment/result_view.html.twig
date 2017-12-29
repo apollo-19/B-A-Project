@@ -11,14 +11,25 @@
 
 {% block body %}
   <div class="wide_container" id="view_container">
-    <a href="{{ path('assessment_result_create', {'school_session_id': school_session_id}) }}">Add Student Result</a>
+    <h1>{{ school_session.sessionName ~ ' - ' ~ school_session.courseId.courseName ~ ' (' ~ school_session.courseId.courseCode | upper ~ ')' }}</h1>
 
-    <h1>{{ school_session.courseId.courseName ~ ' (' ~ school_session.courseId.courseCode | upper ~ ')' }}</h1>
+    <h1>Prerequisites:</h1>
+    <h2 style="margin-left: 25px;">
+      {% if prerequisites is empty %}
+        None.
+      {% endif %}
 
-    <h2>
-      Prerequisites:
       {% for prerequisite in prerequisites %}
-      {{ prerequisite.prerequisiteCourseId.courseName ~ ', ' }}
+        {% if prerequisite.prerequisiteType == 'course' %}
+          <a href="{{ path('course_view', {'course_id': prerequisite.prerequisiteCourseId.id}) }}" id="moreDetBtn">
+            {{ prerequisite.prerequisiteCourseId.courseName }}
+          </a>
+        {% elseif prerequisite.prerequisiteType == 'module' %}
+          <a href="{{ path('module_view', {'module_id': prerequisite.prerequisiteModuleId.id}) }}" id="moreDetBtn">
+            {{ prerequisite.prerequisiteModuleId.moduleName }}
+          </a>
+        {% endif %}
+        {{ '(' ~ prerequisite.prerequisiteType | capitalize ~ ')' }}.
       {% endfor %}
     </h2>
 
@@ -39,6 +50,10 @@
           <th>
             Total ({{ assessmentWorthTotal }}%)
           </th>
+
+          <th>
+            Actions
+          </th>
         </tr>
       </thead>
 
@@ -57,8 +72,13 @@
               <td>
                 {% for assessment_result in assessment_results %}
                   {% if assessment_result.assessmentTypeId == assessment_type and assessment_result.studentId == student %}
-                    {% set assessmentResultTotal = assessmentResultTotal + assessment_result.resultValue %}
-                    {{ assessment_result.resultValue }}
+                    {% if assessment_result.resultValue matches '/^[-+]?[0-9]*\\.?[0-9]+$/' %}
+                      {% set assessmentResultTotal = assessmentResultTotal + assessment_result.resultValue %}
+                    {% endif %}
+                    <p class="edit_result">{{ assessment_result.resultValue is defined ? assessment_result.resultValue : '' }}</p>
+
+                    <input type="text" class="result_{{ student.id ~ '_' ~ assessment_result.id }} student_{{ student.id }} result_value"
+                    title="{{ assessment_result.id }}" value="{{ assessment_result.resultValue is defined ? assessment_result.resultValue : 0 }}" />
                   {% endif %}
                 {% endfor %}
               </td>
@@ -66,6 +86,11 @@
 
             <td>
               {{ assessmentResultTotal }}
+            </td>
+
+            <td>
+              <a id="editBtn" style="cursor: pointer;" class="edit_result" title="student_{{ student.id }}"> edit results </a>
+              <a id="editBtn" style="cursor: pointer;" class="save_changes student_{{ student.id }}" title="student_{{ student.id }}"> save changes </a>
             </td>
           </tr>
         {% endfor %}
@@ -75,4 +100,44 @@
       <a href="{{ path('session_result_create', {'school_session_id': school_session_id}) }}" class="fright"
       onclick="return confirm('Results will be displayed to students. Are you sure?')">Publish Results</a>
   </div>
+{% endblock %}
+
+{% block javascripts %}
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('input[type=text]').hide();
+      $('.save_changes').hide();
+
+      $('.edit_result').click(function(){
+        $('.' + $(this).attr('title')).show();
+        $('.edit_result').hide();
+      });
+
+      $('.result_value').focusout(function(){
+        var result_value = $(this).val();
+        var result_id = $(this).attr('title');
+        $.ajax({
+          url: '/assessment_result/edit/'+result_id,
+          type: "POST",
+          dataType: "json",
+          data: {
+            result_value  : result_value
+          },
+          async: true,
+          success: function (data)
+          {
+            alert(data.student + ' ' + data.session + ' ' + data.result);
+          }
+        });
+      });
+      $('.save_changes').click(function(){
+        $('#wide_table').reload();
+        $('input[type=text]').hide();
+        $('.save_changes').hide();
+        $('.edit_result').show();
+      });
+    });
+
+
+  </script>
 {% endblock %}

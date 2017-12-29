@@ -7,78 +7,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use AppBundle\Entity\AssessmentResult;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AssessmentResultController extends Controller
 {
     /**
-     * @Route("/assessment_result/create/{school_session_id}", name="assessment_result_create")
+     * @Route("/assessment_result/create/", name="assessment_result_create")
      */
-    public function assessmentResultCreateAction(Request $request, $school_session_id)
+    public function assessmentResultCreateAction(Request $request)
     {
-      $session = new Session();
+        $var1 = $request->request->get('some_var_name');
+        //make something curious, get some unbelieveable data
+        $arrData = ['output' => 'here the result which will appear in div' . $var1];
+        return new JsonResponse($arrData);
 
-      if($session->get('user_id') && ($session->get('user_type') == 'admin')){
-        $data = [];
-        $data['mode'] = 'new';
-
-        $form = $this ->createFormBuilder()
-                      ->add('assessment_type')
-                      ->add('student_id')
-                      ->add('result_value')
-                      ->getForm();
-
-        $school_session = $this->getDoctrine()
-                                ->getRepository('AppBundle:Schoolsession')
-                                ->findOneById($school_session_id);
-
-        $data['school_session'] = $school_session;
-
-        $students = $this->getDoctrine()
-                            ->getRepository('AppBundle:Student')
-                            ->findBy(
-                              array('sectionId' => $school_session->getSectionId())
-                            );
-
-        $data['students'] = $students;
-
-        $em = $this->getDoctrine()->getManager();
-
-        $assessment_type = $em->getRepository('AppBundle:AssessmentType')
-                                ->createQueryBuilder('e')
-                                ->addOrderBy('e.assessmentWorth', 'ASC')
-                                ->andWhere('e.assessmentTypeSystemId = ' . $school_session->getAssessmentTypeSystemId()->getId())
-                                ->getQuery()
-                                ->execute();
-
-        $data['assessment_types'] = $assessment_type;
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted()){
-          $data['form'] = [];
-          $assessment_result_data = $form->getData();
-          $data['form'] = $assessment_result_data;
-
-          $assessment_result = new AssessmentResult();
-          $assessment_result->setAssessmentTypeId($assessment_result_data['assessment_type']);
-          $assessment_result->setSessionId($school_session->getId());
-          $assessment_result->setStudentId($assessment_result_data['student_id']);
-          $assessment_result->setResultValue($assessment_result_data['result_value']);
-
-          $assessment_result->setCreatedBy($session->get('user_id'));
-
-          $em = $this->getDoctrine()->getManager();
-          $em->persist($assessment_result);
-          $em->flush();
-
-          return $this->redirect($this->generateUrl('assessment_result_view', array('school_session_id' => $school_session_id)));
-        }
-
-        return $this->render('assessment/result_form.html.twig', $data);
-      } else {
-        $data['message'] = 'You Are Not Qualified to Create an Assessment Result.';
-        return $this->render('accessDenied.html.twig', $data);
-      }
     }
 
     /**
@@ -86,61 +28,25 @@ class AssessmentResultController extends Controller
      */
     public function assessmentResultEditAction(Request $request, $assessment_result_id)
     {
-      $data = [];
-      $data['mode'] = 'edit';
-
-      $form = $this ->createFormBuilder()
-                    ->add('assessment_session_id')
-                    ->add('student_id')
-                    ->add('result_value')
-                    ->getForm();
-
-      $assessment_session = $this->getDoctrine()
-                          ->getRepository('AppBundle:AssessmentSession')
-                          ->findAll();
-
-      $data['assessment_sessions'] = $assessment_session;
-
-      $student = $this->getDoctrine()
-                          ->getRepository('AppBundle:Student')
-                          ->findAll();
-
-      $data['students'] = $student;
       $assessment_result = $this->getDoctrine()
-                          ->getRepository('AppBundle:AssessmentResult')
-                          ->findOneById($assessment_result_id);
+                                ->getRepository('AppBundle:AssessmentResult')
+                                ->findOneById($assessment_result_id);
 
-      $assessment_result_data['assessment_id'] = $assessment_result->getAssessmentSessionId();
-      $assessment_result_data['student_id'] = $assessment_result->getStudentId();
-      $assessment_result_data['result_value'] = $assessment_result->getResultValue();
+      $result_value = $request->request->get('result_value');
 
-      $session = new Session();
+      $assessment_result->setResultValue($result_value);
 
-      if($session->get('user_name') && ($session->get('user_type') == 'admin')){
-        $data['form'] = $assessment_result_data;
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($assessment_result);
+      $em->flush();
 
-        $form->handleRequest($request);
+      $respo = array(
+        'student' => $assessment_result->getStudentId()->getStudentFirstNameEn(),
+        'session' => $assessment_result->getSessionId()->getSessionName(),
+        'result' => $assessment_result->getResultValue()
+      );
 
-        if($form->isSubmitted()){
-          $data['form'] = [];
-          $assessment_result_data = $form->getData();
-          $data['form'] = $assessment_result_data;
-
-          $assessment_result->setAssessmentSessionId($assessment_result_data['assessment_session_id']);
-          $assessment_result->setStudentId($assessment_result_data['student_id']);
-          $assessment_result->setResultValue($assessment_result_data['result_value']);
-
-          $em = $this->getDoctrine()->getManager();
-          $em->persist($assessment_result);
-          $em->flush();
-
-          return $this->redirectToRoute('assessment_result_view');
-        }
-        return $this->render('assessment/result_form.html.twig', $data);
-      } else {
-        $data['message'] = 'You Are Not Qualified to Edit This Assessment Result.';
-        return $this->render('accessDenied.html.twig', $data);
-      }
+      return new JsonResponse($respo);
     }
 
     /**
