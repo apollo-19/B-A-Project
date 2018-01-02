@@ -5,27 +5,26 @@
     <meta charset="UTF-8" />
     <title>{% block title %}St. Paul's Hospital Mellinium Medical College{% endblock %}</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    {% block stylesheets %}
-      <link rel="stylesheet" href="{{ asset('css/stylesheet.css') }}">
-    {% endblock %}
+    <link rel="stylesheet" href="{{ asset('css/stylesheet.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/fontawesome/fontawesome.min.css') }}">
     {% block stylesheet %}{% endblock %}
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}" />
   </head>
 
   <body>
 
-    <header class="clear" id="#home">
+    <header class="clear">
       <div>
         <img alt="St. Paul's Hospital" src="{{ asset('images/main_logo.png') }}" draggable="false" />
       </div>
 
-      <table border="0">
+      <table>
         <tr valign="middle">
           <td><a href=" {{ path('default_home') }} ">HOME</a></td>
 
-          {% if(app.session.get('user_name') and app.session.get('user_type')) %}
+          {% if app.session.get('user_name') %}
             <td><a href="{{ path('account_settings', {'user_id': app.session.get('user_id_lit')} ) }}">PROFILE</a></td>
-            <td><a href=" {{ path('dashboard') }} ">DASHBOARD</a></td>
+            <td><a id="dashboard">DASHBOARD</a></td>
             <td><a href=" {{ path('user_signout') }} "
                 onclick="return confirm('Are You Sure You Want To Sign Out?') ">SIGN OUT</a></td>
           {% else %}
@@ -35,42 +34,46 @@
       </table>
     </header>
 
+    {% if app.session.get('user_name') %}
+      <div id="sideMenu">
+        <span class="btn-close" id="closeSideMenuBtn">&times;</span>
 
-    <nav  id="main" class="navbar">
-      <span class="open-slide">
-        <a href="#" onclick="toggleMenu()" style="position: fixed;"  >
-          <svg width="30" height="30">
-            <path d="M0,5 30,5" stroke ="#000" stroke-width="5"/>
-            <path d="M0,14 30,14" stroke ="#000" stroke-width="5"/>
-            <path d="M0,23 30,23" stroke ="#000" stroke-width="5"/>
-          </svg>
-        </a>
-      </span>
-    </nav>
-    
-    <div id="side-menu" class="side-nav">
-        <a href="#" class="btn-close" onclick="closeSideMenu()">&times;</a>
-        <a href="{{ path('admin_view') }}">Admins</a>
-        <a href="{{ path('assessment_type_system_view') }}">Assessment Types</a>
-        <a href="{{ path('assessment_session_view') }}">Assessment Sessions</a>
-        <a href="">Batches</a>
-        <a href="{{ path('course_view') }}">Courses</a>
-        <a href="{{ path('curriculum_view') }}">Curriculums</a>
-        <a href="{{ path('department_view') }}">Departments</a>
-        <a href="{{ path('module_view') }}">Modules</a>
-        <a href="{{ path('grade_system_view') }}">Grade Systems</a>
-        <a href="{{ path('semester_view') }}">Semesters</a>
-        <a href="{{ path('session_view') }}">>School Sessions</a>
-        <a href="{{ path('section_view') }}">Sections</a>
-        <a href="{{ path('school_view') }}">Schools</a>
-        <a href="{{ path('student_view') }}">Students</a>
-        <a href="{{ path('prerequisite_view') }}">Prerequisites</a>
-   </div>
-     {% block body %}{% endblock %}
+        <h1></h1>
+
+        <div id="links">
+          <a href="{{ path('admin_view') }}">Admins</a>
+          <a href="{{ path('school_view') }}">Schools</a>
+          <a href="{{ path('curriculum_view') }}">Curriculums</a>
+
+          <a href="{{ path('department_view') }}">Departments</a>
+          <a href="{{ path('teacher_view') }}">Teachers</a>
+          <a href="{{ path('semester_view') }}">Semesters</a>
+
+          <a href="{{ path('module_view') }}">Modules</a>
+          <a href="{{ path('course_view') }}">Courses</a>
+          <a href="{{ path('grade_system_view') }}">Grade Systems</a>
+
+          <a href="{{ path('prerequisite_view') }}">Prerequisites</a>
+          <a href="{{ path('batch_view') }}">Batches</a>
+          <a href="{{ path('section_view') }}">Sections</a>
+
+          <a href="{{ path('student_view') }}">Students</a>
+          <a href="{{ path('session_view') }}">School Sessions</a>
+          <a href="{{ path('assessment_type_system_view') }}">Assessment Types</a>
+
+          <a href="{{ path('assessment_session_view') }}">Assessment Sessions</a>
+        </div>
+      </div>
+    {% endif %}
+    <span></span>
+
+    <div id="container_wrapper">
+
+      {% block body %}{% endblock %}
+
+    </div>
 
     <footer class="clear">
-
-
       <div>
         &copy; St. Paul's Hospital Mellenium Medical College
       </div>
@@ -82,6 +85,84 @@
     {% endblock %}
 
     {% block javascript %}{% endblock %}
+
+    <script type="text/javascript">
+      function DashboardFunction(shide){
+        if(shide == 'show'){
+          $('#openSideMenuBtn').addClass('hidden');
+          $('#sideMenu').removeClass('hidden');
+          $('#container_wrapper').addClass('container_wrapper_dbo');
+        } else if (shide == 'hide') {
+          $('#openSideMenuBtn').removeClass('hidden');
+          $('#sideMenu').addClass('hidden');
+          $('#container_wrapper').removeClass('container_wrapper_dbo');
+        }
+      }
+
+      function getAjaxOperation(){
+        $.ajax({
+          url: '/dashboard/visibility/show/get',
+          type: "POST",
+          dataType: "json",
+          async: true,
+          success: function (data)
+          {
+            data;
+          }
+        });
+      }
+
+      function setAjaxOperation(shide){
+        $.ajax({
+          url: '/dashboard/visibility/' + shide + '/set',
+          type: "POST",
+          dataType: "json",
+          async: true,
+          success: function (data)
+          {
+            var resu =  data;
+          }
+        });
+        return resu;
+      }
+
+      $(document).ready(function(){
+        $.ajax({
+          url: '/dashboard/visibility/show/get',
+          type: "POST",
+          dataType: "json",
+          async: true,
+          success: function (shide_bgn)
+          {
+            DashboardFunction(shide_bgn);
+          }
+        });
+      });
+
+      $('#closeSideMenuBtn').click(function() {
+        DashboardFunction('hide');
+        setAjaxOperation('hide');
+      });
+
+      $('#dashboard').click(function() {
+        $.ajax({
+          url: '/dashboard/visibility/show/get',
+          type: "POST",
+          dataType: "json",
+          async: true,
+          success: function (shide)
+          {
+            if (shide === 'hide'){
+              DashboardFunction('show');
+              setAjaxOperation('show');
+            } else if (shide === 'show'){
+              DashboardFunction('hide');
+              setAjaxOperation('hide');
+            }
+          }
+        });
+      });
+    </script>
 
   </body>
 </html>

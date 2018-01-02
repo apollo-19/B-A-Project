@@ -29,11 +29,7 @@
             <td>{{ module.moduleName }}</td>
             <td>{{ module.moduleCreditHour }}</td>
             <td>
-              {% for curriculum in curriculums %}
-                {% if(module.curriculumId == curriculum) %}
-                  <a href="{{ path('', {'': }) }}" id="moreDetBtn">{{ curriculum.curriculumName }}</a>
-                {% endif %}
-              {% endfor %}
+              <a href="{{ path('curriculum_view', {'curriculum_id': module.curriculumId.id}) }}" id="moreDetBtn">{{ module.curriculumId.curriculumName }}</a>
             </td>
 
             <td id="actions"><a href="{{ path('module_view_one', {'module_id': module.id}) }}">view</a></td>
