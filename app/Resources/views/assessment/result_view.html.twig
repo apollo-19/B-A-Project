@@ -33,111 +33,105 @@
       {% endfor %}
     </h2>
 
-    <table id="wide_table">
-      <thead>
-        <tr>
-          <th>Addmission Number</th>
-          <th>Assessment Result Student</th>
-
-          {% set assessmentWorthTotal = 0 %}
-          {% for assessment_type in assessment_types %}
-            <th>
-              {% set assessmentWorthTotal = assessmentWorthTotal + assessment_type.assessmentWorth %}
-              {{ assessment_type.assessmentName ~ ' ('~ assessment_type.assessmentWorth ~ '%)' }}
-            </th>
-          {% endfor %}
-
-          <th>
-            Total ({{ assessmentWorthTotal }}%)
-          </th>
-
-          <th>
-            Actions
-          </th>
-        </tr>
-      </thead>
-
-      <tbody>
-        {% for student in students %}
+    {% if assessment_results is empty %}
+      <a href="{{ path('assessment_result_create', {'school_session_id': school_session.id}) }}"
+      onclick="return confirm('Are You Sure?')">Start Assessment</a>
+    {% else %}
+      <table id="wide_table">
+        <thead>
           <tr>
-            <td id="total_row">
-              {{ student.admissionNumber }}
-            </td>
-            <td>
-              {{ student.firstNameEn ~ ' ' ~ student.middleNameEn ~ ' ' ~ student.lastNameEn }}
-            </td>
+            <th>Addmission Number</th>
+            <th>Assessment Result Student</th>
 
-            {% set assessmentResultTotal = 0 %}
+            {% set assessmentWorthTotal = 0 %}
             {% for assessment_type in assessment_types %}
-              <td>
-                {% for assessment_result in assessment_results %}
-                  {% if assessment_result.assessmentTypeId == assessment_type and assessment_result.studentId == student %}
-                    {% if assessment_result.resultValue matches '/^[-+]?[0-9]*\\.?[0-9]+$/' %}
-                      {% set assessmentResultTotal = assessmentResultTotal + assessment_result.resultValue %}
-                    {% endif %}
-                    <p class="edit_result">{{ assessment_result.resultValue is defined ? assessment_result.resultValue : '' }}</p>
-
-                    <input type="text" class="result_{{ student.id ~ '_' ~ assessment_result.id }} student_{{ student.id }} result_value"
-                    title="{{ assessment_result.id }}" value="{{ assessment_result.resultValue is defined ? assessment_result.resultValue : 0 }}" />
-                  {% endif %}
-                {% endfor %}
-              </td>
+              <th>
+                {% set assessmentWorthTotal = assessmentWorthTotal + assessment_type.assessmentWorth %}
+                {{ assessment_type.assessmentName ~ ' ('~ assessment_type.assessmentWorth ~ '%)' }}
+              </th>
             {% endfor %}
 
-            <td>
-              {{ assessmentResultTotal }}
-            </td>
-
-            <td>
-              <a id="editBtn" style="cursor: pointer;" class="edit_result" title="student_{{ student.id }}"> edit results </a>
-              <a id="editBtn" style="cursor: pointer;" class="save_changes student_{{ student.id }}" title="student_{{ student.id }}"> save changes </a>
-            </td>
+            <th>
+              Total ({{ assessmentWorthTotal }}%)
+            </th>
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        </thead>
 
-      <a href="{{ path('session_result_create', {'school_session_id': school_session_id}) }}" class="fright"
+        <tbody>
+          {% for student in students %}
+            <tr>
+              <td>
+                {{ student.admissionNumber }}
+              </td>
+              <td>
+                {{ student.firstNameEn ~ ' ' ~ student.middleNameEn ~ ' ' ~ student.lastNameEn }}
+              </td>
+
+              {% set assessmentResultTotal = 0 %}
+              {% for assessment_type in assessment_types %}
+                <td id="result_row">
+                  {% for assessment_result in assessment_results %}
+                    {% if assessment_result.assessmentTypeId == assessment_type and assessment_result.studentId == student %}
+                      {% if assessment_result.resultValue matches '/^[-+]?[0-9]*\\.?[0-9]+$/' %}
+                        {% set assessmentResultTotal = assessmentResultTotal + assessment_result.resultValue %}
+                      {% endif %}
+                      {% if app.session.get('user_id') %}
+                        <input type="text" class="result_{{ student.id ~ '_' ~ assessment_result.id }} student_{{ student.id }} result_value"
+                        title="{{ assessment_result.id }}" value="{{ assessment_result.resultValue is defined ? assessment_result.resultValue : 0 }}" />
+                      {% else %}
+                        <p class="edit_result">{{ assessment_result.resultValue is defined ? assessment_result.resultValue : '' }}</p>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </td>
+              {% endfor %}
+
+              <td id="total_{{ student.id }}">
+                {{ assessmentResultTotal }}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <a href="{{ path('session_result_publish', {'school_session_id': school_session_id}) }}" class="fright"
       onclick="return confirm('Results will be displayed to students. Are you sure?')">Publish Results</a>
+    {% endif %}
   </div>
 {% endblock %}
 
 {% block javascripts %}
   <script type="text/javascript">
-    $(document).ready(function() {
-      $('input[type=text]').hide();
-      $('.save_changes').hide();
+    function saveResults(result_value, result_id){
+      $.ajax({
+        url: '/assessment_result/edit/'+result_id,
+        type: "POST",
+        dataType: "json",
+        data: {
+          result_value  : result_value
+        },
+        async: true,
+        success: function (data)
+        {
+          $('#total_' + data.student).html(data.result);
+        }
+      });
+    }
 
-      $('.edit_result').click(function(){
-        $('.' + $(this).attr('title')).show();
-        $('.edit_result').hide();
-      });
-
-      $('.result_value').focusout(function(){
-        var result_value = $(this).val();
-        var result_id = $(this).attr('title');
-        $.ajax({
-          url: '/assessment_result/edit/'+result_id,
-          type: "POST",
-          dataType: "json",
-          data: {
-            result_value  : result_value
-          },
-          async: true,
-          success: function (data)
-          {
-            alert(data.student + ' ' + data.session + ' ' + data.result);
-          }
-        });
-      });
-      $('.save_changes').click(function(){
-        $('#wide_table').reload();
-        $('input[type=text]').hide();
-        $('.save_changes').hide();
-        $('.edit_result').show();
-      });
+    $('.result_value').focusout(function(){
+      var result_value = $(this).val();
+      var result_id = $(this).attr('title');
+      saveResults(result_value, result_id);
     });
 
-
+    $('.result_value').keydown(function(event){
+      if(event.which == 13){
+        var result_value = $(this).val();
+        var result_id = $(this).attr('title');
+        saveResults(result_value, result_id);
+        $(this).blur();
+      } else if(event.which == 27)
+        $(this).blur();
+    });
   </script>
 {% endblock %}

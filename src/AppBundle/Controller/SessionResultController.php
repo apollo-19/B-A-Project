@@ -10,11 +10,112 @@ use AppBundle\Entity\SessionResult;
 
 class SessionResultController extends Controller
 {
-
   /**
    * @Route("/session_result/create/{school_session_id}", name="session_result_create")
    */
-  public function sessionResultCreateAction($school_session_id)
+  public function sessionResultCreateAction()
+  {
+    $school_session = $this->getDoctrine()
+                            ->getRepository('AppBundle:Prerequisite')
+                            ->findOneById($school_session_id);
+    $mycourse = $this->getDoctrine()
+                            ->getRepository('AppBundle:Course')
+                            ->findOneById($school_session->getCourseId());
+    $mymodule = $this->getDoctrine()
+                      ->getRepository('AppBundle:Module')
+                      ->findOneById($school_session->getModuleId());
+    //
+    /* add session result for each student */
+    if ($school_session->getCourseModuleType() == 'course'){
+      $prerequisites = $this->getDoctrine()
+                            ->getRepository('AppBundle:Prerequisite')
+                            ->findBy(
+                              array('courseId' => $mycourse)
+                            );
+    } else {
+      $prerequisites = $this->getDoctrine()
+                            ->getRepository('AppBundle:Prerequisite')
+                            ->findBy(
+                              array('moduleId' => $mymodule)
+                            );
+    }
+
+    $data['prerequisites'] = $prerequisites;
+
+    $students = $this->getDoctrine()
+                        ->getRepository('AppBundle:Student')
+                        ->findBy(
+                          array('sectionId' => $school_session->getSectionId())
+                        );
+
+    $data['students'] = $students;
+
+    if(!$prerequisites){
+      foreach ($students as $student){
+        $session_result = new SessionResult();
+
+        $session_result->setSessionId($school_session);
+        $session_result->setStudentId($student);
+
+        $session_result->setCreatedBy($session->get('user_id'));
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($session_result);
+        $em->flush();
+      }
+    } else {
+      foreach ($students as $student){
+        foreach ($prerequisites as $prerequisite){
+          if ($school_session->getCourseModuleType() == 'course'){
+            $prerequisite_school_session = $this->getDoctrine()
+                                                ->getRepository('AppBundle:Schoolsession')
+                                                ->findOneBy(
+                                                  array('courseId' => $prerequisite->getCourseId())
+                                                );
+          } else {
+            $prerequisite_school_session = $this->getDoctrine()
+                                                ->getRepository('AppBundle:Schoolsession')
+                                                ->findOneBy(
+                                                  array('moduleId' => $prerequisite->getModuleId())
+                                                );
+          }
+
+          $session_results = $this->getDoctrine()
+                                  ->getRepository('AppBundle:SessionResult')
+                                  ->findBy(
+                                    array('sessionId' => $prerequisite_school_session, 'studentId' => $student)
+                                  );
+
+          $passed = true;
+          foreach ($session_results as $session_result){
+            if( ($session_result->getSessionResultRemark() == 'fail') ){
+              $passed = false;
+              break;
+            }
+          }
+        }
+
+        if( $passed ){
+          $session_result = new SessionResult();
+
+          $session_result->setSessionId($school_session);
+          $session_result->setStudentId($student);
+
+          $session_result->setCreatedBy($session->get('user_id'));
+
+          $em = $this->getDoctrine()->getManager();
+          $em->persist($session_result);
+          $em->flush();
+        }
+      }
+    }
+    /* end session result */
+  }
+
+  /**
+   * @Route("/session_result/publish/{school_session_id}", name="session_result_publish")
+   */
+  public function sessionResultPublishAction($school_session_id)
   {
     $session = new Session();
 

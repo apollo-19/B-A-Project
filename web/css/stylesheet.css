@@ -308,6 +308,25 @@ header table tr td a:hover {
   padding: 15px 10px;
 }
 
+#view_container #result_row {
+  height: 50px;
+}
+
+#view_container #result_row input[type=text] {
+  background-color: rgba(255, 255, 255, 0);
+  border: 2px;
+  color: #000000;
+
+  padding: 10px;
+  width: auto;
+}
+
+#view_container #result_row input[type=text]:focus {
+  background-color: rgba(255, 255, 255, 1.0);
+  border: 2px solid #2573B4;
+  border-radius: 5px;
+}
+
 #view_container a {
   display: inline-block;
   text-decoration: none;
@@ -395,4 +414,19 @@ footer div {
   float: right;
   width: auto;
   padding: 22.5px;
+}
+
+
+/* Warning */
+#warningContainer {
+  text-align: center;
+  padding: 50px;
+}
+
+#warningContainer h1 {
+  border: 1px solid #FF0000;
+  font-size: 25px;
+  color:#FF0000;
+  padding: 20px;
+  width: auto;
 }

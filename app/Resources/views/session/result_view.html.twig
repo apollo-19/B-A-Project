@@ -33,51 +33,59 @@
       {% endfor %}
     </h2>
 
-    <table border="0" id="wide_table">
-      <thead>
-        <tr>
-          <th>Addmission Number</th>
-          <th>Assessment Result Student</th>
+    {% if session_results is empty %}
+      <div id="warningContainer">
+        <h1>Results Are Not Published Yet!</h1>
+        <a href="{{ path('assessment_result_view', {'school_session_id': school_session.id}) }}" class="fright">Publish Results Here</a>
+      </div>
 
-          <th>
-            {% set assessmentWorthTotal = 0 %}
-            {% for assessment_type in assessment_types %}
-                {% set assessmentWorthTotal = assessmentWorthTotal + assessment_type.assessmentWorth %}
-            {% endfor %}
-
-            Total ({{ assessmentWorthTotal }}%)
-          </th>
-
-          <th>Grade</th>
-          <th>Remark</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        {% for session_result in session_results %}
+    {% else %}
+      <table border="0" id="wide_table">
+        <thead>
           <tr>
-            <td id="total_row">
-              {{  session_result.studentId.admissionNumber }}
-            </td>
+            <th>Addmission Number</th>
+            <th>Assessment Result Student</th>
 
-            <td>
-              {{ session_result.studentId.firstNameEn ~ ' ' ~ session_result.studentId.middleNameEn ~ ' ' ~ session_result.studentId.lastNameEn }}
-            </td>
+            <th>
+              {% set assessmentWorthTotal = 0 %}
+              {% for assessment_type in assessment_types %}
+                  {% set assessmentWorthTotal = assessmentWorthTotal + assessment_type.assessmentWorth %}
+              {% endfor %}
 
-            <td>
-              {{ session_result.resultInNumber }}
-            </td>
+              Total ({{ assessmentWorthTotal }}%)
+            </th>
 
-            <td>
-              {{ session_result.resultInAlphabet }}
-            </td>
-
-            <td>
-              {{  session_result.sessionResultRemark | capitalize }}
-            </td>
+            <th>Grade</th>
+            <th>Remark</th>
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+          {% for session_result in session_results %}
+            <tr>
+              <td id="total_row">
+                {{  session_result.studentId.admissionNumber }}
+              </td>
+
+              <td>
+                {{ session_result.studentId.firstNameEn ~ ' ' ~ session_result.studentId.middleNameEn ~ ' ' ~ session_result.studentId.lastNameEn }}
+              </td>
+
+              <td>
+                {{ session_result.resultInNumber }}
+              </td>
+
+              <td>
+                {{ session_result.resultInAlphabet }}
+              </td>
+
+              <td>
+                {{  session_result.sessionResultRemark | capitalize }}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
   </div>
 {% endblock %}

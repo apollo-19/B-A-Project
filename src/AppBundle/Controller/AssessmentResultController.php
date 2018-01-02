@@ -12,15 +12,131 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class AssessmentResultController extends Controller
 {
     /**
-     * @Route("/assessment_result/create/", name="assessment_result_create")
+     * @Route("/assessment_result/create/{school_session_id}", name="assessment_result_create")
      */
-    public function assessmentResultCreateAction(Request $request)
+    public function assessmentResultGetAction(Request $request, $school_session_id)
     {
-        $var1 = $request->request->get('some_var_name');
-        //make something curious, get some unbelieveable data
-        $arrData = ['output' => 'here the result which will appear in div' . $var1];
-        return new JsonResponse($arrData);
+      $session = new Session();
+      $school_session = $this->getDoctrine()
+                              ->getRepository('AppBundle:Schoolsession')
+                              ->findOneById($school_session_id);
+      if ($school_session->getCourseModuleType() == 'course'){
+        $mycourse = $this->getDoctrine()
+                          ->getRepository('AppBundle:Course')
+                          ->findOneById($school_session->getCourseId());
+      } else {
+        $mymodule = $this->getDoctrine()
+                          ->getRepository('AppBundle:Module')
+                          ->findOneById($school_session->getModuleId());
+      }
 
+      /* add assessment result for each student */
+      $em = $this->getDoctrine()->getManager();
+
+      $assessment_types = $em->getRepository('AppBundle:AssessmentType')
+                              ->createQueryBuilder('e')
+                              ->addOrderBy('e.assessmentWorth', 'ASC')
+                              ->andWhere('e.assessmentTypeSystemId = ' . $school_session->getAssessmentTypeSystemId()->getId())
+                              ->getQuery()
+                              ->execute();
+
+      if ($school_session->getCourseModuleType() == 'course'){
+        $prerequisites = $this->getDoctrine()
+                              ->getRepository('AppBundle:Prerequisite')
+                              ->findBy(
+                                array('courseId' => $mycourse)
+                              );
+      } else {
+        $prerequisites = $this->getDoctrine()
+                              ->getRepository('AppBundle:Prerequisite')
+                              ->findBy(
+                                array('moduleId' => $mymodule)
+                              );
+      }
+
+      $data['prerequisites'] = $prerequisites;
+
+      $students = $this->getDoctrine()
+                          ->getRepository('AppBundle:Student')
+                          ->findBy(
+                            array('sectionId' => $school_session->getSectionId())
+                          );
+
+      $data['students'] = $students;
+
+      if(!$prerequisites){
+        foreach ($students as $student){
+          foreach ($assessment_types as $assessment_type){
+            $session_result = new AssessmentResult();
+
+            $session_result->setSessionId($school_session);
+            $session_result->setStudentId($student);
+            $session_result->setAssessmentTypeId($assessment_type);
+
+            $session_result->setCreatedBy($session->get('user_id'));
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($session_result);
+          }
+          $em->flush();
+        }
+      } else {
+        foreach ($students as $student){
+          foreach ($prerequisites as $prerequisite){
+            if ($school_session->getCourseModuleType() == 'course'){
+              $prerequisite_school_session = $this->getDoctrine()
+                                                  ->getRepository('AppBundle:Schoolsession')
+                                                  ->findOneBy(
+                                                    array('courseId' => $prerequisite->getPrerequisiteCourseId())
+                                                  );
+            } else {
+              $prerequisite_school_session = $this->getDoctrine()
+                                                  ->getRepository('AppBundle:Schoolsession')
+                                                  ->findOneBy(
+                                                    array('moduleId' => $prerequisite->getPrerequisiteModuleId())
+                                                  );
+            }
+
+            $session_results = $this->getDoctrine()
+                                    ->getRepository('AppBundle:SessionResult')
+                                    ->findBy(
+                                      array('sessionId' => $prerequisite_school_session, 'studentId' => $student)
+                                    );
+
+            $passed = true;
+
+
+            // return new JsonResponse($prerequisite->getPrerequisiteCourseId()->getCourseName());
+
+
+            foreach ( $session_results as $session_result ){
+              if( ($session_result->getSessionResultRemark() == 'fail') ){
+                $passed = false;
+                break;
+              }
+            }
+          }
+
+          if( $passed ){
+
+            foreach ($assessment_types as $assessment_type){
+              $session_result = new AssessmentResult();
+
+              $session_result->setSessionId($school_session);
+              $session_result->setStudentId($student);
+              $session_result->setAssessmentTypeId($assessment_type);
+
+              $session_result->setCreatedBy($session->get('user_id'));
+
+              $em = $this->getDoctrine()->getManager();
+              $em->persist($session_result);
+            }
+            $em->flush();
+          }
+        }
+      }
+      /* end assessment result */
+      return $this->redirect($this->generateUrl('assessment_result_view', array('school_session_id' => $school_session_id)));
     }
 
     /**
@@ -28,6 +144,7 @@ class AssessmentResultController extends Controller
      */
     public function assessmentResultEditAction(Request $request, $assessment_result_id)
     {
+      /* set result */
       $assessment_result = $this->getDoctrine()
                                 ->getRepository('AppBundle:AssessmentResult')
                                 ->findOneById($assessment_result_id);
@@ -39,14 +156,25 @@ class AssessmentResultController extends Controller
       $em = $this->getDoctrine()->getManager();
       $em->persist($assessment_result);
       $em->flush();
+      /* end set result */
 
-      $respo = array(
-        'student' => $assessment_result->getStudentId()->getStudentFirstNameEn(),
-        'session' => $assessment_result->getSessionId()->getSessionName(),
-        'result' => $assessment_result->getResultValue()
-      );
+      /* get total result */
+      $student_id = $assessment_result->getStudentId()->getId();
+      $session_id = $assessment_result->getSessionId()->getId();
 
-      return new JsonResponse($respo);
+      $assessment_results = $this->getDoctrine()
+                                  ->getRepository('AppBundle:AssessmentResult')
+                                  ->findBy(
+                                    array('studentId' => $student_id, 'sessionId' => $session_id)
+                                  );
+      $total_result = 0;
+      foreach ($assessment_results as $value) {
+        $total_result = $total_result + $value->getResultValue();
+      }
+      /* end get total result */
+
+      $data = array('student' => $student_id, 'result' => $total_result);
+      return new JsonResponse($data);
     }
 
     /**
