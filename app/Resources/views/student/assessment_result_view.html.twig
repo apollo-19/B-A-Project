@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+</style>
+{% endblock %}
+
+{% block body %}
+  <article class="container taleft">
+    <div class="form fright">
+
+      <h1 class="welcomeText tacenter">  </h1>
+
+      <table>
+        {% set assessmentResultTotal = 0 %}
+        {% for assessment_result in assessment_results %}
+          <tr>
+            <td style="min-width: 200px;">
+              {{ assessment_result.assessmentTypeId.assessmentName ~ ' ( ' ~ assessment_result.assessmentTypeId.assessmentWorth ~ ' %) : ' }}
+            </td>
+
+            <td style="min-width: 150px;">
+              {{ assessment_result.resultValue }}
+              {% set assessmentResultTotal = assessmentResultTotal + assessment_result.resultValue %}
+            </td>
+          </tr>
+        {% endfor %}
+
+        <tr>
+          <td>Total</td>
+          <td style="border-top: 1px solid;">
+            {{ assessmentResultTotal }}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <hr class="clear" width="0" />
+  </article>
+{% endblock %}

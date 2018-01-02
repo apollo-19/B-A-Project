@@ -14,7 +14,7 @@
     <h1>{{ school_session.sessionName ~ ' - ' ~ school_session.courseId.courseName ~ ' (' ~ school_session.courseId.courseCode | upper ~ ')' }}</h1>
 
     <h1>Prerequisites:</h1>
-    <h2 style="margin-left: 25px;">
+    <h2 style="margin-left: 15px;">
       {% if prerequisites is empty %}
         None.
       {% endif %}
@@ -58,24 +58,35 @@
         </thead>
 
         <tbody>
+          {% set is_teacher = false %}
           {% for student in students %}
-            <tr>
-              <td>
-                {{ student.admissionNumber }}
-              </td>
-              <td>
-                {{ student.firstNameEn ~ ' ' ~ student.middleNameEn ~ ' ' ~ student.lastNameEn }}
-              </td>
+            {% set student_takes_session = false %}
+            {% for assessment_result in assessment_results %}
+              {% if assessment_result.studentId == student %}
+                {% set student_takes_session = true %}
+              {% endif %}
+            {% endfor %}
 
-              {% set assessmentResultTotal = 0 %}
-              {% for assessment_type in assessment_types %}
+            {% if student_takes_session %}
+              <tr>
+                <td>
+                  {{ student.admissionNumber }}
+                </td>
+                <td>
+                  {{ student.firstNameEn ~ ' ' ~ student.middleNameEn ~ ' ' ~ student.lastNameEn }}
+                </td>
+
+                {% set assessmentResultTotal = 0 %}
+                {% for assessment_type in assessment_types %}
                 <td id="result_row">
                   {% for assessment_result in assessment_results %}
                     {% if assessment_result.assessmentTypeId == assessment_type and assessment_result.studentId == student %}
                       {% if assessment_result.resultValue matches '/^[-+]?[0-9]*\\.?[0-9]+$/' %}
                         {% set assessmentResultTotal = assessmentResultTotal + assessment_result.resultValue %}
                       {% endif %}
-                      {% if app.session.get('user_id') %}
+
+                      {% if (app.session.get('user_type') == 'teacher') and (app.session.get('user_id') == assessment_result.sessionId.teacherId.id) %}
+                        {% set is_teacher = true %}
                         <input type="text" class="result_{{ student.id ~ '_' ~ assessment_result.id }} student_{{ student.id }} result_value"
                         title="{{ assessment_result.id }}" value="{{ assessment_result.resultValue is defined ? assessment_result.resultValue : 0 }}" />
                       {% else %}
@@ -84,18 +95,21 @@
                     {% endif %}
                   {% endfor %}
                 </td>
-              {% endfor %}
+                {% endfor %}
 
-              <td id="total_{{ student.id }}">
-                {{ assessmentResultTotal }}
-              </td>
-            </tr>
+                <td id="total_{{ student.id }}">
+                  {{ assessmentResultTotal }}
+                </td>
+              </tr>
+            {% endif %}
           {% endfor %}
         </tbody>
       </table>
 
-      <a href="{{ path('session_result_publish', {'school_session_id': school_session_id}) }}" class="fright"
-      onclick="return confirm('Results will be displayed to students. Are you sure?')">Publish Results</a>
+      {% if is_teacher %}
+        <a href="{{ path('session_result_publish', {'school_session_id': school_session_id}) }}" class="fright"
+        onclick="return confirm('Results will be displayed to students. Are you sure?')">Publish Results</a>
+      {% endif %}
     {% endif %}
   </div>
 {% endblock %}

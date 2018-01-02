@@ -13,18 +13,24 @@ class SessionResultController extends Controller
   /**
    * @Route("/session_result/create/{school_session_id}", name="session_result_create")
    */
-  public function sessionResultCreateAction()
+  public function sessionResultCreateAction(Request $request, $school_session_id)
   {
+    $session = new Session();
+    
     $school_session = $this->getDoctrine()
-                            ->getRepository('AppBundle:Prerequisite')
+                            ->getRepository('AppBundle:Schoolsession')
                             ->findOneById($school_session_id);
-    $mycourse = $this->getDoctrine()
-                            ->getRepository('AppBundle:Course')
-                            ->findOneById($school_session->getCourseId());
-    $mymodule = $this->getDoctrine()
-                      ->getRepository('AppBundle:Module')
-                      ->findOneById($school_session->getModuleId());
-    //
+
+    if ($school_session->getCourseModuleType() == 'course'){
+      $mycourse = $this->getDoctrine()
+                        ->getRepository('AppBundle:Course')
+                        ->findOneById($school_session->getCourseId());
+    } else {
+      $mymodule = $this->getDoctrine()
+                        ->getRepository('AppBundle:Module')
+                        ->findOneById($school_session->getModuleId());
+    }
+
     /* add session result for each student */
     if ($school_session->getCourseModuleType() == 'course'){
       $prerequisites = $this->getDoctrine()
@@ -50,52 +56,9 @@ class SessionResultController extends Controller
 
     $data['students'] = $students;
 
-    if(!$prerequisites){
-      foreach ($students as $student){
-        $session_result = new SessionResult();
-
-        $session_result->setSessionId($school_session);
-        $session_result->setStudentId($student);
-
-        $session_result->setCreatedBy($session->get('user_id'));
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($session_result);
-        $em->flush();
-      }
-    } else {
-      foreach ($students as $student){
-        foreach ($prerequisites as $prerequisite){
-          if ($school_session->getCourseModuleType() == 'course'){
-            $prerequisite_school_session = $this->getDoctrine()
-                                                ->getRepository('AppBundle:Schoolsession')
-                                                ->findOneBy(
-                                                  array('courseId' => $prerequisite->getCourseId())
-                                                );
-          } else {
-            $prerequisite_school_session = $this->getDoctrine()
-                                                ->getRepository('AppBundle:Schoolsession')
-                                                ->findOneBy(
-                                                  array('moduleId' => $prerequisite->getModuleId())
-                                                );
-          }
-
-          $session_results = $this->getDoctrine()
-                                  ->getRepository('AppBundle:SessionResult')
-                                  ->findBy(
-                                    array('sessionId' => $prerequisite_school_session, 'studentId' => $student)
-                                  );
-
-          $passed = true;
-          foreach ($session_results as $session_result){
-            if( ($session_result->getSessionResultRemark() == 'fail') ){
-              $passed = false;
-              break;
-            }
-          }
-        }
-
-        if( $passed ){
+    if( ($session->get('user_type') == 'teacher') && ($session->get('user_id') == $school_session->getTeacherId()->getId()) ){
+      if(!$prerequisites){
+        foreach ($students as $student){
           $session_result = new SessionResult();
 
           $session_result->setSessionId($school_session);
@@ -107,9 +70,58 @@ class SessionResultController extends Controller
           $em->persist($session_result);
           $em->flush();
         }
+      } else {
+        foreach ($students as $student){
+          foreach ($prerequisites as $prerequisite){
+            if ($school_session->getCourseModuleType() == 'course'){
+              $prerequisite_school_session = $this->getDoctrine()
+                                                  ->getRepository('AppBundle:Schoolsession')
+                                                  ->findOneBy(
+                                                    array('courseId' => $prerequisite->getPrerequisiteCourseId())
+                                                  );
+            } else {
+              $prerequisite_school_session = $this->getDoctrine()
+                                                  ->getRepository('AppBundle:Schoolsession')
+                                                  ->findOneBy(
+                                                    array('moduleId' => $prerequisite->getPrerequisiteModuleId())
+                                                  );
+            }
+
+            $session_results = $this->getDoctrine()
+                                    ->getRepository('AppBundle:SessionResult')
+                                    ->findBy(
+                                      array('sessionId' => $prerequisite_school_session, 'studentId' => $student)
+                                    );
+
+            $passed = true;
+            foreach ($session_results as $session_result){
+              if( ($session_result->getSessionResultRemark() == 'fail') ){
+                $passed = false;
+                break;
+              }
+            }
+          }
+
+          if( $passed ){
+            $session_result = new SessionResult();
+
+            $session_result->setSessionId($school_session);
+            $session_result->setStudentId($student);
+
+            $session_result->setCreatedBy($session->get('user_id'));
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($session_result);
+            $em->flush();
+          }
+        }
       }
+      /* end session result */
+      return $this->redirect($this->generateUrl('assessment_result_view', array('school_session_id' => $school_session_id)));
+    } else {
+      $data['message'] = 'You Are Not Qualified to Start Session Result.';
+      return $this->render('accessDenied.html.twig', $data);
     }
-    /* end session result */
   }
 
   /**
@@ -119,11 +131,11 @@ class SessionResultController extends Controller
   {
     $session = new Session();
 
-    if($session->get('user_id')){
-      $school_session = $this->getDoctrine()
-                          ->getRepository('AppBundle:Schoolsession')
-                          ->findOneById($school_session_id);
+    $school_session = $this->getDoctrine()
+    ->getRepository('AppBundle:Schoolsession')
+    ->findOneById($school_session_id);
 
+    if( ($session->get('user_type') == 'teacher') && ($session->get('user_id') == $school_session->getTeacherId()->getId()) ){
       $section = $this->getDoctrine()
                           ->getRepository('AppBundle:Section')
                           ->findOneById($school_session->getSectionId());
@@ -206,7 +218,7 @@ class SessionResultController extends Controller
   {
     $session = new Session();
 
-    if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'admin')){
+    if($session->get('user_id')){
       $em = $this->getDoctrine()->getManager();
 
       $session_results = $em->getRepository('AppBundle:SessionResult')
@@ -250,7 +262,7 @@ class SessionResultController extends Controller
 
       return $this->render('session/result_view.html.twig', $data);
     } else {
-      $data['message'] = 'You Are Not Qualified to View Assessment Types.';
+      $data['message'] = 'You Are Not Qualified to View Session Result.';
       return $this->render('accessDenied.html.twig', $data);
     }
   }

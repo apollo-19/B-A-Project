@@ -17,6 +17,7 @@ class AssessmentResultController extends Controller
     public function assessmentResultGetAction(Request $request, $school_session_id)
     {
       $session = new Session();
+
       $school_session = $this->getDoctrine()
                               ->getRepository('AppBundle:Schoolsession')
                               ->findOneById($school_session_id);
@@ -30,95 +31,43 @@ class AssessmentResultController extends Controller
                           ->findOneById($school_session->getModuleId());
       }
 
-      /* add assessment result for each student */
-      $em = $this->getDoctrine()->getManager();
+      if( ($session->get('user_type') == 'teacher') && ($session->get('user_id') == $school_session->getTeacherId()->getId()) ){
+        /* add assessment result for each student */
+        $em = $this->getDoctrine()->getManager();
 
-      $assessment_types = $em->getRepository('AppBundle:AssessmentType')
-                              ->createQueryBuilder('e')
-                              ->addOrderBy('e.assessmentWorth', 'ASC')
-                              ->andWhere('e.assessmentTypeSystemId = ' . $school_session->getAssessmentTypeSystemId()->getId())
-                              ->getQuery()
-                              ->execute();
+        $assessment_types = $em->getRepository('AppBundle:AssessmentType')
+                            ->createQueryBuilder('e')
+                            ->addOrderBy('e.assessmentWorth', 'ASC')
+                            ->andWhere('e.assessmentTypeSystemId = ' . $school_session->getAssessmentTypeSystemId()->getId())
+                            ->getQuery()
+                            ->execute();
 
-      if ($school_session->getCourseModuleType() == 'course'){
-        $prerequisites = $this->getDoctrine()
-                              ->getRepository('AppBundle:Prerequisite')
-                              ->findBy(
-                                array('courseId' => $mycourse)
-                              );
-      } else {
-        $prerequisites = $this->getDoctrine()
-                              ->getRepository('AppBundle:Prerequisite')
-                              ->findBy(
-                                array('moduleId' => $mymodule)
-                              );
-      }
-
-      $data['prerequisites'] = $prerequisites;
-
-      $students = $this->getDoctrine()
-                          ->getRepository('AppBundle:Student')
-                          ->findBy(
-                            array('sectionId' => $school_session->getSectionId())
-                          );
-
-      $data['students'] = $students;
-
-      if(!$prerequisites){
-        foreach ($students as $student){
-          foreach ($assessment_types as $assessment_type){
-            $session_result = new AssessmentResult();
-
-            $session_result->setSessionId($school_session);
-            $session_result->setStudentId($student);
-            $session_result->setAssessmentTypeId($assessment_type);
-
-            $session_result->setCreatedBy($session->get('user_id'));
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($session_result);
-          }
-          $em->flush();
+        if ($school_session->getCourseModuleType() == 'course'){
+          $prerequisites = $this->getDoctrine()
+          ->getRepository('AppBundle:Prerequisite')
+          ->findBy(
+            array('courseId' => $mycourse)
+          );
+        } else {
+          $prerequisites = $this->getDoctrine()
+          ->getRepository('AppBundle:Prerequisite')
+          ->findBy(
+            array('moduleId' => $mymodule)
+          );
         }
-      } else {
-        foreach ($students as $student){
-          foreach ($prerequisites as $prerequisite){
-            if ($school_session->getCourseModuleType() == 'course'){
-              $prerequisite_school_session = $this->getDoctrine()
-                                                  ->getRepository('AppBundle:Schoolsession')
-                                                  ->findOneBy(
-                                                    array('courseId' => $prerequisite->getPrerequisiteCourseId())
-                                                  );
-            } else {
-              $prerequisite_school_session = $this->getDoctrine()
-                                                  ->getRepository('AppBundle:Schoolsession')
-                                                  ->findOneBy(
-                                                    array('moduleId' => $prerequisite->getPrerequisiteModuleId())
-                                                  );
-            }
 
-            $session_results = $this->getDoctrine()
-                                    ->getRepository('AppBundle:SessionResult')
-                                    ->findBy(
-                                      array('sessionId' => $prerequisite_school_session, 'studentId' => $student)
-                                    );
+        $data['prerequisites'] = $prerequisites;
 
-            $passed = true;
+        $students = $this->getDoctrine()
+        ->getRepository('AppBundle:Student')
+        ->findBy(
+          array('sectionId' => $school_session->getSectionId())
+        );
 
+        $data['students'] = $students;
 
-            // return new JsonResponse($prerequisite->getPrerequisiteCourseId()->getCourseName());
-
-
-            foreach ( $session_results as $session_result ){
-              if( ($session_result->getSessionResultRemark() == 'fail') ){
-                $passed = false;
-                break;
-              }
-            }
-          }
-
-          if( $passed ){
-
+        if(!$prerequisites){
+          foreach ($students as $student){
             foreach ($assessment_types as $assessment_type){
               $session_result = new AssessmentResult();
 
@@ -133,10 +82,63 @@ class AssessmentResultController extends Controller
             }
             $em->flush();
           }
+        } else {
+          foreach ($students as $student){
+            foreach ($prerequisites as $prerequisite){
+              if ($school_session->getCourseModuleType() == 'course'){
+                $prerequisite_school_session = $this->getDoctrine()
+                ->getRepository('AppBundle:Schoolsession')
+                ->findOneBy(
+                array('courseId' => $prerequisite->getPrerequisiteCourseId())
+                );
+              } else {
+                $prerequisite_school_session = $this->getDoctrine()
+                ->getRepository('AppBundle:Schoolsession')
+                ->findOneBy(
+                array('moduleId' => $prerequisite->getPrerequisiteModuleId())
+                );
+              }
+
+              $session_results = $this->getDoctrine()
+              ->getRepository('AppBundle:SessionResult')
+              ->findBy(
+              array('sessionId' => $prerequisite_school_session, 'studentId' => $student)
+              );
+
+              $passed = true;
+              foreach ( $session_results as $session_result ){
+                if( ($session_result->getSessionResultRemark() == 'fail') ){
+                  $passed = false;
+                  break;
+                }
+              }
+            }
+
+            if( $passed ){
+
+              foreach ($assessment_types as $assessment_type){
+                $session_result = new AssessmentResult();
+
+                $session_result->setSessionId($school_session);
+                $session_result->setStudentId($student);
+                $session_result->setAssessmentTypeId($assessment_type);
+
+                $session_result->setCreatedBy($session->get('user_id'));
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($session_result);
+              }
+              $em->flush();
+            }
+          }
         }
+        /* end assessment result */
+        return $this->redirect($this->generateUrl('session_result_create', array('school_session_id' => $school_session_id)));
+      } else {
+        $data['message'] = 'You Are Not Qualified to Start Assessment Result.';
+        return $this->render('accessDenied.html.twig', $data);
       }
-      /* end assessment result */
-      return $this->redirect($this->generateUrl('assessment_result_view', array('school_session_id' => $school_session_id)));
+
     }
 
     /**
@@ -151,7 +153,7 @@ class AssessmentResultController extends Controller
 
       $result_value = $request->request->get('result_value');
 
-      $assessment_result->setResultValue($result_value);
+      $assessment_result->setResultValue( floatval($result_value) );
 
       $em = $this->getDoctrine()->getManager();
       $em->persist($assessment_result);
@@ -169,37 +171,12 @@ class AssessmentResultController extends Controller
                                   );
       $total_result = 0;
       foreach ($assessment_results as $value) {
-        $total_result = $total_result + $value->getResultValue();
+        $total_result = $total_result + floatval($value->getResultValue());
       }
       /* end get total result */
 
       $data = array('student' => $student_id, 'result' => $total_result);
       return new JsonResponse($data);
-    }
-
-    /**
-     * @Route("/assessment_result/delete/{assessment_result_id}", name="assessment_result_delete")
-     */
-    public function assessmentTypeDeleteAction(Request $request, $assessment_result_id)
-    {
-      $session = new Session();
-
-      if($session->get('user_name') && ($session->get('user_type') == 'admin')){
-        $assessment_result = $this->getDoctrine()
-                            ->getRepository('AppBundle:AssessmentResult')
-                            ->findOneById($assessment_result_id);
-
-        $school_session = $assessment_result->getSessionId();
-        $em = $this->getDoctrine()->getManager();
-
-        $em->remove($assessment_result);
-        $em->flush();
-
-        return $this->redirectToRoute($this->generateUrl('assessment_result_view', array('school_session_id' => $school_session)));
-      } else {
-        $data['message'] = 'You Are Not Qualified to Delete This Assessment Result.';
-        return $this->render('accessDenied.html.twig', $data);
-      }
     }
 
     /**
@@ -209,7 +186,7 @@ class AssessmentResultController extends Controller
     {
       $session = new Session();
 
-      if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'admin')){
+      if($session->get('user_id')){
         $school_session = $this->getDoctrine()
                             ->getRepository('AppBundle:Schoolsession')
                             ->findOneById($school_session_id);
@@ -286,7 +263,7 @@ class AssessmentResultController extends Controller
 
         return $this->render('assessment/result_view.html.twig', $data);
       } else {
-        $data['message'] = 'You Are Not Qualified to View Assessment Types.';
+        $data['message'] = 'You Are Not Qualified to View Assessment Result.';
         return $this->render('accessDenied.html.twig', $data);
       }
     }

@@ -4,11 +4,27 @@
 {% endblock %}
 
 {% block body %}
-  <div id="wrapper">
-      <div id="container">
-          <div id="welcome">
-              
-          </div>
-        </div>
-      </div>
+<div class="container">
+  <h1 class="welcomeText aright taright">Welcome {{ app.session.get('user_name') | capitalize }}.</h1>
+
+  <article  class="tasks">
+    <div><a href="{{ path('admin_view') }}">
+      <img src="images/icons/admin.png" draggable="false" /><br />Admins
+    </a></div>
+
+    <div><a href="{{ path('student_results') }}">
+      <img src="images/icons/result.png" draggable="false" /><br />Results
+    </a></div>
+
+    <div><a href="{{ path('account_settings', {'user_id': app.session.get('user_id_lit')} ) }}">
+      <img src="images/icons/account_settings.png" draggable="false" /><br />Account Settings
+    </a></div>
+
+    <div><a href=" {{ path('user_signout') }} " onclick="return confirm('Are You Sure You Want To Sign Out?') ">
+      <img src="images/icons/signout.png" draggable="false" /><br />Sign Out
+    </a></div>
+  </article>
+
+  <hr class="clear" width="0" />
+</div>
 {% endblock %}

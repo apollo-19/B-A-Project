@@ -6,8 +6,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
-use AppBundle\Entity\LogInTable;
 use AppBundle\Entity\Student;
+use AppBundle\Entity\LogInTable;
 
 class StudentController extends Controller
 {
@@ -18,8 +18,12 @@ class StudentController extends Controller
     {
       $session = new Session();
 
-      if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'student'))
-        return $this->render('student/index.html.twig');
+      if($session->get('user_id') && ($session->get('user_type') == 'student')){
+        $data['si_user_name'] = ucwords($session->get('user_name'));
+        $data['si_user_type'] = $session->get('user_type');
+
+        return $this->render('student/index.html.twig', $data);
+      }
       else
         return $this->redirectToRoute('user_signin');
     }
@@ -278,4 +282,71 @@ class StudentController extends Controller
       }
     }
 
+    /**
+     * @Route("/student/results/", name="student_results")
+     */
+    public function studentResultsViewAction()
+    {
+      $session = new Session();
+
+      if($session->get('user_id') && ($session->get('user_type') == 'student')){
+        $data = [];
+        $data['students'] = [];
+
+        $student = $this->getDoctrine()
+                            ->getRepository('AppBundle:Student')
+                            ->findOneById($session->get('user_id'));
+
+        $data['student'] = $student;
+
+        $session_results = $this->getDoctrine()
+                            ->getRepository('AppBundle:SessionResult')
+                            ->findBy(
+                              array('studentId' => $student)
+                            );
+
+        $data['session_results'] = $session_results;
+
+        $assessment_results = $this->getDoctrine()
+                            ->getRepository('AppBundle:AssessmentResult')
+                            ->findBy(
+                              array('studentId' => $student)
+                            );
+
+        $data['assessment_results'] = $assessment_results;
+
+
+        return $this->render('student/result_view.html.twig', $data);
+      } else {
+        $data['message'] = 'You Are Not Qualified to View Student\'s Results.';
+        return $this->render('accessDenied.html.twig', $data);
+      }
+    }
+
+    /**
+     * @Route("/student/assessment_results/{session_id}", name="student_assessment_results")
+     */
+    public function studentAssessmentResultsViewAction($session_id)
+    {
+      $session = new Session();
+
+      if($session->get('user_id') && ($session->get('user_type') == 'student')){
+        $em = $this->getDoctrine()->getManager();
+
+        $assessment_results = $em->getRepository('AppBundle:AssessmentResult')
+                                  ->createQueryBuilder('ar')
+                                  ->andWhere('ar.sessionId = ' . $session_id)
+                                  ->andWhere('ar.studentId = ' . $session->get('user_id'))
+                                  ->getQuery()
+                                  ->execute();
+
+        $data['assessment_results'] = $assessment_results;
+
+
+        return $this->render('student/assessment_result_view.html.twig', $data);
+      } else {
+        $data['message'] = 'You Are Not Qualified to View Student\'s Results.';
+        return $this->render('accessDenied.html.twig', $data);
+      }
+    }
 }

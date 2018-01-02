@@ -18,7 +18,7 @@ class AdminController extends Controller
     {
       $session = new Session();
 
-      if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'admin')){
+      if($session->get('user_id') && ($session->get('user_type') == 'admin')){
         $data['si_user_name'] = ucwords($session->get('user_name'));
         $data['si_user_type'] = $session->get('user_type');
 
