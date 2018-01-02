@@ -21,23 +21,56 @@
 
       <table border="0">
         <tr valign="middle">
-          <td><a href=" {{ path('default_home') }} ">home</a></td>
+          <td><a href=" {{ path('default_home') }} ">HOME</a></td>
 
           {% if(app.session.get('user_name') and app.session.get('user_type')) %}
-            <td><a href="{{ path('account_settings', {'user_id': app.session.get('user_id_lit')} ) }}">profile</a></td>
-            <td><a href=" {{ path('dashboard') }} ">dashboard</a></td>
+            <td><a href="{{ path('account_settings', {'user_id': app.session.get('user_id_lit')} ) }}">PROFILE</a></td>
+            <td><a href=" {{ path('dashboard') }} ">DASHBOARD</a></td>
             <td><a href=" {{ path('user_signout') }} "
-                onclick="return confirm('Are You Sure You Want To Sign Out?') ">sign out</a></td>
+                onclick="return confirm('Are You Sure You Want To Sign Out?') ">SIGN OUT</a></td>
           {% else %}
-            <td><a href=" {{ path('user_signin') }} ">sign in</a></td>
+            <td><a href=" {{ path('user_signin') }} ">SIGN IN</a></td>
           {% endif %}
         </tr>
       </table>
     </header>
 
-    {% block body %}{% endblock %}
 
-    <footer>
+    <nav  id="main" class="navbar">
+      <span class="open-slide">
+        <a href="#" onclick="toggleMenu()" style="position: fixed;"  >
+          <svg width="30" height="30">
+            <path d="M0,5 30,5" stroke ="#000" stroke-width="5"/>
+            <path d="M0,14 30,14" stroke ="#000" stroke-width="5"/>
+            <path d="M0,23 30,23" stroke ="#000" stroke-width="5"/>
+          </svg>
+        </a>
+      </span>
+    </nav>
+    <div id="side-menu" class="side-nav">
+          <a href="#" class="btn-close" onclick="closeSideMenu()">&times;</a>
+          <a href="{{ path('admin_view') }}">Admins</a>
+          <a href="{{ path('assessment_type_system_view') }}">Assessment Types</a>
+          <a href="{{ path('assessment_session_view') }}">Assessment Sessions</a>
+          <a href="">Batches</a>
+          <a href="{{ path('course_view') }}">Courses</a>
+          <a href="{{ path('curriculum_view') }}">Curriculums</a>
+          <a href="{{ path('department_view') }}">Departments</a>
+          <a href="{{ path('module_view') }}">Modules</a>
+          <a href="{{ path('grade_system_view') }}">Grade Systems</a>
+          <a href="{{ path('semester_view') }}">Semesters</a>
+          <a href="{{ path('session_view') }}">>School Sessions</a>
+          <a href="{{ path('section_view') }}">Sections</a>
+          <a href="{{ path('school_view') }}">Schools</a>
+          <a href="{{ path('student_view') }}">Students</a>
+          <a href="{{ path('prerequisite_view') }}">Prerequisites</a>
+
+     </div>
+     {% block body %}{% endblock %}
+
+    <footer class="clear">
+
+
       <div>
         &copy; St. Paul's Hospital Mellenium Medical College
       </div>

@@ -4,16 +4,18 @@
 {% endblock %}
 
 {% block stylesheet %}
-<style>
 
-</style>
 {% endblock %}
 
 {% block body %}
+<style>
+</style>
+
+
   <div class="container">
     <h1 class="welcomeText aright taright">Welcome {{ si_user_name }}.</h1>
 
-    <article class="tasks">
+    <article  class="tasks">
       <div><a href="{{ path('admin_view') }}">
         <img src="images/icons/admin.png" draggable="false" /><br />Admins
       </a></div>
@@ -85,7 +87,12 @@
       <div><a href=" {{ path('user_signout') }} " onclick="return confirm('Are You Sure You Want To Sign Out?') ">
         <img src="images/icons/signout.png" draggable="false" /><br />Sign Out
       </a></div>
+
+
+
     </article>
+
+
     <hr class="clear" width="0" />
   </div>
 {% endblock %}
