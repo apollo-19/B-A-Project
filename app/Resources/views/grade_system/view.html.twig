@@ -13,8 +13,9 @@
 
 {% block body %}
   <div class="container" id="view_container">
-
-    <a href="{{ path('grade_system_create') }}">New Grade System</a>
+    {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
+      <a href="{{ path('grade_system_create') }}">New Grade System</a>
+    {% endif %}
 
     <table border="0">
       <thead>
@@ -31,9 +32,11 @@
             <td>{{ grade_system.gradeSystemName }}</td>
 
             <td id="actions"><a href="{{ path('grade_view', {'grade_system_id': grade_system.id}) }}" id="editBtn">Grades</button></td>
-            <td id="actions"><a href="{{ path('grade_system_edit', {'grade_system_id': grade_system.id}) }}" id="editBtn">edit</button></td>
-            <td id="actions"><a href="{{ path('grade_system_delete', {'grade_system_id': grade_system.id}) }}" id="deleteBtn"
+              {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
+                <td id="actions"><a href="{{ path('grade_system_edit', {'grade_system_id': grade_system.id}) }}" id="editBtn">edit</button></td>
+                <td id="actions"><a href="{{ path('grade_system_delete', {'grade_system_id': grade_system.id}) }}" id="deleteBtn"
                   onclick="return confirm('Are You Sure You Want To Delete Grade {{ grade_system.gradeSystemCode | upper ~ ' (' ~ grade_system.gradeSystemName ~ ')' }}?') ">delete</button></td>
+              {% endif %}
           </tr>
         {% endfor %}
       </tbody>

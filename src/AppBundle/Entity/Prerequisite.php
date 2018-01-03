@@ -18,19 +18,29 @@ class Prerequisite
     private $courseModuleType;
 
     /**
-     * @var integer
-     */
-    private $courseModuleId;
-
-    /**
      * @var string
      */
     private $prerequisiteType;
 
     /**
-     * @var integer
+     * @var \AppBundle\Entity\Course
      */
-    private $prerequisiteId;
+    private $courseId;
+
+    /**
+     * @var \AppBundle\Entity\Module
+     */
+    private $moduleId;
+
+    /**
+     * @var \AppBundle\Entity\Course
+     */
+    private $prerequisiteCourseId;
+
+    /**
+     * @var \AppBundle\Entity\Module
+     */
+    private $prerequisiteModuleId;
 
 
     /**
@@ -68,30 +78,6 @@ class Prerequisite
     }
 
     /**
-     * Set courseModuleId
-     *
-     * @param integer $courseModuleId
-     *
-     * @return Prerequisite
-     */
-    public function setCourseModuleId($courseModuleId)
-    {
-        $this->courseModuleId = $courseModuleId;
-
-        return $this;
-    }
-
-    /**
-     * Get courseModuleId
-     *
-     * @return integer
-     */
-    public function getCourseModuleId()
-    {
-        return $this->courseModuleId;
-    }
-
-    /**
      * Set prerequisiteType
      *
      * @param string $prerequisiteType
@@ -114,40 +100,6 @@ class Prerequisite
     {
         return $this->prerequisiteType;
     }
-
-    /**
-     * Set prerequisiteId
-     *
-     * @param integer $prerequisiteId
-     *
-     * @return Prerequisite
-     */
-    public function setPrerequisiteId($prerequisiteId)
-    {
-        $this->prerequisiteId = $prerequisiteId;
-
-        return $this;
-    }
-
-    /**
-     * Get prerequisiteId
-     *
-     * @return integer
-     */
-    public function getPrerequisiteId()
-    {
-        return $this->prerequisiteId;
-    }
-    /**
-     * @var \AppBundle\Entity\Course
-     */
-    private $courseId;
-
-    /**
-     * @var \AppBundle\Entity\Module
-     */
-    private $moduleId;
-
 
     /**
      * Set courseId
@@ -196,16 +148,6 @@ class Prerequisite
     {
         return $this->moduleId;
     }
-    /**
-     * @var \AppBundle\Entity\Course
-     */
-    private $prerequisiteCourseId;
-
-    /**
-     * @var \AppBundle\Entity\Module
-     */
-    private $prerequisiteModuleId;
-
 
     /**
      * Set prerequisiteCourseId
@@ -255,3 +197,4 @@ class Prerequisite
         return $this->prerequisiteModuleId;
     }
 }
+

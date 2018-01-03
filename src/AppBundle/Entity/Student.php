@@ -313,10 +313,28 @@ class Student
     private $userName;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sessionresult;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $assessmentResults;
+
+    /**
      * @var \AppBundle\Entity\Section
      */
     private $sectionId;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->sessionresult = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->assessmentResults = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -1769,42 +1787,6 @@ class Student
     }
 
     /**
-     * Set sectionId
-     *
-     * @param \AppBundle\Entity\Section $sectionId
-     *
-     * @return Student
-     */
-    public function setSectionId(\AppBundle\Entity\Section $sectionId = null)
-    {
-        $this->sectionId = $sectionId;
-
-        return $this;
-    }
-
-    /**
-     * Get sectionId
-     *
-     * @return \AppBundle\Entity\Section
-     */
-    public function getSectionId()
-    {
-        return $this->sectionId;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $sessionresult;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->sessionresult = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
      * Add sessionresult
      *
      * @param \AppBundle\Entity\SessionResult $sessionresult
@@ -1837,11 +1819,6 @@ class Student
     {
         return $this->sessionresult;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $assessmentResults;
-
 
     /**
      * Add assessmentResult
@@ -1876,4 +1853,29 @@ class Student
     {
         return $this->assessmentResults;
     }
+
+    /**
+     * Set sectionId
+     *
+     * @param \AppBundle\Entity\Section $sectionId
+     *
+     * @return Student
+     */
+    public function setSectionId(\AppBundle\Entity\Section $sectionId = null)
+    {
+        $this->sectionId = $sectionId;
+
+        return $this;
+    }
+
+    /**
+     * Get sectionId
+     *
+     * @return \AppBundle\Entity\Section
+     */
+    public function getSectionId()
+    {
+        return $this->sectionId;
+    }
 }
+

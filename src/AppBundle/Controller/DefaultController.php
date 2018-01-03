@@ -38,21 +38,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/dashboard", name="dashboard")
-     */
-    public function dashboardAction()
-    {
-      $session = new Session();
-      if($session->get('user_name') && $session->get('user_type')){
-        $data['si_user_name'] = ucwords($session->get('user_name'));
-        $data['si_user_type'] = $session->get('user_type');
-
-        return $this->render( $data['si_user_type'] . '/index.html.twig', $data);
-      } else
-        return $this->render('default/index.html.twig');
-    }
-
-    /**
      * @Route("/signin/", name="user_signin")
      */
     public function signinAction(Request $request)
@@ -84,11 +69,11 @@ class DefaultController extends Controller
           $user_name_actl = $user->getUserName();
           $user_type_actl = $user->getUserType();
 
-          $user_id_ary = $this->getDoctrine()
-                        ->getRepository('AppBundle:' . ucfirst($user_type_actl))
-                        ->findOneByUserName($user_name_actl);
+          $user_ary = $this->getDoctrine()
+                              ->getRepository('AppBundle:' . ucfirst($user_type_actl))
+                              ->findOneByUserName($user_name_actl);
 
-          $user_id_actl = $user_id_ary->getId();
+          $user_id_actl = $user_ary->getId();
 
           $session = new Session();
 
@@ -101,8 +86,12 @@ class DefaultController extends Controller
           $session->set('user_id', $user_id_actl);
           $session->set('user_name', $user_name_actl);
           $session->set('user_type', $user_type_actl);
-
-          return $this->redirect('/' . $user_type_actl);
+          if($user_type_actl == 'admin') {
+            $admin_class = $user_ary->getAdminClass();
+            $session->remove('admin_class');
+            $session->set('admin_class', $admin_class);
+          }
+          return $this->redirectToRoute('default_home');
         } else
           $data['result_message'] = 'Sign In Failed!';
       }
@@ -120,77 +109,84 @@ class DefaultController extends Controller
       $session->remove('user_id');
       $session->remove('user_name');
       $session->remove('user_type');
+      $session->set('shide', 'hide');
 
       return $this->redirect('/signin');
     }
 
     /**
-     * @Route("/settings/account/{user_id}", name="account_settings")
+     * @Route("/settings/account/", name="account_settings")
      */
-    public function accountSettingsAction(Request $request, $user_id)
+    public function accountSettingsAction(Request $request)
     {
       $data = [];
       $session = new Session();
 
-      $data['user_id_lit'] = $session->get('user_id_lit');
-      $data['user_id'] = $session->get('user_id');
-      $data['user_name'] = $session->get('user_name');
-      $data['user_type'] = $session->get('user_type');
+      if($session->get('user_id')){
 
-      $form = $this ->createFormBuilder()
-                    ->add('user_name')
-                    ->add('new_password')
-                    ->add('confirm_new_password')
-                    ->add('old_password')
-                    ->getForm();
+        $data['user_id_lit'] = $session->get('user_id_lit');
+        $data['user_id'] = $session->get('user_id');
+        $data['user_name'] = $session->get('user_name');
+        $data['user_type'] = $session->get('user_type');
 
-      $user_details = $this->getDoctrine()
-                          ->getRepository('AppBundle:' . ucwords($data['user_type']))
-                          ->findOneById($data['user_id']);
+        $form = $this ->createFormBuilder()
+                      ->add('user_name')
+                      ->add('new_password')
+                      ->add('confirm_new_password')
+                      ->add('old_password')
+                      ->getForm();
 
-      $data['user_details'] = $user_details;
+        $user_details = $this->getDoctrine()
+                            ->getRepository('AppBundle:' . ucwords($data['user_type']))
+                            ->findOneById($data['user_id']);
 
-      $user_details_lit = $this->getDoctrine()
-                          ->getRepository('AppBundle:LogInTable')
-                          ->findOneById($data['user_id_lit']);
+        $data['user_details'] = $user_details;
 
-      $user_details_lit_data['user_name'] = $user_details_lit->getUserName();
-      $user_details_lit_data['password'] = $user_details_lit->getPassword();
+        $user_details_lit = $this->getDoctrine()
+                            ->getRepository('AppBundle:LogInTable')
+                            ->findOneById($data['user_id_lit']);
 
-      $data['form'] = $user_details_lit_data;
+        $user_details_lit_data['user_name'] = $user_details_lit->getUserName();
+        $user_details_lit_data['password'] = $user_details_lit->getPassword();
 
-      $form->handleRequest($request);
-
-      if($form->isSubmitted()){
-        $data['form'] = [];
-        $user_details_lit_data = $form->getData();
         $data['form'] = $user_details_lit_data;
 
-        if(md5($user_details_lit_data['old_password']) == $user_details_lit->getPassword()){
-          if($user_details_lit_data['new_password'] == $user_details_lit_data['confirm_new_password']){
-            if(!($user_details_lit_data['user_name'] == '')){
-              $user_details_lit->setUserName($user_details_lit_data['user_name']);
-              $user_details->setUserName($user_details_lit_data['user_name']);
-            }
+        $form->handleRequest($request);
 
-            if(!($user_details_lit_data['new_password'] == ''))
-              $user_details_lit->setPassword(md5($user_details_lit_data['new_password']));
+        if($form->isSubmitted()){
+          $data['form'] = [];
+          $user_details_lit_data = $form->getData();
+          $data['form'] = $user_details_lit_data;
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user_details_lit);
-            $em->persist($user_details);
-            $em->flush();
+          if(md5($user_details_lit_data['old_password']) == $user_details_lit->getPassword()){
+            if($user_details_lit_data['new_password'] == $user_details_lit_data['confirm_new_password']){
+              if(!($user_details_lit_data['user_name'] == '')){
+                $user_details_lit->setUserName($user_details_lit_data['user_name']);
+                $user_details->setUserName($user_details_lit_data['user_name']);
+              }
 
-            $session->remove('user_name');
-            $session->set('user_name', $user_details_lit_data['user_name']);
+              if(!($user_details_lit_data['new_password'] == ''))
+                $user_details_lit->setPassword(md5($user_details_lit_data['new_password']));
 
-            return $this->redirectToRoute('dashboard');
+              $em = $this->getDoctrine()->getManager();
+              $em->persist($user_details_lit);
+              $em->persist($user_details);
+              $em->flush();
+
+              $session->remove('user_name');
+              $session->set('user_name', $user_details_lit_data['user_name']);
+
+              return $this->redirectToRoute('dashboard');
+            } else
+              $data['result_message'] = 'New Passwords Don\'t Match.';
           } else
-            $data['result_message'] = 'New Passwords Don\'t Match.';
-        } else
-          $data['result_message'] = 'Wrong Old Password.';
-      }
+            $data['result_message'] = 'Wrong Old Password.';
+        }
 
-      return $this->render('default/account_settings.html.twig', $data);
+        return $this->render('default/account_settings.html.twig', $data);
+      } else {
+        $data['message'] = 'You Are Not Signed In.';
+        return $this->render('accessDenied.html.twig', $data);
+      }
     }
 }

@@ -13,16 +13,6 @@ class SessionResult
     private $id;
 
     /**
-     * @var integer
-     */
-    private $sessionId;
-
-    /**
-     * @var integer
-     */
-    private $studentId;
-
-    /**
      * @var string
      */
     private $resultInNumber;
@@ -42,6 +32,16 @@ class SessionResult
      */
     private $createdBy;
 
+    /**
+     * @var \AppBundle\Entity\Schoolsession
+     */
+    private $sessionId;
+
+    /**
+     * @var \AppBundle\Entity\Student
+     */
+    private $studentId;
+
 
     /**
      * Get id
@@ -51,54 +51,6 @@ class SessionResult
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set sessionId
-     *
-     * @param integer $sessionId
-     *
-     * @return SessionResult
-     */
-    public function setSessionId($sessionId)
-    {
-        $this->sessionId = $sessionId;
-
-        return $this;
-    }
-
-    /**
-     * Get sessionId
-     *
-     * @return integer
-     */
-    public function getSessionId()
-    {
-        return $this->sessionId;
-    }
-
-    /**
-     * Set studentId
-     *
-     * @param integer $studentId
-     *
-     * @return SessionResult
-     */
-    public function setStudentId($studentId)
-    {
-        $this->studentId = $studentId;
-
-        return $this;
-    }
-
-    /**
-     * Get studentId
-     *
-     * @return integer
-     */
-    public function getStudentId()
-    {
-        return $this->studentId;
     }
 
     /**
@@ -196,33 +148,53 @@ class SessionResult
     {
         return $this->createdBy;
     }
-    /**
-     * @var integer
-     */
-    private $sessionWeight;
-
 
     /**
-     * Set sessionWeight
+     * Set sessionId
      *
-     * @param integer $sessionWeight
+     * @param \AppBundle\Entity\Schoolsession $sessionId
      *
      * @return SessionResult
      */
-    public function setSessionWeight($sessionWeight)
+    public function setSessionId(\AppBundle\Entity\Schoolsession $sessionId)
     {
-        $this->sessionWeight = $sessionWeight;
+        $this->sessionId = $sessionId;
 
         return $this;
     }
 
     /**
-     * Get sessionWeight
+     * Get sessionId
      *
-     * @return integer
+     * @return \AppBundle\Entity\Schoolsession
      */
-    public function getSessionWeight()
+    public function getSessionId()
     {
-        return $this->sessionWeight;
+        return $this->sessionId;
+    }
+
+    /**
+     * Set studentId
+     *
+     * @param \AppBundle\Entity\Student $studentId
+     *
+     * @return SessionResult
+     */
+    public function setStudentId(\AppBundle\Entity\Student $studentId)
+    {
+        $this->studentId = $studentId;
+
+        return $this;
+    }
+
+    /**
+     * Get studentId
+     *
+     * @return \AppBundle\Entity\Student
+     */
+    public function getStudentId()
+    {
+        return $this->studentId;
     }
 }
+

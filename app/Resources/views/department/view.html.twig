@@ -11,7 +11,10 @@
 
 {% block body %}
   <div class="container" id="view_container">
-    <a href="{{ path('department_create') }}">New Department</a>
+    {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
+      <a href="{{ path('department_create') }}">New Department</a>
+    {% endif %}
+
     <table border="0">
       <thead>
         <tr>
@@ -35,9 +38,11 @@
             {% endfor %}
 
             <td id="actions"><a href="{{ path('department_view_one', {'department_id': department.id}) }}">view</button></td>
-            <td id="actions"><a href="{{ path('department_edit', {'department_id': department.id}) }}" id="editBtn">edit</button></td>
-            <td id="actions"><a href="{{ path('department_delete', {'department_id': department.id}) }}" id="deleteBtn"
-                  onclick="return confirm('Are You Sure You Want To Delete {{ department.departmentName }} ({{ department.departmentCode }})?') ">delete</button></td>
+            {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
+              <td id="actions"><a href="{{ path('department_edit', {'department_id': department.id}) }}" id="editBtn">edit</button></td>
+              <td id="actions"><a href="{{ path('department_delete', {'department_id': department.id}) }}" id="deleteBtn"
+                    onclick="return confirm('Are You Sure You Want To Delete {{ department.departmentName }} ({{ department.departmentCode }})?') ">delete</button></td>
+            {% endif %}
           </tr>
         {% endfor %}
       </tbody>

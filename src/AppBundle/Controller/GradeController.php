@@ -11,26 +11,13 @@ use AppBundle\Entity\Grade;
 class GradeController extends Controller
 {
     /**
-     * @Route("/grade", name="grade_home")
-     */
-    public function indexAction()
-    {
-      $session = new Session();
-
-      if($session->get('user_name') && $session->get('user_type')){
-        return $this->render('grade/index.html.twig', $data);
-      } else
-        return $this->redirectToRoute('user_signin');
-    }
-
-    /**
      * @Route("/grade/create/{grade_system_id}", name="grade_create")
      */
     public function gradeSystemCreateAction(Request $request, $grade_system_id)
     {
       $session = new Session();
 
-      if($session->get('user_id') && ($session->get('user_type') == 'admin')){
+      if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
         $data = [];
         $data['mode'] = 'new';
 
@@ -84,34 +71,34 @@ class GradeController extends Controller
       $data = [];
       $data['mode'] = 'edit';
 
-      $form = $this ->createFormBuilder()
-
-                    ->add('start_point')
-                    ->add('end_point')
-                    ->add('grade')
-                    ->add('grade_system')
-                    ->add('grade_remark')
-                    ->getForm();
-
-      $grade = $this->getDoctrine()
-                          ->getRepository('AppBundle:Grade')
-                          ->findOneById($grade_id);
-
-      $grade_data['start_point'] = $grade->getStartPoint();
-      $grade_data['end_point'] = $grade->getEndPoint();
-      $grade_data['grade'] = $grade->getGrade();
-      $grade_data['grade_system'] = $grade->getGradeSystemId();
-      $grade_data['grade_remark'] = $grade->getGradeRemark();
-
-      $grade_system = $this->getDoctrine()
-                          ->getRepository('AppBundle:GradeSystem')
-                          ->findAll();
-
-      $data['grade_systems'] = $grade_system;
-
       $session = new Session();
 
-      if($session->get('user_name') && ($session->get('user_type') == 'admin')){
+      if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
+        $form = $this ->createFormBuilder()
+
+                      ->add('start_point')
+                      ->add('end_point')
+                      ->add('grade')
+                      ->add('grade_system')
+                      ->add('grade_remark')
+                      ->getForm();
+
+        $grade = $this->getDoctrine()
+                            ->getRepository('AppBundle:Grade')
+                            ->findOneById($grade_id);
+
+        $grade_data['start_point'] = $grade->getStartPoint();
+        $grade_data['end_point'] = $grade->getEndPoint();
+        $grade_data['grade'] = $grade->getGrade();
+        $grade_data['grade_system'] = $grade->getGradeSystemId();
+        $grade_data['grade_remark'] = $grade->getGradeRemark();
+
+        $grade_system = $this->getDoctrine()
+                            ->getRepository('AppBundle:GradeSystem')
+                            ->findAll();
+
+        $data['grade_systems'] = $grade_system;
+
         $data['form'] = $grade_data;
 
         $form->handleRequest($request);
@@ -151,8 +138,7 @@ class GradeController extends Controller
     {
       $session = new Session();
 
-      if($session->get('user_name') && ($session->get('user_type') == 'admin')){
-
+      if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
         $grade = $this->getDoctrine()
                             ->getRepository('AppBundle:AssessmentResult')
                             ->findOneById($grade_id);
@@ -177,7 +163,7 @@ class GradeController extends Controller
     {
       $session = new Session();
 
-      if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'admin')){
+      if(($session->get('user_type') == 'admin') || ($session->get('user_type') == 'teacher')){
         $em = $this->getDoctrine()->getManager();
 
         $grade = $em->getRepository('AppBundle:Grade')

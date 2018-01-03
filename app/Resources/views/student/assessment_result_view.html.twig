@@ -11,8 +11,13 @@
 {% block body %}
   <article class="container taleft">
     <div class="form fright">
-
-      <h1 class="welcomeText tacenter">  </h1>
+      <h1 class="welcomeText">
+        {% if assessment_results[0].sessionId.courseModuleType == 'course' %}
+          {{ assessment_results[0].sessionId.courseId.courseName }}
+        {% elseif assessment_results[0].sessionId.courseModuleType == 'module' %}
+          {{ assessment_results[0].sessionId.mmoduleId.moduleName }}
+        {% endif %}
+      </h1>
 
       <table>
         {% set assessmentResultTotal = 0 %}

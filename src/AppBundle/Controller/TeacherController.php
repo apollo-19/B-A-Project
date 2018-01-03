@@ -12,108 +12,95 @@ use AppBundle\Entity\Department;
 
 class TeacherController extends Controller
 {
-    /**
-     * @Route("/teacher", name="teacher_home")
-     */
-    public function indexAction()
-    {
-      $session = new Session();
+  /**
+   * @Route("/teacher/hire", name="teacher_hire")
+   */
+  public function teacherHireAction(Request $request)
+  {
+    $session = new Session();
 
-      if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'teacher')){
-        $data['si_user_name'] = ucwords($session->get('user_name'));
-        $data['si_user_type'] = $session->get('user_type');
-
-        return $this->render('teacher/index.html.twig', $data);
-      } else
-        return $this->redirectToRoute('user_signin');
-    }
-
-    /**
-     * @Route("/teacher/hire", name="teacher_hire")
-     */
-    public function teacherHireAction(Request $request)
-    {
-      $session = new Session();
-
-      if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'admin')){
-        $data = [];
-        $data['mode'] = 'new';
-        $data['form'] = [];
-
-        $form = $this ->createFormBuilder()
-                      ->add('first_name')
-                      ->add('middle_name')
-                      ->add('last_name')
-                      ->add('sex')
-                      ->add('mobile_number')
-                      ->add('email_address')
-                      ->add('user_name')
-                      ->add('password')
-                      ->add('confirm_password')
-                      ->add('teacher_department')
-                      ->getForm();
-
-        $department = $this->getDoctrine()
-                            ->getRepository('AppBundle:Department')
-                            ->findAll();
-
-        $data['departments'] = $department;
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted()){
-          $form_data = $form->getData();
-          $data['form'] = $form_data;
-
-          if($form_data['password'] != $form_data['confirm_password'])
-            $data['resultMessage'] = 'Passwords Must Match!';
-          else {
-
-            $em = $this->getDoctrine()->getManager();
-
-            $passwordLIT = new LogInTable();
-            $passwordLIT->setUserName($form_data['user_name']);
-            $passwordLIT->setPassword(md5($form_data['password']));
-            $passwordLIT->setUserType('teacher');
-            $mydepartment = $this->getDoctrine()
-                                 ->getRepository('AppBundle:Department')
-                                 ->findOneById($form_data['teacher_department']);
-
-            $teacher = new Teacher();
-            $teacher->setRegisteredBy($session->get('user_id'));
-            $teacher->setFirstName($form_data['first_name']);
-            $teacher->setMiddleName($form_data['middle_name']);
-            $teacher->setLastName($form_data['last_name']);
-            $teacher->setSex($form_data['sex']);
-            $teacher->setMobileNumber($form_data['mobile_number']);
-            $teacher->setEmailAddress($form_data['email_address']);
-            $teacher->setUserName($form_data['user_name']);
-            $teacher->setDepartmentId($mydepartment);
-
-            $em->persist($teacher);
-            $em->persist($passwordLIT);
-
-            $em->flush();
-            return $this->redirectToRoute('teacher_view');
-          }
-        }
-
-        return $this->render('teacher/form.html.twig', $data);
-      } else {
-        $data['message'] = 'You Are Not Qualified to Hire a Teacher.';
-        return $this->render('accessDenied.html.twig', $data);
-      }
-    }
-
-    /**
-     * @Route("/teacher/edit/{teacher_id}", name="teacher_edit")
-     */
-    public function teacherEditAction(Request $request, $teacher_id)
-    {
+    if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
       $data = [];
-      $data['mode'] = 'edit';
+      $data['mode'] = 'new';
       $data['form'] = [];
 
+      $form = $this ->createFormBuilder()
+                    ->add('first_name')
+                    ->add('middle_name')
+                    ->add('last_name')
+                    ->add('sex')
+                    ->add('mobile_number')
+                    ->add('email_address')
+                    ->add('user_name')
+                    ->add('password')
+                    ->add('confirm_password')
+                    ->add('teacher_department')
+                    ->getForm();
+
+      $department = $this->getDoctrine()
+                          ->getRepository('AppBundle:Department')
+                          ->findAll();
+
+      $data['departments'] = $department;
+
+      $form->handleRequest($request);
+
+      if($form->isSubmitted()){
+        $form_data = $form->getData();
+        $data['form'] = $form_data;
+
+        if($form_data['password'] != $form_data['confirm_password'])
+          $data['resultMessage'] = 'Passwords Must Match!';
+        else {
+
+          $em = $this->getDoctrine()->getManager();
+
+          $passwordLIT = new LogInTable();
+          $passwordLIT->setUserName($form_data['user_name']);
+          $passwordLIT->setPassword(md5($form_data['password']));
+          $passwordLIT->setUserType('teacher');
+          $mydepartment = $this->getDoctrine()
+                               ->getRepository('AppBundle:Department')
+                               ->findOneById($form_data['teacher_department']);
+
+          $teacher = new Teacher();
+          $teacher->setRegisteredBy($session->get('user_id'));
+          $teacher->setFirstName($form_data['first_name']);
+          $teacher->setMiddleName($form_data['middle_name']);
+          $teacher->setLastName($form_data['last_name']);
+          $teacher->setSex($form_data['sex']);
+          $teacher->setMobileNumber($form_data['mobile_number']);
+          $teacher->setEmailAddress($form_data['email_address']);
+          $teacher->setUserName($form_data['user_name']);
+          $teacher->setDepartmentId($mydepartment);
+
+          $em->persist($teacher);
+          $em->persist($passwordLIT);
+
+          $em->flush();
+          return $this->redirectToRoute('teacher_view');
+        }
+      }
+
+      return $this->render('teacher/form.html.twig', $data);
+    } else {
+      $data['message'] = 'You Are Not Qualified to Hire a Teacher.';
+      return $this->render('accessDenied.html.twig', $data);
+    }
+  }
+
+  /**
+   * @Route("/teacher/edit/{teacher_id}", name="teacher_edit")
+   */
+  public function teacherEditAction(Request $request, $teacher_id)
+  {
+    $data = [];
+    $data['mode'] = 'edit';
+    $data['form'] = [];
+
+    $session = new Session();
+
+    if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
       $form = $this ->createFormBuilder()
                     ->add('first_name')
                     ->add('middle_name')
@@ -145,136 +132,133 @@ class TeacherController extends Controller
 
         $data['departments'] = $departments;
 
-        $session = new Session();
+        $data['form'] = $teacher_data;
 
-        if($session->get('user_name') && ($session->get('user_type') == 'admin') && ($session->get('user_id') == $teacher_data['registered_by'])){
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()){
+          $data['form'] = [];
+          $teacher_data = $form->getData();
           $data['form'] = $teacher_data;
+          $mydepartment = $this->getDoctrine()
+                               ->getRepository('AppBundle:Department')
+                               ->findOneById($teacher_data['teacher_department']);
 
-          $form->handleRequest($request);
+          $teacher->setFirstName($teacher_data['first_name']);
+          $teacher->setMiddleName($teacher_data['middle_name']);
+          $teacher->setLastName($teacher_data['last_name']);
+          $teacher->setSex($teacher_data['sex']);
+          $teacher->setMobileNumber($teacher_data['mobile_number']);
+          $teacher->setEmailAddress($teacher_data['email_address']);
+          $teacher->setDepartmentId($mydepartment);
 
-          if($form->isSubmitted()){
-            $data['form'] = [];
-            $teacher_data = $form->getData();
-            $data['form'] = $teacher_data;
-            $mydepartment = $this->getDoctrine()
-                                 ->getRepository('AppBundle:Department')
-                                 ->findOneById($teacher_data['teacher_department']);
+          $em = $this->getDoctrine()->getManager();
+          $em->persist($teacher);
+          $em->flush();
 
-            $teacher->setFirstName($teacher_data['first_name']);
-            $teacher->setMiddleName($teacher_data['middle_name']);
-            $teacher->setLastName($teacher_data['last_name']);
-            $teacher->setSex($teacher_data['sex']);
-            $teacher->setMobileNumber($teacher_data['mobile_number']);
-            $teacher->setEmailAddress($teacher_data['email_address']);
-            $teacher->setDepartmentId($mydepartment);
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($teacher);
-            $em->flush();
-
-            return $this->redirectToRoute('teacher_view');
-          }
-          return $this->render('teacher/form.html.twig', $data);
-        } else {
-          $data['message'] = 'You Are Not Qualified to Edit This Teacher.';
-          return $this->render('accessDenied.html.twig', $data);
+          return $this->redirectToRoute('teacher_view');
         }
+        return $this->render('teacher/form.html.twig', $data);
       } else {
-        $data['message'] = 'There\'s No Teacher With This ID (' . $teacher_id . ').';
+        $data['message'] = 'You Are Not Qualified to Edit This Teacher.';
         return $this->render('accessDenied.html.twig', $data);
       }
+    } else {
+      $data['message'] = 'There\'s No Teacher With This ID (' . $teacher_id . ').';
+      return $this->render('accessDenied.html.twig', $data);
     }
+  }
 
-    /**
-     * @Route("/teacher/delete/{teacher_id}", name="teacher_delete")
-     */
-    public function teacherDeleteAction(Request $request, $teacher_id)
-    {
-      $session = new Session();
+  /**
+   * @Route("/teacher/delete/{teacher_id}", name="teacher_delete")
+   */
+  public function teacherDeleteAction(Request $request, $teacher_id)
+  {
+    $session = new Session();
 
-      if($session->get('user_name') && $session->get('user_id') && ($session->get('user_type') == 'admin')){
-        $teacher = $this->getDoctrine()
-                            ->getRepository('AppBundle:Teacher')
-                            ->findOneById($teacher_id);
+    if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
+      $teacher = $this->getDoctrine()
+                          ->getRepository('AppBundle:Teacher')
+                          ->findOneById($teacher_id);
 
-        $teacher_user_name = $teacher->getUserName();
+      $teacher_user_name = $teacher->getUserName();
 
-        $teacher_log_in_info = $this->getDoctrine()
-                            ->getRepository('AppBundle:LogInTable')
-                            ->findOneByUserName($teacher_user_name);
+      $teacher_log_in_info = $this->getDoctrine()
+                          ->getRepository('AppBundle:LogInTable')
+                          ->findOneByUserName($teacher_user_name);
 
-        $em = $this->getDoctrine()->getManager();
+      $em = $this->getDoctrine()->getManager();
 
-        $em->remove($teacher);
-        $em->remove($teacher_log_in_info);
-        $em->flush();
+      $em->remove($teacher);
+      $em->remove($teacher_log_in_info);
+      $em->flush();
 
-        return $this->redirectToRoute('teacher_view');
-      } else {
-        $data['message'] = 'You Are Not Qualified to Delete This Teacher.';
-        return $this->render('accessDenied.html.twig', $data);
-      }
+      return $this->redirectToRoute('teacher_view');
+    } else {
+      $data['message'] = 'You Are Not Qualified to Delete This Teacher.';
+      return $this->render('accessDenied.html.twig', $data);
     }
+  }
 
-    /**
-     * @Route("/teacher/view", name="teacher_view")
-     */
-    public function teacherViewAction()
-    {
-      $session = new Session();
+  /**
+   * @Route("/teacher/view", name="teacher_view")
+   */
+  public function teacherViewAction()
+  {
+    $session = new Session();
 
-      if($session->get('user_name') && $session->get('user_id') && ($session->get('user_type') == 'admin')){
-        $data = [];
-        $data['teachers'] = [];
+    if($session->get('user_type') == 'admin'){
+      $data = [];
+      $data['teachers'] = [];
 
-        $teacher = $this->getDoctrine()
-                            ->getRepository('AppBundle:Teacher')
-                            ->findAll();
+      $teacher = $this->getDoctrine()
+                          ->getRepository('AppBundle:Teacher')
+                          ->findAll();
 
-        $department = $this->getDoctrine()
-                            ->getRepository('AppBundle:Department')
-                            ->findAll();
+      $department = $this->getDoctrine()
+                          ->getRepository('AppBundle:Department')
+                          ->findAll();
 
-        $data['departments'] = $department;
+      $data['departments'] = $department;
 
-        $data['teachers'] = $teacher;
+      $data['teachers'] = $teacher;
 
-        return $this->render('teacher/view.html.twig', $data);
-      } else {
-        $data['message'] = 'You Are Not Qualified to View Teachers.';
-        return $this->render('accessDenied.html.twig', $data);
-      }
+      return $this->render('teacher/view.html.twig', $data);
+    } else {
+      $data['message'] = 'You Are Not Qualified to View Teachers.';
+      return $this->render('accessDenied.html.twig', $data);
     }
+  }
 
-    /**
-     * @Route("/teacher/view_one/{teacher_id}", name="teacher_view_one")
-     */
-    public function teacherViewOneAction(Request $request, $teacher_id)
-    {
-      $session = new Session();
+  /**
+   * @Route("/teacher/view_one/{teacher_id}", name="teacher_view_one")
+   */
+  public function teacherViewOneAction(Request $request, $teacher_id)
+  {
+    $session = new Session();
 
-      if($session->get('user_name') && $session->get('user_id') && ($session->get('user_type') == 'admin')){
-        $data = [];
-        $data['teachers'] = [];
+    if($session->get('user_type') == 'admin'){
+      $data = [];
+      $data['teachers'] = [];
 
-        $teacher = $this->getDoctrine()
-                            ->getRepository('AppBundle:Teacher')
-                            ->findOneById($teacher_id);
+      $teacher = $this->getDoctrine()
+                          ->getRepository('AppBundle:Teacher')
+                          ->findOneById($teacher_id);
 
-        $teacher_department = $teacher->getDepartmentId();
+      $teacher_department = $teacher->getDepartmentId();
 
-        $department = $this->getDoctrine()
-                            ->getRepository('AppBundle:Department')
-                            ->findOneById($teacher_department);
+      $department = $this->getDoctrine()
+                          ->getRepository('AppBundle:Department')
+                          ->findOneById($teacher_department);
 
-        $data['department'] = $department;
+      $data['department'] = $department;
 
-        $data['teacher'] = $teacher;
+      $data['teacher'] = $teacher;
 
-        return $this->render('teacher/view_one.html.twig', $data);
-      } else {
-        $data['message'] = 'You Are Not Qualified to View This Teacher.';
-        return $this->render('accessDenied.html.twig', $data);
-      }
+      return $this->render('teacher/view_one.html.twig', $data);
+    } else {
+      $data['message'] = 'You Are Not Qualified to View This Teacher.';
+      return $this->render('accessDenied.html.twig', $data);
     }
+  }
 }

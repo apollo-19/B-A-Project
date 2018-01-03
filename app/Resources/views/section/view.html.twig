@@ -11,7 +11,9 @@
 
 {% block body %}
   <div class="container" id="view_container">
-    <a href="{{ path('section_create') }}">New Section</a>
+    {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
+      <a href="{{ path('section_create') }}">New Section</a>
+    {% endif %}
     <table border="0">
       <thead>
         <tr>
@@ -45,7 +47,7 @@
 
             <td id="actions"><a href="{{ path('section_view_one', {'section_id': section.id}) }}">view</button></td>
 
-            {% if(app.session.get('user_type') == 'admin') %}
+            {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
               <td id="actions"><a href="{{ path('section_edit', {'section_id': section.id}) }}" id="editBtn">edit</button></td>
               <td id="actions"><a href="{{ path('section_delete', {'section_id': section.id}) }}" id="deleteBtn"
                     onclick="return confirm('Are You Sure You Want To Delete {{ section.sectionName }} ({{ section.sectionCode }})?') ">delete</button></td>

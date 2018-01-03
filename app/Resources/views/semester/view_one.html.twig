@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ school.schoolCode }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+</style>
+{% endblock %}
+
+{% block body %}
+  <article class="container taleft">
+    <div class="form fright">
+
+      <h1 class="welcomeText tacenter">{{ school.schoolName }} ({{ school.schoolCode }})</h1>
+
+      <table>
+        <tr>
+          <td>School Code:</td>
+          <td>{{ school.schoolCode }}</td>
+        </tr>
+
+        <tr>
+          <td>School Name:</td>
+          <td>{{ school.schoolName }}</td>
+        </tr>
+
+        <tr>
+          <td>Curriculums:</td>
+          <td>
+            {% for curriculum in curriculums %}
+              <p><a href="{{ path('curriculum_view_one', {'curriculum_id': curriculum.id}) }}">
+                {{ curriculum.curriculumCode | upper ~ ' (' ~ curriculum.curriculumName ~ ')' }}
+              </a></p>
+            {% endfor %}
+          </td>
+        </tr>
+
+        <tr>
+          <td>Departments:</td>
+          <td>
+            {% for department in departments %}
+              <p><a href="{{ path('department_view_one', {'department_id': department.id}) }}">
+                {{ department.departmentCode | upper ~ ' (' ~ department.departmentName ~ ')' }}
+              </a></p>
+            {% endfor %}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <hr class="clear" width="0" />
+  </article>
+{% endblock %}

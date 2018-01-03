@@ -156,3 +156,4 @@ class GradeSystem
         return $this->curriculums;
     }
 }
+

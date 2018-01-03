@@ -48,6 +48,11 @@ class Module
     private $schoolsessions;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $prerequisiteModule;
+
+    /**
      * @var \AppBundle\Entity\Curriculum
      */
     private $curriculumId;
@@ -59,6 +64,7 @@ class Module
     {
         $this->courses = new \Doctrine\Common\Collections\ArrayCollection();
         $this->schoolsessions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->prerequisiteModule = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -260,35 +266,6 @@ class Module
     }
 
     /**
-     * Set curriculumId
-     *
-     * @param \AppBundle\Entity\Curriculum $curriculumId
-     *
-     * @return Module
-     */
-    public function setCurriculumId(\AppBundle\Entity\Curriculum $curriculumId)
-    {
-        $this->curriculumId = $curriculumId;
-
-        return $this;
-    }
-
-    /**
-     * Get curriculumId
-     *
-     * @return \AppBundle\Entity\Curriculum
-     */
-    public function getCurriculumId()
-    {
-        return $this->curriculumId;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $prerequisiteModule;
-
-
-    /**
      * Add prerequisiteModule
      *
      * @param \AppBundle\Entity\Prerequisite $prerequisiteModule
@@ -321,4 +298,29 @@ class Module
     {
         return $this->prerequisiteModule;
     }
+
+    /**
+     * Set curriculumId
+     *
+     * @param \AppBundle\Entity\Curriculum $curriculumId
+     *
+     * @return Module
+     */
+    public function setCurriculumId(\AppBundle\Entity\Curriculum $curriculumId)
+    {
+        $this->curriculumId = $curriculumId;
+
+        return $this;
+    }
+
+    /**
+     * Get curriculumId
+     *
+     * @return \AppBundle\Entity\Curriculum
+     */
+    public function getCurriculumId()
+    {
+        return $this->curriculumId;
+    }
 }
+

@@ -12,30 +12,13 @@ use AppBundle\Entity\LogInTable;
 class StudentController extends Controller
 {
     /**
-     * @Route("/student", name="student_home")
-     */
-    public function indexAction()
-    {
-      $session = new Session();
-
-      if($session->get('user_id') && ($session->get('user_type') == 'student')){
-        $data['si_user_name'] = ucwords($session->get('user_name'));
-        $data['si_user_type'] = $session->get('user_type');
-
-        return $this->render('student/index.html.twig', $data);
-      }
-      else
-        return $this->redirectToRoute('user_signin');
-    }
-
-    /**
      * @Route("/student/register", name="student_register")
      */
     public function studentCreateAction(Request $request)
     {
       $session = new Session();
 
-      if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'admin')){
+      if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
         $data = [];
         $data['mode'] = 'new';
         $data['form'] = [];
@@ -116,6 +99,9 @@ class StudentController extends Controller
       $data = [];
       $data['mode'] = 'edit';
 
+      $session = new Session();
+
+      if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
       $form = $this ->createFormBuilder()
                     ->add('admission_number')
                     ->add('first_name_en')
@@ -152,9 +138,6 @@ class StudentController extends Controller
 
       $data['sections'] = $section;
 
-      $session = new Session();
-
-      if($session->get('user_name') && ($session->get('user_type') == 'admin')){
         $data['form'] = $student_data;
 
         $form->handleRequest($request);
@@ -198,7 +181,7 @@ class StudentController extends Controller
     {
       $session = new Session();
 
-      if($session->get('user_name') && $session->get('user_id') && ($session->get('user_type') == 'admin')){
+      if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
         $student = $this->getDoctrine()
                             ->getRepository('AppBundle:Student')
                             ->findOneById($student_id);
@@ -227,7 +210,7 @@ class StudentController extends Controller
     {
       $session = new Session();
 
-      if($session->get('user_name') && $session->get('user_id') && ($session->get('user_type') == 'admin')){
+      if($session->get('user_type') == 'admin' || $session->get('user_type') == 'teacher'){
         $data = [];
         $data['students'] = [];
 
@@ -257,7 +240,7 @@ class StudentController extends Controller
     {
       $session = new Session();
 
-      if($session->get('user_name') && $session->get('user_id') && ($session->get('user_type') == 'admin')){
+      if($session->get('user_type') == 'admin' || $session->get('user_type') == 'teacher'){
         $data = [];
         $data['students'] = [];
 
@@ -341,7 +324,6 @@ class StudentController extends Controller
                                   ->execute();
 
         $data['assessment_results'] = $assessment_results;
-
 
         return $this->render('student/assessment_result_view.html.twig', $data);
       } else {

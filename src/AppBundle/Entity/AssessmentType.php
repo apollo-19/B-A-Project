@@ -32,6 +32,18 @@ class AssessmentType
      */
     private $createdBy;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $assessmentResults;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->assessmentResults = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -138,18 +150,6 @@ class AssessmentType
     {
         return $this->createdBy;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $assessmentResults;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->assessmentResults = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add assessmentResult
@@ -185,3 +185,4 @@ class AssessmentType
         return $this->assessmentResults;
     }
 }
+

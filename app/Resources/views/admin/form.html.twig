@@ -6,9 +6,12 @@
 
 {% block body %}
   <div class="container taright">
-    <form class="form fright" method="post">
+    <form class="form fright" method="post" enctype="multipart/form-data">
       <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Admin' : 'Edit Admin' }}</h1>
       <h2>{{ result_message is defined ? result_message : '' }}</h2>
+
+      <label for="form[first_name]">Photo</label>
+      <input type="file" name="form[first_name]" placeholder="" value="{{ form.first_name is defined ? form.first_name : '' }}" required />
 
       <label for="form[first_name]">First Name</label>
       <input type="text" name="form[first_name]" placeholder="" value="{{ form.first_name is defined ? form.first_name : '' }}" required />
@@ -32,14 +35,17 @@
       </select>
 
       <label for="form[admin_class]">Admin Class</label>
-      <select name="form[admin_class]" id="admin_class">
-        <option disabled></option>
-        <optgroup label="Registrar" id="registrar">
-          <option value="registrar head" {{ (form.admin_class is defined and form.admin_class == 'registrar head') ? 'selected' : '' }}>Registrar Head</option>
+      <select name="form[admin_class]" id="registrar">
+        <optgroup label="Registrar">
+          {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head')) %}
+            <option value="registrar head" {{ (form.admin_class is defined and form.admin_class == 'registrar head') ? 'selected' : '' }}>Registrar Head</option>
+          {% endif %}
           <option value="registrar officer" {{ (form.admin_class is defined and form.admin_class == 'registrar officer') ? 'selected' : '' }}>Registrar Officer</option>
         </optgroup>
+      </select>
 
-        <optgroup label="Academics" id="academics">
+      <select name="form[admin_class]" id="academics">
+        <optgroup label="Academics">
           <option value="integrated coordinator" {{ (form.admin_class is defined and form.admin_class == 'integrated coordinator') ? 'selected' : '' }}>Integrated Coordinator</option>
           <option value="module coordinator" {{ (form.admin_class is defined and form.admin_class == 'module coordinator') ? 'selected' : '' }}>Module Coordinator</option>
           <option value="minor coordinator" {{ (form.admin_class is defined and form.admin_class == 'minor coordinator') ? 'selected' : '' }}>Minor Coordinator</option>

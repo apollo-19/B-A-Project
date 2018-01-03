@@ -11,21 +11,13 @@ use AppBundle\Entity\Department;
 class DepartmentController extends Controller
 {
     /**
-     * @Route("/department", name="department_home")
-     */
-    public function indexAction()
-    {
-      return $this->render('department/index.html.twig');
-    }
-
-    /**
      * @Route("/department/create", name="department_create")
      */
     public function departmentHireAction(Request $request)
     {
       $session = new Session();
 
-      if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'admin')){
+      if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
         $data = [];
         $data['mode'] = 'new';
         $data['form'] = [];
@@ -81,30 +73,31 @@ class DepartmentController extends Controller
       $data['form'] = [];
       $data['school'] = [];
 
-      $form = $this ->createFormBuilder()
-                    ->add('department_code')
-                    ->add('department_name')
-                    ->add('department_school')
-                    ->getForm();
-
-      $department = $this->getDoctrine()
-                          ->getRepository('AppBundle:Department')
-                          ->findOneById($department_id);
-
-      $department_data['department_code'] = $department->getDepartmentCode();
-      $department_data['department_name'] = $department->getDepartmentName();
-      $department_data['department_school'] = $department->getSchoolId();
-      $department_data['created_by'] = $department->getCreatedBy();
-
-      $schools = $this->getDoctrine()
-                          ->getRepository('AppBundle:School')
-                          ->findAll();
-
-      $data['schools'] = $schools;
-
       $session = new Session();
 
-      if($session->get('user_name') && ($session->get('user_type') == 'admin') && ($session->get('user_id') == $department_data['created_by'])){
+      if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
+
+        $form = $this ->createFormBuilder()
+                      ->add('department_code')
+                      ->add('department_name')
+                      ->add('department_school')
+                      ->getForm();
+
+        $department = $this->getDoctrine()
+                            ->getRepository('AppBundle:Department')
+                            ->findOneById($department_id);
+
+        $department_data['department_code'] = $department->getDepartmentCode();
+        $department_data['department_name'] = $department->getDepartmentName();
+        $department_data['department_school'] = $department->getSchoolId();
+        $department_data['created_by'] = $department->getCreatedBy();
+
+        $schools = $this->getDoctrine()
+                            ->getRepository('AppBundle:School')
+                            ->findAll();
+
+        $data['schools'] = $schools;
+
         $data['form'] = $department_data;
 
         $form->handleRequest($request);
@@ -140,7 +133,7 @@ class DepartmentController extends Controller
     {
       $session = new Session();
 
-      if($session->get('user_name') && $session->get('user_id') && ($session->get('user_type') == 'admin')){
+      if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
         $department = $this->getDoctrine()
                             ->getRepository('AppBundle:Department')
                             ->findOneById($department_id);
@@ -164,7 +157,7 @@ class DepartmentController extends Controller
     {
       $session = new Session();
 
-      if($session->get('user_name') && $session->get('user_id') && ($session->get('user_type') == 'admin')){
+      if($session->get('user_id')){
         $data = [];
         $data['departments'] = [];
 
@@ -194,7 +187,7 @@ class DepartmentController extends Controller
     {
       $session = new Session();
 
-      if($session->get('user_name') && $session->get('user_id') && ($session->get('user_type') == 'admin')){
+      if($session->get('user_id')){
         $data = [];
         $data['departments'] = [];
 

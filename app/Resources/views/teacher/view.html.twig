@@ -11,8 +11,11 @@
 
 {% block body %}
   <div class="container" id="view_container">
-    <a href="{{ path('teacher_hire') }}">New Teacher</a>
-    <table border="0">
+    {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
+      <a href="{{ path('teacher_hire') }}">New Teacher</a>
+    {% endif %}
+
+    <table>
       <thead>
         <tr>
           <th>Name</th>
@@ -39,9 +42,11 @@
             </td>
 
             <td id="actions"><a href="{{ path('teacher_view_one', {'teacher_id': teacher.id}) }}">view</a></td>
-            <td id="actions"><a href="{{ path('teacher_edit', {'teacher_id': teacher.id}) }}">edit</a></td>
-            <td id="actions"><a href="{{ path('teacher_delete', {'teacher_id': teacher.id}) }}" id="deleteBtn"
+            {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
+                <td id="actions"><a href="{{ path('teacher_edit', {'teacher_id': teacher.id}) }}">edit</a></td>
+                <td id="actions"><a href="{{ path('teacher_delete', {'teacher_id': teacher.id}) }}" id="deleteBtn"
                   onclick="return confirm('Are You Sure You Want To Delete {{ teacher.firstName }} {{ teacher.middleName }} {{ teacher.lastName }}?') ">delete</a></td>
+            {% endif %}
           </tr>
         {% endfor %}
       </tbody>

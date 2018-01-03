@@ -10,89 +10,84 @@ use AppBundle\Entity\Section;
 
 class SectionController extends Controller
 {
-    /**
-     * @Route("/section", name="section_home")
-     */
-    public function indexAction()
-    {
-      return $this->render('section/index.html.twig');
-    }
+  /**
+   * @Route("/section/create", name="section_create")
+   */
+  public function sectionCreateAction(Request $request)
+  {
+    $session = new Session();
 
-    /**
-     * @Route("/section/create", name="section_create")
-     */
-    public function sectionCreateAction(Request $request)
-    {
-      $session = new Session();
-
-      if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'admin')){
-        $data = [];
-        $data['mode'] = 'new';
-        $data['form'] = [];
-
-        $form = $this ->createFormBuilder()
-                      ->add('section_code')
-                      ->add('section_name')
-                      ->add('section_batch')
-                      ->add('section_curriculum')
-                      ->getForm();
-
-        $batch = $this->getDoctrine()
-                            ->getRepository('AppBundle:Batch')
-                            ->findAll();
-
-        $data['batches'] = $batch;
-
-        $curriculum = $this->getDoctrine()
-                      ->getRepository('AppBundle:Curriculum')
-                      ->findAll();
-
-        $data['curriculums'] = $curriculum;
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted()){
-          $section_data = $form->getData();
-          $data['form'] = $section_data;
-          $mybatch = $this->getDoctrine()
-                              ->getRepository('AppBundle:Batch')
-                              ->findOneById($section_data['section_batch']);
-
-          $mycurriculum = $this->getDoctrine()
-                        ->getRepository('AppBundle:Curriculum')
-                        ->findOneById($section_data['section_curriculum']);
-
-          $em = $this->getDoctrine()->getManager();
-          $section = new Section();
-          $section->setSectionCode($section_data['section_code']);
-          $section->setSectionName($section_data['section_name']);
-          $section->setBatchId($mybatch);
-          $section->setCurriculumId($mycurriculum);
-          $section->setCreatedBy($session->get('user_id'));
-
-          $em->persist($section);
-
-          $em->flush();
-          return $this->redirectToRoute('section_view');
-        }
-
-        return $this->render('section/form.html.twig', $data);
-      } else {
-        $data['message'] = 'You Are Not Qualified to Hire a Section.';
-        return $this->render('accessDenied.html.twig', $data);
-      }
-    }
-
-    /**
-     * @Route("/section/edit/{section_id}", name="section_edit")
-     */
-    public function sectionEditAction(Request $request, $section_id)
-    {
+    if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
       $data = [];
-      $data['mode'] = 'edit';
+      $data['mode'] = 'new';
       $data['form'] = [];
-      $data['batch'] = [];
 
+      $form = $this ->createFormBuilder()
+                    ->add('section_code')
+                    ->add('section_name')
+                    ->add('section_batch')
+                    ->add('section_curriculum')
+                    ->getForm();
+
+      $batch = $this->getDoctrine()
+                          ->getRepository('AppBundle:Batch')
+                          ->findAll();
+
+      $data['batches'] = $batch;
+
+      $curriculum = $this->getDoctrine()
+                    ->getRepository('AppBundle:Curriculum')
+                    ->findAll();
+
+      $data['curriculums'] = $curriculum;
+
+      $form->handleRequest($request);
+
+      if($form->isSubmitted()){
+        $section_data = $form->getData();
+        $data['form'] = $section_data;
+        $mybatch = $this->getDoctrine()
+                            ->getRepository('AppBundle:Batch')
+                            ->findOneById($section_data['section_batch']);
+
+        $mycurriculum = $this->getDoctrine()
+                      ->getRepository('AppBundle:Curriculum')
+                      ->findOneById($section_data['section_curriculum']);
+
+        $em = $this->getDoctrine()->getManager();
+        $section = new Section();
+        $section->setSectionCode($section_data['section_code']);
+        $section->setSectionName($section_data['section_name']);
+        $section->setBatchId($mybatch);
+        $section->setCurriculumId($mycurriculum);
+        $section->setCreatedBy($session->get('user_id'));
+
+        $em->persist($section);
+
+        $em->flush();
+        return $this->redirectToRoute('section_view');
+      }
+
+      return $this->render('section/form.html.twig', $data);
+    } else {
+      $data['message'] = 'You Are Not Qualified to Create a Section.';
+      return $this->render('accessDenied.html.twig', $data);
+    }
+  }
+
+  /**
+   * @Route("/section/edit/{section_id}", name="section_edit")
+   */
+  public function sectionEditAction(Request $request, $section_id)
+  {
+    $data = [];
+    $data['mode'] = 'edit';
+    $data['form'] = [];
+    $data['batch'] = [];
+
+    $session = new Session();
+
+    if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
       $form = $this ->createFormBuilder()
                     ->add('section_code')
                     ->add('section_name')
@@ -123,132 +118,129 @@ class SectionController extends Controller
 
       $data['batches'] = $batches;
 
-      $session = new Session();
+      $data['form'] = $section_data;
 
-      if($session->get('user_name') && ($session->get('user_type') == 'admin') && ($session->get('user_id') == $section_data['created_by'])){
+      $form->handleRequest($request);
+
+      if($form->isSubmitted()){
+        $data['form'] = [];
+        $section_data = $form->getData();
         $data['form'] = $section_data;
+        $mybatch = $this->getDoctrine()
+                            ->getRepository('AppBundle:Batch')
+                            ->findOneById($section_data['section_batch']);
 
-        $form->handleRequest($request);
+        $mycurriculum = $this->getDoctrine()
+                      ->getRepository('AppBundle:Curriculum')
+                      ->findOneById($section_data['section_curriculum']);
 
-        if($form->isSubmitted()){
-          $data['form'] = [];
-          $section_data = $form->getData();
-          $data['form'] = $section_data;
-          $mybatch = $this->getDoctrine()
-                              ->getRepository('AppBundle:Batch')
-                              ->findOneById($section_data['section_batch']);
-
-          $mycurriculum = $this->getDoctrine()
-                        ->getRepository('AppBundle:Curriculum')
-                        ->findOneById($section_data['section_curriculum']);
-
-          $section->setSectionCode($section_data['section_code']);
-          $section->setSectionName($section_data['section_name']);
-          $section->setbatchId($mybatch);
-          $section->setCurriculumId($mycurriculum);
-
-          $em = $this->getDoctrine()->getManager();
-          $em->persist($section);
-          $em->flush();
-
-          return $this->redirectToRoute('section_view');
-        }
-        return $this->render('section/form.html.twig', $data);
-      } else {
-        $data['message'] = 'You Are Not Qualified to Edit This Section.';
-        return $this->render('accessDenied.html.twig', $data);
-      }
-    }
-
-    /**
-     * @Route("/section/delete/{section_id}", name="section_delete")
-     */
-    public function sectionDeleteAction(Request $request, $section_id)
-    {
-      $session = new Session();
-
-      if($session->get('user_name') && $session->get('user_id') && ($session->get('user_type') == 'admin')){
-        $section = $this->getDoctrine()
-                            ->getRepository('AppBundle:Section')
-                            ->findOneById($section_id);
+        $section->setSectionCode($section_data['section_code']);
+        $section->setSectionName($section_data['section_name']);
+        $section->setbatchId($mybatch);
+        $section->setCurriculumId($mycurriculum);
 
         $em = $this->getDoctrine()->getManager();
-
-        $em->remove($section);
+        $em->persist($section);
         $em->flush();
 
         return $this->redirectToRoute('section_view');
-      } else {
-        $data['message'] = 'You Are Not Qualified to Delete This Section.';
-        return $this->render('accessDenied.html.twig', $data);
       }
+      return $this->render('section/form.html.twig', $data);
+    } else {
+      $data['message'] = 'You Are Not Qualified to Edit This Section.';
+      return $this->render('accessDenied.html.twig', $data);
     }
+  }
 
-    /**
-     * @Route("/section/view", name="section_view")
-     */
-    public function sectionViewAction()
-    {
-      $session = new Session();
+  /**
+   * @Route("/section/delete/{section_id}", name="section_delete")
+   */
+  public function sectionDeleteAction(Request $request, $section_id)
+  {
+    $session = new Session();
 
-      if($session->get('user_id') && ($session->get('user_type') == 'admin' || $session->get('user_type') == 'teacher')){
-        $data = [];
-        $data['sections'] = [];
+    if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
+      $section = $this->getDoctrine()
+                          ->getRepository('AppBundle:Section')
+                          ->findOneById($section_id);
 
-        $section = $this->getDoctrine()
-                            ->getRepository('AppBundle:Section')
-                            ->findAll();
+      $em = $this->getDoctrine()->getManager();
 
-        $data['sections'] = $section;
+      $em->remove($section);
+      $em->flush();
 
-        $batch = $this->getDoctrine()
-                            ->getRepository('AppBundle:Batch')
-                            ->findAll();
-
-        $data['batches'] = $batch;
-
-        $curriculum = $this->getDoctrine()
-                            ->getRepository('AppBundle:Curriculum')
-                            ->findAll();
-
-        $data['curriculums'] = $curriculum;
-
-        return $this->render('section/view.html.twig', $data);
-      } else {
-        $data['message'] = 'You Are Not Qualified to View Sections.';
-        return $this->render('accessDenied.html.twig', $data);
-      }
+      return $this->redirectToRoute('section_view');
+    } else {
+      $data['message'] = 'You Are Not Qualified to Delete This Section.';
+      return $this->render('accessDenied.html.twig', $data);
     }
+  }
 
-    /**
-     * @Route("/section/view_one/{section_id}", name="section_view_one")
-     */
-    public function sectionViewOneAction(Request $request, $section_id)
-    {
-      $session = new Session();
+  /**
+   * @Route("/section/view", name="section_view")
+   */
+  public function sectionViewAction()
+  {
+    $session = new Session();
 
-      if($session->get('user_id') && ($session->get('user_type') == 'admin' || $session->get('user_type') == 'teacher')){
-        $data = [];
-        $data['sections'] = [];
+    if( ($session->get('user_type') == 'admin') || ($session->get('user_type') == 'teacher') ){
+      $data = [];
+      $data['sections'] = [];
 
-        $section = $this->getDoctrine()
-                            ->getRepository('AppBundle:Section')
-                            ->findOneById($section_id);
+      $section = $this->getDoctrine()
+                          ->getRepository('AppBundle:Section')
+                          ->findAll();
 
-        $section_batch = $section->getBatchId();
+      $data['sections'] = $section;
 
-        $batch = $this->getDoctrine()
-                            ->getRepository('AppBundle:Batch')
-                            ->findOneById($section_batch);
+      $batch = $this->getDoctrine()
+                          ->getRepository('AppBundle:Batch')
+                          ->findAll();
 
-        $data['section'] = $section;
+      $data['batches'] = $batch;
 
-        $data['batch'] = $batch;
+      $curriculum = $this->getDoctrine()
+                          ->getRepository('AppBundle:Curriculum')
+                          ->findAll();
 
-        return $this->render('section/view_one.html.twig', $data);
-      } else {
-        $data['message'] = 'You Are Not Qualified to View This Section.';
-        return $this->render('accessDenied.html.twig', $data);
-      }
+      $data['curriculums'] = $curriculum;
+
+      return $this->render('section/view.html.twig', $data);
+    } else {
+      $data['message'] = 'You Are Not Qualified to View Sections.';
+      return $this->render('accessDenied.html.twig', $data);
     }
+  }
+
+  /**
+   * @Route("/section/view_one/{section_id}", name="section_view_one")
+   */
+  public function sectionViewOneAction(Request $request, $section_id)
+  {
+    $session = new Session();
+
+    if( ($session->get('user_type') == 'admin') || ($session->get('user_type') == 'teacher') ){
+      $data = [];
+      $data['sections'] = [];
+
+      $section = $this->getDoctrine()
+                          ->getRepository('AppBundle:Section')
+                          ->findOneById($section_id);
+
+      $section_batch = $section->getBatchId();
+
+      $batch = $this->getDoctrine()
+                          ->getRepository('AppBundle:Batch')
+                          ->findOneById($section_batch);
+
+      $data['section'] = $section;
+
+      $data['batch'] = $batch;
+
+      return $this->render('section/view_one.html.twig', $data);
+    } else {
+      $data['message'] = 'You Are Not Qualified to View This Section.';
+      return $this->render('accessDenied.html.twig', $data);
+    }
+  }
 }

@@ -18,7 +18,7 @@ class PrerequisiteController extends Controller
     {
       $session = new Session();
 
-      if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'admin')){
+      if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
         $data = [];
         $data['mode'] = 'new';
 
@@ -93,41 +93,41 @@ class PrerequisiteController extends Controller
       $data = [];
       $data['mode'] = 'edit';
 
-      $form = $this ->createFormBuilder()
-                    ->add('course_module_type')
-                    ->add('course_id')
-                    ->add('module_id')
-                    ->add('prerequisite_type')
-                    ->add('prerequisite_course_id')
-                    ->add('prerequisite_module_id')
-                    ->getForm();
-
-      $prerequisite = $this->getDoctrine()
-                          ->getRepository('AppBundle:Prerequisite')
-                          ->findOneById($prerequisite_id);
-
-      $prerequisite_data['course_module_type'] = $prerequisite->getCourseModuleType();
-      $prerequisite_data['course_id'] = $prerequisite->getCourseId();
-      $prerequisite_data['module_id'] = $prerequisite->getModuleId();
-      $prerequisite_data['prerequisite_type'] = $prerequisite->getPrerequisiteType();
-      $prerequisite_data['prerequisite_course_id'] = $prerequisite->getPrerequisiteCourseId();
-      $prerequisite_data['prerequisite_module_id'] = $prerequisite->getPrerequisiteModuleId();
-
-      $module = $this->getDoctrine()
-                          ->getRepository('AppBundle:Module')
-                          ->findAll();
-
-      $data['modules'] = $module;
-
-      $course = $this->getDoctrine()
-                          ->getRepository('AppBundle:Course')
-                          ->findAll();
-
-      $data['courses'] = $course;
-
       $session = new Session();
 
-      if($session->get('user_name') && ($session->get('user_type') == 'admin')){
+      if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
+        $form = $this ->createFormBuilder()
+                      ->add('course_module_type')
+                      ->add('course_id')
+                      ->add('module_id')
+                      ->add('prerequisite_type')
+                      ->add('prerequisite_course_id')
+                      ->add('prerequisite_module_id')
+                      ->getForm();
+
+        $prerequisite = $this->getDoctrine()
+                            ->getRepository('AppBundle:Prerequisite')
+                            ->findOneById($prerequisite_id);
+
+        $prerequisite_data['course_module_type'] = $prerequisite->getCourseModuleType();
+        $prerequisite_data['course_id'] = $prerequisite->getCourseId();
+        $prerequisite_data['module_id'] = $prerequisite->getModuleId();
+        $prerequisite_data['prerequisite_type'] = $prerequisite->getPrerequisiteType();
+        $prerequisite_data['prerequisite_course_id'] = $prerequisite->getPrerequisiteCourseId();
+        $prerequisite_data['prerequisite_module_id'] = $prerequisite->getPrerequisiteModuleId();
+
+        $module = $this->getDoctrine()
+                            ->getRepository('AppBundle:Module')
+                            ->findAll();
+
+        $data['modules'] = $module;
+
+        $course = $this->getDoctrine()
+                            ->getRepository('AppBundle:Course')
+                            ->findAll();
+
+        $data['courses'] = $course;
+
         $data['form'] = $prerequisite;
 
         $form->handleRequest($request);
@@ -178,7 +178,7 @@ class PrerequisiteController extends Controller
     {
       $session = new Session();
 
-      if($session->get('user_name') && $session->get('user_id') && ($session->get('user_type') == 'admin')){
+      if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
         $prerequisite = $this->getDoctrine()
                             ->getRepository('AppBundle:Prerequisite')
                             ->findOneById($prerequisite_id);
@@ -202,7 +202,7 @@ class PrerequisiteController extends Controller
     {
       $session = new Session();
 
-      if($session->get('user_id') && ($session->get('user_type') == 'admin' || $session->get('user_type') == 'teacher')){
+      if( $session->get('user_type') == 'admin' ){
         $data = [];
 
         $prerequisite = $this->getDoctrine()
@@ -225,7 +225,7 @@ class PrerequisiteController extends Controller
     {
       $session = new Session();
 
-      if($session->get('user_id') && ($session->get('user_type') == 'admin' || $session->get('user_type') == 'teacher')){
+      if( $session->get('user_type') == 'admin' ){
         $data = [];
 
         $prerequisite = $this->getDoctrine()

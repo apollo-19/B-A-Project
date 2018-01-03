@@ -7,12 +7,12 @@
 <style>
 #container {
   text-align: center;
-  padding: 50px;
+  padding: 25vh 50px;
 }
 
 #wrapper #container h1 {
   border: 1px solid #FF0000;
-  font-size: 25px;
+  font-size: 50px;
   color:#FF0000;
   padding: 20px;
   width: auto;
@@ -21,11 +21,11 @@
 {% endblock %}
 
 {% block body %}
-  <div id="wrapper">
-      <div id="container">
-          <h1>
-            {{ message }}
-          </h1>
-        </div>
+  <div id="wrapper" class="container">
+    <div id="container">
+        <h1>
+          {{ message }}
+        </h1>
       </div>
+    </div>
 {% endblock %}

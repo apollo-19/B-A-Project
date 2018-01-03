@@ -11,19 +11,23 @@
 
 {% block body %}
   <div class="container" id="view_container">
-    <a href="{{ path('prerequisite_create') }}">New Prerequisite</a>
+    {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
+      <a href="{{ path('prerequisite_create') }}">New Prerequisite</a>
+    {% endif %}
     <table border="0">
       <thead>
         <tr>
           <th>Course/Module</th>
           <th>Prerequisited Course/Module</th>
-          <th colspan="3">Action</th>
+          {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
+            <th colspan="3">Action</th>
+          {% endif %}
         </tr>
       </thead>
       <tbody>
         {% for prerequisite in prerequisites %}
           <tr>
-            <td>
+            <td id="total_row">
               ({{ prerequisite.courseModuleType | capitalize }}) -
               {% if (prerequisite.courseModuleType == 'course') %}
                 <a href="{{ path('course_view_one', {'course_id': prerequisite.courseId.id}) }}" id="moreDetBtn">{{ prerequisite.courseId.courseName }}</a>
@@ -42,7 +46,7 @@
               {% endif %}
             </td>
 
-            {% if(app.session.get('user_type') == 'admin') %}
+            {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
               <td id="actions"><a href="{{ path('prerequisite_edit', {'prerequisite_id': prerequisite.id}) }}" id="editBtn">edit</button></td>
               <td id="actions"><a href="{{ path('prerequisite_delete', {'prerequisite_id': prerequisite.id}) }}" id="deleteBtn"
                     onclick="return confirm('Are You Sure You Want To Delete ?') ">delete</button></td>

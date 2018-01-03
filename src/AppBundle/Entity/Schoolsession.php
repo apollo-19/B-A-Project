@@ -48,6 +48,11 @@ class Schoolsession
     private $createdBy;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sessionresult;
+
+    /**
      * @var \AppBundle\Entity\Section
      */
     private $sectionId;
@@ -72,6 +77,13 @@ class Schoolsession
      */
     private $assessmentTypeSystemId;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->sessionresult = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -252,6 +264,40 @@ class Schoolsession
     }
 
     /**
+     * Add sessionresult
+     *
+     * @param \AppBundle\Entity\SessionResult $sessionresult
+     *
+     * @return Schoolsession
+     */
+    public function addSessionresult(\AppBundle\Entity\SessionResult $sessionresult)
+    {
+        $this->sessionresult[] = $sessionresult;
+
+        return $this;
+    }
+
+    /**
+     * Remove sessionresult
+     *
+     * @param \AppBundle\Entity\SessionResult $sessionresult
+     */
+    public function removeSessionresult(\AppBundle\Entity\SessionResult $sessionresult)
+    {
+        $this->sessionresult->removeElement($sessionresult);
+    }
+
+    /**
+     * Get sessionresult
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSessionresult()
+    {
+        return $this->sessionresult;
+    }
+
+    /**
      * Set sectionId
      *
      * @param \AppBundle\Entity\Section $sectionId
@@ -370,50 +416,5 @@ class Schoolsession
     {
         return $this->assessmentTypeSystemId;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $sessionresult;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->sessionresult = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add sessionresult
-     *
-     * @param \AppBundle\Entity\SessionResult $sessionresult
-     *
-     * @return Schoolsession
-     */
-    public function addSessionresult(\AppBundle\Entity\SessionResult $sessionresult)
-    {
-        $this->sessionresult[] = $sessionresult;
-
-        return $this;
-    }
-
-    /**
-     * Remove sessionresult
-     *
-     * @param \AppBundle\Entity\SessionResult $sessionresult
-     */
-    public function removeSessionresult(\AppBundle\Entity\SessionResult $sessionresult)
-    {
-        $this->sessionresult->removeElement($sessionresult);
-    }
-
-    /**
-     * Get sessionresult
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSessionresult()
-    {
-        return $this->sessionresult;
-    }
 }
+

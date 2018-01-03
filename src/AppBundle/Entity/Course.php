@@ -38,6 +38,11 @@ class Course
     private $schoolsessions;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $prerequisiteCourse;
+
+    /**
      * @var \AppBundle\Entity\Curriculum
      */
     private $curriculumId;
@@ -58,6 +63,7 @@ class Course
     public function __construct()
     {
         $this->schoolsessions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->prerequisiteCourse = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -201,6 +207,40 @@ class Course
     }
 
     /**
+     * Add prerequisiteCourse
+     *
+     * @param \AppBundle\Entity\Prerequisite $prerequisiteCourse
+     *
+     * @return Course
+     */
+    public function addPrerequisiteCourse(\AppBundle\Entity\Prerequisite $prerequisiteCourse)
+    {
+        $this->prerequisiteCourse[] = $prerequisiteCourse;
+
+        return $this;
+    }
+
+    /**
+     * Remove prerequisiteCourse
+     *
+     * @param \AppBundle\Entity\Prerequisite $prerequisiteCourse
+     */
+    public function removePrerequisiteCourse(\AppBundle\Entity\Prerequisite $prerequisiteCourse)
+    {
+        $this->prerequisiteCourse->removeElement($prerequisiteCourse);
+    }
+
+    /**
+     * Get prerequisiteCourse
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPrerequisiteCourse()
+    {
+        return $this->prerequisiteCourse;
+    }
+
+    /**
      * Set curriculumId
      *
      * @param \AppBundle\Entity\Curriculum $curriculumId
@@ -271,43 +311,5 @@ class Course
     {
         return $this->semesterId;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $prerequisiteCourse;
-
-
-    /**
-     * Add prerequisiteCourse
-     *
-     * @param \AppBundle\Entity\Prerequisite $prerequisiteCourse
-     *
-     * @return Course
-     */
-    public function addPrerequisiteCourse(\AppBundle\Entity\Prerequisite $prerequisiteCourse)
-    {
-        $this->prerequisiteCourse[] = $prerequisiteCourse;
-
-        return $this;
-    }
-
-    /**
-     * Remove prerequisiteCourse
-     *
-     * @param \AppBundle\Entity\Prerequisite $prerequisiteCourse
-     */
-    public function removePrerequisiteCourse(\AppBundle\Entity\Prerequisite $prerequisiteCourse)
-    {
-        $this->prerequisiteCourse->removeElement($prerequisiteCourse);
-    }
-
-    /**
-     * Get prerequisiteCourse
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPrerequisiteCourse()
-    {
-        return $this->prerequisiteCourse;
-    }
 }
+

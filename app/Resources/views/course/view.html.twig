@@ -11,7 +11,10 @@
 
 {% block body %}
   <div class="container" id="view_container">
-    <a href="{{ path('course_create') }}">New Course</a>
+    {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
+      <a href="{{ path('course_create') }}">New Course</a>
+    {% endif %}
+
     <table border="0">
       <thead>
         <tr>
@@ -23,6 +26,7 @@
           <th colspan="3">Actions</th>
         </tr>
       </thead>
+
       <tbody>
         {% for course in courses %}
           {% set currCurriculumType = '' %}
@@ -54,7 +58,7 @@
 
             <td id="actions"><a href="{{ path('course_view_one', {'course_id': course.id}) }}">view</a></td>
 
-            {% if(app.session.get('user_type') == 'admin') %}
+            {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
               <td id="actions"><a href="{{ path('course_edit', {'course_id': course.id}) }}" id="editBtn">edit</button></td>
               <td id="actions"><a href="{{ path('course_delete', {'course_id': course.id}) }}" id="deleteBtn"
                     onclick="return confirm('Are You Sure You Want To Delete {{ course.courseName }} ({{ course.courseCode }})?') ">delete</button></td>

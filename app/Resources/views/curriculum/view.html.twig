@@ -11,7 +11,9 @@
 
 {% block body %}
   <div class="container" id="view_container">
-    <a href="{{ path('curriculum_create') }}">New Curriculum</a>
+    {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
+      <a href="{{ path('curriculum_create') }}">New Curriculum</a>
+    {% endif %}
 
     <table border="0">
       <thead>
@@ -46,9 +48,11 @@
             </td>
 
             <td id="actions"><a href="{{ path('curriculum_view_one', {'curriculum_id': curriculum.id}) }}">view</a></td>
-            <td id="actions"><a href="{{ path('curriculum_edit', {'curriculum_id': curriculum.id}) }}" id="editBtn">edit</button></td>
-            <td id="actions"><a href="{{ path('curriculum_delete', {'curriculum_id': curriculum.id}) }}" id="deleteBtn"
-                  onclick="return confirm('Are You Sure You Want To Delete {{ curriculum.curriculumName }} ({{ curriculum.curriculumCode }})?') ">delete</button></td>
+            {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
+              <td id="actions"><a href="{{ path('curriculum_edit', {'curriculum_id': curriculum.id}) }}" id="editBtn">edit</button></td>
+              <td id="actions"><a href="{{ path('curriculum_delete', {'curriculum_id': curriculum.id}) }}" id="deleteBtn"
+                    onclick="return confirm('Are You Sure You Want To Delete {{ curriculum.curriculumName }} ({{ curriculum.curriculumCode }})?') ">delete</button></td>
+            {% endif %}
           </tr>
         {% endfor %}
       </tbody>

@@ -330,3 +330,4 @@ class Teacher
         return $this->departmentId;
     }
 }
+

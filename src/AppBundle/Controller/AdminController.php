@@ -34,7 +34,7 @@ class AdminController extends Controller
     {
       $session = new Session();
 
-      if($session->get('user_id') && ($session->get('user_type') == 'admin')){
+      if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
         $data = [];
         $data['mode'] = 'new';
 
@@ -65,7 +65,7 @@ class AdminController extends Controller
 
             $passwordLIT = new LogInTable();
             $passwordLIT->setUserName($admin_data['user_name']);
-            $passwordLIT->setPassword($admin_data['password']);
+            $passwordLIT->setPassword(md5($admin_data['password']));
             $passwordLIT->setUserType('admin');
 
             $admin = new Admin();
@@ -89,7 +89,7 @@ class AdminController extends Controller
 
         return $this->render('admin/form.html.twig', $data);
       } else {
-        $data['message'] = 'You Are Not Qualified to Create a Admin.';
+        $data['message'] = 'You Are Not Qualified to Create an Admin.';
         return $this->render('accessDenied.html.twig', $data);
       }
     }
@@ -127,7 +127,7 @@ class AdminController extends Controller
 
       $session = new Session();
 
-      if($session->get('user_name') && ($session->get('user_type') == 'admin')){
+      if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
         $data['form'] = $admin_data;
 
         $form->handleRequest($request);
@@ -153,7 +153,7 @@ class AdminController extends Controller
         }
         return $this->render('admin/form.html.twig', $data);
       } else {
-        $data['message'] = 'You Are Not Qualified to Edit This Admin.';
+        $data['message'] = 'You Are Not Qualified to Edit Admins.';
         return $this->render('accessDenied.html.twig', $data);
       }
     }
@@ -171,7 +171,7 @@ class AdminController extends Controller
                           ->findOneById($admin_id);
       $admin_data['created_by'] = $admin->getCreatedBy();
 
-      if($session->get('user_name') && ($session->get('user_type') == 'admin') && ($session->get('user_id') == $admin_data['created_by'])){
+      if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
         $admin = $this->getDoctrine()
                             ->getRepository('AppBundle:Admin')
                             ->findOneById($admin_id);
@@ -202,7 +202,7 @@ class AdminController extends Controller
     {
       $session = new Session();
 
-      if($session->get('user_name') && ($session->get('user_type') == 'admin')){
+      if($session->get('user_id') && ($session->get('user_type') == 'admin' || $session->get('user_type') == 'teacher')){
         $data = [];
         $data['admins'] = [];
 

@@ -15,8 +15,13 @@
       {{ student.firstNameEn ~ ' ' ~ student.middleNameEn ~ ' ' ~ student.lastNameEn ~ ' (' ~ student.admissionNumber ~ ')' }}
     </big></h1>
 
-    <h1>Section:
-      <a href="{{ path('section_view', {'section_id': student.sectionId.id}) }}" id="moreDetBtn">{{ student.sectionId.sectionName }}</a>
+    <h1>Section / Batch :
+      {{ student.sectionId.sectionName ~ ' / ' ~ student.sectionId.batchId.batchName }}
+    </h1>
+
+    <h1>Curriculum / School:
+      <a href="{{ path('curriculum_view_one', {'curriculum_id': student.sectionId.curriculumId.id}) }}" id="moreDetBtn">{{ student.sectionId.curriculumId.curriculumName }}</a> /
+      <a href="{{ path('school_view_one', {'school_id': student.sectionId.curriculumId.schoolId.id}) }}" id="moreDetBtn">{{ student.sectionId.curriculumId.schoolId.schoolName }}</a>
     </h1>
 
     <table id="wide_table">
@@ -27,6 +32,8 @@
           <th>Result</th>
           <th>Grade</th>
           <th>Remark</th>
+
+          <th>Actions</th>
         </tr>
       </thead>
 
@@ -50,6 +57,9 @@
             <td>{{ session_result.resultInNumber }}</td>
             <td>{{ session_result.resultInAlphabet }}</td>
             <td>{{ session_result.sessionResultRemark | capitalize }}</td>
+            <td><a href="{{ path('student_assessment_results', {'session_id': session_result.sessionId.id}) }}">
+              more
+            </a></td>
           </tr>
         {% endfor %}
       </tbody>

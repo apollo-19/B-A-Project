@@ -11,26 +11,13 @@ use AppBundle\Entity\Semester;
 class SemesterController extends Controller
 {
     /**
-     * @Route("/semester", name="semester_home")
-     */
-    public function indexAction()
-    {
-      $session = new Session();
-
-      if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'semester')){
-        return $this->render('semester/index.html.twig', $data);
-      } else
-        return $this->redirectToRoute('user_signin');
-    }
-
-    /**
      * @Route("/semester/create", name="semester_create")
      */
     public function semesterCreateAction(Request $request)
     {
       $session = new Session();
 
-      if($session->get('user_id') && ($session->get('user_type') == 'admin')){
+      if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
         $data = [];
         $data['mode'] = 'new';
 
@@ -84,29 +71,29 @@ class SemesterController extends Controller
       $data = [];
       $data['mode'] = 'edit';
 
-      $form = $this ->createFormBuilder()
-                    ->add('semester')
-                    ->add('year')
-                    ->add('semester_curriculum')
-                    ->getForm();
-
-      $semester = $this->getDoctrine()
-                          ->getRepository('AppBundle:Semester')
-                          ->findOneById($semester_id);
-
-      $curriculum = $this->getDoctrine()
-                          ->getRepository('AppBundle:Curriculum')
-                          ->findAll();
-
-      $data['curriculums'] = $curriculum;
-
-      $semester_data['semester'] = $semester->getSemester();
-      $semester_data['year'] = $semester->getYear();
-      $semester_data['semester_curriculum'] = $semester->getCurriculumId();
-
       $session = new Session();
 
-      if($session->get('user_name') && ($session->get('user_type') == 'admin')){
+      if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
+        $form = $this ->createFormBuilder()
+                      ->add('semester')
+                      ->add('year')
+                      ->add('semester_curriculum')
+                      ->getForm();
+
+        $semester = $this->getDoctrine()
+                            ->getRepository('AppBundle:Semester')
+                            ->findOneById($semester_id);
+
+        $curriculum = $this->getDoctrine()
+                            ->getRepository('AppBundle:Curriculum')
+                            ->findAll();
+
+        $data['curriculums'] = $curriculum;
+
+        $semester_data['semester'] = $semester->getSemester();
+        $semester_data['year'] = $semester->getYear();
+        $semester_data['semester_curriculum'] = $semester->getCurriculumId();
+
         $data['form'] = $semester_data;
 
         $form->handleRequest($request);
@@ -144,14 +131,13 @@ class SemesterController extends Controller
     public function semesterDeleteAction(Request $request, $semester_id)
     {
       $session = new Session();
-      $semester_data = [];
 
-      $semester = $this->getDoctrine()
-                          ->getRepository('AppBundle:Semester')
-                          ->findOneById($semester_id);
-      $semester_data['created_by'] = $semester->getCreatedBy();
+      if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
+        $semester = $this->getDoctrine()
+                            ->getRepository('AppBundle:Semester')
+                            ->findOneById($semester_id);
+        $semester_data['created_by'] = $semester->getCreatedBy();
 
-      if($session->get('user_name') && ($session->get('user_type') == 'admin') && ($session->get('user_id') == $semester_data['created_by'])){
         $semester = $this->getDoctrine()
                             ->getRepository('AppBundle:Semester')
                             ->findOneById($semester_id);
@@ -175,7 +161,7 @@ class SemesterController extends Controller
     {
       $session = new Session();
 
-      if($session->get('user_name') && $session->get('user_type') && ($session->get('user_type') == 'admin')){
+      if($session->get('user_id')){
         $data = [];
         $data['semesters'] = [];
 

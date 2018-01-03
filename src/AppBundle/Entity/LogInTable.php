@@ -110,3 +110,4 @@ class LogInTable
         return $this->userType;
     }
 }
+

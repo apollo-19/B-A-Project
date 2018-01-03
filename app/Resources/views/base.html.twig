@@ -23,7 +23,13 @@
           <td><a href=" {{ path('default_home') }} ">HOME</a></td>
 
           {% if app.session.get('user_name') %}
-            <td><a href="{{ path('account_settings', {'user_id': app.session.get('user_id_lit')} ) }}">PROFILE</a></td>
+            {% if app.session.get('user_type') == 'admin' %}
+              {% set user_type_dis = app.session.get('admin_class') %}
+            {% else %}
+              {% set user_type_dis = app.session.get('user_type') %}
+            {% endif %}
+            
+            <td><a href="{{ path('account_settings') }}">{{ app.session.get('user_name') | upper ~ ' (' ~ user_type_dis | capitalize ~')' }}</a></td>
             <td><a id="dashboard">DASHBOARD</a></td>
             <td><a href=" {{ path('user_signout') }} "
                 onclick="return confirm('Are You Sure You Want To Sign Out?') ">SIGN OUT</a></td>
@@ -35,33 +41,40 @@
     </header>
 
     {% if app.session.get('user_name') %}
-      <div id="sideMenu">
+      <div id="sideMenu" class="hidden">
         <span class="btn-close" id="closeSideMenuBtn">&times;</span>
 
         <h1></h1>
 
         <div id="links">
-          <a href="{{ path('admin_view') }}">Admins</a>
-          <a href="{{ path('school_view') }}">Schools</a>
-          <a href="{{ path('curriculum_view') }}">Curriculums</a>
+          {% if (app.session.get('user_type') == 'admin') %}
+            <a href="{{ path('admin_view') }}">Admins</a>
+            <a href="{{ path('school_view') }}">Schools</a>
+            <a href="{{ path('curriculum_view') }}">Curriculums</a>
+            <a href="{{ path('department_view') }}">Departments</a>
+            <a href="{{ path('teacher_view') }}">Teachers</a>
+            <a href="{{ path('semester_view') }}">Semesters</a>
+            <a href="{{ path('module_view') }}">Modules</a>
+            <a href="{{ path('course_view') }}">Courses</a>
+            <a href="{{ path('grade_system_view') }}">Grade Systems</a>
+            <a href="{{ path('prerequisite_view') }}">Prerequisites</a>
+            <a href="{{ path('batch_view') }}">Batches</a>
+            <a href="{{ path('section_view') }}">Sections</a>
+            <a href="{{ path('student_view') }}">Students</a>
+            <a href="{{ path('session_view') }}">School Sessions</a>
+            <a href="{{ path('assessment_type_system_view') }}">Assessment Types</a>
 
-          <a href="{{ path('department_view') }}">Departments</a>
-          <a href="{{ path('teacher_view') }}">Teachers</a>
-          <a href="{{ path('semester_view') }}">Semesters</a>
+          {% elseif (app.session.get('user_type') == 'teacher') %}
+            <a href="{{ path('module_view') }}">My Modules</a>
+            <a href="{{ path('course_view') }}">My Courses</a>
+            <a href="{{ path('session_view') }}">My School Sessions</a>
 
-          <a href="{{ path('module_view') }}">Modules</a>
-          <a href="{{ path('course_view') }}">Courses</a>
-          <a href="{{ path('grade_system_view') }}">Grade Systems</a>
-
-          <a href="{{ path('prerequisite_view') }}">Prerequisites</a>
-          <a href="{{ path('batch_view') }}">Batches</a>
-          <a href="{{ path('section_view') }}">Sections</a>
-
-          <a href="{{ path('student_view') }}">Students</a>
-          <a href="{{ path('session_view') }}">School Sessions</a>
-          <a href="{{ path('assessment_type_system_view') }}">Assessment Types</a>
-
-          <a href="{{ path('assessment_session_view') }}">Assessment Sessions</a>
+          {% elseif (app.session.get('user_type') == 'student') %}
+            <a href="{{ path('module_view') }}">My Modules</a>
+            <a href="{{ path('course_view') }}">My Courses</a>
+            <a href="{{ path('session_view') }}">My School Sessions</a>
+            <a href="{{ path('student_results') }}">My Results</a>
+          {% endif %}
         </div>
       </div>
     {% endif %}
