@@ -168,4 +168,3 @@ class AssessmentResult
         return $this->assessmentTypeId;
     }
 }
-

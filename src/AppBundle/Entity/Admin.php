@@ -284,4 +284,3 @@ class Admin
         return $this->createdBy;
     }
 }
-

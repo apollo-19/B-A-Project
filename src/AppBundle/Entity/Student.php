@@ -1878,4 +1878,3 @@ class Student
         return $this->sectionId;
     }
 }
-

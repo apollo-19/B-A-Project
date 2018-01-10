@@ -34,8 +34,10 @@
     </h2>
 
     {% if assessment_results is empty %}
-      <a href="{{ path('assessment_result_create', {'school_session_id': school_session.id}) }}"
-      onclick="return confirm('Are You Sure?')">Start Assessment</a>
+      {% if app.session.get('user_type') == 'teacher' and app.session.get('user_id') == school_session.teacherId.id %}
+        <a href="{{ path('assessment_result_create', {'school_session_id': school_session.id}) }}"
+        onclick="return confirm('Are You Sure?')">Start Assessment</a>
+      {% endif %}
     {% else %}
       <table id="wide_table">
         <thead>

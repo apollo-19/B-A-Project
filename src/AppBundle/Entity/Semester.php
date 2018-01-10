@@ -185,4 +185,3 @@ class Semester
         return $this->curriculumId;
     }
 }
-

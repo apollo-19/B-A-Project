@@ -219,24 +219,6 @@ class CourseController extends Controller
 
       $data['courses'] = $course;
 
-      $module = $this->getDoctrine()
-                          ->getRepository('AppBundle:Module')
-                          ->findAll();
-
-      $data['modules'] = $module;
-
-      $curriculum = $this->getDoctrine()
-                          ->getRepository('AppBundle:Curriculum')
-                          ->findAll();
-
-      $data['curriculums'] = $curriculum;
-
-      $semester = $this->getDoctrine()
-                          ->getRepository('AppBundle:Semester')
-                          ->findAll();
-
-      $data['semesters'] = $semester;
-
       return $this->render('course/view.html.twig', $data);
     } else {
       $data['message'] = 'You Are Not Qualified to View Courses.';

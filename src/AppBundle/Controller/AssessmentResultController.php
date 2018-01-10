@@ -146,37 +146,49 @@ class AssessmentResultController extends Controller
      */
     public function assessmentResultEditAction(Request $request, $assessment_result_id)
     {
-      /* set result */
+      $session = new Session();
+
       $assessment_result = $this->getDoctrine()
                                 ->getRepository('AppBundle:AssessmentResult')
                                 ->findOneById($assessment_result_id);
 
-      $result_value = $request->request->get('result_value');
+      $school_session = $this->getDoctrine()
+                          ->getRepository('AppBundle:Schoolsession')
+                          ->findOneById($assessment_result->getSessionId());
 
-      $assessment_result->setResultValue( floatval($result_value) );
+      if( ($session->get('user_type') == 'teacher' && $session->get('user_id') == $school_session->getTeacherId()->getId()) ){
+        /* set result */
 
-      $em = $this->getDoctrine()->getManager();
-      $em->persist($assessment_result);
-      $em->flush();
-      /* end set result */
+        $result_value = $request->request->get('result_value');
 
-      /* get total result */
-      $student_id = $assessment_result->getStudentId()->getId();
-      $session_id = $assessment_result->getSessionId()->getId();
+        $assessment_result->setResultValue( floatval($result_value) );
 
-      $assessment_results = $this->getDoctrine()
-                                  ->getRepository('AppBundle:AssessmentResult')
-                                  ->findBy(
-                                    array('studentId' => $student_id, 'sessionId' => $session_id)
-                                  );
-      $total_result = 0;
-      foreach ($assessment_results as $value) {
-        $total_result = $total_result + floatval($value->getResultValue());
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($assessment_result);
+        $em->flush();
+        /* end set result */
+
+        /* get total result */
+        $student_id = $assessment_result->getStudentId()->getId();
+        $session_id = $assessment_result->getSessionId()->getId();
+
+        $assessment_results = $this->getDoctrine()
+                                    ->getRepository('AppBundle:AssessmentResult')
+                                    ->findBy(
+                                      array('studentId' => $student_id, 'sessionId' => $session_id)
+                                    );
+        $total_result = 0;
+        foreach ($assessment_results as $value) {
+          $total_result = $total_result + floatval($value->getResultValue());
+        }
+        /* end get total result */
+
+        $data = array('student' => $student_id, 'result' => $total_result);
+        return new JsonResponse($data);
+      } else {
+        $data['message'] = 'You Are Not Qualified to Fill This Assessment Result.';
+        return $this->render('accessDenied.html.twig', $data);
       }
-      /* end get total result */
-
-      $data = array('student' => $student_id, 'result' => $total_result);
-      return new JsonResponse($data);
     }
 
     /**
@@ -186,13 +198,13 @@ class AssessmentResultController extends Controller
     {
       $session = new Session();
 
-      if($session->get('user_id')){
-        $school_session = $this->getDoctrine()
-                            ->getRepository('AppBundle:Schoolsession')
-                            ->findOneById($school_session_id);
+      $school_session = $this->getDoctrine()
+                          ->getRepository('AppBundle:Schoolsession')
+                          ->findOneById($school_session_id);
 
-        $data['school_session'] = $school_session;
+      $data['school_session'] = $school_session;
 
+      if( ($session->get('user_type') == 'admin') || ($session->get('user_type') == 'teacher' && $session->get('user_id') == $school_session->getTeacherId()->getId()) ){
         $section = $this->getDoctrine()
                             ->getRepository('AppBundle:Section')
                             ->findOneById($school_session->getSectionId());

@@ -15,7 +15,7 @@
       <a href="{{ path('course_create') }}">New Course</a>
     {% endif %}
 
-    <table border="0">
+    <table>
       <thead>
         <tr>
           <th>Course Code</th>
@@ -34,26 +34,14 @@
             <td>{{ course.courseCode }}</td>
             <td>{{ course.courseName }}</td>
             <td>{{ course.courseCreditHour }}</td>
-            <td>
-              {% for curriculum in curriculums %}
-                {% if(course.curriculumId == curriculum) %}
-                  {{ curriculum.curriculumName }}
-                  {% set currCurriculumType = curriculum.curriculumType %}
-                {% endif %}
-              {% endfor %}
+            <td>{{ course.curriculumId.curriculumName }}
             </td>
             <td>
-              {% for module in modules %}
-                {% if(course.moduleId == module and currCurriculumType == 'modularized') %}
-                  (Module) - {{ module.moduleName }}
-                {% endif %}
-              {% endfor %}
-
-              {% for semester in semesters %}
-                {% if(course.semesterId == semester and currCurriculumType == 'semester') %}
-                  (Semester) - {{ semester.semester ~ ' ' ~ semester.year }}
-                {% endif %}
-              {% endfor %}
+              {% if ( course.curriculumId.curriculumType == 'modularized' and course.moduleId is not null ) %}
+                (Module) - {{ course.moduleId.moduleName }}
+              {% elseif ( course.curriculumId.curriculumType == 'semester' and course.semesterId is not null ) %}
+                (Semester) - {{ course.semesterId.semester ~ ' ' ~ course.semesterId.year }}
+              {% endif %}
             </td>
 
             <td id="actions"><a href="{{ path('course_view_one', {'course_id': course.id}) }}">view</a></td>

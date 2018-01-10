@@ -312,4 +312,3 @@ class Course
         return $this->semesterId;
     }
 }
-

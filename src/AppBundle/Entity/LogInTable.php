@@ -109,5 +109,33 @@ class LogInTable
     {
         return $this->userType;
     }
-}
+    /**
+     * @var string
+     */
+    private $userPhoto;
 
+
+    /**
+     * Set userPhoto
+     *
+     * @param string $userPhoto
+     *
+     * @return LogInTable
+     */
+    public function setUserPhoto($userPhoto)
+    {
+        $this->userPhoto = $userPhoto;
+
+        return $this;
+    }
+
+    /**
+     * Get userPhoto
+     *
+     * @return string
+     */
+    public function getUserPhoto()
+    {
+        return $this->userPhoto;
+    }
+}

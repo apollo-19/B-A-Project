@@ -10,8 +10,13 @@
       <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Admin' : 'Edit Admin' }}</h1>
       <h2>{{ result_message is defined ? result_message : '' }}</h2>
 
-      <label for="form[first_name]">Photo</label>
-      <input type="file" name="form[first_name]" placeholder="" value="{{ form.first_name is defined ? form.first_name : '' }}" required />
+      <label for="form[user_photo]">User Photo</label>
+      {% if mode == 'edit' %}
+        <h1 align="center">
+          <img src="{{ asset('img/user_photos/' ~ user_lit.userPhoto) }}" alt="{{ user_lit.userName | capitalize }} photo" width="250" />
+        </h1>
+      {% endif %}
+      <input type="file" name="form[user_photo]" required />
 
       <label for="form[first_name]">First Name</label>
       <input type="text" name="form[first_name]" placeholder="" value="{{ form.first_name is defined ? form.first_name : '' }}" required />

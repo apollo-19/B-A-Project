@@ -36,7 +36,9 @@
     {% if session_results is empty %}
       <div id="warningContainer">
         <h1>Results Are Not Published Yet!</h1>
-        <a href="{{ path('assessment_result_view', {'school_session_id': school_session.id}) }}" class="fright">Publish Results Here</a>
+        {% if app.session.get('user_type') == 'teacher' and app.session.get('user_id') == school_session.teacherId.id %}
+          <a href="{{ path('assessment_result_view', {'school_session_id': school_session.id}) }}" class="fright">Publish Results Here</a>
+        {% endif %}
       </div>
 
     {% else %}

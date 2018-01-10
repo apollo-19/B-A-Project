@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  Course View
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container" id="view_container">
+    {% if viewer == 'teacher' %}
+      <h1><big>
+        {{ school_sessions[0].teacherId.firstName ~ ' ' ~ school_sessions[0].teacherId.middleName ~ ' ' ~ school_sessions[0].teacherId.lastName }}
+      </big></h1>
+    {% elseif viewer == 'student' %}
+      <h1><big>
+        {{ student.firstNameEn ~ ' ' ~ student.middleNameEn ~ ' ' ~ student.lastNameEn ~ ' (' ~ student.admissionNumber ~ ')' }}
+      </big></h1>
+    {% endif %}
+
+    <table>
+      <thead>
+        <tr>
+          <th>Course Code</th>
+          <th>Course Name</th>
+          <th>Course Credit Hour</th>
+          <th>Course Curriculum</th>
+          <th>Course Module/Semester</th>
+          <th>Course Session</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for school_session in school_sessions %}
+          <tr>
+            <td>{{ school_session.courseId.courseCode }}</td>
+            <td>{{ school_session.courseId.courseName }}</td>
+            <td>{{ school_session.courseId.courseCreditHour }}</td>
+            <td>{{ school_session.courseId.curriculumId.curriculumName }}</td>
+            <td>
+              {% if ( school_session.courseId.curriculumId.curriculumType == 'modularized' and school_session.courseId.moduleId is not null ) %}
+                (Module) - <a href="{{ path('module_view_one', {'module_id': school_session.courseId.moduleId.id}) }}" id="moreDetBtn">
+                  {{ school_session.courseId.moduleId.moduleName }}
+                </a>
+              {% elseif ( school_session.courseId.curriculumId.curriculumType == 'semester' and school_session.courseId.semesterId is not null ) %}
+                (Semester) - <a href="{{ path('semester_view_one', {'semester_id': school_session.courseId.semesterId.id}) }}" id="moreDetBtn">
+                  {{ school_session.courseId.semesterId.semester ~ ' ' ~ school_session.courseId.semesterId.year }}
+                </a>
+              {% endif %}
+            </td>
+            <td>
+              (<a href="{{ path('session_view_one', {'session_id': school_session.id}) }}" id="moreDetBtn">
+                {{ school_session.sessionCode | upper }}
+              </a>) -
+              <a href="{{ path('session_view_one', {'session_id': school_session.id}) }}" id="moreDetBtn">
+                {{ school_session.sessionName }}
+              </a>
+            </a></td>
+
+            <td id="actions"><a href="{{ path('course_view_one', {'course_id': school_session.courseId.id}) }}">view</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

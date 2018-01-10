@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use AppBundle\Entity\SessionResult;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class SessionResultController extends Controller
 {
@@ -16,7 +17,7 @@ class SessionResultController extends Controller
   public function sessionResultCreateAction(Request $request, $school_session_id)
   {
     $session = new Session();
-    
+
     $school_session = $this->getDoctrine()
                             ->getRepository('AppBundle:Schoolsession')
                             ->findOneById($school_session_id);
@@ -132,8 +133,8 @@ class SessionResultController extends Controller
     $session = new Session();
 
     $school_session = $this->getDoctrine()
-    ->getRepository('AppBundle:Schoolsession')
-    ->findOneById($school_session_id);
+                            ->getRepository('AppBundle:Schoolsession')
+                            ->findOneById($school_session_id);
 
     if( ($session->get('user_type') == 'teacher') && ($session->get('user_id') == $school_session->getTeacherId()->getId()) ){
       $section = $this->getDoctrine()
@@ -157,23 +158,26 @@ class SessionResultController extends Controller
                         );
 
       $assessment_types = $this->getDoctrine()
-                              ->getRepository('AppBundle:AssessmentType')
-                              ->findBy(
-                                array('assessmentTypeSystemId' => $school_session->getAssessmentTypeSystemId())
-                              );
+                                ->getRepository('AppBundle:AssessmentType')
+                                ->findBy(
+                                  array('assessmentTypeSystemId' => $school_session->getAssessmentTypeSystemId())
+                                );
 
       $grades = $this->getDoctrine()
-                    ->getRepository('AppBundle:Grade')
-                    ->findBy(
-                      array('gradeSystemId' => $curriculum->getGradeSystemId())
-                    );
+                      ->getRepository('AppBundle:Grade')
+                      ->findBy(
+                        array('gradeSystemId' => $curriculum->getGradeSystemId())
+                      );
 
       foreach ($students as $student){
         $session_result = $this->getDoctrine()
-                                    ->getRepository('AppBundle:SessionResult')
-                                    ->findOneBy(
-                                      array('studentId' => $student->getId(), 'sessionId' => $school_session->getId())
-                                    );
+                                ->getRepository('AppBundle:SessionResult')
+                                ->findOneBy(
+                                  array('studentId' => $student->getId(), 'sessionId' => $school_session->getId())
+                                );
+
+        if($session_result == null)
+          continue;
 
         $sessionWeightTotal=0; $assessmentResultTotal=0; $resultInAlphabet=''; $sessionResultRemark='';
 

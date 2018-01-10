@@ -227,15 +227,13 @@ class SectionController extends Controller
                           ->getRepository('AppBundle:Section')
                           ->findOneById($section_id);
 
-      $section_batch = $section->getBatchId();
-
-      $batch = $this->getDoctrine()
-                          ->getRepository('AppBundle:Batch')
-                          ->findOneById($section_batch);
-
       $data['section'] = $section;
 
-      $data['batch'] = $batch;
+      $students = $this->getDoctrine()
+                          ->getRepository('AppBundle:Student')
+                          ->findBySectionId($section);
+
+      $data['students'] = $students;
 
       return $this->render('section/view_one.html.twig', $data);
     } else {

@@ -28,7 +28,7 @@ class DefaultController extends Controller
       if( $gest == 'set' ){
         if( $shide == 'show' ){
           $session->set('shide', 'show');
-        } else if( $shide == 'hide' ){
+        } else {
           $session->set('shide', 'hide');
         }
       }
@@ -81,11 +81,14 @@ class DefaultController extends Controller
           $session->remove('user_id');
           $session->remove('user_name');
           $session->remove('user_type');
+          $session->remove('user_photo');
 
           $session->set('user_id_lit', $user_id_lit);
           $session->set('user_id', $user_id_actl);
           $session->set('user_name', $user_name_actl);
           $session->set('user_type', $user_type_actl);
+          $session->set('user_photo', $user->getUserPhoto());
+          $session->set('shide', 'hide');
           if($user_type_actl == 'admin') {
             $admin_class = $user_ary->getAdminClass();
             $session->remove('admin_class');

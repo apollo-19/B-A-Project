@@ -185,4 +185,3 @@ class Department
         return $this->schoolId;
     }
 }
-

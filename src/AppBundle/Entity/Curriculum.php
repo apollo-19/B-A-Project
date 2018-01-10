@@ -392,4 +392,3 @@ class Curriculum
         return $this->gradeSystemId;
     }
 }
-

@@ -13,8 +13,19 @@
     <div class="form fright">
 
       <h1 class="welcomeText tacenter">{{ admin.firstName }} {{ admin.middleName }} {{ admin.lastName }}</h1>
+      <table>
+        <tr>
+          <td class="taright"><a href="{{ path('admin_edit', {'admin_id': admin.id}) }}">Edit Admin</a></td>
+        </tr>
+      </table>
 
       <table>
+        <tr>
+          <td align="center" colspan="2">
+            <img src="{{ asset('img/user_photos/' ~ user_lit.userPhoto) }}" alt="" width="250" />
+          </td>
+        </tr>
+
         <tr>
           <td>First Name:</td>
           <td>{{ admin.firstName }}</td>

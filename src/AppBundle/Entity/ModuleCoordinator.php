@@ -81,4 +81,3 @@ class ModuleCoordinator
         return $this->moduleId;
     }
 }
-

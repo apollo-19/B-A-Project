@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+/*@import url('https://fonts.googleapis.com/css?family=Roboto');*/
 * {
   margin:0px;
   padding:0px;
@@ -97,6 +97,12 @@ header table {
   float: right;
   height: inherit;
   width: auto;
+}
+
+header table tr td img {
+  margin: 0px;
+  padding: 0px 10px;
+  height: 7.5vh;
 }
 
 header table tr td a {

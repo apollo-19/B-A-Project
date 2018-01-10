@@ -4,9 +4,8 @@
   <head>
     <meta charset="UTF-8" />
     <title>{% block title %}St. Paul's Hospital Mellinium Medical College{% endblock %}</title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <!link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/stylesheet.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/fontawesome/fontawesome.min.css') }}">
     {% block stylesheet %}{% endblock %}
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}" />
   </head>
@@ -20,6 +19,13 @@
 
       <table>
         <tr valign="middle">
+          {% if app.session.get('user_name') %}
+            <td>
+              <img src="{{ asset('img/user_photos/' ~ app.session.get('user_photo')) }}"
+              alt="{{ app.session.get('user_name') | capitalize }} photo" draggable="false" />
+            </td>
+          {% endif %}
+
           <td><a href=" {{ path('default_home') }} ">HOME</a></td>
 
           {% if app.session.get('user_name') %}
@@ -28,7 +34,7 @@
             {% else %}
               {% set user_type_dis = app.session.get('user_type') %}
             {% endif %}
-            
+
             <td><a href="{{ path('account_settings') }}">{{ app.session.get('user_name') | upper ~ ' (' ~ user_type_dis | capitalize ~')' }}</a></td>
             <td><a id="dashboard">DASHBOARD</a></td>
             <td><a href=" {{ path('user_signout') }} "
@@ -65,14 +71,15 @@
             <a href="{{ path('assessment_type_system_view') }}">Assessment Types</a>
 
           {% elseif (app.session.get('user_type') == 'teacher') %}
-            <a href="{{ path('module_view') }}">My Modules</a>
-            <a href="{{ path('course_view') }}">My Courses</a>
-            <a href="{{ path('session_view') }}">My School Sessions</a>
+            <a href="{{ path('teacher_modules_view') }}">My Modules</a>
+            <a href="{{ path('teacher_courses_view') }}">My Courses</a>
+            <a href="{{ path('teacher_sessions_view') }}">My School Sessions</a>
 
           {% elseif (app.session.get('user_type') == 'student') %}
-            <a href="{{ path('module_view') }}">My Modules</a>
-            <a href="{{ path('course_view') }}">My Courses</a>
-            <a href="{{ path('session_view') }}">My School Sessions</a>
+            <a href="{{ path('module_view') }}">My Semesters</a>
+            <a href="{{ path('student_modules_view') }}">My Modules</a>
+            <a href="{{ path('student_courses_view') }}">My Courses</a>
+            <a href="{{ path('student_sessions_view') }}">My School Sessions</a>
             <a href="{{ path('student_results') }}">My Results</a>
           {% endif %}
         </div>

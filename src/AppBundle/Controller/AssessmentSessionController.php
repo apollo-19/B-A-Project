@@ -11,19 +11,6 @@ use AppBundle\Entity\AssessmentSession;
 class AssessmentSessionController extends Controller
 {
     /**
-     * @Route("/assessment", name="assessment_home")
-     */
-    public function indexAction()
-    {
-      $session = new Session();
-
-      if($session->get('user_name') && $session->get('user_type')){
-        return $this->render('assessment/index.html.twig', $data);
-      } else
-        return $this->redirectToRoute('user_signin');
-    }
-
-    /**
      * @Route("/assessment_session/create/{school_session_id}", name="assessment_session_create")
      */
     public function assessmentSessionCreateAction(Request $request, $school_session_id)

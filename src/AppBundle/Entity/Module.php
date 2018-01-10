@@ -323,4 +323,3 @@ class Module
         return $this->curriculumId;
     }
 }
-

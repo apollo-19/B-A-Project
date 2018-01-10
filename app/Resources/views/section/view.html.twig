@@ -14,7 +14,7 @@
     {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
       <a href="{{ path('section_create') }}">New Section</a>
     {% endif %}
-    <table border="0">
+    <table>
       <thead>
         <tr>
           <th>Section Code</th>

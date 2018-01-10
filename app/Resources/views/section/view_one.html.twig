@@ -9,29 +9,26 @@
 {% endblock %}
 
 {% block body %}
-  <article class="container taleft">
-    <div class="form fright">
+  <div class="container" id="view_container">
+    <h1>{{ section.sectionName }} ({{ section.sectionCode | upper }}) / {{ section.batchId.batchName }}</h1>
 
-      <h1 class="welcomeText tacenter">{{ section.sectionName }} ({{ section.sectionCode }})</h1>
-
-      <table>
+    <table>
+      <thead>
         <tr>
-          <td>Section Code:</td>
-          <td>{{ section.sectionCode }}</td>
+          <th>Admission Number</th>
+          <th>Name</th>
         </tr>
-
-        <tr>
-          <td>Section Name:</td>
-          <td>{{ section.sectionName }}</td>
-        </tr>
-
-        <tr>
-          <td>Section Batch:</td>
-          <td>{{ batch.batchName }}</td>
-        </tr>
-      </table>
-    </div>
-
-    <hr class="clear" width="0" />
-  </article>
+      </thead>
+      <tbody>
+        {% for student in students %}
+          <tr>
+            <td id="total_row">{{ student.admissionNumber }}</td>
+            <td>
+              {{ student.firstNameEn ~ ' ' ~ student.middleNameEn ~ ' ' ~ student.lastNameEn }}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 {% endblock %}
