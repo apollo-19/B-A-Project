@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ (mode == 'new') ? 'New GPA' : 'Edit GPA' }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container taright">
+    <form class="form fright" method="post">
+      <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New GPA' : 'Edit GPA' }}</h1>
+      <h2>{{ result_message is defined ? result_message : '' }}</h2>
+
+      {% if mode == 'new' %}
+        <label for="form[gpa_system]">GPA System</label>
+        <h2>{{ gpa_system.gpaSystemCode | upper ~ ' (' ~ gpa_system.gpaSystemName ~ ')' }}</h2>
+      {% endif %}
+
+      <label for="form[start_gpa]">Starting GPA</label>
+      <input type="text" name="form[start_gpa]" value="{{ form.start_gpa is defined ? form.start_gpa : '' }}" required />
+
+      <label for="form[end_gpa]">Ending GPA</label>
+      <input type="text" name="form[end_gpa]" value="{{ form.end_gpa is defined ? form.end_gpa : '' }}" required />
+
+      <label for="form[gpa_remark]">GPA Remark</label>
+      <input type="text" name="form[gpa_remark]" value="{{ form.gpa_remark is defined ? form.gpa_remark : '' }}" required />
+
+      <label for="form[gpa_pf]">GPA Pass/Fail</label>
+      <select name="form[gpa_pf]">
+        <option value="pass" {{ (form.gpa_pf is defined and form.gpa_pf == 'pass') ? 'selected' : '' }}>Pass</option>
+        <option value="fail" {{ (form.gpa_pf is defined and form.gpa_pf == 'fail') ? 'selected' : '' }}>Fail</option>
+      </select>
+
+      {% if mode == 'edit' %}
+        <label for="form[gpa_system]">GPA System</label>
+        <select name="form[gpa_system]">
+          {% for gpa_system in gpa_systems %}
+            <option value="{{ gpa_system.id }}" {{ (form.gpa_system == gpa_system) ? 'selected' : '' }}>{{ gpa_system.gpaSystemCode | upper ~ ' (' ~ gpa_system.gpaSystemName ~ ')' }}</option>
+          {% endfor %}
+        </select>
+      {% endif %}
+
+      <button>{{ (mode == 'new') ? 'Create GPA' : 'Save Changes' }}</button>
+    </form>
+
+    <hr class="clear" width="0" />
+  </div>
+{% endblock %}

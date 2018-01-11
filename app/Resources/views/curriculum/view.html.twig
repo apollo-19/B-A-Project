@@ -23,31 +23,44 @@
           <th>Curriculum Type</th>
           <th>Curriculum School</th>
           <th>Curriculum Grade System</th>
+          <th>Curriculum GPA System</th>
           <th colspan="4">Actions</th>
         </tr>
       </thead>
       <tbody>
         {% for curriculum in curriculums %}
           <tr>
-            <td>{{ curriculum.curriculumCode }}</td>
-            <td>{{ curriculum.curriculumName }}</td>
-            <td>{{ curriculum.curriculumType | capitalize }}</td>
             <td>
-              {% for school in schools %}
-                {% if(curriculum.schoolId == school) %}
-                  <a href="{{ path('school_view_one', {'school_id': school.id}) }}" id="moreDetBtn">{{ school.schoolName }}</a>
-                {% endif %}
-              {% endfor %}
+              <a href="{{ path('curriculum_view_one', {'curriculum_id': curriculum.id}) }}" id="moreDetBtn">
+              {{ curriculum.curriculumCode }}</a>
             </td>
+
+            <td>
+              <a href="{{ path('curriculum_view_one', {'curriculum_id': curriculum.id}) }}" id="moreDetBtn">
+              {{ curriculum.curriculumName }}</a>
+            </td>
+
+            <td>{{ curriculum.curriculumType | title }}</td>
+
+            <td>
+              <a href="{{ path('school_view_one', {'school_id': curriculum.schoolId.id}) }}" title="{{ curriculum.schoolId.schoolName }}" id="moreDetBtn">
+              {{ curriculum.schoolId.schoolCode }}</a>
+            </td>
+
             <td>
               {% for grade_system in grade_systems %}
                 {% if(curriculum.gradeSystemId == grade_system) %}
-                  <a href="{{ path('grade_view', {'grade_system_id': grade_system.id}) }}" id="moreDetBtn">{{ grade_system.gradeSystemName }}</a>
+                  <a href="{{ path('grade_view', {'grade_system_id': grade_system.id}) }}" id="moreDetBtn">
+                  {{ grade_system.gradeSystemName }}</a>
                 {% endif %}
               {% endfor %}
             </td>
 
-            <td id="actions"><a href="{{ path('curriculum_view_one', {'curriculum_id': curriculum.id}) }}">view</a></td>
+            <td>
+              <a href="{{ path('gpa_view', {'gpa_system_id': curriculum.gpaSystemId.id}) }}" id="moreDetBtn">
+              {{ curriculum.gpaSystemId.gpaSystemName }}</a>
+            </td>
+
             {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
               <td id="actions"><a href="{{ path('curriculum_edit', {'curriculum_id': curriculum.id}) }}" id="editBtn">edit</button></td>
               <td id="actions"><a href="{{ path('curriculum_delete', {'curriculum_id': curriculum.id}) }}" id="deleteBtn"

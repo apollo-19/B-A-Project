@@ -29,8 +29,6 @@ AppBundle\Entity\Section:
             options:
                 fixed: false
             column: section_name
-
-
         createdBy:
             type: integer
             nullable: false
@@ -44,7 +42,7 @@ AppBundle\Entity\Section:
         mappedBy: section
       schoolsessions:
         targetEntity: Schoolsession
-        mappedBy: section     
+        mappedBy: section
     manyToOne:
       curriculumId:
         targetEntity: Curriculum

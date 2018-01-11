@@ -27,6 +27,11 @@ class LogInTable
      */
     private $userType;
 
+    /**
+     * @var string
+     */
+    private $userPhoto;
+
 
     /**
      * Get id
@@ -109,11 +114,6 @@ class LogInTable
     {
         return $this->userType;
     }
-    /**
-     * @var string
-     */
-    private $userPhoto;
-
 
     /**
      * Set userPhoto

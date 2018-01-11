@@ -391,4 +391,33 @@ class Curriculum
     {
         return $this->gradeSystemId;
     }
+    /**
+     * @var \AppBundle\Entity\GPASystem
+     */
+    private $gpaSystemId;
+
+
+    /**
+     * Set gpaSystemId
+     *
+     * @param \AppBundle\Entity\GPASystem $gpaSystemId
+     *
+     * @return Curriculum
+     */
+    public function setGpaSystemId(\AppBundle\Entity\GPASystem $gpaSystemId)
+    {
+        $this->gpaSystemId = $gpaSystemId;
+
+        return $this;
+    }
+
+    /**
+     * Get gpaSystemId
+     *
+     * @return \AppBundle\Entity\GPASystem
+     */
+    public function getGpaSystemId()
+    {
+        return $this->gpaSystemId;
+    }
 }

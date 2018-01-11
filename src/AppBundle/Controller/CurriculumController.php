@@ -30,6 +30,7 @@ class CurriculumController extends Controller
                     ->add('curriculum_type')
                     ->add('curriculum_school')
                     ->add('curriculum_grade_system')
+                    ->add('curriculum_gpa_system')
                     ->getForm();
 
       $school = $this->getDoctrine()
@@ -44,6 +45,12 @@ class CurriculumController extends Controller
 
       $data['grade_systems'] = $grade_system;
 
+      $gpa_system = $this->getDoctrine()
+                          ->getRepository('AppBundle:GPASystem')
+                          ->findAll();
+
+      $data['gpa_systems'] = $gpa_system;
+
       $form->handleRequest($request);
 
       if($form->isSubmitted()){
@@ -56,6 +63,11 @@ class CurriculumController extends Controller
         $mygradeSystem = $this->getDoctrine()
                         ->getRepository('AppBundle:GradeSystem')
                         ->findOneById($form_data['curriculum_grade_system']);
+
+        $mygpaSystem = $this->getDoctrine()
+                        ->getRepository('AppBundle:GPASystem')
+                        ->findOneById($form_data['curriculum_gpa_system']);
+
         $em = $this->getDoctrine()->getManager();
         $curriculum = new Curriculum();
         $curriculum->setCurriculumCode($form_data['curriculum_code']);
@@ -63,6 +75,7 @@ class CurriculumController extends Controller
         $curriculum->setCurriculumType($form_data['curriculum_type']);
         $curriculum->setSchoolId($myschool);
         $curriculum->setGradeSystemId($mygradeSystem);
+        $curriculum->setGpaSystemId($mygpaSystem);
 
         $curriculum->setCreatedBy($session->get('user_id'));
 
@@ -97,6 +110,7 @@ class CurriculumController extends Controller
                     ->add('curriculum_type')
                     ->add('curriculum_school')
                     ->add('curriculum_grade_system')
+                    ->add('curriculum_gpa_system')
                     ->getForm();
 
       $curriculum = $this->getDoctrine()
@@ -109,11 +123,18 @@ class CurriculumController extends Controller
 
       $data['grade_systems'] = $grade_system;
 
+      $gpa_system = $this->getDoctrine()
+                          ->getRepository('AppBundle:GPASystem')
+                          ->findAll();
+
+      $data['gpa_systems'] = $gpa_system;
+
       $curriculum_data['curriculum_code'] = $curriculum->getCurriculumCode();
       $curriculum_data['curriculum_name'] = $curriculum->getCurriculumName();
       $curriculum_data['curriculum_type'] = $curriculum->getCurriculumType();
       $curriculum_data['curriculum_school'] = $curriculum->getSchoolId();
       $curriculum_data['curriculum_grade_system'] = $curriculum->getGradeSystemId();
+      $curriculum_data['curriculum_gpa_system'] = $curriculum->getGpaSystemId();
       $curriculum_data['created_by'] = $curriculum->getCreatedBy();
 
       $schools = $this->getDoctrine()
@@ -133,15 +154,21 @@ class CurriculumController extends Controller
         $myschool = $this->getDoctrine()
                          ->getRepository('AppBundle:School')
                          ->findOneById($curriculum_data['curriculum_school']);
+
         $mygradeSystem = $this->getDoctrine()
-                        ->getRepository('AppBundle:GradeSystem')
-                        ->findOneById($curriculum_data['curriculum_grade_system']);
+                              ->getRepository('AppBundle:GradeSystem')
+                              ->findOneById($curriculum_data['curriculum_grade_system']);
+
+        $mygpaSystem = $this->getDoctrine()
+                            ->getRepository('AppBundle:GPASystem')
+                            ->findOneById($curriculum_data['curriculum_gpa_system']);
 
         $curriculum->setCurriculumCode($curriculum_data['curriculum_code']);
         $curriculum->setCurriculumName($curriculum_data['curriculum_name']);
         $curriculum->setCurriculumType($curriculum_data['curriculum_type']);
         $curriculum->setSchoolId($myschool);
         $curriculum->setGradeSystemId($mygradeSystem);
+        $curriculum->setGpaSystemId($mygpaSystem);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($curriculum);

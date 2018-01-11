@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{ (mode == 'new') ? 'New GPA System' : 'Edit GPA System' }}
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container taright">
+    <form class="form fright" method="post">
+      <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New GPA System' : 'Edit GPA System' }}</h1>
+      <h2>{{ result_message is defined ? result_message : '' }}</h2>
+
+      <label for="form[gpa_system_code]">GPA System Code</label>
+      <input type="text" name="form[gpa_system_code]" value="{{ form.gpa_system_code is defined ? form.gpa_system_code : '' }}" required />
+
+      <label for="form[gpa_system_name]">GPA System Name</label>
+      <input type="text" name="form[gpa_system_name]" value="{{ form.gpa_system_name is defined ? form.gpa_system_name : '' }}" required />
+
+      <button>{{ (mode == 'new') ? 'Create GPA System' : 'Save Changes' }}</button>
+    </form>
+
+    <hr class="clear" width="0" />
+  </div>
+{% endblock %}

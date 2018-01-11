@@ -222,7 +222,13 @@ class SessionResultController extends Controller
   {
     $session = new Session();
 
-    if($session->get('user_id')){
+    $school_session = $this->getDoctrine()
+                            ->getRepository('AppBundle:Schoolsession')
+                            ->findOneById($school_session_id);
+
+    $data['school_session'] = $school_session;
+
+    if( ($session->get('user_type') == 'admin') || ($session->get('user_type') == 'teacher') ){
       $em = $this->getDoctrine()->getManager();
 
       $session_results = $em->getRepository('AppBundle:SessionResult')
@@ -233,12 +239,6 @@ class SessionResultController extends Controller
                               ->execute();
 
       $data['session_results'] = $session_results;
-
-      $school_session = $this->getDoctrine()
-                          ->getRepository('AppBundle:Schoolsession')
-                          ->findOneById($school_session_id);
-
-      $data['school_session'] = $school_session;
 
       if ($school_session->getCourseModuleType() == 'course'){
         $prerequisite = $this->getDoctrine()

@@ -43,6 +43,16 @@
             {{ grade_system.gradeSystemName is defined ? grade_system.gradeSystemName : '' }}
           </a></td>
         </tr>
+
+        <tr>
+          <td>Curriculum Grade System:</td>
+          <td>
+            <a href="{{ path('gpa_view', {'gpa_system_id': curriculum.gpaSystemId.id}) }}" id="moreDetBtn">
+            {{ curriculum.gpaSystemId.gpaSystemName }}</a>
+          </td>
+        </tr>
+
+
       </table>
     </div>
 

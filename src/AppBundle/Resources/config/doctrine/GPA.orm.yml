@@ -1,7 +1,7 @@
-AppBundle\Entity\Grade:
+AppBundle\Entity\GPA:
     type: entity
     table: null
-    repositoryClass: AppBundle\Repository\GradeRepository
+    repositoryClass: AppBundle\Repository\GPARepository
     id:
         id:
             type: integer
@@ -9,21 +9,22 @@ AppBundle\Entity\Grade:
             generator:
                 strategy: AUTO
     fields:
-        startPoint:
+        startGpa:
             type: string
             length: '5'
-            column: start_point
-        endPoint:
+            column: start_gpa
+        endGpa:
             type: string
             length: '5'
-            column: end_point
-        grade:
+            column: end_gpa
+        gpaRemark:
             type: string
-            length: '2'
-        gradeRemark:
+            length: '50'
+            column: gpa_remark
+        gpaPF:
             type: string
             length: '10'
-            column: grade_remark
+            column: gpa_pf
         createdBy:
             type: integer
             nullable: false
@@ -32,11 +33,11 @@ AppBundle\Entity\Grade:
             column: created_by
     lifecycleCallbacks: {  }
     manyToOne:
-      gradeSystemId:
-        targetEntity: GradeSystem
-        inversedBy: grade
+      gpaSystemId:
+        targetEntity: GPASystem
+        inversedBy: gpa
         joinColumn:
-          name: grade_system_id
+          name: gpa_system_id
           referencedColumnName: id
           nullable: false
           onDelete: CASCADE

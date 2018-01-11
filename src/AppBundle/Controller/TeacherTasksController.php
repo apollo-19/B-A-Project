@@ -23,12 +23,14 @@ class TeacherTasksController extends Controller
 
       $school_sessions = $em->getRepository('AppBundle:Schoolsession')
                             ->createQueryBuilder('e')
-                            ->addOrderBy('e.sessionStartDate', 'ASC')
+                            ->addOrderBy('e.sessionEndDate', 'DESC')
                             ->andWhere('e.teacherId = ' . $session->get('user_id'))
                             ->getQuery()
                             ->execute();
 
       $data['school_sessions'] = $school_sessions;
+
+      $data['today'] = date("Y-m-d");
 
       return $this->render('session/minor_view.html.twig', $data);
     } else {
@@ -51,15 +53,17 @@ class TeacherTasksController extends Controller
 
       $school_sessions = $em->getRepository('AppBundle:Schoolsession')
                             ->createQueryBuilder('e')
-                            ->addOrderBy('e.sessionStartDate', 'ASC')
+                            ->addOrderBy('e.sessionEndDate', 'DESC')
                             ->andWhere('e.teacherId = ' . $session->get('user_id'))
-                            ->andWhere('e.courseModuleType =' . '"module"')
+                            ->andWhere("e.courseModuleType = 'module'")
                             ->getQuery()
                             ->execute();
 
       $data['school_sessions'] = $school_sessions;
 
-      return $this->render('session/minor_view.html.twig', $data);
+      $data['today'] = date("Y-m-d");
+
+      return $this->render('module/minor_view.html.twig', $data);
     } else {
       $data['message'] = 'You Are Not Qualified to View Courses.';
       return $this->render('accessDenied.html.twig', $data);
@@ -80,15 +84,17 @@ class TeacherTasksController extends Controller
 
       $school_sessions = $em->getRepository('AppBundle:Schoolsession')
                             ->createQueryBuilder('e')
-                            ->addOrderBy('e.sessionStartDate', 'ASC')
+                            ->addOrderBy('e.sessionEndDate', 'DESC')
                             ->andWhere('e.teacherId = ' . $session->get('user_id'))
-                            ->andWhere('e.courseModuleType = course')
+                            ->andWhere("e.courseModuleType =  'course'")
                             ->getQuery()
                             ->execute();
 
       $data['school_sessions'] = $school_sessions;
 
-      return $this->render('course/teacher_view.html.twig', $data);
+      $data['today'] = date("Y-m-d");
+
+      return $this->render('course/minor_view.html.twig', $data);
     } else {
       $data['message'] = 'You Are Not Qualified to View Courses.';
       return $this->render('accessDenied.html.twig', $data);

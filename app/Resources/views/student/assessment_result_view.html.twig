@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-
+  {{ student.firstNameEn }} {{ student.middleNameEn }} {{ student.lastNameEn }}
 {% endblock %}
 
 {% block stylesheet %}
@@ -15,7 +15,7 @@
         {% if assessment_results[0].sessionId.courseModuleType == 'course' %}
           {{ assessment_results[0].sessionId.courseId.courseName }}
         {% elseif assessment_results[0].sessionId.courseModuleType == 'module' %}
-          {{ assessment_results[0].sessionId.mmoduleId.moduleName }}
+          {{ assessment_results[0].sessionId.moduleId.moduleName }}
         {% endif %}
       </h1>
 

@@ -1,7 +1,7 @@
-AppBundle\Entity\GradeSystem:
+AppBundle\Entity\GPASystem:
     type: entity
     table: null
-    repositoryClass: AppBundle\Repository\GradeSystemRepository
+    repositoryClass: AppBundle\Repository\GPASystemRepository
     id:
         id:
             type: integer
@@ -9,15 +9,15 @@ AppBundle\Entity\GradeSystem:
             generator:
                 strategy: AUTO
     fields:
-        gradeSystemCode:
+        gpaSystemCode:
             type: string
             length: '100'
             unique: true
-            column: grade_system_code
-        gradeSystemName:
+            column: gpa_system_code
+        gpaSystemName:
             type: string
             length: 255
-            column: grade_system_name
+            column: gpa_system_name
         createdBy:
             type: integer
             column: created_by
@@ -25,7 +25,7 @@ AppBundle\Entity\GradeSystem:
     oneToMany:
       curriculums:
         targetEntity: Curriculum
-        mappedBy: gradeSystem
-      grade:
-        targetEntity: Grade
-        mappedBy: gradeSystem
+        mappedBy: gpaSystem
+      gpa:
+        targetEntity: GPA
+        mappedBy: gpaSystem

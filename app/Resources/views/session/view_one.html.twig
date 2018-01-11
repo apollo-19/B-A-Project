@@ -37,7 +37,7 @@
           <td>
             {% for teacher in teachers %}
               {% if(session.teacherId == teacher) %}
-                {{ teacher.firstName }} {{ teacher.middleName }}
+                {{ teacher.firstName }} {{ teacher.middleName }} {{ teacher.lastName }}
               {% endif %}
             {% endfor %}
           </td>
@@ -81,6 +81,24 @@
         </tr>
 
         <tr>
+          <td>Session Schedule: </td>
+          <td>
+            {{ session.sessionStartDate }} - {{ session.sessionEndDate }}
+          </td>
+        </tr>
+
+        <tr>
+          <td>Session Status:</td>
+          <td>
+            {% if(session.sessionEndDate < today) %}
+              <font color="#FF0000">Finished Session</font>
+            {% else %}
+              <font color="#009900">Ongoing Session</font>
+            {% endif %}
+          </td>
+        </tr>
+
+        <tr>
           <td>Session Assessments:</td>
           <td>
             {% set assessmentWorthTotal = 0 %}
@@ -100,12 +118,14 @@
           </td>
         </tr>
 
-        <tr>
-          <td colspan="2">
-            <p class="clear fright"><a href="{{ path('assessment_result_view', {'school_session_id': session.id}) }}" id="editBtn"> + view assessment results</a></p>
-            <p class="clear fright"><a href="{{ path('session_result_view', {'school_session_id': session.id}) }}" id="editBtn"> + view session results</a></p>
-          </td>
-        </tr>
+        {% if (app.session.get('user_type') == 'admin') or (app.session.get('user_type') == 'teacher') %}
+          <tr>
+            <td colspan="2">
+              <p class="clear fright"><a href="{{ path('assessment_result_view', {'school_session_id': session.id}) }}" id="editBtn"> + view assessment results</a></p>
+              <p class="clear fright"><a href="{{ path('session_result_view', {'school_session_id': session.id}) }}" id="editBtn"> + view session results</a></p>
+            </td>
+          </tr>
+        {% endif %}
       </table>
     </div>
 

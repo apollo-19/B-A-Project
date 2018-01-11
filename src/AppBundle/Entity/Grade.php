@@ -28,11 +28,6 @@ class Grade
     private $grade;
 
     /**
-     * @var integer
-     */
-    private $gradeSystemId;
-
-    /**
      * @var string
      */
     private $gradeRemark;
@@ -41,6 +36,11 @@ class Grade
      * @var integer
      */
     private $createdBy;
+
+    /**
+     * @var \AppBundle\Entity\GradeSystem
+     */
+    private $gradeSystemId;
 
 
     /**
@@ -126,30 +126,6 @@ class Grade
     }
 
     /**
-     * Set gradeSystemId
-     *
-     * @param integer $gradeSystemId
-     *
-     * @return Grade
-     */
-    public function setGradeSystemId($gradeSystemId)
-    {
-        $this->gradeSystemId = $gradeSystemId;
-
-        return $this;
-    }
-
-    /**
-     * Get gradeSystemId
-     *
-     * @return integer
-     */
-    public function getGradeSystemId()
-    {
-        return $this->gradeSystemId;
-    }
-
-    /**
      * Set gradeRemark
      *
      * @param string $gradeRemark
@@ -195,5 +171,29 @@ class Grade
     public function getCreatedBy()
     {
         return $this->createdBy;
+    }
+
+    /**
+     * Set gradeSystemId
+     *
+     * @param \AppBundle\Entity\GradeSystem $gradeSystemId
+     *
+     * @return Grade
+     */
+    public function setGradeSystemId(\AppBundle\Entity\GradeSystem $gradeSystemId)
+    {
+        $this->gradeSystemId = $gradeSystemId;
+
+        return $this;
+    }
+
+    /**
+     * Get gradeSystemId
+     *
+     * @return \AppBundle\Entity\GradeSystem
+     */
+    public function getGradeSystemId()
+    {
+        return $this->gradeSystemId;
     }
 }

@@ -22,7 +22,7 @@
           {% if app.session.get('user_name') %}
             <td>
               <img src="{{ asset('img/user_photos/' ~ app.session.get('user_photo')) }}"
-              alt="{{ app.session.get('user_name') | capitalize }} photo" draggable="false" />
+              alt="{{ app.session.get('user_name') | title }} Photo" draggable="false" />
             </td>
           {% endif %}
 
@@ -63,6 +63,7 @@
             <a href="{{ path('module_view') }}">Modules</a>
             <a href="{{ path('course_view') }}">Courses</a>
             <a href="{{ path('grade_system_view') }}">Grade Systems</a>
+            <a href="{{ path('gpa_system_view') }}">GPA Systems</a>
             <a href="{{ path('prerequisite_view') }}">Prerequisites</a>
             <a href="{{ path('batch_view') }}">Batches</a>
             <a href="{{ path('section_view') }}">Sections</a>
@@ -76,7 +77,6 @@
             <a href="{{ path('teacher_sessions_view') }}">My School Sessions</a>
 
           {% elseif (app.session.get('user_type') == 'student') %}
-            <a href="{{ path('module_view') }}">My Semesters</a>
             <a href="{{ path('student_modules_view') }}">My Modules</a>
             <a href="{{ path('student_courses_view') }}">My Courses</a>
             <a href="{{ path('student_sessions_view') }}">My School Sessions</a>

@@ -40,8 +40,6 @@ AppBundle\Entity\Curriculum:
             type: boolean
             nullable: true
             column: is_applied
-
-
         createdBy:
             type: integer
             nullable: false
@@ -59,7 +57,6 @@ AppBundle\Entity\Curriculum:
       courses:
         targetEntity: Course
         mappedBy: curriculum
-    
       sections:
         targetEntity: Section
         mappedBy: curriculum
@@ -76,7 +73,15 @@ AppBundle\Entity\Curriculum:
         targetEntity: GradeSystem
         inversedBy: curriculum
         joinColumn:
-          name: gradeSystemId
+          name: grade_system_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE
+      gpaSystemId:
+        targetEntity: GPASystem
+        inversedBy: curriculum
+        joinColumn:
+          name: gpa_system_id
           referencedColumnName: id
           nullable: false
           onDelete: CASCADE

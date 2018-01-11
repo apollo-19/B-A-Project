@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  GPA System View
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="container" id="view_container">
+    {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
+      <a href="{{ path('gpa_system_create') }}">New GPA System</a>
+    {% endif %}
+
+    <table border="0">
+      <thead>
+        <tr>
+          <th>GPA System Code</th>
+          <th>GPA System Name</th>
+          <th colspan="3">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for gpa_system in gpa_systems %}
+          <tr>
+            <td>{{ gpa_system.gpaSystemCode | upper }}</td>
+            <td>{{ gpa_system.gpaSystemName }}</td>
+
+            <td id="actions"><a href="{{ path('gpa_view', {'gpa_system_id': gpa_system.id}) }}" id="editBtn">GPAs</button></td>
+              {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
+                <td id="actions"><a href="{{ path('gpa_system_edit', {'gpa_system_id': gpa_system.id}) }}" id="editBtn">edit</button></td>
+                <td id="actions"><a href="{{ path('gpa_system_delete', {'gpa_system_id': gpa_system.id}) }}" id="deleteBtn"
+                  onclick="return confirm('Are You Sure You Want To Delete GPA System {{ gpa_system.gpaSystemCode | upper ~ ' (' ~ gpa_system.gpaSystemName ~ ')' }}?') ">delete</button></td>
+              {% endif %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

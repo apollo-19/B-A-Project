@@ -3,9 +3,9 @@
 namespace AppBundle\Entity;
 
 /**
- * GradeSystem
+ * GPASystem
  */
-class GradeSystem
+class GPASystem
 {
     /**
      * @var integer
@@ -15,12 +15,12 @@ class GradeSystem
     /**
      * @var string
      */
-    private $gradeSystemCode;
+    private $gpaSystemCode;
 
     /**
      * @var string
      */
-    private $gradeSystemName;
+    private $gpaSystemName;
 
     /**
      * @var integer
@@ -35,7 +35,7 @@ class GradeSystem
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $grade;
+    private $gpa;
 
     /**
      * Constructor
@@ -43,7 +43,7 @@ class GradeSystem
     public function __construct()
     {
         $this->curriculums = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->grade = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->gpa = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -57,51 +57,51 @@ class GradeSystem
     }
 
     /**
-     * Set gradeSystemCode
+     * Set gpaSystemCode
      *
-     * @param string $gradeSystemCode
+     * @param string $gpaSystemCode
      *
-     * @return GradeSystem
+     * @return GPASystem
      */
-    public function setGradeSystemCode($gradeSystemCode)
+    public function setGpaSystemCode($gpaSystemCode)
     {
-        $this->gradeSystemCode = $gradeSystemCode;
+        $this->gpaSystemCode = $gpaSystemCode;
 
         return $this;
     }
 
     /**
-     * Get gradeSystemCode
+     * Get gpaSystemCode
      *
      * @return string
      */
-    public function getGradeSystemCode()
+    public function getGpaSystemCode()
     {
-        return $this->gradeSystemCode;
+        return $this->gpaSystemCode;
     }
 
     /**
-     * Set gradeSystemName
+     * Set gpaSystemName
      *
-     * @param string $gradeSystemName
+     * @param string $gpaSystemName
      *
-     * @return GradeSystem
+     * @return GPASystem
      */
-    public function setGradeSystemName($gradeSystemName)
+    public function setGpaSystemName($gpaSystemName)
     {
-        $this->gradeSystemName = $gradeSystemName;
+        $this->gpaSystemName = $gpaSystemName;
 
         return $this;
     }
 
     /**
-     * Get gradeSystemName
+     * Get gpaSystemName
      *
      * @return string
      */
-    public function getGradeSystemName()
+    public function getGpaSystemName()
     {
-        return $this->gradeSystemName;
+        return $this->gpaSystemName;
     }
 
     /**
@@ -109,7 +109,7 @@ class GradeSystem
      *
      * @param integer $createdBy
      *
-     * @return GradeSystem
+     * @return GPASystem
      */
     public function setCreatedBy($createdBy)
     {
@@ -133,7 +133,7 @@ class GradeSystem
      *
      * @param \AppBundle\Entity\Curriculum $curriculum
      *
-     * @return GradeSystem
+     * @return GPASystem
      */
     public function addCurriculum(\AppBundle\Entity\Curriculum $curriculum)
     {
@@ -163,36 +163,36 @@ class GradeSystem
     }
 
     /**
-     * Add grade
+     * Add gpa
      *
-     * @param \AppBundle\Entity\Grade $grade
+     * @param \AppBundle\Entity\gpa $gpa
      *
-     * @return GradeSystem
+     * @return GPASystem
      */
-    public function addGrade(\AppBundle\Entity\Grade $grade)
+    public function addGpa(\AppBundle\Entity\gpa $gpa)
     {
-        $this->grade[] = $grade;
+        $this->gpa[] = $gpa;
 
         return $this;
     }
 
     /**
-     * Remove grade
+     * Remove gpa
      *
-     * @param \AppBundle\Entity\Grade $grade
+     * @param \AppBundle\Entity\gpa $gpa
      */
-    public function removeGrade(\AppBundle\Entity\Grade $grade)
+    public function removeGpa(\AppBundle\Entity\gpa $gpa)
     {
-        $this->grade->removeElement($grade);
+        $this->gpa->removeElement($gpa);
     }
 
     /**
-     * Get grade
+     * Get gpa
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getGrade()
+    public function getGpa()
     {
-        return $this->grade;
+        return $this->gpa;
     }
 }

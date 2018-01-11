@@ -41,6 +41,13 @@
         {% endfor %}
       </select>
 
+      <label for="form[curriculum_gpa_system]">Curriculum GPA System</label>
+      <select name="form[curriculum_gpa_system]">
+        {% for gpa_system in gpa_systems %}
+          <option value="{{ gpa_system.id}}" {{ (gpa_system == (form.curriculum_gpa_system is defined ? form.curriculum_gpa_system : '')) ? 'selected' : '' }} >{{ gpa_system.gpaSystemName }}</option>
+        {% endfor %}
+      </select>
+
       <button>{{ (mode == 'new') ? 'Create Curriculum' : 'Save Changes' }}</button>
     </form>
 

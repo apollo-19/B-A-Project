@@ -29,6 +29,7 @@
           <th>Session Section</th>
           <th>Session Teacher</th>
           <th>Session Course/Module</th>
+          <th>Status</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -39,12 +40,20 @@
             <td>{{ school_session.sessionCode }}</td>
             <td>{{ school_session.sessionName }}</td>
             <td>{{ school_session.sectionId.sectionName }}</td>
-            <td>{{ school_session.teacherId.firstName }}</td>
+            <td>{{ school_session.teacherId.firstName ~ ' ' ~ school_session.teacherId.middleName ~ ' ' ~ school_session.teacherId.lastName }}</td>
             <td>
-              {% if ( school_session.courseId.curriculumId.curriculumType == 'modularized' and school_session.courseId.moduleId is not null ) %}
-                (Module) - {{ school_session.courseId.moduleId.moduleName }}
-              {% elseif ( school_session.courseId.curriculumId.curriculumType == 'semester' and school_session.courseId.semesterId is not null ) %}
-                (Semester) - {{ school_session.courseId.semesterId.semester ~ ' ' ~ school_session.courseId.semesterId.year }}
+              {% if (school_session.courseModuleType == 'module' and school_session.moduleId is not null) %}
+                (Module) - {{ school_session.moduleId.moduleName }}
+              {% elseif (school_session.courseModuleType == 'course' and school_session.courseId is not null) %}
+                (Course) - {{ school_session.courseId.courseName }}
+              {% endif %}
+            </td>
+
+            <td>
+              {% if(school_session.sessionEndDate < today) %}
+                Finished Session
+              {% else %}
+                <font color="#009900">Ongoing Session</font>
               {% endif %}
             </td>
 

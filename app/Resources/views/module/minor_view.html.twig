@@ -26,9 +26,10 @@
         <tr>
           <th>Module Code</th>
           <th>Module Name</th>
-          <th>Module Credit Hour</th>
-          <th>Module Curriculum</th>
+          <th>Credit Hour</th>
+          <th>Curriculum</th>
           <th>Module Session</th>
+          <th>Status</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -41,7 +42,18 @@
             <td>
               <a href="{{ path('curriculum_view', {'curriculum_id': school_session.moduleId.curriculumId.id}) }}" id="moreDetBtn">{{ school_session.moduleId.curriculumId.curriculumName }}</a>
             </td>
-            <td>{{ school_session.sessionName }}</td>
+
+            <td><a href="{{ path('session_view_one', {'session_id': school_session.id}) }}" id="moreDetBtn">
+              ({{ school_session.sessionCode | upper }}) - {{ school_session.sessionName }}
+            </a></td>
+
+            <td>
+              {% if(school_session.sessionEndDate < today) %}
+                Finished Session
+              {% else %}
+                <font color="#009900">Ongoing Session</font>
+              {% endif %}
+            </td>
 
             <td id="actions"><a href="{{ path('module_view_one', {'module_id': school_session.moduleId.id}) }}">view</a></td>
           </tr>

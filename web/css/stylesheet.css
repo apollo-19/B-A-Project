@@ -397,7 +397,7 @@ header table tr td a:hover {
   display: inline-block;
   text-decoration: none;
   text-align: center;
-  color: #000000;
+  color: #1872B8;
 
   border: none;
 
@@ -408,7 +408,7 @@ header table tr td a:hover {
 #view_container #moreDetBtn:hover {
   background-color: rgba(1, 1, 1, 0);
   text-decoration: underline;
-  color: #1872B8;
+  color: #000000;
 }
 
 #view_container #view_one_link {
