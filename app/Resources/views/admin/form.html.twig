@@ -15,8 +15,10 @@
         <h1 align="center">
           <img src="{{ asset('img/user_photos/' ~ user_lit.userPhoto) }}" alt="{{ user_lit.userName | capitalize }} photo" width="250" />
         </h1>
+        <input type="file" name="form[user_photo]" />
+      {% else %}
+        <input type="file" name="form[user_photo]" required />
       {% endif %}
-      <input type="file" name="form[user_photo]" required />
 
       <label for="form[first_name]">First Name</label>
       <input type="text" name="form[first_name]" placeholder="" value="{{ form.first_name is defined ? form.first_name : '' }}" required />
@@ -40,17 +42,15 @@
       </select>
 
       <label for="form[admin_class]">Admin Class</label>
-      <select name="form[admin_class]" id="registrar">
-        <optgroup label="Registrar">
+      <select name="form[admin_class]">
+        <optgroup label="Registrar" id="registrar">
           {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head')) %}
             <option value="registrar head" {{ (form.admin_class is defined and form.admin_class == 'registrar head') ? 'selected' : '' }}>Registrar Head</option>
           {% endif %}
           <option value="registrar officer" {{ (form.admin_class is defined and form.admin_class == 'registrar officer') ? 'selected' : '' }}>Registrar Officer</option>
         </optgroup>
-      </select>
-
-      <select name="form[admin_class]" id="academics">
-        <optgroup label="Academics">
+        
+        <optgroup label="Academics" id="academics">
           <option value="integrated coordinator" {{ (form.admin_class is defined and form.admin_class == 'integrated coordinator') ? 'selected' : '' }}>Integrated Coordinator</option>
           <option value="module coordinator" {{ (form.admin_class is defined and form.admin_class == 'module coordinator') ? 'selected' : '' }}>Module Coordinator</option>
           <option value="minor coordinator" {{ (form.admin_class is defined and form.admin_class == 'minor coordinator') ? 'selected' : '' }}>Minor Coordinator</option>

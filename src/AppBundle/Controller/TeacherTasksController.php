@@ -32,7 +32,7 @@ class TeacherTasksController extends Controller
 
       $data['today'] = date("Y-m-d");
 
-      return $this->render('session/minor_view.html.twig', $data);
+      return $this->render('session/teacher_view.html.twig', $data);
     } else {
       $data['message'] = 'You Are Not Qualified to View Courses.';
       return $this->render('accessDenied.html.twig', $data);
@@ -63,7 +63,7 @@ class TeacherTasksController extends Controller
 
       $data['today'] = date("Y-m-d");
 
-      return $this->render('module/minor_view.html.twig', $data);
+      return $this->render('module/teacher_view.html.twig', $data);
     } else {
       $data['message'] = 'You Are Not Qualified to View Courses.';
       return $this->render('accessDenied.html.twig', $data);
@@ -94,7 +94,7 @@ class TeacherTasksController extends Controller
 
       $data['today'] = date("Y-m-d");
 
-      return $this->render('course/minor_view.html.twig', $data);
+      return $this->render('course/teacher_view.html.twig', $data);
     } else {
       $data['message'] = 'You Are Not Qualified to View Courses.';
       return $this->render('accessDenied.html.twig', $data);

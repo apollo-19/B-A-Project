@@ -20,6 +20,9 @@ AppBundle\Entity\Grade:
         grade:
             type: string
             length: '2'
+        gradeValue:
+            type: string
+            length: '5'
         gradeRemark:
             type: string
             length: '10'

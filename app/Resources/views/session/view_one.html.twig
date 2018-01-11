@@ -121,10 +121,18 @@
         {% if (app.session.get('user_type') == 'admin') or (app.session.get('user_type') == 'teacher') %}
           <tr>
             <td colspan="2">
-              <p class="clear fright"><a href="{{ path('assessment_result_view', {'school_session_id': session.id}) }}" id="editBtn"> + view assessment results</a></p>
-              <p class="clear fright"><a href="{{ path('session_result_view', {'school_session_id': session.id}) }}" id="editBtn"> + view session results</a></p>
+              <p class="clear fright"><a href="{{ path('assessment_result_view', {'school_session_id': session.id}) }}" id="editBtn">assessment results</a></p>
+              <p class="clear fright"><a href="{{ path('session_result_view', {'school_session_id': session.id}) }}" id="editBtn">session results</a></p>
             </td>
           </tr>
+        {% else %}
+        <tr>
+          <td colspan="2">
+            <p class="clear fright"><a href="{{ path('student_assessment_results', {'session_id': session.id}) }}" id="editBtn">
+              view results
+            </a></p>
+          </td>
+        </tr>
         {% endif %}
       </table>
     </div>

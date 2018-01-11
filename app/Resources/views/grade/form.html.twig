@@ -29,6 +29,9 @@
       <label for="form[grade]">Grade</label>
       <input type="text" name="form[grade]" value="{{ form.grade is defined ? form.grade : '' }}" required />
 
+      <label for="form[grade_value]">Grade Value</label>
+      <input type="text" name="form[grade_value]" value="{{ form.grade_value is defined ? form.grade_value : '' }}" required />
+
       <label for="form[grade_remark]">Grade Remark</label>
       <select name="form[grade_remark]">
         <option value="pass" {{ (form.grade_remark is defined and form.grade_remark == 'pass') ? 'selected' : '' }}>Pass</option>
@@ -39,7 +42,7 @@
         <label for="form[grade_system]">Grade System</label>
         <select name="form[grade_system]">
           {% for grade_system in grade_systems %}
-            <option value="{{ grade_system.id }}" {{ (form.grade_system == grade_system.id) ? 'selected' : '' }}>{{ grade_system.gradeSystemCode | upper ~ ' (' ~ grade_system.gradeSystemName ~ ')' }}</option>
+            <option value="{{ grade_system.id }}" {{ (form.grade_system == grade_system) ? 'selected' : '' }}>{{ grade_system.gradeSystemCode | upper ~ ' (' ~ grade_system.gradeSystemName ~ ')' }}</option>
           {% endfor %}
         </select>
       {% endif %}

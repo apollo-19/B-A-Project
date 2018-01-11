@@ -16,7 +16,9 @@
     </big></h1>
 
     <h1>Section / Batch :
-      {{ student.sectionId.sectionName ~ ' / ' ~ student.sectionId.batchId.batchName }}
+      {{ student.sectionId.sectionName }} /
+      <a href="{{ path('batch_view_one', {'batch_id': student.sectionId.batchId.id}) }}" id="moreDetBtn">
+      {{ student.sectionId.batchId.batchName }}</a>
     </h1>
 
     <h1>Curriculum / School:
@@ -24,45 +26,123 @@
       <a href="{{ path('school_view_one', {'school_id': student.sectionId.curriculumId.schoolId.id}) }}" id="moreDetBtn">{{ student.sectionId.curriculumId.schoolId.schoolName }}</a>
     </h1>
 
-    <table id="wide_table">
-      <thead>
-        <tr>
-          <th>Session</th>
-          <th>Course/Module</th>
-          <th>Result</th>
-          <th>Grade</th>
-          <th>Remark</th>
+    {% set currentModSemArray = [] %}
+    {% for session_result in session_results %}
+      {% set currentModSem = "" %}
+      {% if session_result.sessionId.sectionId.curriculumId.curriculumType == 'modularized' %}
+        {% if session_result.sessionId.courseModuleType == 'course' and session_result.sessionId.courseId.moduleId is not null %}
+          {% set currentModSem = session_result.sessionId.courseId.moduleId.moduleName %}
+        {% elseif session_result.sessionId.courseModuleType == 'module' and session_result.sessionId.moduleId is not null %}
+          {% set currentModSem = session_result.sessionId.moduleId.moduleName %}
+        {% else %}
+          {% set currentModSem = "Independent Courses" %}
+        {% endif %}
+      {% elseif session_result.sessionId.curriculumId.curriculumType == 'semester' %}
+        {% if session_result.sessionId.courseId.semesterId is not null %}
+          {% set currentModSem = session_result.sessionId.courseId.semesterId.semesterName %}
+        {% else %}
+          {% set currentModSem = "Independent Courses" %}
+        {% endif %}
+      {% endif %}
 
-          <th>Actions</th>
-        </tr>
-      </thead>
+      {% if currentModSem not in currentModSemArray %}
+        {% set currentModSemArray = currentModSemArray|merge([currentModSem]) %}
+      {% endif %}
+    {% endfor %}
 
-      <tbody>
-        {% for session_result in session_results %}
+    {% for currentModSemArr in currentModSemArray %}
+      <hr class="sep_hr" />
+      <h1>{{ currentModSemArr }}</h1>
+
+      <table>
+        <thead>
           <tr>
-            <td id="result_row">
-              <a href="{{ path('student_assessment_results', {'session_id': session_result.sessionId.id}) }}" id="moreDetBtn">
-                {{ session_result.sessionId.sessionName }}
-              </a>
-            </td>
+            <th>Session</th>
+            <th>Course/Module</th>
+            <th>Result</th>
+            <th>Grade</th>
+            <th>Value * Credit Hour</th>
+            <th>Remark</th>
 
-            <td>
-              {% if session_result.sessionId.courseModuleType == 'course' %}
-                {{ session_result.sessionId.courseModuleType | capitalize ~ ' - ' ~ session_result.sessionId.courseId.courseName }}
-              {% elseif session_result.sessionId.courseModuleType == 'module' %}
-                {{ session_result.sessionId.courseModuleType | capitalize ~ ' - ' ~ session_result.sessionId.moduleId.moduleName }}
-              {% endif %}
-            </td>
-
-            <td>{{ session_result.resultInNumber }}</td>
-            <td>{{ session_result.resultInAlphabet }}</td>
-            <td>{{ session_result.sessionResultRemark | capitalize }}</td>
-            <td><a href="{{ path('student_assessment_results', {'session_id': session_result.sessionId.id}) }}">
-              more
-            </a></td>
+            <th>Actions</th>
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+          {% set totalSum = 0 %}
+          {% set totalCreditHours = 0 %}
+          {% for session_result in session_results %}
+            {% if session_result.sessionId.courseId.courseCreditHour is defined %}
+              {% set sessionResultCreditHour = session_result.sessionId.courseId.courseCreditHour %}
+            {% endif %}
+
+            {% if session_result.sessionId.sectionId.curriculumId.curriculumType == 'modularized' %}
+              {% if session_result.sessionId.courseModuleType == 'course' and session_result.sessionId.courseId.moduleId is not null %}
+                {% set currentModSem = session_result.sessionId.courseId.moduleId.moduleName %}
+              {% elseif session_result.sessionId.courseModuleType == 'module' and session_result.sessionId.moduleId is not null %}
+                {% set currentModSem = session_result.sessionId.moduleId.moduleName %}
+                {% set sessionResultCreditHour = session_result.sessionId.moduleId.moduleCreditHour %}
+              {% else %}
+                {% set currentModSem = "Independent Courses" %}
+              {% endif %}
+            {% elseif session_result.sessionId.curriculumId.curriculumType == 'semester' %}
+              {% if session_result.sessionId.courseId.semesterId is not null %}
+                {% set currentModSem = session_result.sessionId.courseId.semesterId.semesterName %}
+              {% else %}
+                {% set currentModSem = "Independent Courses" %}
+              {% endif %}
+            {% endif %}
+            {% if currentModSemArr == currentModSem %}
+              <tr>
+                <td id="result_row">
+                  <a href="{{ path('session_view_one', {'session_id': session_result.sessionId.id}) }}" id="moreDetBtn">
+                    {{ session_result.sessionId.sessionName }}
+                  </a>
+                </td>
+
+                <td>
+                  {% if session_result.sessionId.courseModuleType == 'course' %}
+                    {{ session_result.sessionId.courseId.courseName }} / Course
+                  {% elseif session_result.sessionId.courseModuleType == 'module' %}
+                    {{ session_result.sessionId.moduleId.moduleName }} / Module
+                  {% endif %}
+                </td>
+
+                <td>{{ session_result.resultInNumber }}</td>
+                <td>{{ session_result.resultInAlphabet }}</td>
+                <td>
+                  {% set sum = session_result.resultInAlphabetValue|number_format(2, '.', ',') * sessionResultCreditHour|number_format(2, '.', ',') %}
+                  {{ session_result.resultInAlphabetValue }} * {{ sessionResultCreditHour|number_format(2, '.', ',') }} = {{ sum }}
+
+                  {% set totalCreditHours = totalCreditHours|number_format(2, '.', ',') + sessionResultCreditHour|number_format(2, '.', ',') %}
+                  {% set totalSum = totalSum|number_format(2, '.', ',') + sum|number_format(2, '.', ',') %}
+                </td>
+                <td>{{ session_result.sessionResultRemark | capitalize }}</td>
+                <td><a href="{{ path('student_assessment_results', {'session_id': session_result.sessionId.id}) }}">
+                  more
+                </a></td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+
+          <tr>
+            <td colspan="3"></td>
+            <td id="total_row">Total = {{ totalSum }} / {{ totalCreditHours }}</td>
+            {% set gpaSt = totalSum|number_format(2, '.', ',') / totalCreditHours|number_format(2, '.', ',') %}
+            <td>GPA = {{ gpaSt }}</td>
+            <td>
+              {% for gpa in gpas %}
+                {% if session_results[0].sessionId.sectionId.curriculumId.gpaSystemId == gpa.gpaSystemId %}
+                  {% if gpaSt >= gpa.startGpa and gpaSt <= gpa.endGpa %}
+                    {{ gpa.gpaPf|title }} ({{ gpa.gpaRemark|title }})
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    {% endfor %}
+
   </div>
 {% endblock %}

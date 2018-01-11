@@ -95,10 +95,15 @@ class SessionResultController extends Controller
                                     );
 
             $passed = true;
-            foreach ($session_results as $session_result){
-              if( ($session_result->getSessionResultRemark() == 'fail') ){
-                $passed = false;
-                break;
+            if ( $session_results == NULL ){
+              $passed = false;
+              break;
+            } else {
+              foreach ( $session_results as $session_result ){
+                if( ($session_result->getSessionResultRemark() == 'fail') || ($session_result->getSessionResultRemark() == '') ){
+                  $passed = false;
+                  break;
+                }
               }
             }
           }
@@ -192,12 +197,14 @@ class SessionResultController extends Controller
         foreach ($grades as $grade){
           if ($assessmentResultTotal >= $grade->getStartPoint() && $assessmentResultTotal < $grade->getEndPoint()){
             $resultInAlphabet = $grade->getGrade();
+            $resultInAlphabetValue = $grade->getGradeValue();
             $sessionResultRemark = $grade->getGradeRemark();
           }
         }
 
         $session_result->setResultInNumber($assessmentResultTotal);
         $session_result->setResultInAlphabet($resultInAlphabet);
+        $session_result->setResultInAlphabetValue($resultInAlphabetValue);
         $session_result->setSessionResultRemark($sessionResultRemark);
 
         $session_result->setCreatedBy($session->get('user_id'));

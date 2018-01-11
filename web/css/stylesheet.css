@@ -1,4 +1,4 @@
-/*@import url('https://fonts.googleapis.com/css?family=Roboto');*/
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 * {
   margin:0px;
   padding:0px;
@@ -118,6 +118,10 @@ header table tr td a {
 
 header table tr td a:hover {
   background-color: #3A94DA;
+}
+
+.sep_hr {
+  margin: 10px 0px;
 }
 
 .welcomeText {
@@ -293,6 +297,7 @@ header table tr td a:hover {
 }
 
 #view_container table {
+  margin: 10px 0px;
   width: 100%;
 	overflow: hidden;
 	border-collapse: collapse;

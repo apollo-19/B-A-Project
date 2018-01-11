@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>{% block title %}St. Paul's Hospital Mellinium Medical College{% endblock %}</title>
-    <!link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/stylesheet.css') }}">
     {% block stylesheet %}{% endblock %}
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}" />
@@ -22,7 +22,7 @@
           {% if app.session.get('user_name') %}
             <td>
               <img src="{{ asset('img/user_photos/' ~ app.session.get('user_photo')) }}"
-              alt="{{ app.session.get('user_name') | title }} Photo" draggable="false" />
+              alt="{{ app.session.get('user_name')|title }} Photo" draggable="false" />
             </td>
           {% endif %}
 
@@ -35,7 +35,7 @@
               {% set user_type_dis = app.session.get('user_type') %}
             {% endif %}
 
-            <td><a href="{{ path('account_settings') }}">{{ app.session.get('user_name') | upper ~ ' (' ~ user_type_dis | capitalize ~')' }}</a></td>
+            <td><a href="{{ path('account_settings') }}">{{ app.session.get('user_name')|upper ~ ' (' ~ user_type_dis|title ~')' }}</a></td>
             <td><a id="dashboard">DASHBOARD</a></td>
             <td><a href=" {{ path('user_signout') }} "
                 onclick="return confirm('Are You Sure You Want To Sign Out?') ">SIGN OUT</a></td>

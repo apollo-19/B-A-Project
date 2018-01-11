@@ -196,4 +196,33 @@ class Grade
     {
         return $this->gradeSystemId;
     }
+    /**
+     * @var string
+     */
+    private $gradeValue;
+
+
+    /**
+     * Set gradeValue
+     *
+     * @param string $gradeValue
+     *
+     * @return Grade
+     */
+    public function setGradeValue($gradeValue)
+    {
+        $this->gradeValue = $gradeValue;
+
+        return $this;
+    }
+
+    /**
+     * Get gradeValue
+     *
+     * @return string
+     */
+    public function getGradeValue()
+    {
+        return $this->gradeValue;
+    }
 }

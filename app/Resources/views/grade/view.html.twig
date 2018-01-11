@@ -23,6 +23,7 @@
         <tr>
           <th>Range (%)</th>
           <th>Grade</th>
+          <th>Value</th>
           <th>Remark</th>
           {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
             <th colspan="3">Actions</th>
@@ -34,6 +35,7 @@
           <tr>
             <td id="total_row">{{ '(' ~ grade.startPoint ~ ' - ' ~ grade.endPoint ~')' }}</td>
             <td>{{ grade.grade }}</td>
+            <td>{{ grade.gradeValue }}</td>
             <td>{{ grade.gradeRemark | capitalize }}</td>
 
             {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}

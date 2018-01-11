@@ -11,15 +11,9 @@
 
 {% block body %}
   <div class="container" id="view_container">
-    {% if viewer == 'teacher' %}
-      <h1><big>
-        {{ school_sessions[0].teacherId.firstName ~ ' ' ~ school_sessions[0].teacherId.middleName ~ ' ' ~ school_sessions[0].teacherId.lastName }}
-      </big></h1>
-    {% elseif viewer == 'student' %}
-      <h1><big>
-        {{ student.firstNameEn ~ ' ' ~ student.middleNameEn ~ ' ' ~ student.lastNameEn ~ ' (' ~ student.admissionNumber ~ ')' }}
-      </big></h1>
-    {% endif %}
+    <h1><big>
+      {{ school_sessions[0].teacherId.firstName ~ ' ' ~ school_sessions[0].teacherId.middleName ~ ' ' ~ school_sessions[0].teacherId.lastName }}
+    </big></h1>
 
     <table>
       <thead>

@@ -30,16 +30,8 @@
       <tbody>
         {% for curriculum in curriculums %}
           <tr>
-            <td>
-              <a href="{{ path('curriculum_view_one', {'curriculum_id': curriculum.id}) }}" id="moreDetBtn">
-              {{ curriculum.curriculumCode }}</a>
-            </td>
-
-            <td>
-              <a href="{{ path('curriculum_view_one', {'curriculum_id': curriculum.id}) }}" id="moreDetBtn">
-              {{ curriculum.curriculumName }}</a>
-            </td>
-
+            <td>{{ curriculum.curriculumCode }}</td>
+            <td>{{ curriculum.curriculumName }}</td>
             <td>{{ curriculum.curriculumType | title }}</td>
 
             <td>
@@ -61,6 +53,7 @@
               {{ curriculum.gpaSystemId.gpaSystemName }}</a>
             </td>
 
+            <td id="actions"><a href="{{ path('curriculum_view_one', {'curriculum_id': curriculum.id}) }}" id="editBtn">view</button></td>
             {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
               <td id="actions"><a href="{{ path('curriculum_edit', {'curriculum_id': curriculum.id}) }}" id="editBtn">edit</button></td>
               <td id="actions"><a href="{{ path('curriculum_delete', {'curriculum_id': curriculum.id}) }}" id="deleteBtn"

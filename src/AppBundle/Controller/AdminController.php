@@ -152,11 +152,12 @@ class AdminController extends Controller
         $admin_data = $form->getData();
         $data['form'] = $admin_data;
 
-        $user_photo = $admin_data['user_photo'];
-        $user_photo_name = $admin->getAdminType() . '_' . $admin->getUserName() . '.' . $user_photo->guessExtension();
-
-        $user_lit->setUserPhoto($user_photo_name);
-        $user_photo->move('img/user_photos/', $user_photo_name);
+        if($admin_data['user_photo']){
+          $user_photo = $admin_data['user_photo'];
+          $user_photo_name = $admin->getAdminType() . '_' . $admin->getUserName() . '.' . $user_photo->guessExtension();
+          $user_lit->setUserPhoto($user_photo_name);
+          $user_photo->move('img/user_photos/', $user_photo_name);
+        }
 
         $admin->setFirstName($admin_data['first_name']);
         $admin->setMiddleName($admin_data['middle_name']);

@@ -25,6 +25,13 @@ AppBundle\Entity\SessionResult:
             options:
                 fixed: false
             column: result_in_alphabet
+        resultInAlphabetValue:
+            type: string
+            nullable: true
+            length: 2
+            options:
+                fixed: false
+            column: result_in_alphabet_value
         sessionResultRemark:
             type: string
             nullable: true

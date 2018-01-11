@@ -196,4 +196,33 @@ class SessionResult
     {
         return $this->studentId;
     }
+    /**
+     * @var string
+     */
+    private $resultInAlphabetValue;
+
+
+    /**
+     * Set resultInAlphabetValue
+     *
+     * @param string $resultInAlphabetValue
+     *
+     * @return SessionResult
+     */
+    public function setResultInAlphabetValue($resultInAlphabetValue)
+    {
+        $this->resultInAlphabetValue = $resultInAlphabetValue;
+
+        return $this;
+    }
+
+    /**
+     * Get resultInAlphabetValue
+     *
+     * @return string
+     */
+    public function getResultInAlphabetValue()
+    {
+        return $this->resultInAlphabetValue;
+    }
 }

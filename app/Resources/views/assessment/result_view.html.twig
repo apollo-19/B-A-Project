@@ -11,8 +11,11 @@
 
 {% block body %}
   <div class="wide_container" id="view_container">
-    <h1>{{ school_session.sessionName ~ ' - ' ~ school_session.courseId.courseName ~ ' (' ~ school_session.courseId.courseCode | upper ~ ')' }}</h1>
-
+    {% if school_session.courseModuleType == 'course' %}
+      <h1>{{ school_session.sessionName ~ ' - ' ~ school_session.courseId.courseName ~ ' (' ~ school_session.courseId.courseCode | upper ~ ')' }}</h1>
+    {% elseif school_session.courseModuleType == 'module' %}
+      <h1>{{ school_session.sessionName ~ ' - ' ~ school_session.moduleId.moduleName ~ ' (' ~ school_session.moduleId.moduleCode | upper ~ ')' }}</h1>
+    {% endif %}
     <h1>Prerequisites:</h1>
     <h2 style="margin-left: 15px;">
       {% if prerequisites is empty %}

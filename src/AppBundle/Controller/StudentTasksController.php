@@ -23,10 +23,18 @@ class StudentTasksController extends Controller
       $em = $this->getDoctrine()->getManager();
 
       $student = $this->getDoctrine()->getManager()
-      ->getRepository('AppBundle:Student')
-      ->findOneById( $session->get('user_id') );
+                                    ->getRepository('AppBundle:Student')
+                                    ->findOneById( $session->get('user_id') );
 
       $data['student'] = $student;
+
+      $session_results = $this->getDoctrine()
+                              ->getRepository('AppBundle:SessionResult')
+                              ->findBy(
+                                array('studentId' => $student)
+                              );
+
+      $data['session_results'] = $session_results;
 
       $school_sessions = $em->getRepository('AppBundle:Schoolsession')
                             ->createQueryBuilder('e')
@@ -39,7 +47,7 @@ class StudentTasksController extends Controller
 
       $data['today'] = date("Y-m-d");
 
-      return $this->render('session/minor_view.html.twig', $data);
+      return $this->render('session/student_view.html.twig', $data);
     } else {
       $data['message'] = 'You Are Not Qualified to View Courses.';
       return $this->render('accessDenied.html.twig', $data);
@@ -65,6 +73,14 @@ class StudentTasksController extends Controller
 
       $data['student'] = $student;
 
+      $session_results = $this->getDoctrine()
+                              ->getRepository('AppBundle:SessionResult')
+                              ->findBy(
+                                array('studentId' => $student)
+                              );
+
+      $data['session_results'] = $session_results;
+
       $school_sessions = $em->getRepository('AppBundle:Schoolsession')
                             ->createQueryBuilder('e')
                             ->addOrderBy('e.sessionEndDate', 'DESC')
@@ -77,7 +93,7 @@ class StudentTasksController extends Controller
 
       $data['today'] = date("Y-m-d");
 
-      return $this->render('module/minor_view.html.twig', $data);
+      return $this->render('module/student_view.html.twig', $data);
     } else {
       $data['message'] = 'You Are Not Qualified to View Courses.';
       return $this->render('accessDenied.html.twig', $data);
@@ -102,6 +118,14 @@ class StudentTasksController extends Controller
 
       $data['student'] = $student;
 
+      $session_results = $this->getDoctrine()
+                              ->getRepository('AppBundle:SessionResult')
+                              ->findBy(
+                                array('studentId' => $student)
+                              );
+
+      $data['session_results'] = $session_results;
+
       $school_sessions = $em->getRepository('AppBundle:Schoolsession')
                             ->createQueryBuilder('e')
                             ->addOrderBy('e.sessionEndDate', 'DESC')
@@ -114,7 +138,7 @@ class StudentTasksController extends Controller
 
       $data['today'] = date("Y-m-d");
 
-      return $this->render('course/minor_view.html.twig', $data);
+      return $this->render('course/student_view.html.twig', $data);
     } else {
       $data['message'] = 'You Are Not Qualified to View Courses.';
       return $this->render('accessDenied.html.twig', $data);
@@ -146,6 +170,12 @@ class StudentTasksController extends Controller
 
       $data['session_results'] = $session_results;
 
+      $gpas = $this->getDoctrine()
+                          ->getRepository('AppBundle:GPA')
+                          ->findAll();
+
+      $data['gpas'] = $gpas;
+
       $assessment_results = $this->getDoctrine()
                           ->getRepository('AppBundle:AssessmentResult')
                           ->findBy(
@@ -153,7 +183,6 @@ class StudentTasksController extends Controller
                           );
 
       $data['assessment_results'] = $assessment_results;
-
 
       return $this->render('student/result_view.html.twig', $data);
     } else {

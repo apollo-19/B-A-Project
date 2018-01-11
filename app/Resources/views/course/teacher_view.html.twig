@@ -11,15 +11,9 @@
 
 {% block body %}
   <div class="container" id="view_container">
-    {% if viewer == 'teacher' %}
-      <h1><big>
-        {{ school_sessions[0].teacherId.firstName ~ ' ' ~ school_sessions[0].teacherId.middleName ~ ' ' ~ school_sessions[0].teacherId.lastName }}
-      </big></h1>
-    {% elseif viewer == 'student' %}
-      <h1><big>
-        {{ student.firstNameEn ~ ' ' ~ student.middleNameEn ~ ' ' ~ student.lastNameEn ~ ' (' ~ student.admissionNumber ~ ')' }}
-      </big></h1>
-    {% endif %}
+    <h1><big>
+      {{ school_sessions[0].teacherId.firstName ~ ' ' ~ school_sessions[0].teacherId.middleName ~ ' ' ~ school_sessions[0].teacherId.lastName }}
+    </big></h1>
 
     <table>
       <thead>
@@ -44,15 +38,17 @@
             <td>{{ school_session.courseId.curriculumId.curriculumName }}</td>
             <td>
               {% if ( school_session.courseId.curriculumId.curriculumType == 'modularized' and school_session.courseId.moduleId is not null ) %}
-                (Module) - <a href="{{ path('module_view_one', {'module_id': school_session.courseId.moduleId.id}) }}" id="moreDetBtn">
-                  {{ school_session.courseId.moduleId.moduleName }}
+                <a href="{{ path('module_view_one', {'module_id': school_session.courseId.moduleId.id}) }}" id="moreDetBtn">
+                  {{ school_session.courseId.moduleId.moduleName }} / Module
                 </a>
               {% elseif ( school_session.courseId.curriculumId.curriculumType == 'semester' and school_session.courseId.semesterId is not null ) %}
-                (Semester) - <a href="{{ path('semester_view_one', {'semester_id': school_session.courseId.semesterId.id}) }}" id="moreDetBtn">
-                  {{ school_session.courseId.semesterId.semester ~ ' ' ~ school_session.courseId.semesterId.year }}
+                <a href="{{ path('semester_view_one', {'semester_id': school_session.courseId.semesterId.id}) }}" id="moreDetBtn">
+                  {{ school_session.courseId.semesterId.semester ~ ' ' ~ school_session.courseId.semesterId.year }} / Semester
                 </a>
               {% else %}
-                <font color="#FF0000">No Module/Semester</font>
+                <font color="#FF0000">
+                  No {{ school_session.courseId.curriculumId.curriculumType == 'modularized' ? 'Module' : 'Semester' }}
+                </font>
               {% endif %}
             </td>
 
