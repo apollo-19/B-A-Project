@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block body %}
-  <div class="container" id="view_container">
+  <div class="wide_container" id="view_container">
     {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
       <a href="{{ path('admin_create') }}">New Admin</a>
     {% endif %}

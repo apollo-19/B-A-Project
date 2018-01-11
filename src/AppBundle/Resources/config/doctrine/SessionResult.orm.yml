@@ -28,7 +28,7 @@ AppBundle\Entity\SessionResult:
         resultInAlphabetValue:
             type: string
             nullable: true
-            length: 2
+            length: 5
             options:
                 fixed: false
             column: result_in_alphabet_value

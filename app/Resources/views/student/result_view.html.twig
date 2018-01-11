@@ -126,10 +126,12 @@
           {% endfor %}
 
           <tr>
-            <td colspan="3"></td>
-            <td id="total_row">Total = {{ totalSum }} / {{ totalCreditHours }}</td>
-            {% set gpaSt = totalSum|number_format(2, '.', ',') / totalCreditHours|number_format(2, '.', ',') %}
-            <td>GPA = {{ gpaSt }}</td>
+            <td colspan="4"></td>
+            <td id="total_row">
+              {% set gpaSt = totalSum|number_format(2, '.', ',') / totalCreditHours|number_format(2, '.', ',') %}
+              GPA - {{ totalSum }} / {{ totalCreditHours }} = {{ gpaSt }}
+            </td>
+
             <td>
               {% for gpa in gpas %}
                 {% if session_results[0].sessionId.sectionId.curriculumId.gpaSystemId == gpa.gpaSystemId %}
