@@ -138,7 +138,7 @@ class AssessmentResultController extends Controller
           }
         }
         /* end assessment result */
-        return $this->redirect($this->generateUrl('session_result_create', array('school_session_id' => $school_session_id)));
+        return $this->redirect($this->generateUrl('session_result_create', array('school_session_id' => $school_session->getId())));
       } else {
         $data['message'] = 'You Are Not Qualified to Start Assessment Result.';
         return $this->render('accessDenied.html.twig', $data);
@@ -163,7 +163,6 @@ class AssessmentResultController extends Controller
 
       if( ($session->get('user_type') == 'teacher' && $session->get('user_id') == $school_session->getTeacherId()->getId()) ){
         /* set result */
-
         $result_value = $request->request->get('result_value');
 
         $assessment_result->setResultValue( floatval($result_value) );
@@ -258,6 +257,53 @@ class AssessmentResultController extends Controller
 
         $data['assessment_results'] = $assessment_result;
 
+        // Add Student to Session
+        if ($school_session->getCourseModuleType() == 'course'){
+          $school_sessions = $em->getRepository('AppBundle:Schoolsession')
+                                ->createQueryBuilder('ss')
+                                ->andWhere('ss.courseId = ' . $school_session->getCourseId()->getId())
+                                ->andWhere('ss.id != ' . $school_session->getId())
+                                ->getQuery()
+                                ->execute();
+        } else {
+          $school_sessions = $em->getRepository('AppBundle:Schoolsession')
+                                ->createQueryBuilder('ss')
+                                ->andWhere('ss.moduleId = ' . $school_session->getModuleId()->getId())
+                                ->andWhere('ss.id != ' . $school_session->getId())
+                                ->getQuery()
+                                ->execute();
+        }
+
+        $data['school_sessions'] = $school_sessions;
+
+        $session_results = [];
+        foreach ($school_sessions as $school_session) {
+          $session_result = $em->getRepository('AppBundle:SessionResult')
+                                ->createQueryBuilder('sr')
+                                ->addOrderBy('sr.studentId', 'ASC')
+                                ->andWhere('sr.sessionId = ' . $school_session->getId())
+                                ->andWhere("sr.sessionResultRemark = 'fail'")
+                                ->getQuery()
+                                ->execute();
+
+          if( $session_result != null )
+            array_push($session_results, $session_result);
+        }
+        $data['session_results'] = $session_results;
+
+        $session_result_adds = [];
+        foreach ($school_sessions as $school_session) {
+          $session_result_add = $em->getRepository('AppBundle:SessionResultAdd')
+                                ->createQueryBuilder('sr')
+                                ->addOrderBy('sr.studentId', 'ASC')
+                                ->getQuery()
+                                ->execute();
+
+          if( $session_result_add != null )
+            array_push($session_result_adds, $session_result_add);
+        }
+        $data['session_result_adds'] = $session_result_adds;
+        // End Add Student to Session
 
         $assessment_type = $em->getRepository('AppBundle:AssessmentType')
                                 ->createQueryBuilder('at')

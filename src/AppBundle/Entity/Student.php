@@ -1877,4 +1877,62 @@ class Student
     {
         return $this->sectionId;
     }
+    /**
+     * @var integer
+     */
+    private $studentStartYear;
+
+    /**
+     * @var integer
+     */
+    private $studentEndYear;
+
+
+    /**
+     * Set studentStartYear
+     *
+     * @param integer $studentStartYear
+     *
+     * @return Student
+     */
+    public function setStudentStartYear($studentStartYear)
+    {
+        $this->studentStartYear = $studentStartYear;
+
+        return $this;
+    }
+
+    /**
+     * Get studentStartYear
+     *
+     * @return integer
+     */
+    public function getStudentStartYear()
+    {
+        return $this->studentStartYear;
+    }
+
+    /**
+     * Set studentEndYear
+     *
+     * @param integer $studentEndYear
+     *
+     * @return Student
+     */
+    public function setStudentEndYear($studentEndYear)
+    {
+        $this->studentEndYear = $studentEndYear;
+
+        return $this;
+    }
+
+    /**
+     * Get studentEndYear
+     *
+     * @return integer
+     */
+    public function getStudentEndYear()
+    {
+        return $this->studentEndYear;
+    }
 }

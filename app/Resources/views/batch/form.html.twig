@@ -21,8 +21,11 @@
       <label for="form[batch_name]">Batch Name</label>
       <input type="text" name="form[batch_name]" placeholder="Batch One" value="{{ form.batch_name is defined ? form.batch_name : '' }}" required />
 
-      <label for="form[batch_year]">Batch Year</label>
-      <input type="text" name="form[batch_year]" placeholder="Batch One" value="{{ form.batch_year is defined ? form.batch_year : '' }}" required />
+      <label for="form[batch_start_year]">Batch Starting Year</label>
+      <input type="number" name="form[batch_start_year]" placeholder="Enter Year In Number" value="{{ form.batch_start_year is defined ? form.batch_start_year : '' }}" required />
+
+      <label for="form[batch_end_year]">Batch Ending Year</label>
+      <input type="number" name="form[batch_end_year]" placeholder="Enter Year In Number" value="{{ form.batch_end_year is defined ? form.batch_end_year : '' }}" required />
 
       <label for="form[batch_school]">Batch School</label>
       <select name="form[batch_school]">

@@ -25,6 +25,7 @@ class ModuleController extends Controller
                     ->add('module_code')
                     ->add('module_name')
                     ->add('module_credit_hour')
+                    ->add('module_year')
                     ->add('module_duration')
                     ->add('module_curriculum')
                     ->getForm();
@@ -50,6 +51,7 @@ class ModuleController extends Controller
         $module->setModuleCode($module_data['module_code']);
         $module->setModuleName($module_data['module_name']);
         $module->setModuleCreditHour($module_data['module_credit_hour']);
+        $module->setModuleYear($module_data['module_year']);
         $module->setModuleDuration($module_data['module_duration']);
         $module->setCurriculumId($mycurriculum);
 
@@ -83,6 +85,7 @@ class ModuleController extends Controller
                   ->add('module_code')
                   ->add('module_name')
                   ->add('module_credit_hour')
+                  ->add('module_year')
                   ->add('module_duration')
                   ->add('module_curriculum')
                   ->getForm();
@@ -100,6 +103,7 @@ class ModuleController extends Controller
     $module_data['module_code'] = $module->getModuleCode();
     $module_data['module_name'] = $module->getModuleName();
     $module_data['module_credit_hour'] = $module->getModuleCreditHour();
+    $module_data['module_year'] = $module->getModuleYear();
     $module_data['module_duration'] = $module->getModuleDuration();
     $module_data['module_curriculum'] = $module->getCurriculumId();
     $module_data['created_by'] = $module->getCreatedBy();
@@ -120,6 +124,7 @@ class ModuleController extends Controller
         $module->setModuleCode($module_data['module_code']);
         $module->setModuleName($module_data['module_name']);
         $module->setModuleCreditHour($module_data['module_credit_hour']);
+        $module->setModuleYear($module_data['module_year']);
         $module->setModuleDuration($module_data['module_duration']);
         $module->setCurriculumId($mycurriculum);
 
@@ -145,8 +150,8 @@ class ModuleController extends Controller
 
     if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
       $module = $this->getDoctrine()
-                          ->getRepository('AppBundle:Module')
-                          ->findOneById($module_id);
+                    ->getRepository('AppBundle:Module')
+                    ->findOneById($module_id);
 
       $em = $this->getDoctrine()->getManager();
 
@@ -171,17 +176,15 @@ class ModuleController extends Controller
       $data = [];
       $data['modules'] = [];
 
-      $module = $this->getDoctrine()
-                          ->getRepository('AppBundle:Module')
-                          ->findAll();
+      $em = $this->getDoctrine()->getManager();
+
+      $module = $em->getRepository('AppBundle:Module')
+                    ->createQueryBuilder('m')
+                    ->addOrderBy('m.moduleYear', 'ASC')
+                    ->getQuery()
+                    ->execute();
 
       $data['modules'] = $module;
-
-      $curriculum = $this->getDoctrine()
-                          ->getRepository('AppBundle:Curriculum')
-                          ->findAll();
-
-      $data['curriculums'] = $curriculum;
 
       return $this->render('module/view.html.twig', $data);
     } else {
@@ -205,7 +208,7 @@ class ModuleController extends Controller
                           ->findOneById($module_id);
 
       $data['module'] = $module;
-      
+
       return $this->render('module/view_one.html.twig', $data);
     } else {
       $data['message'] = 'You Are Not Qualified to View This Module.';

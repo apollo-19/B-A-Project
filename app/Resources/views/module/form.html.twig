@@ -24,6 +24,9 @@
       <label for="form[module_credit_hour]">Module Credit Hour</label>
       <input type="number" min="1" max="50" name="form[module_credit_hour]" placeholder="3" value="{{ form.module_credit_hour is defined ? form.module_credit_hour : '' }}" required />
 
+      <label for="form[module_year]">Module Year</label>
+      <input type="number" min="1" max="10" name="form[module_year]" placeholder="Enter Year In Number" value="{{ form.module_year is defined ? form.module_year : '' }}" required />
+
       <label for="form[module_duration]">Module Duration</label>
       <input type="text" min="1" max="15" name="form[module_duration]" placeholder="3" value="{{ form.module_duration is defined ? form.module_duration : '' }}" required />
 

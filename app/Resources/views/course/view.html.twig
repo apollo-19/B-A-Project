@@ -20,9 +20,10 @@
         <tr>
           <th>Course Code</th>
           <th>Course Name</th>
-          <th>Course Credit Hour</th>
-          <th>Course Curriculum</th>
-          <th>Course Module/Semester</th>
+          <th>Credit Hour</th>
+          <th>Year</th>
+          <th>Curriculum</th>
+          <th>Module/Semester</th>
           <th colspan="3">Actions</th>
         </tr>
       </thead>
@@ -34,8 +35,9 @@
             <td>{{ course.courseCode }}</td>
             <td>{{ course.courseName }}</td>
             <td>{{ course.courseCreditHour }}</td>
-            <td>{{ course.curriculumId.curriculumName }}
-            </td>
+            <td>{{ course.courseYear }}</td>
+            <td>{{ course.curriculumId.curriculumName }}</td>
+
             <td>
               {% if ( course.curriculumId.curriculumType == 'modularized' and course.moduleId is not null ) %}
                 (Module) - {{ course.moduleId.moduleName }}

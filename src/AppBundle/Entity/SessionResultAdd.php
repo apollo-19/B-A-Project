@@ -3,9 +3,9 @@
 namespace AppBundle\Entity;
 
 /**
- * SessionResult
+ * SessionResultAdd
  */
-class SessionResult
+class SessionResultAdd
 {
     /**
      * @var integer
@@ -25,7 +25,17 @@ class SessionResult
     /**
      * @var string
      */
+    private $resultInAlphabetValue;
+
+    /**
+     * @var string
+     */
     private $sessionResultRemark;
+
+    /**
+     * @var boolean
+     */
+    private $sessionPublished;
 
     /**
      * @var integer
@@ -58,7 +68,7 @@ class SessionResult
      *
      * @param string $resultInNumber
      *
-     * @return SessionResult
+     * @return SessionResultAdd
      */
     public function setResultInNumber($resultInNumber)
     {
@@ -82,7 +92,7 @@ class SessionResult
      *
      * @param string $resultInAlphabet
      *
-     * @return SessionResult
+     * @return SessionResultAdd
      */
     public function setResultInAlphabet($resultInAlphabet)
     {
@@ -102,11 +112,35 @@ class SessionResult
     }
 
     /**
+     * Set resultInAlphabetValue
+     *
+     * @param string $resultInAlphabetValue
+     *
+     * @return SessionResultAdd
+     */
+    public function setResultInAlphabetValue($resultInAlphabetValue)
+    {
+        $this->resultInAlphabetValue = $resultInAlphabetValue;
+
+        return $this;
+    }
+
+    /**
+     * Get resultInAlphabetValue
+     *
+     * @return string
+     */
+    public function getResultInAlphabetValue()
+    {
+        return $this->resultInAlphabetValue;
+    }
+
+    /**
      * Set sessionResultRemark
      *
      * @param string $sessionResultRemark
      *
-     * @return SessionResult
+     * @return SessionResultAdd
      */
     public function setSessionResultRemark($sessionResultRemark)
     {
@@ -126,11 +160,35 @@ class SessionResult
     }
 
     /**
+     * Set sessionPublished
+     *
+     * @param boolean $sessionPublished
+     *
+     * @return SessionResultAdd
+     */
+    public function setSessionPublished($sessionPublished)
+    {
+        $this->sessionPublished = $sessionPublished;
+
+        return $this;
+    }
+
+    /**
+     * Get sessionPublished
+     *
+     * @return boolean
+     */
+    public function getSessionPublished()
+    {
+        return $this->sessionPublished;
+    }
+
+    /**
      * Set createdBy
      *
      * @param integer $createdBy
      *
-     * @return SessionResult
+     * @return SessionResultAdd
      */
     public function setCreatedBy($createdBy)
     {
@@ -154,7 +212,7 @@ class SessionResult
      *
      * @param \AppBundle\Entity\Schoolsession $sessionId
      *
-     * @return SessionResult
+     * @return SessionResultAdd
      */
     public function setSessionId(\AppBundle\Entity\Schoolsession $sessionId)
     {
@@ -178,7 +236,7 @@ class SessionResult
      *
      * @param \AppBundle\Entity\Student $studentId
      *
-     * @return SessionResult
+     * @return SessionResultAdd
      */
     public function setStudentId(\AppBundle\Entity\Student $studentId)
     {
@@ -197,61 +255,32 @@ class SessionResult
         return $this->studentId;
     }
     /**
-     * @var string
+     * @var \AppBundle\Entity\Schoolsession
      */
-    private $resultInAlphabetValue;
+    private $prevSessionId;
 
 
     /**
-     * Set resultInAlphabetValue
+     * Set prevSessionId
      *
-     * @param string $resultInAlphabetValue
+     * @param \AppBundle\Entity\Schoolsession $prevSessionId
      *
-     * @return SessionResult
+     * @return SessionResultAdd
      */
-    public function setResultInAlphabetValue($resultInAlphabetValue)
+    public function setPrevSessionId(\AppBundle\Entity\Schoolsession $prevSessionId)
     {
-        $this->resultInAlphabetValue = $resultInAlphabetValue;
+        $this->prevSessionId = $prevSessionId;
 
         return $this;
     }
 
     /**
-     * Get resultInAlphabetValue
+     * Get prevSessionId
      *
-     * @return string
+     * @return \AppBundle\Entity\Schoolsession
      */
-    public function getResultInAlphabetValue()
+    public function getPrevSessionId()
     {
-        return $this->resultInAlphabetValue;
-    }
-    /**
-     * @var boolean
-     */
-    private $sessionPublished;
-
-
-    /**
-     * Set sessionPublished
-     *
-     * @param boolean $sessionPublished
-     *
-     * @return SessionResult
-     */
-    public function setSessionPublished($sessionPublished)
-    {
-        $this->sessionPublished = $sessionPublished;
-
-        return $this;
-    }
-
-    /**
-     * Get sessionPublished
-     *
-     * @return boolean
-     */
-    public function getSessionPublished()
-    {
-        return $this->sessionPublished;
+        return $this->prevSessionId;
     }
 }

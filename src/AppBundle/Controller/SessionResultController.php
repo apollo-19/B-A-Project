@@ -7,6 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use AppBundle\Entity\SessionResult;
+use AppBundle\Entity\SessionResultAdd;
+use AppBundle\Entity\AssessmentResult;
+use AppBundle\Controller\AssessmentResultController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class SessionResultController extends Controller
@@ -131,6 +134,67 @@ class SessionResultController extends Controller
   }
 
   /**
+   * @Route("/session_result_student/create/", name="session_result_student_create")
+   */
+  public function sessionResultCreateForStudentAction(Request $request)
+  {
+    $session = new Session();
+
+    if( $session->get('user_type') == 'admin' ){
+      $student_id = $request->request->get('student_id');
+      $school_session_id = $request->request->get('school_session_id');
+      $prev_school_session_id = $request->request->get('prev_school_session_id');
+
+      $school_session = $this->getDoctrine()
+                              ->getRepository('AppBundle:Schoolsession')
+                              ->findOneById($school_session_id);
+
+      $student = $this->getDoctrine()
+                              ->getRepository('AppBundle:Student')
+                              ->findOneById($student_id);
+
+      $prev_school_session = $this->getDoctrine()
+                              ->getRepository('AppBundle:Schoolsession')
+                              ->findOneById($prev_school_session_id);
+
+      $session_result = new SessionResultAdd();
+
+      $session_result->setSessionId($school_session);
+      $session_result->setStudentId($student);
+      $session_result->setPrevSessionId($prev_school_session);
+
+      $session_result->setCreatedBy($session->get('user_id'));
+
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($session_result);
+      // $em->flush();
+
+      $assessment_types = $em->getRepository('AppBundle:AssessmentType')
+                              ->createQueryBuilder('e')
+                              ->addOrderBy('e.assessmentWorth', 'ASC')
+                              ->andWhere('e.assessmentTypeSystemId = ' . $school_session->getAssessmentTypeSystemId()->getId())
+                              ->getQuery()
+                              ->execute();
+
+      foreach ($assessment_types as $assessment_type){
+        $session_result = new AssessmentResult();
+
+        $session_result->setSessionId($school_session);
+        $session_result->setStudentId($student);
+        $session_result->setAssessmentTypeId($assessment_type);
+
+        $session_result->setCreatedBy($session->get('user_id'));
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($session_result);
+      }
+      $em->flush();
+
+      return new JsonResponse('Student Added to Session.');
+    }
+  }
+
+  /**
    * @Route("/session_result/publish/{school_session_id}", name="session_result_publish")
    */
   public function sessionResultPublishAction($school_session_id)
@@ -206,6 +270,7 @@ class SessionResultController extends Controller
         $session_result->setResultInAlphabet($resultInAlphabet);
         $session_result->setResultInAlphabetValue($resultInAlphabetValue);
         $session_result->setSessionResultRemark($sessionResultRemark);
+        $session_result->setSessionPublished(true);
 
         $session_result->setCreatedBy($session->get('user_id'));
 
@@ -214,8 +279,7 @@ class SessionResultController extends Controller
         $em->flush();
       }
 
-      return $this->redirect($this->generateUrl('session_result_view', array('school_session_id' => $school_session_id)));
-
+      return $this->redirect($this->generateUrl('session_result_view', array('school_session_id' => $school_session->getId())));
     } else {
       $data['message'] = 'You Are Not Qualified to View Assessment Types.';
       return $this->render('accessDenied.html.twig', $data);

@@ -39,14 +39,14 @@ AppBundle\Entity\Schoolsession:
         sessionStartDate:
             type: string
             nullable: false
-            length: 100
+            length: 20
             options:
                 fixed: false
             column: session_start_date
         sessionEndDate:
             type: string
             nullable: false
-            length: 100
+            length: 20
             options:
                 fixed: false
             column: session_end_date
@@ -65,6 +65,9 @@ AppBundle\Entity\Schoolsession:
     oneToMany:
       sessionresult:
         targetEntity: SessionResult
+        mappedBy: schoolsession
+      sessionadd:
+        targetEntity: SessionResultAdd
         mappedBy: schoolsession
     assessmentResults:
         targetEntity: AssessmentResult

@@ -311,4 +311,33 @@ class Course
     {
         return $this->semesterId;
     }
+    /**
+     * @var integer
+     */
+    private $courseYear;
+
+
+    /**
+     * Set courseYear
+     *
+     * @param integer $courseYear
+     *
+     * @return Course
+     */
+    public function setCourseYear($courseYear)
+    {
+        $this->courseYear = $courseYear;
+
+        return $this;
+    }
+
+    /**
+     * Get courseYear
+     *
+     * @return integer
+     */
+    public function getCourseYear()
+    {
+        return $this->courseYear;
+    }
 }

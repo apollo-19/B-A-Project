@@ -29,14 +29,18 @@ AppBundle\Entity\Batch:
             options:
                 fixed: false
             column: batch_name
-        batchYear:
-            type: string
+        batchStartYear:
+            type: integer
             nullable: false
-            length: 10
             options:
-                fixed: false
-            column: batch_year
-
+                unsigned: false
+            column: batch_start_year
+        batchEndYear:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: batch_end_year
         createdBy:
             type: integer
             nullable: false
@@ -57,4 +61,3 @@ AppBundle\Entity\Batch:
           referencedColumnName: id
           nullable: false
           onDelete: CASCADE
-      

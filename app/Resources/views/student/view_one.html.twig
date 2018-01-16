@@ -25,10 +25,10 @@
       <table id="form1">
         <tr>
           <td align="center" colspan="2">
-            <img src="{{ asset('img/user_photos/' ~ user_lit.userPhoto) }}" alt="" width="250" />
+
           </td>
         </tr>
-        
+
         <tr>
           <td>Admission Number:</td>
           <td>{{ student.admissionNumber }}</td>
@@ -67,6 +67,11 @@
         <tr>
           <td>User Name</td>
           <td>{{ student.userName }}</td>
+        </tr>
+
+        <tr>
+          <td>Starting Year - Ending Year</td>
+          <td>{{ student.studentStartYear }} - {{ student.studentEndYear }}</td>
         </tr>
 
         <tr>

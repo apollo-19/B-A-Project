@@ -213,4 +213,62 @@ class Batch
     {
         return $this->schoolId;
     }
+    /**
+     * @var integer
+     */
+    private $batchStartYear;
+
+    /**
+     * @var integer
+     */
+    private $batchEndYear;
+
+
+    /**
+     * Set batchStartYear
+     *
+     * @param integer $batchStartYear
+     *
+     * @return Batch
+     */
+    public function setBatchStartYear($batchStartYear)
+    {
+        $this->batchStartYear = $batchStartYear;
+
+        return $this;
+    }
+
+    /**
+     * Get batchStartYear
+     *
+     * @return integer
+     */
+    public function getBatchStartYear()
+    {
+        return $this->batchStartYear;
+    }
+
+    /**
+     * Set batchEndYear
+     *
+     * @param integer $batchEndYear
+     *
+     * @return Batch
+     */
+    public function setBatchEndYear($batchEndYear)
+    {
+        $this->batchEndYear = $batchEndYear;
+
+        return $this;
+    }
+
+    /**
+     * Get batchEndYear
+     *
+     * @return integer
+     */
+    public function getBatchEndYear()
+    {
+        return $this->batchEndYear;
+    }
 }

@@ -72,6 +72,8 @@ class StudentController extends Controller
           $student->setMiddleNameAm($student_data['middle_name_am']);
           $student->setLastNameAm($student_data['last_name_am']);
           $student->setUserName($student_data['user_name']);
+          $student->setStudentStartYear($mysection->getBatchId()->getBatchStartYear());
+          $student->setStudentEndYear($mysection->getBatchId()->getBatchEndYear());
 
           $student->setSectionId($mysection);
           $student->setRegisteredBy($session->get('user_id'));
@@ -112,9 +114,8 @@ class StudentController extends Controller
                   ->add('last_name_am')
                   ->add('section_id')
 
-                  ->add('user_name')
-                  ->add('password')
-                  ->add('confirm_password')
+                  ->add('student_start_year')
+                  ->add('student_end_year')
                   ->getForm();
 
     $student = $this->getDoctrine()
@@ -128,6 +129,8 @@ class StudentController extends Controller
     $student_data['first_name_am'] = $student->getFirstNameAm();
     $student_data['middle_name_am'] = $student->getMiddleNameAm();
     $student_data['last_name_am'] = $student->getLastNameAm();
+    $student_data['student_start_year'] = $student->getStudentStartYear();
+    $student_data['student_end_year'] = $student->getStudentEndYear();
 
     $student_data['section_id'] = $student->getSectionId();
     $student_data['registered_by'] = $student->getRegisteredBy();
@@ -158,6 +161,9 @@ class StudentController extends Controller
         $student->setFirstNameAm($student_data['first_name_am']);
         $student->setMiddleNameAm($student_data['middle_name_am']);
         $student->setLastNameAm($student_data['last_name_am']);
+
+        $student->setStudentStartYear($student_data['student_start_year']);
+        $student->setStudentEndYear($student_data['student_end_year']);
 
         $student->setSectionId($mysection);
 

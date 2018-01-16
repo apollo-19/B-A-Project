@@ -25,7 +25,8 @@ class BatchController extends Controller
       $form = $this ->createFormBuilder()
                     ->add('batch_code')
                     ->add('batch_name')
-                    ->add('batch_year')
+                    ->add('batch_start_year')
+                    ->add('batch_end_year')
                     ->add('batch_school')
                     ->getForm();
 
@@ -48,7 +49,8 @@ class BatchController extends Controller
         $batch = new Batch();
         $batch->setBatchCode($form_data['batch_code']);
         $batch->setBatchName($form_data['batch_name']);
-        $batch->setBatchYear($form_data['batch_year']);
+        $batch->setBatchStartYear($form_data['batch_start_year']);
+        $batch->setBatchEndYear($form_data['batch_end_year']);
         $batch->setSchoolId($myschool);
         $batch->setCreatedBy($session->get('user_id'));
 
@@ -81,7 +83,8 @@ class BatchController extends Controller
       $form = $this ->createFormBuilder()
                     ->add('batch_code')
                     ->add('batch_name')
-                    ->add('batch_year')
+                    ->add('batch_start_year')
+                    ->add('batch_end_year')
                     ->add('batch_school')
                     ->getForm();
 
@@ -91,7 +94,8 @@ class BatchController extends Controller
 
       $batch_data['batch_code'] = $batch->getBatchCode();
       $batch_data['batch_name'] = $batch->getBatchName();
-      $batch_data['batch_year'] = $batch->getBatchYear();
+      $batch_data['batch_start_year'] = $batch->getBatchStartYear();
+      $batch_data['batch_end_year'] = $batch->getBatchEndYear();
       $batch_data['batch_school'] = $batch->getSchoolId();
       $batch_data['created_by'] = $batch->getCreatedBy();
 
@@ -115,7 +119,8 @@ class BatchController extends Controller
 
         $batch->setBatchCode($batch_data['batch_code']);
         $batch->setBatchName($batch_data['batch_name']);
-        $batch->setBatchYear($batch_data['batch_year']);
+        $batch->setBatchStartYear($batch_data['batch_start_year']);
+        $batch->setBatchEndYear($batch_data['batch_end_year']);
         $batch->setSchoolId($myschool);
 
         $em = $this->getDoctrine()->getManager();

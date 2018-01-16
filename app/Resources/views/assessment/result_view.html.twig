@@ -87,7 +87,7 @@
                   {% for assessment_result in assessment_results %}
                     {% if assessment_result.assessmentTypeId == assessment_type and assessment_result.studentId == student %}
                       {% if assessment_result.resultValue matches '/^[-+]?[0-9]*\\.?[0-9]+$/' %}
-                        {% set assessmentResultTotal = assessmentResultTotal + assessment_result.resultValue %}
+                        {% set assessmentResultTotal = assessmentResultTotal + assessment_result.resultValue|number_format %}
                       {% endif %}
 
                       {% if (app.session.get('user_type') == 'teacher') and (app.session.get('user_id') == assessment_result.sessionId.teacherId.id) %}
@@ -110,6 +110,40 @@
           {% endfor %}
         </tbody>
       </table>
+
+      {% if app.session.get('user_type') == 'admin' %}
+        <form class="form fright" method="post">
+          <h1 class="fleft"> Students for this session: </h1>
+
+          <select id="student_id" class="fleft">
+              {% for session_result_array in  session_results %}
+                {% for session_result in session_result_array %}
+
+                  {% for session_result_add_array in  session_result_adds %}
+                    {% for session_result_add in session_result_add_array %}
+
+                      {% if (session_result_add.prevSessionId == session_result.sessionId) %}
+                        <option value="{{ session_result.studentId.id }}" title="{{ session_result.sessionId.id }}">
+                          {{ session_result.sessionId.id }}
+                          ({{ session_result.studentId.admissionNumber }}) {{ session_result.studentId.firstNameAm }}
+                          {{ session_result.studentId.middleNameAm }} {{ session_result.studentId.lastNameAm }} -
+                          {{ session_result.resultInAlphabet }} ({{ session_result.sessionResultRemark|title }})
+                        </option>
+                      {% endif %}
+                    {% endfor %}
+                  {% endfor %}
+
+                {% endfor %}
+              {% endfor %}
+
+          </select>
+
+          <input type="hidden" id="school_session_id" value="{{ school_session.id }}">
+
+          <button type="button" name="button" class="fleft" id="add_student">Add Student</button>
+          <hr class="clear" width="0" />
+        </form>
+      {% endif %}
 
       {% if is_teacher %}
         <a href="{{ path('session_result_publish', {'school_session_id': school_session_id}) }}" class="fright"
@@ -151,6 +185,31 @@
         $(this).blur();
       } else if(event.which == 27)
         $(this).blur();
+    });
+
+    $('#add_student').click(function(event){
+      event.preventDefault();
+      if ( confirm("Are You Sure?") ) {
+        var student_id = $('#student_id option:selected').val();
+        var prev_school_session_id = $('#student_id option:selected').attr('title');
+        var school_session_id = $('#school_session_id').val();
+
+        $.ajax({
+          url: '/session_result_student/create/',
+          type: "POST",
+          dataType: "json",
+          async: true,
+          data: {
+            student_id  : student_id,
+            school_session_id : school_session_id,
+            prev_school_session_id : prev_school_session_id
+          },
+          success: function (data)
+          {
+            alert(data);
+          }
+        });
+      }
     });
   </script>
 {% endblock %}

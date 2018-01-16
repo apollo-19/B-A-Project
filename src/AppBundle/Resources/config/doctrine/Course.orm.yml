@@ -35,6 +35,12 @@ AppBundle\Entity\Course:
             options:
                 unsigned: false
             column: course_credit_hour
+        courseYear:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: course_year
         createdBy:
             type: integer
             nullable: false
@@ -49,7 +55,7 @@ AppBundle\Entity\Course:
       prerequisiteCourse:
         targetEntity: Prerequisite
         mappedBy: course
-        
+
     manyToOne:
       curriculumId:
         targetEntity: Curriculum

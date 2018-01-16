@@ -19,7 +19,8 @@
         <tr>
           <th>Batch Code</th>
           <th>Batch Name</th>
-          <th>Batch Year</th>
+          <th>Batch Starting Year</th>
+          <th>Batch Ending Year</th>
           <th>Batch School</th>
           <th colspan="3">Actions</th>
         </tr>
@@ -29,7 +30,8 @@
           <tr>
             <td>{{ batch.batchCode }}</td>
             <td>{{ batch.batchName }}</td>
-            <td>{{ batch.batchYear }}</td>
+            <td>{{ batch.batchStartYear }}</td>
+            <td>{{ batch.batchEndYear }}</td>
             {% for school in schools %}
               {% if(batch.schoolId == school) %}
                 <td> {{ school.schoolName }} </td>

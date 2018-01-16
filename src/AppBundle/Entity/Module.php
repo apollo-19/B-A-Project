@@ -322,4 +322,33 @@ class Module
     {
         return $this->curriculumId;
     }
+    /**
+     * @var integer
+     */
+    private $moduleYear;
+
+
+    /**
+     * Set moduleYear
+     *
+     * @param integer $moduleYear
+     *
+     * @return Module
+     */
+    public function setModuleYear($moduleYear)
+    {
+        $this->moduleYear = $moduleYear;
+
+        return $this;
+    }
+
+    /**
+     * Get moduleYear
+     *
+     * @return integer
+     */
+    public function getModuleYear()
+    {
+        return $this->moduleYear;
+    }
 }

@@ -24,6 +24,9 @@
       <label for="form[course_credit_hour]">Course Credit Hour</label>
       <input type="number" min="1" max="50" name="form[course_credit_hour]" placeholder="3" value="{{ form.course_credit_hour is defined ? form.course_credit_hour : '' }}" required />
 
+      <label for="form[course_year]">Course Year</label>
+      <input type="number" min="1" max="10" name="form[course_year]" placeholder="Enter Year In Number" value="{{ form.course_year is defined ? form.course_year : '' }}" required />
+
       <label for="form[curriculum_id]">Course Curriculum</label>
       <select name="form[curriculum_id]" id="courseCurriculum">
         {% for curriculum in curriculums %}

@@ -35,6 +35,12 @@ AppBundle\Entity\Module:
             options:
                 unsigned: false
             column: module_credit_hour
+        moduleYear:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: module_year
         moduleDuration:
             type: string
             nullable: false

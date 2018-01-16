@@ -163,10 +163,10 @@ class StudentTasksController extends Controller
       $data['student'] = $student;
 
       $session_results = $this->getDoctrine()
-                          ->getRepository('AppBundle:SessionResult')
-                          ->findBy(
-                            array('studentId' => $student)
-                          );
+                              ->getRepository('AppBundle:SessionResult')
+                              ->findBy(
+                                array('studentId' => $student, 'sessionPublished' => true)
+                              );
 
       $data['session_results'] = $session_results;
 

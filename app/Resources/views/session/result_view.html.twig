@@ -45,52 +45,81 @@
       </div>
 
     {% else %}
-      <table border="0" id="wide_table">
-        <thead>
-          <tr>
-            <th>Addmission Number</th>
-            <th>Assessment Result Student</th>
+      {% set display = false %}
+      {% set break = false %}
+      {% for session_result in session_results %}
+        {% if not break %}
+          {% if session_result.sessionPublished %}
+            {% set display = true %}
+            {% set break = true %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
 
-            <th>
-              {% set assessmentWorthTotal = 0 %}
-              {% for assessment_type in assessment_types %}
-                  {% set assessmentWorthTotal = assessmentWorthTotal + assessment_type.assessmentWorth %}
-              {% endfor %}
-
-              Total ({{ assessmentWorthTotal }}%)
-            </th>
-
-            <th>Grade</th>
-            <th>Remark</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {% for session_result in session_results %}
+      {% if display %}
+        <table border="0" id="wide_table">
+          <thead>
             <tr>
-              <td id="total_row">
-                {{  session_result.studentId.admissionNumber }}
-              </td>
+              <th>Addmission Number</th>
+              <th>Assessment Result Student</th>
 
-              <td>
-                {{ session_result.studentId.firstNameEn ~ ' ' ~ session_result.studentId.middleNameEn ~ ' ' ~ session_result.studentId.lastNameEn }}
-              </td>
+              <th>
+                {% set assessmentWorthTotal = 0 %}
+                {% for assessment_type in assessment_types %}
+                    {% set assessmentWorthTotal = assessmentWorthTotal + assessment_type.assessmentWorth %}
+                {% endfor %}
 
-              <td>
-                {{ session_result.resultInNumber }}
-              </td>
+                Total ({{ assessmentWorthTotal }}%)
+              </th>
 
-              <td>
-                {{ session_result.resultInAlphabet }}
-              </td>
-
-              <td>
-                {{  session_result.sessionResultRemark | capitalize }}
-              </td>
+              <th>Grade</th>
+              <th>Remark</th>
+              <th>Published?</th>
             </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {% for session_result in session_results %}
+              <tr>
+                <td id="total_row">
+                  {{  session_result.studentId.admissionNumber }}
+                </td>
+
+                <td>
+                  {{ session_result.studentId.firstNameEn ~ ' ' ~ session_result.studentId.middleNameEn ~ ' ' ~ session_result.studentId.lastNameEn }}
+                </td>
+
+                <td>
+                  {{ session_result.resultInNumber }}
+                </td>
+
+                <td>
+                  {{ session_result.resultInAlphabet }}
+                </td>
+
+                <td>
+                  {{  session_result.sessionResultRemark | capitalize }}
+                </td>
+
+                <td>
+                  {% if session_result.sessionPublished %}
+                    <font color="#006600">Yes</font>
+                  {% else %}
+                    <font color="#FF0000">No</font>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <div id="warningContainer">
+          <h1>Results Are Not Published Yet!</h1>
+          {% if app.session.get('user_type') == 'teacher' and app.session.get('user_id') == school_session.teacherId.id %}
+            <a href="{{ path('assessment_result_view', {'school_session_id': school_session.id}) }}" class="fright">Publish Results Here</a>
+          {% endif %}
+        </div>
+      {% endif %}
     {% endif %}
   </div>
 {% endblock %}

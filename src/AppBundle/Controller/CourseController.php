@@ -25,6 +25,7 @@ class CourseController extends Controller
                     ->add('course_code')
                     ->add('course_name')
                     ->add('course_credit_hour')
+                    ->add('course_year')
                     ->add('curriculum_id')
                     ->add('module_id')
                     ->add('semester_id')
@@ -57,18 +58,18 @@ class CourseController extends Controller
                             ->getRepository('AppBundle:Semester')
                             ->findOneById($course_data['semester_id']);
         $mymodule = $this->getDoctrine()
-                            ->getRepository('AppBundle:Module')
-                            ->findOneById($course_data['module_id']);
-       $mycurriculum = $this->getDoctrine()
-                            ->getRepository('AppBundle:Curriculum')
-                            ->findOneById($course_data['curriculum_id']);
-
+                          ->getRepository('AppBundle:Module')
+                          ->findOneById($course_data['module_id']);
+        $mycurriculum = $this->getDoctrine()
+                              ->getRepository('AppBundle:Curriculum')
+                              ->findOneById($course_data['curriculum_id']);
 
         $em = $this->getDoctrine()->getManager();
         $course = new Course();
         $course->setCourseCode($course_data['course_code']);
         $course->setCourseName($course_data['course_name']);
         $course->setCourseCreditHour($course_data['course_credit_hour']);
+        $course->setCourseYear($course_data['course_year']);
         $course->setCurriculumId($mycurriculum);
         $course->setModuleId($mymodule);
         $course->setSemesterId($mysemester);
@@ -102,9 +103,10 @@ class CourseController extends Controller
       $form = $this ->createFormBuilder()
                     ->add('course_code')
                     ->add('course_name')
+                    ->add('course_credit_hour')
+                    ->add('course_year')
                     ->add('module_id')
                     ->add('semester_id')
-                    ->add('course_credit_hour')
                     ->add('curriculum_id')
                     ->getForm();
 
@@ -135,6 +137,7 @@ class CourseController extends Controller
       $course_data['course_code'] = $course->getCourseCode();
       $course_data['course_name'] = $course->getCourseName();
       $course_data['course_credit_hour'] = $course->getCourseCreditHour();
+      $course_data['course_year'] = $course->getCourseYear();
       $course_data['module_id'] = $course->getModuleId();
       $course_data['semester_id'] = $course->getSemesterId();
       $course_data['curriculum_id'] = $course->getCurriculumId();
@@ -163,6 +166,7 @@ class CourseController extends Controller
         $course->setModuleId($mymodule);
         $course->setSemesterId($mysemester);
         $course->setCourseCreditHour($course_data['course_credit_hour']);
+        $course->setCourseYear($course_data['course_year']);
         $course->setCurriculumId( $mycurriculum);
 
         $em = $this->getDoctrine()->getManager();
@@ -213,9 +217,14 @@ class CourseController extends Controller
       $data = [];
       $data['courses'] = [];
 
-      $course = $this->getDoctrine()
-                          ->getRepository('AppBundle:Course')
-                          ->findAll();
+      $em = $this->getDoctrine()->getManager();
+
+      $course = $em->getRepository('AppBundle:Course')
+                    ->createQueryBuilder('c')
+                    ->addOrderBy('c.courseYear', 'ASC')
+                    ->addOrderBy('c.courseName', 'ASC')
+                    ->getQuery()
+                    ->execute();
 
       $data['courses'] = $course;
 

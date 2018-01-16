@@ -12,7 +12,9 @@
 {% block body %}
   <div class="container" id="view_container">
     <h1><big>
-      {{ student.firstNameEn ~ ' ' ~ student.middleNameEn ~ ' ' ~ student.lastNameEn ~ ' (' ~ student.admissionNumber ~ ')' }}
+      {% if school_sessions is not empty %}
+        {{ student.firstNameEn ~ ' ' ~ student.middleNameEn ~ ' ' ~ student.lastNameEn ~ ' (' ~ student.admissionNumber ~ ')' }}
+      {% endif %}
     </big></h1>
 
     <table>

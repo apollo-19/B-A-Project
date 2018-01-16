@@ -1,6 +1,6 @@
-AppBundle\Entity\SessionResult:
+AppBundle\Entity\SessionResultAdd:
     type: entity
-    table: session_result
+    table: session_result_add
     id:
         id:
             type: integer
@@ -62,6 +62,14 @@ AppBundle\Entity\SessionResult:
         inversedBy: session_result
         joinColumn:
           name: student_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE
+      prevSessionId:
+        targetEntity: Schoolsession
+        inversedBy: session_result
+        joinColumn:
+          name: prev_session_id
           referencedColumnName: id
           nullable: false
           onDelete: CASCADE

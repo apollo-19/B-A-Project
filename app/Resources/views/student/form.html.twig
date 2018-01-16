@@ -56,14 +56,20 @@
         </select>
 
         {% if(mode == 'new') %}
-        <label for="form[user_name]">User Name</label>
-        <input type="text" name="form[user_name]" placeholder="user_12" value="{{ form.user_name is defined ? form.user_name : '' }}" required />
+          <label for="form[user_name]">User Name</label>
+          <input type="text" name="form[user_name]" placeholder="user_12" value="{{ form.user_name is defined ? form.user_name : '' }}" required />
 
-        <label for="form[password]">Password</label>
-        <input type="password" name="form[password]" placeholder="A minimum of 6 characters" required />
+          <label for="form[password]">Password</label>
+          <input type="password" name="form[password]" placeholder="A minimum of 6 characters" required />
 
-        <label for="form[confirm_password]">Confirm Password</label>
-        <input type="password" name="form[confirm_password]" placeholder="A minimum of 6 characters" required />
+          <label for="form[confirm_password]">Confirm Password</label>
+          <input type="password" name="form[confirm_password]" placeholder="A minimum of 6 characters" required />
+        {% else %}
+          <label for="form[student_start_year]">Student Starting Year</label>
+          <input type="number" name="form[student_start_year]" placeholder="Enter Year In Number" value="{{ form.student_start_year is defined ? form.student_start_year : '' }}" required />
+
+          <label for="form[student_end_year]">Student Ending Year</label>
+          <input type="number" name="form[student_end_year]" placeholder="Enter Year In Number" value="{{ form.student_end_year is defined ? form.student_end_year : '' }}" required />
         {% endif %}
 
         <button>{{ (mode == 'new') ? 'Register Student' : 'Save Changes' }}</button>
