@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use AppBundle\Entity\SessionResult;
 use AppBundle\Entity\SessionResultAdd;
 use AppBundle\Entity\AssessmentResult;
+use AppBundle\Controller\StudentTasksController;
 use AppBundle\Controller\AssessmentResultController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -279,6 +280,46 @@ class SessionResultController extends Controller
         $em->flush();
       }
 
+      // Publish Add Students
+      $session_result_adds = $this->getDoctrine()
+                                  ->getRepository('AppBundle:SessionResultAdd')
+                                  ->findBy(
+                                    array('sessionId' => $school_session->getId())
+                                  );
+
+      foreach ($session_result_adds as $session_result_add){
+        $sessionWeightTotal=0; $assessmentResultTotal=0; $resultInAlphabet=''; $sessionResultRemark='';
+
+        foreach ($assessment_types as $assessment_type){
+          foreach ($assessment_results as $assessment_result){
+            if ($assessment_result->getAssessmentTypeId() == $assessment_type && $assessment_result->getStudentId() == $session_result_add->getStudentId()){
+              $assessmentResultTotal += $assessment_result->getResultValue();
+            }
+          }
+        }
+
+        foreach ($grades as $grade){
+          if ($assessmentResultTotal >= $grade->getStartPoint() && $assessmentResultTotal < $grade->getEndPoint()){
+            $resultInAlphabet = $grade->getGrade();
+            $resultInAlphabetValue = $grade->getGradeValue();
+            $sessionResultRemark = $grade->getGradeRemark();
+          }
+        }
+
+        $session_result_add->setResultInNumber($assessmentResultTotal);
+        $session_result_add->setResultInAlphabet($resultInAlphabet);
+        $session_result_add->setResultInAlphabetValue($resultInAlphabetValue);
+        $session_result_add->setSessionResultRemark($sessionResultRemark);
+        $session_result_add->setSessionPublished(true);
+
+        $session_result_add->setCreatedBy($session->get('user_id'));
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($session_result_add);
+        $em->flush();
+      }
+      // End Publish Add Students
+
       return $this->redirect($this->generateUrl('session_result_view', array('school_session_id' => $school_session->getId())));
     } else {
       $data['message'] = 'You Are Not Qualified to View Assessment Types.';
@@ -310,6 +351,15 @@ class SessionResultController extends Controller
                               ->execute();
 
       $data['session_results'] = $session_results;
+
+      $session_result_adds = $em->getRepository('AppBundle:SessionResultAdd')
+                              ->createQueryBuilder('sr')
+                              ->addOrderBy('sr.studentId', 'ASC')
+                              ->andWhere('sr.sessionId = ' . $school_session_id)
+                              ->getQuery()
+                              ->execute();
+
+      $data['session_result_adds'] = $session_result_adds;
 
       if ($school_session->getCourseModuleType() == 'course'){
         $prerequisite = $this->getDoctrine()

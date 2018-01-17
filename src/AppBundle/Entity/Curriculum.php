@@ -68,6 +68,11 @@ class Curriculum
     private $gradeSystemId;
 
     /**
+     * @var \AppBundle\Entity\GPASystem
+     */
+    private $gpaSystemId;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -391,11 +396,6 @@ class Curriculum
     {
         return $this->gradeSystemId;
     }
-    /**
-     * @var \AppBundle\Entity\GPASystem
-     */
-    private $gpaSystemId;
-
 
     /**
      * Set gpaSystemId
@@ -421,3 +421,4 @@ class Curriculum
         return $this->gpaSystemId;
     }
 }
+

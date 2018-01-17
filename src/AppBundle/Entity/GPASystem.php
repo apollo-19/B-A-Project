@@ -165,11 +165,11 @@ class GPASystem
     /**
      * Add gpa
      *
-     * @param \AppBundle\Entity\gpa $gpa
+     * @param \AppBundle\Entity\GPA $gpa
      *
      * @return GPASystem
      */
-    public function addGpa(\AppBundle\Entity\gpa $gpa)
+    public function addGpa(\AppBundle\Entity\GPA $gpa)
     {
         $this->gpa[] = $gpa;
 
@@ -179,9 +179,9 @@ class GPASystem
     /**
      * Remove gpa
      *
-     * @param \AppBundle\Entity\gpa $gpa
+     * @param \AppBundle\Entity\GPA $gpa
      */
-    public function removeGpa(\AppBundle\Entity\gpa $gpa)
+    public function removeGpa(\AppBundle\Entity\GPA $gpa)
     {
         $this->gpa->removeElement($gpa);
     }
@@ -196,3 +196,4 @@ class GPASystem
         return $this->gpa;
     }
 }
+

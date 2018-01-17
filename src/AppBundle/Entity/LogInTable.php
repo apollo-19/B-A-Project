@@ -139,3 +139,4 @@ class LogInTable
         return $this->userPhoto;
     }
 }
+

@@ -28,6 +28,11 @@ class GPA
     private $gpaRemark;
 
     /**
+     * @var string
+     */
+    private $gpaPF;
+
+    /**
      * @var integer
      */
     private $createdBy;
@@ -121,6 +126,30 @@ class GPA
     }
 
     /**
+     * Set gpaPF
+     *
+     * @param string $gpaPF
+     *
+     * @return GPA
+     */
+    public function setGpaPF($gpaPF)
+    {
+        $this->gpaPF = $gpaPF;
+
+        return $this;
+    }
+
+    /**
+     * Get gpaPF
+     *
+     * @return string
+     */
+    public function getGpaPF()
+    {
+        return $this->gpaPF;
+    }
+
+    /**
      * Set createdBy
      *
      * @param integer $createdBy
@@ -167,33 +196,5 @@ class GPA
     {
         return $this->gpaSystemId;
     }
-    /**
-     * @var string
-     */
-    private $gpaPF;
-
-
-    /**
-     * Set gpaPF
-     *
-     * @param string $gpaPF
-     *
-     * @return GPA
-     */
-    public function setGpaPF($gpaPF)
-    {
-        $this->gpaPF = $gpaPF;
-
-        return $this;
-    }
-
-    /**
-     * Get gpaPF
-     *
-     * @return string
-     */
-    public function getGpaPF()
-    {
-        return $this->gpaPF;
-    }
 }
+

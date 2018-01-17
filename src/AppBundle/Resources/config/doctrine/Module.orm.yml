@@ -48,8 +48,6 @@ AppBundle\Entity\Module:
             options:
                 fixed: false
             column: module_duration
-
-
         createdBy:
             type: integer
             nullable: false
@@ -73,6 +71,14 @@ AppBundle\Entity\Module:
         inversedBy: module
         joinColumn:
           name: curriculum_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE
+      gpaResultId:
+        targetEntity: GPAResult
+        inversedBy: module
+        joinColumn:
+          name: gpa_result_id
           referencedColumnName: id
           nullable: false
           onDelete: CASCADE

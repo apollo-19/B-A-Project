@@ -98,12 +98,18 @@
                 </td>
 
                 <td>
-                  {{  session_result.sessionResultRemark | capitalize }}
+                  {% if (session_result.sessionResultRemark == 'pass') %}
+                    <font color="#006600" size="+2">
+                  {% elseif (session_result.sessionResultRemark == 'fail') %}
+                    <font color="#FF0000" size="+2">
+                  {% endif %}
+                    {{ session_result.sessionResultRemark | capitalize }}
+                  </font>
                 </td>
 
                 <td>
                   {% if session_result.sessionPublished %}
-                    <font color="#006600">Yes</font>
+                    Yes
                   {% else %}
                     <font color="#FF0000">No</font>
                   {% endif %}
@@ -112,6 +118,70 @@
             {% endfor %}
           </tbody>
         </table>
+        {% if session_result_adds is not empty %}
+          <hr /> <h1>Add Students</h1>
+          <table border="0" id="wide_table">
+            <thead>
+              <tr>
+                <th>Addmission Number</th>
+                <th>Assessment Result Student</th>
+
+                <th>
+                  {% set assessmentWorthTotal = 0 %}
+                  {% for assessment_type in assessment_types %}
+                      {% set assessmentWorthTotal = assessmentWorthTotal + assessment_type.assessmentWorth %}
+                  {% endfor %}
+
+                  Total ({{ assessmentWorthTotal }}%)
+                </th>
+
+                <th>Grade</th>
+                <th>Remark</th>
+                <th>Published?</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for session_result_add in session_result_adds %}
+                <tr>
+                  <td id="total_row">
+                    {{  session_result_add.studentId.admissionNumber }}
+                  </td>
+
+                  <td>
+                    {{ session_result_add.studentId.firstNameEn ~ ' ' ~ session_result_add.studentId.middleNameEn ~ ' ' ~ session_result_add.studentId.lastNameEn }}
+                  </td>
+
+                  <td>
+                    {{ session_result_add.resultInNumber }}
+                  </td>
+
+                  <td>
+                    {{ session_result_add.resultInAlphabet }}
+                  </td>
+
+                  <td>
+                    {% if (session_result_add.sessionResultRemark == 'pass') %}
+                      <font color="#006600" size="+2">
+                    {% elseif (session_result_add.sessionResultRemark == 'fail') %}
+                      <font color="#FF0000" size="+2">
+                    {% endif %}
+                      {{ session_result_add.sessionResultRemark | capitalize }}
+                    </font>
+                  </td>
+
+                  <td>
+                    {% if session_result_add.sessionPublished %}
+                      Yes
+                    {% else %}
+                      <font color="#FF0000">No</font>
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% endif %}
       {% else %}
         <div id="warningContainer">
           <h1>Results Are Not Published Yet!</h1>

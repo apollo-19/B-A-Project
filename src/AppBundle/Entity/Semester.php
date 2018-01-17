@@ -38,6 +38,11 @@ class Semester
     private $curriculumId;
 
     /**
+     * @var \AppBundle\Entity\GPAResult
+     */
+    private $gpaResultId;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -184,4 +189,29 @@ class Semester
     {
         return $this->curriculumId;
     }
+
+    /**
+     * Set gpaResultId
+     *
+     * @param \AppBundle\Entity\GPAResult $gpaResultId
+     *
+     * @return Semester
+     */
+    public function setGpaResultId(\AppBundle\Entity\GPAResult $gpaResultId)
+    {
+        $this->gpaResultId = $gpaResultId;
+
+        return $this;
+    }
+
+    /**
+     * Get gpaResultId
+     *
+     * @return \AppBundle\Entity\GPAResult
+     */
+    public function getGpaResultId()
+    {
+        return $this->gpaResultId;
+    }
 }
+

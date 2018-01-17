@@ -168,7 +168,15 @@ class StudentTasksController extends Controller
                                 array('studentId' => $student, 'sessionPublished' => true)
                               );
 
-      $data['session_results'] = $session_results;
+      $session_result_adds = $this->getDoctrine()
+                              ->getRepository('AppBundle:SessionResultAdd')
+                              ->findBy(
+                                array('studentId' => $student, 'sessionPublished' => true)
+                              );
+
+      $session_results_final = array_merge($session_results, $session_result_adds);
+      $data['session_results'] = $session_results_final;
+      $data['session_result_adds'] = $session_result_adds;
 
       $gpas = $this->getDoctrine()
                           ->getRepository('AppBundle:GPA')

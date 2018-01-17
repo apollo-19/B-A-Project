@@ -25,7 +25,17 @@ class SessionResult
     /**
      * @var string
      */
+    private $resultInAlphabetValue;
+
+    /**
+     * @var string
+     */
     private $sessionResultRemark;
+
+    /**
+     * @var boolean
+     */
+    private $sessionPublished;
 
     /**
      * @var integer
@@ -102,6 +112,30 @@ class SessionResult
     }
 
     /**
+     * Set resultInAlphabetValue
+     *
+     * @param string $resultInAlphabetValue
+     *
+     * @return SessionResult
+     */
+    public function setResultInAlphabetValue($resultInAlphabetValue)
+    {
+        $this->resultInAlphabetValue = $resultInAlphabetValue;
+
+        return $this;
+    }
+
+    /**
+     * Get resultInAlphabetValue
+     *
+     * @return string
+     */
+    public function getResultInAlphabetValue()
+    {
+        return $this->resultInAlphabetValue;
+    }
+
+    /**
      * Set sessionResultRemark
      *
      * @param string $sessionResultRemark
@@ -123,6 +157,30 @@ class SessionResult
     public function getSessionResultRemark()
     {
         return $this->sessionResultRemark;
+    }
+
+    /**
+     * Set sessionPublished
+     *
+     * @param boolean $sessionPublished
+     *
+     * @return SessionResult
+     */
+    public function setSessionPublished($sessionPublished)
+    {
+        $this->sessionPublished = $sessionPublished;
+
+        return $this;
+    }
+
+    /**
+     * Get sessionPublished
+     *
+     * @return boolean
+     */
+    public function getSessionPublished()
+    {
+        return $this->sessionPublished;
     }
 
     /**
@@ -196,62 +254,5 @@ class SessionResult
     {
         return $this->studentId;
     }
-    /**
-     * @var string
-     */
-    private $resultInAlphabetValue;
-
-
-    /**
-     * Set resultInAlphabetValue
-     *
-     * @param string $resultInAlphabetValue
-     *
-     * @return SessionResult
-     */
-    public function setResultInAlphabetValue($resultInAlphabetValue)
-    {
-        $this->resultInAlphabetValue = $resultInAlphabetValue;
-
-        return $this;
-    }
-
-    /**
-     * Get resultInAlphabetValue
-     *
-     * @return string
-     */
-    public function getResultInAlphabetValue()
-    {
-        return $this->resultInAlphabetValue;
-    }
-    /**
-     * @var boolean
-     */
-    private $sessionPublished;
-
-
-    /**
-     * Set sessionPublished
-     *
-     * @param boolean $sessionPublished
-     *
-     * @return SessionResult
-     */
-    public function setSessionPublished($sessionPublished)
-    {
-        $this->sessionPublished = $sessionPublished;
-
-        return $this;
-    }
-
-    /**
-     * Get sessionPublished
-     *
-     * @return boolean
-     */
-    public function getSessionPublished()
-    {
-        return $this->sessionPublished;
-    }
 }
+

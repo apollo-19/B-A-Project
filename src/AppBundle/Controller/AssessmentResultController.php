@@ -274,8 +274,6 @@ class AssessmentResultController extends Controller
                                 ->execute();
         }
 
-        $data['school_sessions'] = $school_sessions;
-
         $session_results = [];
         foreach ($school_sessions as $school_session) {
           $session_result = $em->getRepository('AppBundle:SessionResult')
@@ -289,7 +287,6 @@ class AssessmentResultController extends Controller
           if( $session_result != null )
             array_push($session_results, $session_result);
         }
-        $data['session_results'] = $session_results;
 
         $session_result_adds = [];
         foreach ($school_sessions as $school_session) {
@@ -302,7 +299,24 @@ class AssessmentResultController extends Controller
           if( $session_result_add != null )
             array_push($session_result_adds, $session_result_add);
         }
-        $data['session_result_adds'] = $session_result_adds;
+
+        $results = [];
+        foreach ($session_results as $session_result_array){
+          foreach ($session_result_array as $session_result){
+            array_push($results, $session_result);
+          }
+        }
+
+        foreach ($results as $key => $session_results) {
+          foreach ($session_result_adds as $session_result_add_array){
+            foreach ($session_result_add_array as $session_result_add){
+              if( ($session_result_add->getStudentId() == $session_results->getStudentId()) ){
+                unset($results[$key]);
+              }
+            }
+          }
+        }
+        $data['results'] = $results;
         // End Add Student to Session
 
         $assessment_type = $em->getRepository('AppBundle:AssessmentType')

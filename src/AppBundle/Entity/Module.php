@@ -28,6 +28,11 @@ class Module
     private $moduleCreditHour;
 
     /**
+     * @var integer
+     */
+    private $moduleYear;
+
+    /**
      * @var string
      */
     private $moduleDuration;
@@ -56,6 +61,11 @@ class Module
      * @var \AppBundle\Entity\Curriculum
      */
     private $curriculumId;
+
+    /**
+     * @var \AppBundle\Entity\GPAResult
+     */
+    private $gpaResultId;
 
     /**
      * Constructor
@@ -147,6 +157,30 @@ class Module
     public function getModuleCreditHour()
     {
         return $this->moduleCreditHour;
+    }
+
+    /**
+     * Set moduleYear
+     *
+     * @param integer $moduleYear
+     *
+     * @return Module
+     */
+    public function setModuleYear($moduleYear)
+    {
+        $this->moduleYear = $moduleYear;
+
+        return $this;
+    }
+
+    /**
+     * Get moduleYear
+     *
+     * @return integer
+     */
+    public function getModuleYear()
+    {
+        return $this->moduleYear;
     }
 
     /**
@@ -322,33 +356,29 @@ class Module
     {
         return $this->curriculumId;
     }
-    /**
-     * @var integer
-     */
-    private $moduleYear;
-
 
     /**
-     * Set moduleYear
+     * Set gpaResultId
      *
-     * @param integer $moduleYear
+     * @param \AppBundle\Entity\GPAResult $gpaResultId
      *
      * @return Module
      */
-    public function setModuleYear($moduleYear)
+    public function setGpaResultId(\AppBundle\Entity\GPAResult $gpaResultId)
     {
-        $this->moduleYear = $moduleYear;
+        $this->gpaResultId = $gpaResultId;
 
         return $this;
     }
 
     /**
-     * Get moduleYear
+     * Get gpaResultId
      *
-     * @return integer
+     * @return \AppBundle\Entity\GPAResult
      */
-    public function getModuleYear()
+    public function getGpaResultId()
     {
-        return $this->moduleYear;
+        return $this->gpaResultId;
     }
 }
+

@@ -197,3 +197,4 @@ class Prerequisite
         return $this->prerequisiteModuleId;
     }
 }
+

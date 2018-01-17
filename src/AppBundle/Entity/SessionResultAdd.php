@@ -52,6 +52,11 @@ class SessionResultAdd
      */
     private $studentId;
 
+    /**
+     * @var \AppBundle\Entity\Schoolsession
+     */
+    private $prevSessionId;
+
 
     /**
      * Get id
@@ -254,11 +259,6 @@ class SessionResultAdd
     {
         return $this->studentId;
     }
-    /**
-     * @var \AppBundle\Entity\Schoolsession
-     */
-    private $prevSessionId;
-
 
     /**
      * Set prevSessionId
@@ -284,3 +284,4 @@ class SessionResultAdd
         return $this->prevSessionId;
     }
 }
+

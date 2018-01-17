@@ -13,6 +13,16 @@ class Student
     private $id;
 
     /**
+     * @var integer
+     */
+    private $studentStartYear;
+
+    /**
+     * @var integer
+     */
+    private $studentEndYear;
+
+    /**
      * @var string
      */
     private $admissionNumber;
@@ -344,6 +354,54 @@ class Student
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set studentStartYear
+     *
+     * @param integer $studentStartYear
+     *
+     * @return Student
+     */
+    public function setStudentStartYear($studentStartYear)
+    {
+        $this->studentStartYear = $studentStartYear;
+
+        return $this;
+    }
+
+    /**
+     * Get studentStartYear
+     *
+     * @return integer
+     */
+    public function getStudentStartYear()
+    {
+        return $this->studentStartYear;
+    }
+
+    /**
+     * Set studentEndYear
+     *
+     * @param integer $studentEndYear
+     *
+     * @return Student
+     */
+    public function setStudentEndYear($studentEndYear)
+    {
+        $this->studentEndYear = $studentEndYear;
+
+        return $this;
+    }
+
+    /**
+     * Get studentEndYear
+     *
+     * @return integer
+     */
+    public function getStudentEndYear()
+    {
+        return $this->studentEndYear;
     }
 
     /**
@@ -1877,62 +1935,5 @@ class Student
     {
         return $this->sectionId;
     }
-    /**
-     * @var integer
-     */
-    private $studentStartYear;
-
-    /**
-     * @var integer
-     */
-    private $studentEndYear;
-
-
-    /**
-     * Set studentStartYear
-     *
-     * @param integer $studentStartYear
-     *
-     * @return Student
-     */
-    public function setStudentStartYear($studentStartYear)
-    {
-        $this->studentStartYear = $studentStartYear;
-
-        return $this;
-    }
-
-    /**
-     * Get studentStartYear
-     *
-     * @return integer
-     */
-    public function getStudentStartYear()
-    {
-        return $this->studentStartYear;
-    }
-
-    /**
-     * Set studentEndYear
-     *
-     * @param integer $studentEndYear
-     *
-     * @return Student
-     */
-    public function setStudentEndYear($studentEndYear)
-    {
-        $this->studentEndYear = $studentEndYear;
-
-        return $this;
-    }
-
-    /**
-     * Get studentEndYear
-     *
-     * @return integer
-     */
-    public function getStudentEndYear()
-    {
-        return $this->studentEndYear;
-    }
 }
+

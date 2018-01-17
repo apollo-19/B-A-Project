@@ -185,3 +185,4 @@ class AssessmentType
         return $this->assessmentResults;
     }
 }
+

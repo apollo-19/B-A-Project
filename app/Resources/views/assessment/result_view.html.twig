@@ -37,10 +37,13 @@
     </h2>
 
     {% if assessment_results is empty %}
-      {% if app.session.get('user_type') == 'teacher' and app.session.get('user_id') == school_session.teacherId.id %}
-        <a href="{{ path('assessment_result_create', {'school_session_id': school_session.id}) }}"
-        onclick="return confirm('Are You Sure?')">Start Assessment</a>
-      {% endif %}
+      <div id="warningContainer">
+        <h1>Assessments aren't Started Yet!</h1>
+        {% if app.session.get('user_type') == 'teacher' and app.session.get('user_id') == school_session.teacherId.id %}
+          <a href="{{ path('assessment_result_create', {'school_session_id': school_session.id}) }}" class="fright"
+          onclick="return confirm('Are You Sure?')">Start Assessment</a>
+        {% endif %}
+      </div>
     {% else %}
       <table id="wide_table">
         <thead>
@@ -110,38 +113,30 @@
           {% endfor %}
         </tbody>
       </table>
-
       {% if app.session.get('user_type') == 'admin' %}
-        <form class="form fright" method="post">
-          <h1 class="fleft"> Students for this session: </h1>
-
-          <select id="student_id" class="fleft">
-              {% for session_result_array in  session_results %}
-                {% for session_result in session_result_array %}
-
-                  {% for session_result_add_array in  session_result_adds %}
-                    {% for session_result_add in session_result_add_array %}
-
-                      {% if (session_result_add.prevSessionId == session_result.sessionId) %}
-                        <option value="{{ session_result.studentId.id }}" title="{{ session_result.sessionId.id }}">
-                          {{ session_result.sessionId.id }}
-                          ({{ session_result.studentId.admissionNumber }}) {{ session_result.studentId.firstNameAm }}
-                          {{ session_result.studentId.middleNameAm }} {{ session_result.studentId.lastNameAm }} -
-                          {{ session_result.resultInAlphabet }} ({{ session_result.sessionResultRemark|title }})
-                        </option>
-                      {% endif %}
-                    {% endfor %}
-                  {% endfor %}
-
-                {% endfor %}
+          {% if results is empty %}
+            <h1 class="fright">
+              There're No Students to Add This Course.
+            </h1>
+          {% else %}
+          <form class="form fright" method="post">
+            <h1 class="fleft"> Students for this session: </h1>
+            <select id="student_id" class="fleft">
+              {% for session_result in results %}
+                <option value="{{ session_result.studentId.id }}" title="{{ session_result.sessionId.id }}">
+                  ({{ session_result.studentId.admissionNumber }}) {{ session_result.studentId.firstNameAm }}
+                  {{ session_result.studentId.middleNameAm }} {{ session_result.studentId.lastNameAm }} -
+                  {{ session_result.resultInAlphabet }} ({{ session_result.sessionResultRemark|title }})
+                </option>
               {% endfor %}
 
-          </select>
+            </select>
 
-          <input type="hidden" id="school_session_id" value="{{ school_session.id }}">
+            <input type="hidden" id="school_session_id" value="{{ school_session.id }}">
 
-          <button type="button" name="button" class="fleft" id="add_student">Add Student</button>
-          <hr class="clear" width="0" />
+            <button type="button" name="button" class="fleft" id="add_student">Add Student</button>
+            <hr class="clear" width="0" />
+          {% endif %}
         </form>
       {% endif %}
 
@@ -206,7 +201,7 @@
           },
           success: function (data)
           {
-            alert(data);
+            location.reload();
           }
         });
       }

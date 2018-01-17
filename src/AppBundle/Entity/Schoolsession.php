@@ -53,6 +53,11 @@ class Schoolsession
     private $sessionresult;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sessionadd;
+
+    /**
      * @var \AppBundle\Entity\Section
      */
     private $sectionId;
@@ -83,6 +88,7 @@ class Schoolsession
     public function __construct()
     {
         $this->sessionresult = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sessionadd = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -298,6 +304,40 @@ class Schoolsession
     }
 
     /**
+     * Add sessionadd
+     *
+     * @param \AppBundle\Entity\SessionResultAdd $sessionadd
+     *
+     * @return Schoolsession
+     */
+    public function addSessionadd(\AppBundle\Entity\SessionResultAdd $sessionadd)
+    {
+        $this->sessionadd[] = $sessionadd;
+
+        return $this;
+    }
+
+    /**
+     * Remove sessionadd
+     *
+     * @param \AppBundle\Entity\SessionResultAdd $sessionadd
+     */
+    public function removeSessionadd(\AppBundle\Entity\SessionResultAdd $sessionadd)
+    {
+        $this->sessionadd->removeElement($sessionadd);
+    }
+
+    /**
+     * Get sessionadd
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSessionadd()
+    {
+        return $this->sessionadd;
+    }
+
+    /**
      * Set sectionId
      *
      * @param \AppBundle\Entity\Section $sectionId
@@ -416,43 +456,5 @@ class Schoolsession
     {
         return $this->assessmentTypeSystemId;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $sessionadd;
-
-
-    /**
-     * Add sessionadd
-     *
-     * @param \AppBundle\Entity\SessionResultAdd $sessionadd
-     *
-     * @return Schoolsession
-     */
-    public function addSessionadd(\AppBundle\Entity\SessionResultAdd $sessionadd)
-    {
-        $this->sessionadd[] = $sessionadd;
-
-        return $this;
-    }
-
-    /**
-     * Remove sessionadd
-     *
-     * @param \AppBundle\Entity\SessionResultAdd $sessionadd
-     */
-    public function removeSessionadd(\AppBundle\Entity\SessionResultAdd $sessionadd)
-    {
-        $this->sessionadd->removeElement($sessionadd);
-    }
-
-    /**
-     * Get sessionadd
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSessionadd()
-    {
-        return $this->sessionadd;
-    }
 }
+

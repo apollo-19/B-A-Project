@@ -44,3 +44,11 @@ AppBundle\Entity\Semester:
           referencedColumnName: id
           nullable: false
           onDelete: CASCADE
+      gpaResultId:
+        targetEntity: GPAResult
+        inversedBy: semester
+        joinColumn:
+          name: gpa_result_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE
