@@ -256,19 +256,31 @@ class CurriculumController extends Controller
                           ->getRepository('AppBundle:Curriculum')
                           ->findOneById($curriculum_id);
 
-      $school = $this->getDoctrine()
-                          ->getRepository('AppBundle:School')
-                          ->findOneById($curriculum->getSchoolId());
-
-      $data['school'] = $school;
-
-      $grade_system = $this->getDoctrine()
-                          ->getRepository('AppBundle:GradeSystem')
-                          ->findOneById($curriculum->getGradeSystemId());
-
-      $data['grade_system'] = $grade_system;
+      $course = $this->getDoctrine()
+                          ->getRepository('AppBundle:Course')
+                          ->findBy(
+                            array('curriculumId' => $curriculum)
+                          );
 
       $data['curriculum'] = $curriculum;
+
+      $data['courses'] = $course;
+
+      $module = $this->getDoctrine()
+                          ->getRepository('AppBundle:Module')
+                          ->findBy(
+                            array('curriculumId' => $curriculum)
+                          );
+
+      $data['modules'] = $module;
+
+      $semester = $this->getDoctrine()
+                          ->getRepository('AppBundle:Semester')
+                          ->findBy(
+                            array('curriculumId' => $curriculum)
+                          );
+
+      $data['semesters'] = $semester;
 
       return $this->render('curriculum/view_one.html.twig', $data);
     } else {

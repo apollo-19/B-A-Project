@@ -11,7 +11,6 @@
 {% block body %}
   <article class="container taleft">
     <div class="form fright">
-
       <h1 class="welcomeText tacenter">{{ curriculum.curriculumName }} ({{ curriculum.curriculumCode }})</h1>
 
       <table>
@@ -33,25 +32,57 @@
         <tr>
           <td>Curriculum School:</td>
           <td><a href="{{ path('school_view_one', {'school_id': curriculum.schoolId.id}) }}">
-            {{ school.schoolName }}
+            {{ curriculum.schoolId.schoolName }}
           </a></td>
         </tr>
+
+        <tr>
+          <td>Curriculum GPA System:</td>
+          <td>
+            <a href="{{ path('gpa_view', {'gpa_system_id': curriculum.gpaSystemId.id}) }}" id="moreDetBtn">
+              {{ curriculum.gpaSystemId.gpaSystemName }}</a>
+            </td>
+          </tr>
 
         <tr>
           <td>Curriculum Grade System:</td>
           <td><a href="{{ path('grade_view', {'grade_system_id': curriculum.gradeSystemId.id }) }}">
-            {{ grade_system.gradeSystemName is defined ? grade_system.gradeSystemName : '' }}
+            {{ curriculum.gradeSystemId.gradeSystemName is defined ? curriculum.gradeSystemId.gradeSystemName : '' }}
           </a></td>
         </tr>
 
         <tr>
-          <td>Curriculum Grade System:</td>
+          <td>{{ (curriculum.curriculumType == 'modularized') ? 'Modules' : 'Semesters' }} in Curriculum:</td>
           <td>
-            <a href="{{ path('gpa_view', {'gpa_system_id': curriculum.gpaSystemId.id}) }}" id="moreDetBtn">
-            {{ curriculum.gpaSystemId.gpaSystemName }}</a>
+            {% if curriculum.curriculumType == 'modularized' %}
+              {% for module in modules %}
+                <p>
+                  <a href="{{ path('module_view_one', {'module_id': module.id}) }}" id="moreDetBtn">
+                    {{ module.moduleName }} | {{ module.moduleCode|upper }}</a>
+                </p>
+              {% endfor %}
+            {% else %}
+              {% for semester in semesters %}
+                <p>
+                  <a href="{{ path('semester_view_one', {'semester_id': semester.id}) }}" id="moreDetBtn">
+                    {{ semester.semesterName }} | {{ semester.semesterCode|upper }}</a>
+                </p>
+              {% endfor %}
+            {% endif %}
           </td>
         </tr>
 
+        <tr>
+          <td>Courses in Curriculum:</td>
+          <td>
+            {% for course in courses %}
+              <p>
+                <a href="{{ path('course_view_one', {'course_id': course.id}) }}" id="moreDetBtn">
+                  {{ course.courseName }} | {{ course.courseCode|upper }}</a>
+              </p>
+            {% endfor %}
+          </td>
+        </tr>
 
       </table>
     </div>

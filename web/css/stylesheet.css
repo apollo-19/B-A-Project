@@ -35,10 +35,9 @@ header, nav, article, section, div, footer , side-nav {
 }
 
 .container  {
-  margin: 1.5vh auto;
-  padding: 5px;
-  width: 1250px;
-  min-height: 80.65vh;
+  margin: 1.5vh 5%;
+  width: 90%;
+  min-height: 81.75vh;
 }
 
 #container_wrapper {
@@ -84,13 +83,12 @@ header div:nth-child(1) {
   background-color: #333;
 
   height: inherit;
-  width: 350px;
+  width: 17.5%;
 }
 
 header div:nth-child(1) img {
   z-index: 9;
   height: inherit;
-  width: inherit;
 }
 
 header table {
@@ -112,8 +110,8 @@ header table tr td a {
   text-decoration: none;
   font-size: 15px;
   cursor: pointer;
-  padding: 30px;
-  height: inherit;
+
+  padding: 3vh 30px;
 }
 
 header table tr td a:hover {
@@ -481,7 +479,7 @@ footer div {
   border-right: 2px solid #1872B8;
 
   z-index: 9999;
-  width: 350px;
+  width: 17.5%;
 }
 
 #sideMenu #links {
