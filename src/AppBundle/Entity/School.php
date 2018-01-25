@@ -276,4 +276,3 @@ class School
         return $this->curriculums;
     }
 }
-

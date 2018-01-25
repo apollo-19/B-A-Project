@@ -65,20 +65,15 @@ AppBundle\Entity\Module:
       prerequisiteModule:
         targetEntity: Prerequisite
         mappedBy: module
+      moduleResults:
+        targetEntity: ModuleGPA
+        mappedBy: student
     manyToOne:
       curriculumId:
         targetEntity: Curriculum
         inversedBy: module
         joinColumn:
           name: curriculum_id
-          referencedColumnName: id
-          nullable: false
-          onDelete: CASCADE
-      gpaResultId:
-        targetEntity: GPAResult
-        inversedBy: module
-        joinColumn:
-          name: gpa_result_id
           referencedColumnName: id
           nullable: false
           onDelete: CASCADE

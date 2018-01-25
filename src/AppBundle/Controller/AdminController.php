@@ -40,7 +40,7 @@ class AdminController extends Controller
       $data['mode'] = 'new';
 
       $form = $this ->createFormBuilder()
-                    ->add('user_photo', FileType::class)
+                    ->add('admin_user_photo', FileType::class)
                     ->add('first_name')
                     ->add('middle_name')
                     ->add('last_name')
@@ -60,8 +60,8 @@ class AdminController extends Controller
         $admin_data = $form->getData();
         $data['form'] = $admin_data;
 
-        $user_photo = $admin_data['user_photo'];
-        $user_photo_name = $admin_data['admin_type'] . '_' . $admin_data['user_name'] . '.' . $user_photo->guessExtension();
+        $admin_user_photo = $admin_data['admin_user_photo'];
+        $admin_user_photo_name = $admin_data['admin_type'] . '_' . $admin_data['user_name'] . '.' . $admin_user_photo->guessExtension();
 
         if($admin_data['password'] != $admin_data['confirm_password'])
           $data['resultMessage'] = 'Passwords Must Match!';
@@ -72,8 +72,8 @@ class AdminController extends Controller
           $passwordLIT->setUserName($admin_data['user_name']);
           $passwordLIT->setPassword(md5($admin_data['password']));
           $passwordLIT->setUserType('admin');
-          $passwordLIT->setUserPhoto($user_photo_name);
-          $user_photo->move('img/user_photos/', $user_photo_name);
+          $passwordLIT->setUserPhoto($admin_user_photo_name);
+          $admin_user_photo->move('img/admin_user_photos/', $admin_user_photo_name);
 
           $admin = new Admin();
           $admin->setFirstName($admin_data['first_name']);
@@ -110,7 +110,7 @@ class AdminController extends Controller
     $data['mode'] = 'edit';
 
     $form = $this ->createFormBuilder()
-                  ->add('user_photo', FileType::class)
+                  ->add('admin_user_photo', FileType::class)
                   ->add('first_name')
                   ->add('middle_name')
                   ->add('last_name')
@@ -152,11 +152,11 @@ class AdminController extends Controller
         $admin_data = $form->getData();
         $data['form'] = $admin_data;
 
-        if($admin_data['user_photo']){
-          $user_photo = $admin_data['user_photo'];
-          $user_photo_name = $admin->getAdminType() . '_' . $admin->getUserName() . '.' . $user_photo->guessExtension();
-          $user_lit->setUserPhoto($user_photo_name);
-          $user_photo->move('img/user_photos/', $user_photo_name);
+        if($admin_data['admin_user_photo']){
+          $admin_user_photo = $admin_data['admin_user_photo'];
+          $admin_user_photo_name = $admin->getAdminType() . '_' . $admin->getUserName() . '.' . $admin_user_photo->guessExtension();
+          $user_lit->setUserPhoto($admin_user_photo_name);
+          $admin_user_photo->move('img/admin_user_photos/', $admin_user_photo_name);
         }
 
         $admin->setFirstName($admin_data['first_name']);

@@ -34,6 +34,7 @@ class SchoolsessionController extends Controller
                     ->add('assessment_type_system_id')
                     ->add('session_start_date')
                     ->add('session_end_date')
+                    ->add('session_result_deadline')
                     ->getForm();
 
       $section = $this->getDoctrine()
@@ -100,6 +101,7 @@ class SchoolsessionController extends Controller
         $school_session->setAssessmentTypeSystemId($assessment_type_system_id);
         $school_session->setSessionStartDate($school_session_data['session_start_date']);
         $school_session->setSessionEndDate($school_session_data['session_end_date']);
+        $school_session->setSessionResultDeadline($school_session_data['session_result_deadline']);
         $school_session->setCreatedBy($session->get('user_id'));
 
         $em = $this->getDoctrine()->getManager();
@@ -132,8 +134,10 @@ class SchoolsessionController extends Controller
                   ->add('course_module_type')
                   ->add('course_id')
                   ->add('module_id')
+                  ->add('assessment_type_system_id')
                   ->add('session_start_date')
                   ->add('session_end_date')
+                  ->add('session_result_deadline')
                   ->getForm();
 
     $school_session = $this->getDoctrine()
@@ -164,6 +168,12 @@ class SchoolsessionController extends Controller
 
     $data['courses'] = $course;
 
+    $assessment_type_system = $this->getDoctrine()
+                        ->getRepository('AppBundle:AssessmentTypeSystem')
+                        ->findAll();
+
+    $data['assessment_type_systems'] = $assessment_type_system;
+
     $school_session_data['session_code'] = $school_session->getSessionCode();
     $school_session_data['session_name'] = $school_session->getSessionName();
     $school_session_data['session_section'] = $school_session->getSectionId();
@@ -173,6 +183,7 @@ class SchoolsessionController extends Controller
     $school_session_data['module_id'] = $school_session->getModuleId();
     $school_session_data['session_start_date'] = $school_session->getSessionStartDate();
     $school_session_data['session_end_date'] = $school_session->getSessionEndDate();
+    $school_session_data['session_result_deadline'] = $school_session->getSessionResultDeadline();
 
     $session = new Session();
 
@@ -192,24 +203,26 @@ class SchoolsessionController extends Controller
         $myteacher = $this->getDoctrine()
                             ->getRepository('AppBundle:Teacher')
                             ->findOneById($school_session_data['session_teacher']);
-
         $mymodule = $this->getDoctrine()
-                          ->getRepository('AppBundle:Module')
-                          ->findOneById($school_session_data['module_id']);
-
+                            ->getRepository('AppBundle:Module')
+                            ->findOneById($school_session_data['module_id']);
         $mycourse = $this->getDoctrine()
-                          ->getRepository('AppBundle:Course')
-                          ->findOneById($school_session_data['course_id']);
+                            ->getRepository('AppBundle:Course')
+                            ->findOneById($school_session_data['course_id']);
+        $assessment_type_system_id = $this->getDoctrine()
+                                          ->getRepository('AppBundle:AssessmentTypeSystem')
+                                          ->findOneById($school_session_data['assessment_type_system_id']);
 
         $school_session->setSessionCode($school_session_data['session_code']);
         $school_session->setSessionName($school_session_data['session_name']);
         $school_session->setSectionId($mysection);
         $school_session->setTeacherId($myteacher);
         $school_session->setCourseModuleType($school_session_data['course_module_type']);
-        $school_session->setCourseId($mymodule);
-        $school_session->setModuleId($mycourse);
+        $school_session->setCourseId($mycourse);
+        $school_session->setModuleId($mymodule);
         $school_session->setSessionStartDate($school_session_data['session_start_date']);
         $school_session->setSessionEndDate($school_session_data['session_end_date']);
+        $school_session->setSessionResultDeadline($school_session_data['session_result_deadline']);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($school_session);

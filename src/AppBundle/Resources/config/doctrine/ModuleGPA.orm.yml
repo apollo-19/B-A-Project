@@ -1,0 +1,43 @@
+AppBundle\Entity\ModuleGPA:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\ModuleGPARepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        gpaValue:
+            type: string
+            length: '5'
+            column: GPAValue
+        creditHour:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: credit_hour
+        totalSum:
+            type: string
+            length: '5'
+            column: TotalSum
+    lifecycleCallbacks: {  }
+    manyToOne:
+      studentId:
+        targetEntity: Student
+        inversedBy: modulegpa
+        joinColumn:
+          name: student_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE
+      moduleId:
+        targetEntity: Module
+        inversedBy: modulegpa
+        joinColumn:
+          name: module_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE

@@ -71,6 +71,9 @@
       <label for="form[session_end_date]">Session End Date</label>
       <input type="date" name="form[session_end_date]" value="{{ form.session_end_date is defined ? form.session_end_date : '' }}">
 
+      <label for="form[session_result_deadline]">Session Result Deadline</label>
+      <input type="date" name="form[session_result_deadline]" value="{{ form.session_result_deadline is defined ? form.session_result_deadline : '' }}">
+
       <button>{{ (mode == 'new') ? 'Create School Section' : 'Save Changes' }}</button>
     </form>
 

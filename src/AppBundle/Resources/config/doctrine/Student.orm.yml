@@ -439,7 +439,10 @@ AppBundle\Entity\Student:
 
     lifecycleCallbacks: {  }
     oneToMany:
-      sessionresult:
+      semesterResults:
+        targetEntity: SemesterGPA
+        mappedBy: student
+      sessionResults:
         targetEntity: SessionResult
         mappedBy: student
       assessmentResults:

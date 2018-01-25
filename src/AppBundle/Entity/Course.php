@@ -340,5 +340,43 @@ class Course
     {
         return $this->semesterId;
     }
-}
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $courseResults;
 
+
+    /**
+     * Add courseResult
+     *
+     * @param \AppBundle\Entity\CourseGPA $courseResult
+     *
+     * @return Course
+     */
+    public function addCourseResult(\AppBundle\Entity\CourseGPA $courseResult)
+    {
+        $this->courseResults[] = $courseResult;
+
+        return $this;
+    }
+
+    /**
+     * Remove courseResult
+     *
+     * @param \AppBundle\Entity\CourseGPA $courseResult
+     */
+    public function removeCourseResult(\AppBundle\Entity\CourseGPA $courseResult)
+    {
+        $this->courseResults->removeElement($courseResult);
+    }
+
+    /**
+     * Get courseResults
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCourseResults()
+    {
+        return $this->courseResults;
+    }
+}

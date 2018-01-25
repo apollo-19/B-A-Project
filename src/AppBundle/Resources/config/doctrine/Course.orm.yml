@@ -55,7 +55,9 @@ AppBundle\Entity\Course:
       prerequisiteCourse:
         targetEntity: Prerequisite
         mappedBy: course
-
+      courseResults:
+        targetEntity: CourseGPA
+        mappedBy: student
     manyToOne:
       curriculumId:
         targetEntity: Curriculum

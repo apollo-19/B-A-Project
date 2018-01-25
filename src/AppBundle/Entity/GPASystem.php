@@ -196,4 +196,3 @@ class GPASystem
         return $this->gpa;
     }
 }
-

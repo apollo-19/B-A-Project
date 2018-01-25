@@ -254,4 +254,3 @@ class Section
         return $this->batchId;
     }
 }
-

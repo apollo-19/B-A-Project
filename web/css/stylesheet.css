@@ -6,7 +6,7 @@
   font-family: 'Roboto', sans-serif;
 }
 
-header, nav, article, section, div, footer , side-nav {
+header, nav, article, section, div, footer, side-nav {
   display: block;
 }
 
@@ -32,6 +32,10 @@ header, nav, article, section, div, footer , side-nav {
 
 .taright {
   text-align: right;
+}
+
+.warning {
+  color: #FF0000;
 }
 
 .container  {
@@ -89,6 +93,7 @@ header div:nth-child(1) {
 header div:nth-child(1) img {
   z-index: 9;
   height: inherit;
+  width: 100%;
 }
 
 header table {
@@ -111,7 +116,8 @@ header table tr td a {
   font-size: 15px;
   cursor: pointer;
 
-  padding: 3vh 30px;
+  margin: 0px 5px;
+  padding: 1.5vh 30px;
 }
 
 header table tr td a:hover {
@@ -472,6 +478,7 @@ footer div {
 }
 
 #sideMenu {
+  overflow-y: auto;
   position: fixed;
   display: block;
   top: 0;
@@ -480,6 +487,7 @@ footer div {
 
   z-index: 9999;
   width: 17.5%;
+  height: 100vh;
 }
 
 #sideMenu #links {
@@ -494,6 +502,7 @@ footer div {
 }
 
 #sideMenu a {
+  background-color: #F5F5F5;
   text-decoration: none;
   color: #000;
   cursor: pointer;

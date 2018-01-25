@@ -197,4 +197,3 @@ class GPA
         return $this->gpaSystemId;
     }
 }
-

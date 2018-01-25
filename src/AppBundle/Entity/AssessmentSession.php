@@ -110,4 +110,3 @@ class AssessmentSession
         return $this->createdBy;
     }
 }
-

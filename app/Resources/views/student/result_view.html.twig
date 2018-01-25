@@ -125,7 +125,7 @@
 
                 <td>{{ session_result.resultInNumber }}</td>
                 <td>{{ session_result.resultInAlphabet }}</td>
-                
+
                 <td>
                   {% set sum = session_result.resultInAlphabetValue|number_format(2, '.', ',') * sessionResultCreditHour|number_format(2, '.', ',') %}
                   {{ session_result.resultInAlphabetValue }} * {{ sessionResultCreditHour|number_format(2, '.', ',') }} = {{ sum }}
@@ -161,7 +161,9 @@
               {% for gpa in gpas %}
                 {% if session_results[0].sessionId.sectionId.curriculumId.gpaSystemId == gpa.gpaSystemId %}
                   {% if gpaSt >= gpa.startGpa and gpaSt <= gpa.endGpa %}
-                    {{ gpa.gpaPf|title }} ({{ gpa.gpaRemark|title }})
+                    <font color="{{ (gpa.gpaPf == 'pass') ? '#006600' : '#FF0000' }}">
+                      {{ gpa.gpaPf|title }} ({{ gpa.gpaRemark|title }})
+                    </font>
                   {% endif %}
                 {% endif %}
               {% endfor %}

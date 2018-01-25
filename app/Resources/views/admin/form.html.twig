@@ -10,14 +10,14 @@
       <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Admin' : 'Edit Admin' }}</h1>
       <h2>{{ result_message is defined ? result_message : '' }}</h2>
 
-      <label for="form[user_photo]">User Photo</label>
+      <label for="form[admin_user_photo]">User Photo</label>
       {% if mode == 'edit' %}
         <h1 align="center">
           <img src="{{ asset('img/user_photos/' ~ user_lit.userPhoto) }}" alt="{{ user_lit.userName | capitalize }} photo" width="250" />
         </h1>
-        <input type="file" name="form[user_photo]" />
+        <input type="file" name="form[admin_user_photo]" />
       {% else %}
-        <input type="file" name="form[user_photo]" required />
+        <input type="file" name="form[admin_user_photo]" required />
       {% endif %}
 
       <label for="form[first_name]">First Name</label>
@@ -49,7 +49,7 @@
           {% endif %}
           <option value="registrar officer" {{ (form.admin_class is defined and form.admin_class == 'registrar officer') ? 'selected' : '' }}>Registrar Officer</option>
         </optgroup>
-        
+
         <optgroup label="Academics" id="academics">
           <option value="integrated coordinator" {{ (form.admin_class is defined and form.admin_class == 'integrated coordinator') ? 'selected' : '' }}>Integrated Coordinator</option>
           <option value="module coordinator" {{ (form.admin_class is defined and form.admin_class == 'module coordinator') ? 'selected' : '' }}>Module Coordinator</option>

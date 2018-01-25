@@ -5,10 +5,12 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\Session\Session;
 use AppBundle\Entity\Teacher;
 use AppBundle\Entity\LogInTable;
 use AppBundle\Entity\Department;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class TeacherController extends Controller
 {
@@ -22,9 +24,9 @@ class TeacherController extends Controller
     if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
       $data = [];
       $data['mode'] = 'new';
-      $data['form'] = [];
 
       $form = $this ->createFormBuilder()
+                    ->add('teacher_user_photo', FileType::class)
                     ->add('first_name')
                     ->add('middle_name')
                     ->add('last_name')
@@ -46,32 +48,40 @@ class TeacherController extends Controller
       $form->handleRequest($request);
 
       if($form->isSubmitted()){
-        $form_data = $form->getData();
-        $data['form'] = $form_data;
+        $data['form'] = [];
+        $teacher_data = $form->getData();
+        $data['form'] = $teacher_data;
 
-        if($form_data['password'] != $form_data['confirm_password'])
+        $teacher_user_photo = $teacher_data['teacher_user_photo'];
+        return new JsonResponse($teacher_user_photo);
+        $teacher_user_photo_name = 'teacher_' . $teacher_data['user_name'] . '.' . $teacher_user_photo->guessExtension();
+
+        if($teacher_data['password'] != $teacher_data['confirm_password'])
           $data['resultMessage'] = 'Passwords Must Match!';
         else {
 
           $em = $this->getDoctrine()->getManager();
 
           $passwordLIT = new LogInTable();
-          $passwordLIT->setUserName($form_data['user_name']);
-          $passwordLIT->setPassword(md5($form_data['password']));
+          $passwordLIT->setUserName($teacher_data['user_name']);
+          $passwordLIT->setPassword(md5($teacher_data['password']));
           $passwordLIT->setUserType('teacher');
+          $passwordLIT->setUserPhoto($teacher_user_photo_name);
+          $teacher_user_photo->move('img/teacher_user_photos/', $teacher_user_photo_name);
+
           $mydepartment = $this->getDoctrine()
                                ->getRepository('AppBundle:Department')
-                               ->findOneById($form_data['teacher_department']);
+                               ->findOneById($teacher_data['teacher_department']);
 
           $teacher = new Teacher();
           $teacher->setRegisteredBy($session->get('user_id'));
-          $teacher->setFirstName($form_data['first_name']);
-          $teacher->setMiddleName($form_data['middle_name']);
-          $teacher->setLastName($form_data['last_name']);
-          $teacher->setSex($form_data['sex']);
-          $teacher->setMobileNumber($form_data['mobile_number']);
-          $teacher->setEmailAddress($form_data['email_address']);
-          $teacher->setUserName($form_data['user_name']);
+          $teacher->setFirstName($teacher_data['first_name']);
+          $teacher->setMiddleName($teacher_data['middle_name']);
+          $teacher->setLastName($teacher_data['last_name']);
+          $teacher->setSex($teacher_data['sex']);
+          $teacher->setMobileNumber($teacher_data['mobile_number']);
+          $teacher->setEmailAddress($teacher_data['email_address']);
+          $teacher->setUserName($teacher_data['user_name']);
           $teacher->setDepartmentId($mydepartment);
 
           $em->persist($teacher);
@@ -102,6 +112,7 @@ class TeacherController extends Controller
 
     if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
       $form = $this ->createFormBuilder()
+                    ->add('teacher_user_photo', FileType::class)
                     ->add('first_name')
                     ->add('middle_name')
                     ->add('last_name')
@@ -114,57 +125,66 @@ class TeacherController extends Controller
       $teacher = $this->getDoctrine()
                           ->getRepository('AppBundle:Teacher')
                           ->findOneById($teacher_id);
-      if($teacher){
-        $teacher_data['first_name'] = $teacher->getFirstName();
-        $teacher_data['middle_name'] = $teacher->getMiddleName();
-        $teacher_data['last_name'] = $teacher->getLastName();
-        $teacher_data['sex'] = $teacher->getSex();
-        $teacher_data['mobile_number'] = $teacher->getMobileNumber();
-        $teacher_data['email_address'] = $teacher->getEmailAddress();
-        $teacher_data['user_name'] = $teacher->getUserName();
-        $teacher_data['registered_by'] = $teacher->getRegisteredBy();
-        $teacher_data['teacher_department'] = $teacher->getDepartmentId();
 
+      $user_lit = $this->getDoctrine()
+                        ->getRepository('AppBundle:LogInTable')
+                        ->findOneByUserName($teacher->getUserName());
 
-        $departments = $this->getDoctrine()
-                            ->getRepository('AppBundle:Department')
-                            ->findAll();
+      $data['user_lit'] = $user_lit;
 
-        $data['departments'] = $departments;
+      $departments = $this->getDoctrine()
+                          ->getRepository('AppBundle:Department')
+                          ->findAll();
 
+      $teacher_data['first_name'] = $teacher->getFirstName();
+      $teacher_data['middle_name'] = $teacher->getMiddleName();
+      $teacher_data['last_name'] = $teacher->getLastName();
+      $teacher_data['sex'] = $teacher->getSex();
+      $teacher_data['mobile_number'] = $teacher->getMobileNumber();
+      $teacher_data['email_address'] = $teacher->getEmailAddress();
+      $teacher_data['user_name'] = $teacher->getUserName();
+      $teacher_data['registered_by'] = $teacher->getRegisteredBy();
+      $teacher_data['teacher_department'] = $teacher->getDepartmentId();
+
+      $data['departments'] = $departments;
+
+      $data['form'] = $teacher_data;
+
+      $form->handleRequest($request);
+
+      if($form->isSubmitted()){
+        $data['form'] = [];
+        $teacher_data = $form->getData();
         $data['form'] = $teacher_data;
 
-        $form->handleRequest($request);
-
-        if($form->isSubmitted()){
-          $data['form'] = [];
-          $teacher_data = $form->getData();
-          $data['form'] = $teacher_data;
-          $mydepartment = $this->getDoctrine()
-                               ->getRepository('AppBundle:Department')
-                               ->findOneById($teacher_data['teacher_department']);
-
-          $teacher->setFirstName($teacher_data['first_name']);
-          $teacher->setMiddleName($teacher_data['middle_name']);
-          $teacher->setLastName($teacher_data['last_name']);
-          $teacher->setSex($teacher_data['sex']);
-          $teacher->setMobileNumber($teacher_data['mobile_number']);
-          $teacher->setEmailAddress($teacher_data['email_address']);
-          $teacher->setDepartmentId($mydepartment);
-
-          $em = $this->getDoctrine()->getManager();
-          $em->persist($teacher);
-          $em->flush();
-
-          return $this->redirectToRoute('teacher_view');
+        if($teacher_data['teacher_user_photo']){
+          $teacher_user_photo = $teacher_data['teacher_user_photo'];
+          $teacher_user_photo_name = 'teacher_' . $teacher->getUserName() . '.' . $teacher_user_photo->guessExtension();
+          $user_lit->setUserPhoto($teacher_user_photo_name);
+          $teacher_user_photo->move('img/teacher_user_photos/', $teacher_user_photo_name);
         }
-        return $this->render('teacher/form.html.twig', $data);
-      } else {
-        $data['message'] = 'You Are Not Qualified to Edit This Teacher.';
-        return $this->render('accessDenied.html.twig', $data);
+
+        $mydepartment = $this->getDoctrine()
+                             ->getRepository('AppBundle:Department')
+                             ->findOneById($teacher_data['teacher_department']);
+
+        $teacher->setFirstName($teacher_data['first_name']);
+        $teacher->setMiddleName($teacher_data['middle_name']);
+        $teacher->setLastName($teacher_data['last_name']);
+        $teacher->setSex($teacher_data['sex']);
+        $teacher->setMobileNumber($teacher_data['mobile_number']);
+        $teacher->setEmailAddress($teacher_data['email_address']);
+        $teacher->setDepartmentId($mydepartment);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($teacher);
+        $em->flush();
+
+        return $this->redirectToRoute('teacher_view');
       }
+      return $this->render('teacher/form.html.twig', $data);
     } else {
-      $data['message'] = 'There\'s No Teacher With This ID (' . $teacher_id . ').';
+      $data['message'] = 'You Are Not Qualified to Edit This Teacher.';
       return $this->render('accessDenied.html.twig', $data);
     }
   }
@@ -246,14 +266,19 @@ class TeacherController extends Controller
                           ->findOneById($teacher_id);
 
       $teacher_department = $teacher->getDepartmentId();
+      $data['teacher'] = $teacher;
+      
+      $user_lit = $this->getDoctrine()
+                        ->getRepository('AppBundle:LogInTable')
+                        ->findOneByUserName($teacher->getUserName());
+
+      $data['user_lit'] = $user_lit;
 
       $department = $this->getDoctrine()
                           ->getRepository('AppBundle:Department')
                           ->findOneById($teacher_department);
 
       $data['department'] = $department;
-
-      $data['teacher'] = $teacher;
 
       return $this->render('teacher/view_one.html.twig', $data);
     } else {

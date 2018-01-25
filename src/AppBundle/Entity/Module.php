@@ -63,11 +63,6 @@ class Module
     private $curriculumId;
 
     /**
-     * @var \AppBundle\Entity\GPAResult
-     */
-    private $gpaResultId;
-
-    /**
      * Constructor
      */
     public function __construct()
@@ -356,29 +351,43 @@ class Module
     {
         return $this->curriculumId;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $moduleResults;
+
 
     /**
-     * Set gpaResultId
+     * Add moduleResult
      *
-     * @param \AppBundle\Entity\GPAResult $gpaResultId
+     * @param \AppBundle\Entity\ModuleGPA $moduleResult
      *
      * @return Module
      */
-    public function setGpaResultId(\AppBundle\Entity\GPAResult $gpaResultId)
+    public function addModuleResult(\AppBundle\Entity\ModuleGPA $moduleResult)
     {
-        $this->gpaResultId = $gpaResultId;
+        $this->moduleResults[] = $moduleResult;
 
         return $this;
     }
 
     /**
-     * Get gpaResultId
+     * Remove moduleResult
      *
-     * @return \AppBundle\Entity\GPAResult
+     * @param \AppBundle\Entity\ModuleGPA $moduleResult
      */
-    public function getGpaResultId()
+    public function removeModuleResult(\AppBundle\Entity\ModuleGPA $moduleResult)
     {
-        return $this->gpaResultId;
+        $this->moduleResults->removeElement($moduleResult);
+    }
+
+    /**
+     * Get moduleResults
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getModuleResults()
+    {
+        return $this->moduleResults;
     }
 }
-

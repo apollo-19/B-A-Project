@@ -38,11 +38,6 @@ class Semester
     private $curriculumId;
 
     /**
-     * @var \AppBundle\Entity\GPAResult
-     */
-    private $gpaResultId;
-
-    /**
      * Constructor
      */
     public function __construct()
@@ -189,29 +184,43 @@ class Semester
     {
         return $this->curriculumId;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $semesterResults;
+
 
     /**
-     * Set gpaResultId
+     * Add semesterResult
      *
-     * @param \AppBundle\Entity\GPAResult $gpaResultId
+     * @param \AppBundle\Entity\SemesterGPA $semesterResult
      *
      * @return Semester
      */
-    public function setGpaResultId(\AppBundle\Entity\GPAResult $gpaResultId)
+    public function addSemesterResult(\AppBundle\Entity\SemesterGPA $semesterResult)
     {
-        $this->gpaResultId = $gpaResultId;
+        $this->semesterResults[] = $semesterResult;
 
         return $this;
     }
 
     /**
-     * Get gpaResultId
+     * Remove semesterResult
      *
-     * @return \AppBundle\Entity\GPAResult
+     * @param \AppBundle\Entity\SemesterGPA $semesterResult
      */
-    public function getGpaResultId()
+    public function removeSemesterResult(\AppBundle\Entity\SemesterGPA $semesterResult)
     {
-        return $this->gpaResultId;
+        $this->semesterResults->removeElement($semesterResult);
+    }
+
+    /**
+     * Get semesterResults
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSemesterResults()
+    {
+        return $this->semesterResults;
     }
 }
-

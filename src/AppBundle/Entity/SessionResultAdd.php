@@ -284,4 +284,3 @@ class SessionResultAdd
         return $this->prevSessionId;
     }
 }
-

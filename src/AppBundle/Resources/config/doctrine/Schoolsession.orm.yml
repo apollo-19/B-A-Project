@@ -50,6 +50,13 @@ AppBundle\Entity\Schoolsession:
             options:
                 fixed: false
             column: session_end_date
+        sessionResultDeadline:
+            type: string
+            nullable: false
+            length: 20
+            options:
+                fixed: false
+            column: session_result_deadline
         sessionRemark:
             type: string
             nullable: true

@@ -40,6 +40,11 @@ class Schoolsession
     /**
      * @var string
      */
+    private $sessionResultDeadline;
+
+    /**
+     * @var string
+     */
     private $sessionRemark;
 
     /**
@@ -219,6 +224,30 @@ class Schoolsession
     public function getSessionEndDate()
     {
         return $this->sessionEndDate;
+    }
+
+    /**
+     * Set sessionResultDeadline
+     *
+     * @param string $sessionResultDeadline
+     *
+     * @return Schoolsession
+     */
+    public function setSessionResultDeadline($sessionResultDeadline)
+    {
+        $this->sessionResultDeadline = $sessionResultDeadline;
+
+        return $this;
+    }
+
+    /**
+     * Get sessionResultDeadline
+     *
+     * @return string
+     */
+    public function getSessionResultDeadline()
+    {
+        return $this->sessionResultDeadline;
     }
 
     /**
@@ -457,4 +486,3 @@ class Schoolsession
         return $this->assessmentTypeSystemId;
     }
 }
-

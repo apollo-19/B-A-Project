@@ -255,4 +255,3 @@ class SessionResult
         return $this->studentId;
     }
 }
-

@@ -243,4 +243,3 @@ class Batch
         return $this->schoolId;
     }
 }
-

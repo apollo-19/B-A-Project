@@ -1935,5 +1935,58 @@ class Student
     {
         return $this->sectionId;
     }
-}
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $semesterResults;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sessionResults;
+
+
+    /**
+     * Add semesterResult
+     *
+     * @param \AppBundle\Entity\SemesterGPA $semesterResult
+     *
+     * @return Student
+     */
+    public function addSemesterResult(\AppBundle\Entity\SemesterGPA $semesterResult)
+    {
+        $this->semesterResults[] = $semesterResult;
+
+        return $this;
+    }
+
+    /**
+     * Remove semesterResult
+     *
+     * @param \AppBundle\Entity\SemesterGPA $semesterResult
+     */
+    public function removeSemesterResult(\AppBundle\Entity\SemesterGPA $semesterResult)
+    {
+        $this->semesterResults->removeElement($semesterResult);
+    }
+
+    /**
+     * Get semesterResults
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSemesterResults()
+    {
+        return $this->semesterResults;
+    }
+
+    /**
+     * Get sessionResults
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSessionResults()
+    {
+        return $this->sessionResults;
+    }
+}

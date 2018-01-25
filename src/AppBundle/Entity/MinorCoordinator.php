@@ -52,4 +52,3 @@ class MinorCoordinator
         return $this->minorId;
     }
 }
-

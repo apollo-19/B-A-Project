@@ -201,6 +201,7 @@ class AssessmentResultController extends Controller
     public function assessmentTypeViewAction(Request $request, $school_session_id)
     {
       $session = new Session();
+      $data['today'] = date("Y-m-d");
 
       $school_session = $this->getDoctrine()
                           ->getRepository('AppBundle:Schoolsession')
