@@ -52,9 +52,9 @@ class TeacherController extends Controller
         $teacher_data = $form->getData();
         $data['form'] = $teacher_data;
 
-        $teacher_user_photo = $teacher_data['teacher_user_photo'];
-        return new JsonResponse($teacher_user_photo);
-        $teacher_user_photo_name = 'teacher_' . $teacher_data['user_name'] . '.' . $teacher_user_photo->guessExtension();
+        // $teacher_user_photo = $teacher_data['teacher_user_photo'];
+        // return new JsonResponse($teacher_user_photo);
+        // $teacher_user_photo_name = 'teacher_' . $teacher_data['user_name'] . '.' . $teacher_user_photo->guessExtension();
 
         if($teacher_data['password'] != $teacher_data['confirm_password'])
           $data['resultMessage'] = 'Passwords Must Match!';
@@ -66,8 +66,8 @@ class TeacherController extends Controller
           $passwordLIT->setUserName($teacher_data['user_name']);
           $passwordLIT->setPassword(md5($teacher_data['password']));
           $passwordLIT->setUserType('teacher');
-          $passwordLIT->setUserPhoto($teacher_user_photo_name);
-          $teacher_user_photo->move('img/teacher_user_photos/', $teacher_user_photo_name);
+          // $passwordLIT->setUserPhoto($teacher_user_photo_name);
+          // $teacher_user_photo->move('img/teacher_user_photos/', $teacher_user_photo_name);
 
           $mydepartment = $this->getDoctrine()
                                ->getRepository('AppBundle:Department')
@@ -267,7 +267,7 @@ class TeacherController extends Controller
 
       $teacher_department = $teacher->getDepartmentId();
       $data['teacher'] = $teacher;
-      
+
       $user_lit = $this->getDoctrine()
                         ->getRepository('AppBundle:LogInTable')
                         ->findOneByUserName($teacher->getUserName());
