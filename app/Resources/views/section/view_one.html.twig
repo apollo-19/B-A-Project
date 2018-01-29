@@ -30,5 +30,10 @@
         {% endfor %}
       </tbody>
     </table>
+
+    {% if app.session.get('user_type') == 'admin' %}
+      <a href="{{ path('section_publish_gpas', {'section_id': section.id}) }}"
+        onclick="return confirm('Are You Sure?')" class="fright" id="editBtn">Publish GPAs</a>
+    {% endif %}
   </div>
 {% endblock %}

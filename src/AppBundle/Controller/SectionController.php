@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use AppBundle\Entity\Section;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class SectionController extends Controller
 {
@@ -241,4 +242,80 @@ class SectionController extends Controller
       return $this->render('accessDenied.html.twig', $data);
     }
   }
+
+  /**
+   * @Route("/section/publish_gpas/{section_id}", name="section_publish_gpas")
+   */
+  public function sectionPublishGPAsAction(Request $request, $section_id)
+  {
+    $session = new Session();
+
+    if( ($session->get('user_type') == 'admin') ){
+      $schoolsessions = $this->getDoctrine()
+                              ->getRepository('AppBundle:Schoolsession')
+                              ->findBy(
+                                array('sectionId' => $section_id)
+                              );
+      //
+      // $session_results = $this->getDoctrine()
+      //                         ->getRepository('AppBundle:SessionResult')
+      //                         ->findBy(
+      //                           array('sessionId' => $schoolsession->getId())
+      //                         );
+      // return new JsonResponse();
+      $currentModSem = '';
+      $currentModSemArray = [];
+      foreach ($schoolsessions as $schoolsession) {
+        if( $schoolsession->getCourseId()->getCurriculumId()->getCurriculumType() == 'modularized' ) {
+          if ($schoolsession->getCourseModuleType() == 'course' && $schoolsession->getCourseId()->getModuleId() != null)
+            $currentModSem = $schoolsession->getCourseId()->getModuleId()->getModuleName();
+          elseif ($schoolsession->getCourseModuleType() == 'module' && $schoolsession->getModuleId() != null)
+            $currentModSem = $schoolsession->getModuleId()->getModuleName();
+          else
+            $currentModSem = "Independent Courses";
+        } else if( $curriculumtype == 'semester' ) {
+          if ($schoolsession->getCourseId()->getSemesterId() != null)
+            $currentModSem = $schoolsession->getCourseId()->getSemesterId()->getSemesterName();
+          else
+            $currentModSem = "Independent Courses";
+        }
+
+        if ( !( in_array($currentModSem, $currentModSemArray) ) )
+          array_push($currentModSemArray, $currentModSem);
+      }
+
+
+      foreach ($currentModSemArray as $currentModSemArr) {
+        $totalSum = 0;
+        $totalCreditHours = 0;
+        return new JsonResponse($currentModSemArr);
+      }
+
+      return new JsonResponse($currentModSemArray);
+
+      return $this->redirectToRoute('section_view_one', array('section_id' => $schoolsession->getSectionId()->getId()));
+    } else {
+      $data['message'] = 'You Are Not Qualified to This Section GPAs.';
+      return $this->render('accessDenied.html.twig', $data);
+    }
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
