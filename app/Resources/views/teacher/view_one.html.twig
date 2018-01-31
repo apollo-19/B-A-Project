@@ -18,10 +18,10 @@
         <tr>
           <td colspan="3"><a class="fright" href="{{ path('teacher_edit', {'teacher_id': teacher.id}) }}">Edit Teacher</a></td>
         </tr>
-      
+
         <tr>
           <td align="center" colspan="2">
-            <img src="{{ asset('img/user_photos/' ~ user_lit.userPhoto) }}" alt="{{ user_lit.userName|title }}'s Photo" width="250" />
+            <img src="{{ asset('img/user_photos/' ~ teacher.userPhoto) }}" alt="{{ user_lit.userName|title }}'s Photo" width="250" />
           </td>
         </tr>
 

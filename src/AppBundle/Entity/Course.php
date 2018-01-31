@@ -48,6 +48,11 @@ class Course
     private $prerequisiteCourse;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $courseResults;
+
+    /**
      * @var \AppBundle\Entity\Curriculum
      */
     private $curriculumId;
@@ -69,6 +74,7 @@ class Course
     {
         $this->schoolsessions = new \Doctrine\Common\Collections\ArrayCollection();
         $this->prerequisiteCourse = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->courseResults = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -270,6 +276,40 @@ class Course
     }
 
     /**
+     * Add courseResult
+     *
+     * @param \AppBundle\Entity\CourseGPA $courseResult
+     *
+     * @return Course
+     */
+    public function addCourseResult(\AppBundle\Entity\CourseGPA $courseResult)
+    {
+        $this->courseResults[] = $courseResult;
+
+        return $this;
+    }
+
+    /**
+     * Remove courseResult
+     *
+     * @param \AppBundle\Entity\CourseGPA $courseResult
+     */
+    public function removeCourseResult(\AppBundle\Entity\CourseGPA $courseResult)
+    {
+        $this->courseResults->removeElement($courseResult);
+    }
+
+    /**
+     * Get courseResults
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCourseResults()
+    {
+        return $this->courseResults;
+    }
+
+    /**
      * Set curriculumId
      *
      * @param \AppBundle\Entity\Curriculum $curriculumId
@@ -339,44 +379,5 @@ class Course
     public function getSemesterId()
     {
         return $this->semesterId;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $courseResults;
-
-
-    /**
-     * Add courseResult
-     *
-     * @param \AppBundle\Entity\CourseGPA $courseResult
-     *
-     * @return Course
-     */
-    public function addCourseResult(\AppBundle\Entity\CourseGPA $courseResult)
-    {
-        $this->courseResults[] = $courseResult;
-
-        return $this;
-    }
-
-    /**
-     * Remove courseResult
-     *
-     * @param \AppBundle\Entity\CourseGPA $courseResult
-     */
-    public function removeCourseResult(\AppBundle\Entity\CourseGPA $courseResult)
-    {
-        $this->courseResults->removeElement($courseResult);
-    }
-
-    /**
-     * Get courseResults
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCourseResults()
-    {
-        return $this->courseResults;
     }
 }

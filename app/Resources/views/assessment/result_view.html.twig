@@ -45,15 +45,16 @@
         {% endif %}
       </div>
     {% else %}
-        {% if (app.session.get('user_type') == 'teacher') and (app.session.get('user_id') == assessment_results[0].sessionId.teacherId.id) and (assessment_results[0].sessionId.sessionEndDate < today) %}
-          <h1 class="tacenter" style="color: #FF0000;">
-            {{ 'Result Submission Dead Line Has Passed!' }}
-          </h1>
-        {% elseif (app.session.get('user_type') == 'teacher') and (app.session.get('user_id') == assessment_results[0].sessionId.teacherId.id) %}
-        <h1 class="tacenter">
-          {{ 'Click on Result to Edit.' }}
+      {% if (app.session.get('user_type') == 'teacher') and (app.session.get('user_id') == assessment_results[0].sessionId.teacherId.id) and (assessment_results[0].sessionId.sessionResultDeadline < today) %}
+        <h1 class="tacenter" style="color: #FF0000;">
+          {{ 'Result Submission Dead Line Has Passed!' }}
         </h1>
-        {% endif %}
+      {% elseif (app.session.get('user_type') == 'teacher') and (app.session.get('user_id') == assessment_results[0].sessionId.teacherId.id) %}
+      <h1 class="tacenter">
+        {{ 'Click on Result to Edit.' }}
+      </h1>
+      {% endif %}
+
       <table id="wide_table">
         <thead>
           <tr>
@@ -102,7 +103,7 @@
                         {% set assessmentResultTotal = assessmentResultTotal + assessment_result.resultValue|number_format %}
                       {% endif %}
 
-                      {% if (app.session.get('user_type') == 'teacher') and (app.session.get('user_id') == assessment_result.sessionId.teacherId.id) and (assessment_result.sessionId.sessionEndDate >= today) %}
+                      {% if (app.session.get('user_type') == 'teacher') and (app.session.get('user_id') == assessment_result.sessionId.teacherId.id) and (assessment_result.sessionId.sessionResultDeadline >= today) %}
                         {% set is_teacher = true %}
                         <input type="text" class="result_{{ student.id ~ '_' ~ assessment_result.id }} student_{{ student.id }} result_value"
                         title="{{ assessment_result.id }}" value="{{ assessment_result.resultValue is defined ? assessment_result.resultValue : 0 }}" />

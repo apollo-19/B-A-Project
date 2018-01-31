@@ -8,17 +8,17 @@ namespace AppBundle\Entity;
 class ModuleGPA
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
     /**
      * @var string
      */
-    private $gPAValue;
+    private $gpaValue;
 
     /**
-     * @var string
+     * @var integer
      */
     private $creditHour;
 
@@ -27,11 +27,21 @@ class ModuleGPA
      */
     private $totalSum;
 
+    /**
+     * @var \AppBundle\Entity\Student
+     */
+    private $studentId;
+
+    /**
+     * @var \AppBundle\Entity\Module
+     */
+    private $moduleId;
+
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -39,33 +49,33 @@ class ModuleGPA
     }
 
     /**
-     * Set gPAValue
+     * Set gpaValue
      *
-     * @param string $gPAValue
+     * @param string $gpaValue
      *
      * @return ModuleGPA
      */
-    public function setGPAValue($gPAValue)
+    public function setGpaValue($gpaValue)
     {
-        $this->gPAValue = $gPAValue;
+        $this->gpaValue = $gpaValue;
 
         return $this;
     }
 
     /**
-     * Get gPAValue
+     * Get gpaValue
      *
      * @return string
      */
-    public function getGPAValue()
+    public function getGpaValue()
     {
-        return $this->gPAValue;
+        return $this->gpaValue;
     }
 
     /**
      * Set creditHour
      *
-     * @param string $creditHour
+     * @param integer $creditHour
      *
      * @return ModuleGPA
      */
@@ -79,7 +89,7 @@ class ModuleGPA
     /**
      * Get creditHour
      *
-     * @return string
+     * @return integer
      */
     public function getCreditHour()
     {
@@ -109,21 +119,6 @@ class ModuleGPA
     {
         return $this->totalSum;
     }
-    /**
-     * @var string
-     */
-    private $gpaValue;
-
-    /**
-     * @var \AppBundle\Entity\Student
-     */
-    private $studentId;
-
-    /**
-     * @var \AppBundle\Entity\Module
-     */
-    private $moduleId;
-
 
     /**
      * Set studentId

@@ -87,7 +87,7 @@ class DefaultController extends Controller
           $session->set('user_id', $user_id_actl);
           $session->set('user_name', $user_name_actl);
           $session->set('user_type', $user_type_actl);
-          $session->set('user_photo', $user->getUserPhoto());
+          $session->set('user_photo', $user_ary->getUserPhoto());
           $session->set('shide', 'hide');
           if($user_type_actl == 'admin') {
             $admin_class = $user_ary->getAdminClass();

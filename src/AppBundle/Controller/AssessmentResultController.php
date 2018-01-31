@@ -243,7 +243,6 @@ class AssessmentResultController extends Controller
         $students = $em->getRepository('AppBundle:Student')
                         ->createQueryBuilder('e')
                         ->addOrderBy('e.admissionNumber', 'ASC')
-                        ->andWhere('e.sectionId = ' . $school_session->getSectionId()->getId())
                         ->getQuery()
                         ->execute();
 

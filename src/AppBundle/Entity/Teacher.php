@@ -15,6 +15,11 @@ class Teacher
     /**
      * @var string
      */
+    private $userPhoto;
+
+    /**
+     * @var string
+     */
     private $firstName;
 
     /**
@@ -78,6 +83,30 @@ class Teacher
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set userPhoto
+     *
+     * @param string $userPhoto
+     *
+     * @return Teacher
+     */
+    public function setUserPhoto($userPhoto)
+    {
+        $this->userPhoto = $userPhoto;
+
+        return $this;
+    }
+
+    /**
+     * Get userPhoto
+     *
+     * @return string
+     */
+    public function getUserPhoto()
+    {
+        return $this->userPhoto;
     }
 
     /**

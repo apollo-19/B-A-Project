@@ -13,7 +13,7 @@
       <label for="form[admin_user_photo]">User Photo</label>
       {% if mode == 'edit' %}
         <h1 align="center">
-          <img src="{{ asset('img/user_photos/' ~ user_lit.userPhoto) }}" alt="{{ user_lit.userName | capitalize }} photo" width="250" />
+          <img src="{{ asset('img/user_photos/' ~ admin.userPhoto) }}" alt="{{ user_lit.userName | capitalize }} photo" width="250" />
         </h1>
         <input type="file" name="form[admin_user_photo]" />
       {% else %}

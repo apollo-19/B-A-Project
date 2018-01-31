@@ -35,11 +35,4 @@ AppBundle\Entity\LogInTable:
             options:
                 fixed: false
             column: user_type
-        userPhoto:
-            type: string
-            nullable: false
-            length: 200
-            options:
-                fixed: false
-            column: user_photo
     lifecycleCallbacks: {  }

@@ -23,7 +23,7 @@
       <label for="form[assessment_name]">Assessment Name</label>
       <input type="text" name="form[assessment_name]" placeholder="" value="{{ form.assessment_name is defined ? form.assessment_name : '' }}" required />
 
-      <label for="form[assessment_worth]">Assessment Worth</label>
+      <label for="form[assessment_worth]">Assessment Weight</label>
       <input type="number" name="form[assessment_worth]" placeholder="" value="{{ form.assessment_worth is defined ? form.assessment_worth : '' }}" required />
 
       {% if mode == 'edit' %}

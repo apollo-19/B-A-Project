@@ -1,0 +1,25 @@
+AppBundle\Entity\CGPA:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\CGPARepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        gpaValue:
+            type: string
+            length: '5'
+            column: GPAValue
+    lifecycleCallbacks: {  }
+    manyToOne:
+      studentId:
+        targetEntity: Student
+        inversedBy: coursegpa
+        joinColumn:
+          name: student_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE

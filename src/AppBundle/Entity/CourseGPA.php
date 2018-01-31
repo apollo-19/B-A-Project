@@ -8,20 +8,10 @@ namespace AppBundle\Entity;
 class CourseGPA
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
     /**
      * @var string
      */
@@ -47,6 +37,16 @@ class CourseGPA
      */
     private $courseId;
 
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set gpaValue

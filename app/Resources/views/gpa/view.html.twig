@@ -34,7 +34,9 @@
           <tr>
             <td id="total_row">{{ gpa.startGpa ~ ' - ' ~ gpa.endGpa }}</td>
             <td>{{ gpa.gpaRemark | title }}</td>
-            <td>{{ gpa.gpaPF | title }}</td>
+            <td><font color="{{ ( gpa.gpaPF == 'pass' ) ? '#006600' : '#FF0000' }}">
+              {{ gpa.gpaPF | title }}
+            </font></td>
 
             {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
               <td id="actions"><a href="{{ path('gpa_edit', {'gpa_id': gpa.id}) }}" id="editBtn">edit</button></td>

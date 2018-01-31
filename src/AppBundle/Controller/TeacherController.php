@@ -66,14 +66,15 @@ class TeacherController extends Controller
           $passwordLIT->setUserName($teacher_data['user_name']);
           $passwordLIT->setPassword(md5($teacher_data['password']));
           $passwordLIT->setUserType('teacher');
-          // $passwordLIT->setUserPhoto($teacher_user_photo_name);
-          // $teacher_user_photo->move('img/teacher_user_photos/', $teacher_user_photo_name);
 
           $mydepartment = $this->getDoctrine()
                                ->getRepository('AppBundle:Department')
                                ->findOneById($teacher_data['teacher_department']);
 
           $teacher = new Teacher();
+          // $teacher->setUserPhoto($teacher_user_photo_name);
+          // $teacher_user_photo->move('img/teacher_user_photos/', $teacher_user_photo_name);
+
           $teacher->setRegisteredBy($session->get('user_id'));
           $teacher->setFirstName($teacher_data['first_name']);
           $teacher->setMiddleName($teacher_data['middle_name']);

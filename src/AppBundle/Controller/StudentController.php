@@ -220,15 +220,13 @@ class StudentController extends Controller
       $data = [];
       $data['students'] = [];
 
-      $student = $this->getDoctrine()
-                          ->getRepository('AppBundle:Student')
-                          ->findAll();
+      $em = $this->getDoctrine()->getManager();
 
-      $school = $this->getDoctrine()
-                          ->getRepository('AppBundle:School')
-                          ->findAll();
-
-      $data['schools'] = $school;
+      $student = $em->getRepository('AppBundle:Student')
+                              ->createQueryBuilder('e')
+                              ->addOrderBy('e.admissionNumber', 'ASC')
+                              ->getQuery()
+                              ->execute();
 
       $data['students'] = $student;
 

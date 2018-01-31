@@ -15,6 +15,13 @@ AppBundle\Entity\Student:
             generator:
                 strategy: IDENTITY
     fields:
+        userPhoto:
+            type: string
+            nullable: true
+            length: 200
+            options:
+                fixed: false
+            column: user_photo
         studentStartYear:
             type: integer
             nullable: false

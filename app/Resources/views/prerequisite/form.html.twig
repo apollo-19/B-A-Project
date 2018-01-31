@@ -15,7 +15,7 @@
       <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Prerequisite' : 'Edit Prerequisite' }}</h1>
       <h2>{{ result_message is defined ? result_message : '' }}</h2>
 
-      <label for="form[course_module_type]">Course or Module?</label>
+      <label for="form[course_module_type]">Type</label>
       <select name="form[course_module_type]" id="courseModuleType">
         <option value="course" {{ (form.courseModuleType is defined and form.courseModuleType == 'course') ? 'selected' : '' }}>Course</option>
         <option value="module" {{ (form.courseModuleType is defined and form.courseModuleType == 'module') ? 'selected' : '' }}>Module</option>

@@ -19,7 +19,9 @@
 
 {% block body %}
   <article id="frontPageArticle"></article>
-
+{{
+  ( message is defined ) ? dump(message) : ""
+}}
   <div class="container">
     <article class="tasks">
       <div>

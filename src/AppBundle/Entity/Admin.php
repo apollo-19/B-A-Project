@@ -15,6 +15,11 @@ class Admin
     /**
      * @var string
      */
+    private $userPhoto;
+
+    /**
+     * @var string
+     */
     private $firstName;
 
     /**
@@ -66,6 +71,30 @@ class Admin
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set userPhoto
+     *
+     * @param string $userPhoto
+     *
+     * @return Admin
+     */
+    public function setUserPhoto($userPhoto)
+    {
+        $this->userPhoto = $userPhoto;
+
+        return $this;
+    }
+
+    /**
+     * Get userPhoto
+     *
+     * @return string
+     */
+    public function getUserPhoto()
+    {
+        return $this->userPhoto;
     }
 
     /**

@@ -27,11 +27,6 @@ class LogInTable
      */
     private $userType;
 
-    /**
-     * @var string
-     */
-    private $userPhoto;
-
 
     /**
      * Get id
@@ -113,29 +108,5 @@ class LogInTable
     public function getUserType()
     {
         return $this->userType;
-    }
-
-    /**
-     * Set userPhoto
-     *
-     * @param string $userPhoto
-     *
-     * @return LogInTable
-     */
-    public function setUserPhoto($userPhoto)
-    {
-        $this->userPhoto = $userPhoto;
-
-        return $this;
-    }
-
-    /**
-     * Get userPhoto
-     *
-     * @return string
-     */
-    public function getUserPhoto()
-    {
-        return $this->userPhoto;
     }
 }

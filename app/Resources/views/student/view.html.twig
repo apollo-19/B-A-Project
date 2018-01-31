@@ -21,7 +21,7 @@
           <th>Student Name</th>
           <th>Student Section</th>
           <th>User Name</th>
-          <th colspan="3">Actions</th>
+          <th colspan="4">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -35,6 +35,7 @@
             <td id="actions"><a href="{{ path('student_view_one', {'student_id': student.id}) }}">view</button></td>
 
             {% if ((app.session.get('user_type') == 'admin') ? (app.session.get('admin_class') == 'registrar head' or app.session.get('admin_class') == 'registrar officer') : false ) %}
+              <td id="actions"><a href="{{ path('student_results', {'student_id': student.id}) }}">view gpa</button></td>
               <td id="actions"><a href="{{ path('student_edit', {'student_id': student.id}) }}" id="editBtn">edit</button></td>
               <td id="actions"><a href="{{ path('student_delete', {'student_id': student.id}) }}" id="deleteBtn"
                     onclick="return confirm('Are You Sure You Want To Delete {{ student.firstNameEn }} {{ student.middleNameEn }} {{ student.lastNameEn}}?') ">delete</button></td>
@@ -43,5 +44,10 @@
         {% endfor %}
       </tbody>
     </table>
+
+    {% if app.session.get('user_type') == 'admin' %}
+      <a href="{{ path('section_publish_gpas', {'section_id': section.id}) }}"
+        onclick="return confirm('Are You Sure?')" class="fright" id="editBtn">Publish GPAs</a>
+    {% endif %}
   </div>
 {% endblock %}

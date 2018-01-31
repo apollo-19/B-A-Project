@@ -33,6 +33,11 @@ class Semester
     private $courses;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $semesterResults;
+
+    /**
      * @var \AppBundle\Entity\Curriculum
      */
     private $curriculumId;
@@ -43,6 +48,7 @@ class Semester
     public function __construct()
     {
         $this->courses = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->semesterResults = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -162,35 +168,6 @@ class Semester
     }
 
     /**
-     * Set curriculumId
-     *
-     * @param \AppBundle\Entity\Curriculum $curriculumId
-     *
-     * @return Semester
-     */
-    public function setCurriculumId(\AppBundle\Entity\Curriculum $curriculumId)
-    {
-        $this->curriculumId = $curriculumId;
-
-        return $this;
-    }
-
-    /**
-     * Get curriculumId
-     *
-     * @return \AppBundle\Entity\Curriculum
-     */
-    public function getCurriculumId()
-    {
-        return $this->curriculumId;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $semesterResults;
-
-
-    /**
      * Add semesterResult
      *
      * @param \AppBundle\Entity\SemesterGPA $semesterResult
@@ -222,5 +199,29 @@ class Semester
     public function getSemesterResults()
     {
         return $this->semesterResults;
+    }
+
+    /**
+     * Set curriculumId
+     *
+     * @param \AppBundle\Entity\Curriculum $curriculumId
+     *
+     * @return Semester
+     */
+    public function setCurriculumId(\AppBundle\Entity\Curriculum $curriculumId)
+    {
+        $this->curriculumId = $curriculumId;
+
+        return $this;
+    }
+
+    /**
+     * Get curriculumId
+     *
+     * @return \AppBundle\Entity\Curriculum
+     */
+    public function getCurriculumId()
+    {
+        return $this->curriculumId;
     }
 }

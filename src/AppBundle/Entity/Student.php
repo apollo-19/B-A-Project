@@ -13,6 +13,11 @@ class Student
     private $id;
 
     /**
+     * @var string
+     */
+    private $userPhoto;
+
+    /**
      * @var integer
      */
     private $studentStartYear;
@@ -325,7 +330,12 @@ class Student
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $sessionresult;
+    private $semesterResults;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sessionResults;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -342,7 +352,8 @@ class Student
      */
     public function __construct()
     {
-        $this->sessionresult = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->semesterResults = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sessionResults = new \Doctrine\Common\Collections\ArrayCollection();
         $this->assessmentResults = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -354,6 +365,30 @@ class Student
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set userPhoto
+     *
+     * @param string $userPhoto
+     *
+     * @return Student
+     */
+    public function setUserPhoto($userPhoto)
+    {
+        $this->userPhoto = $userPhoto;
+
+        return $this;
+    }
+
+    /**
+     * Get userPhoto
+     *
+     * @return string
+     */
+    public function getUserPhoto()
+    {
+        return $this->userPhoto;
     }
 
     /**
@@ -1845,37 +1880,71 @@ class Student
     }
 
     /**
-     * Add sessionresult
+     * Add semesterResult
      *
-     * @param \AppBundle\Entity\SessionResult $sessionresult
+     * @param \AppBundle\Entity\SemesterGPA $semesterResult
      *
      * @return Student
      */
-    public function addSessionresult(\AppBundle\Entity\SessionResult $sessionresult)
+    public function addSemesterResult(\AppBundle\Entity\SemesterGPA $semesterResult)
     {
-        $this->sessionresult[] = $sessionresult;
+        $this->semesterResults[] = $semesterResult;
 
         return $this;
     }
 
     /**
-     * Remove sessionresult
+     * Remove semesterResult
      *
-     * @param \AppBundle\Entity\SessionResult $sessionresult
+     * @param \AppBundle\Entity\SemesterGPA $semesterResult
      */
-    public function removeSessionresult(\AppBundle\Entity\SessionResult $sessionresult)
+    public function removeSemesterResult(\AppBundle\Entity\SemesterGPA $semesterResult)
     {
-        $this->sessionresult->removeElement($sessionresult);
+        $this->semesterResults->removeElement($semesterResult);
     }
 
     /**
-     * Get sessionresult
+     * Get semesterResults
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSessionresult()
+    public function getSemesterResults()
     {
-        return $this->sessionresult;
+        return $this->semesterResults;
+    }
+
+    /**
+     * Add sessionResult
+     *
+     * @param \AppBundle\Entity\SessionResult $sessionResult
+     *
+     * @return Student
+     */
+    public function addSessionResult(\AppBundle\Entity\SessionResult $sessionResult)
+    {
+        $this->sessionResults[] = $sessionResult;
+
+        return $this;
+    }
+
+    /**
+     * Remove sessionResult
+     *
+     * @param \AppBundle\Entity\SessionResult $sessionResult
+     */
+    public function removeSessionResult(\AppBundle\Entity\SessionResult $sessionResult)
+    {
+        $this->sessionResults->removeElement($sessionResult);
+    }
+
+    /**
+     * Get sessionResults
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSessionResults()
+    {
+        return $this->sessionResults;
     }
 
     /**
@@ -1934,59 +2003,5 @@ class Student
     public function getSectionId()
     {
         return $this->sectionId;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $semesterResults;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $sessionResults;
-
-
-    /**
-     * Add semesterResult
-     *
-     * @param \AppBundle\Entity\SemesterGPA $semesterResult
-     *
-     * @return Student
-     */
-    public function addSemesterResult(\AppBundle\Entity\SemesterGPA $semesterResult)
-    {
-        $this->semesterResults[] = $semesterResult;
-
-        return $this;
-    }
-
-    /**
-     * Remove semesterResult
-     *
-     * @param \AppBundle\Entity\SemesterGPA $semesterResult
-     */
-    public function removeSemesterResult(\AppBundle\Entity\SemesterGPA $semesterResult)
-    {
-        $this->semesterResults->removeElement($semesterResult);
-    }
-
-    /**
-     * Get semesterResults
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSemesterResults()
-    {
-        return $this->semesterResults;
-    }
-
-    /**
-     * Get sessionResults
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSessionResults()
-    {
-        return $this->sessionResults;
     }
 }

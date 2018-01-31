@@ -15,6 +15,13 @@ AppBundle\Entity\Admin:
             generator:
                 strategy: IDENTITY
     fields:
+        userPhoto:
+            type: string
+            nullable: true
+            length: 200
+            options:
+                fixed: false
+            column: user_photo
         firstName:
             type: string
             nullable: false
