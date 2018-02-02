@@ -22,10 +22,20 @@
 
 {% block body %}
   <div class="container taright">
-    <form class="" method="post">
+    <form class="" method="post" enctype="multipart/form-data">
       <div class="form fright">
         <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Student' : 'Edit Student' }}</h1>
         <h2>{{ result_message is defined ? result_message : '' }}</h2>
+
+        <label for="form[student_user_photo]">User Photo</label>
+        {% if mode == 'edit' %}
+          <h1 align="center">
+            <img src="{{ asset('img/user_photos/' ~ student.userPhoto) }}" alt="{{ student.userName|title }}'s Photo" width="250" />
+          </h1>
+          <input type="file" name="form[student_user_photo]" />
+        {% else %}
+          <input type="file" name="form[student_user_photo]" required />
+        {% endif %}
 
         <label for="form[admission_number]">Admission Number</label>
         <input type="text" name="form[admission_number]" placeholder="" value="{{ form.admission_number is defined ? form.admission_number : '' }}" required />

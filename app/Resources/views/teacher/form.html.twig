@@ -11,14 +11,14 @@
 
 {% block body %}
   <div class="container taright">
-    <form class="form fright" method="post">
+    <form class="form fright" method="post" enctype="multipart/form-data">
       <h1 class="welcomeText tacenter">{{ (mode == 'new') ? 'New Teacher' : 'Edit Teacher' }}</h1>
       <h2>{{ result_message is defined ? result_message : '' }}</h2>
 
       <label for="form[teacher_user_photo]">User Photo</label>
       {% if mode == 'edit' %}
         <h1 align="center">
-          <img src="{{ asset('img/user_photos/' ~ user_lit.userPhoto) }}" alt="{{ user_lit.userName|title }}'s Photo" width="250" />
+          <img src="{{ asset('img/user_photos/' ~ teacher.userPhoto) }}" alt="{{ teacher.userName|title }}'s Photo" width="250" />
         </h1>
         <input type="file" name="form[teacher_user_photo]" />
       {% else %}

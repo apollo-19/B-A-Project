@@ -81,4 +81,3 @@ class CGPA
         return $this->studentId;
     }
 }
-

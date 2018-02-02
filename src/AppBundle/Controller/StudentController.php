@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\Session\Session;
 use AppBundle\Entity\Student;
 use AppBundle\Entity\LogInTable;
@@ -24,6 +25,7 @@ class StudentController extends Controller
       $data['form'] = [];
 
       $form = $this ->createFormBuilder()
+                    ->add('student_user_photo', FileType::class)
                     ->add('admission_number')
                     ->add('first_name_en')
                     ->add('middle_name_en')
@@ -50,6 +52,9 @@ class StudentController extends Controller
         $student_data = $form->getData();
         $data['form'] = $student_data;
 
+        $student_user_photo = $student_data['student_user_photo'];
+        $student_user_photo_name = 'student_' . $student_data['user_name'] . '.' . $student_user_photo->guessExtension();
+
         if($student_data['password'] != $student_data['confirm_password'])
           $data['resultMessage'] = 'Passwords Must Match!';
         else {
@@ -64,6 +69,9 @@ class StudentController extends Controller
           $passwordLIT->setUserType('student');
 
           $student = new Student();
+          $student->setUserPhoto($student_user_photo_name);
+          $student_user_photo->move('img/user_photos/', $student_user_photo_name);
+
           $student->setAdmissionNumber($student_data['admission_number']);
           $student->setFirstNameEn($student_data['first_name_en']);
           $student->setMiddleNameEn($student_data['middle_name_en']);
@@ -104,43 +112,45 @@ class StudentController extends Controller
     $session = new Session();
 
     if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
-    $form = $this ->createFormBuilder()
-                  ->add('admission_number')
-                  ->add('first_name_en')
-                  ->add('middle_name_en')
-                  ->add('last_name_en')
-                  ->add('first_name_am')
-                  ->add('middle_name_am')
-                  ->add('last_name_am')
-                  ->add('section_id')
+      $form = $this ->createFormBuilder()
+                    ->add('student_user_photo', FileType::class)
+                    ->add('admission_number')
+                    ->add('first_name_en')
+                    ->add('middle_name_en')
+                    ->add('last_name_en')
+                    ->add('first_name_am')
+                    ->add('middle_name_am')
+                    ->add('last_name_am')
+                    ->add('section_id')
 
-                  ->add('student_start_year')
-                  ->add('student_end_year')
-                  ->getForm();
+                    ->add('student_start_year')
+                    ->add('student_end_year')
+                    ->getForm();
 
-    $student = $this->getDoctrine()
-                        ->getRepository('AppBundle:Student')
-                        ->findOneById($student_id);
+      $student = $this->getDoctrine()
+                          ->getRepository('AppBundle:Student')
+                          ->findOneById($student_id);
 
-    $student_data['admission_number'] = $student->getAdmissionNumber();
-    $student_data['first_name_en'] = $student->getFirstNameEn();
-    $student_data['middle_name_en'] = $student->getMiddleNameEn();
-    $student_data['last_name_en'] = $student->getLastNameEn();
-    $student_data['first_name_am'] = $student->getFirstNameAm();
-    $student_data['middle_name_am'] = $student->getMiddleNameAm();
-    $student_data['last_name_am'] = $student->getLastNameAm();
-    $student_data['student_start_year'] = $student->getStudentStartYear();
-    $student_data['student_end_year'] = $student->getStudentEndYear();
+      $data['student'] = $student;
 
-    $student_data['section_id'] = $student->getSectionId();
-    $student_data['registered_by'] = $student->getRegisteredBy();
+      $student_data['admission_number'] = $student->getAdmissionNumber();
+      $student_data['first_name_en'] = $student->getFirstNameEn();
+      $student_data['middle_name_en'] = $student->getMiddleNameEn();
+      $student_data['last_name_en'] = $student->getLastNameEn();
+      $student_data['first_name_am'] = $student->getFirstNameAm();
+      $student_data['middle_name_am'] = $student->getMiddleNameAm();
+      $student_data['last_name_am'] = $student->getLastNameAm();
+      $student_data['student_start_year'] = $student->getStudentStartYear();
+      $student_data['student_end_year'] = $student->getStudentEndYear();
 
-    $section = $this->getDoctrine()
-                        ->getRepository('AppBundle:Section')
-                        ->findAll();
+      $student_data['section_id'] = $student->getSectionId();
+      $student_data['registered_by'] = $student->getRegisteredBy();
 
-    $data['sections'] = $section;
+      $section = $this->getDoctrine()
+                          ->getRepository('AppBundle:Section')
+                          ->findAll();
 
+      $data['sections'] = $section;
       $data['form'] = $student_data;
 
       $form->handleRequest($request);
@@ -149,6 +159,13 @@ class StudentController extends Controller
         $data['form'] = [];
         $student_data = $form->getData();
         $data['form'] = $student_data;
+
+        if($student_data['student_user_photo']){
+          $student_user_photo = $student_data['student_user_photo'];
+          $student_user_photo_name = 'student_' . $student->getUserName() . '.' . $student_user_photo->guessExtension();
+          $student->setUserPhoto($student_user_photo_name);
+          $student_user_photo->move('img/user_photos/', $student_user_photo_name);
+        }
 
         $mysection = $this->getDoctrine()
                             ->getRepository('AppBundle:Section')
@@ -219,6 +236,7 @@ class StudentController extends Controller
     if($session->get('user_type') == 'admin' || $session->get('user_type') == 'teacher'){
       $data = [];
       $data['students'] = [];
+      $data['mode'] = 'student';
 
       $em = $this->getDoctrine()->getManager();
 
@@ -253,6 +271,7 @@ class StudentController extends Controller
                           ->findOneById($student_id);
 
       $student_section = $student->getSectionId();
+      $data['student'] = $student;
 
       $section = $this->getDoctrine()
                           ->getRepository('AppBundle:Section')
@@ -260,12 +279,120 @@ class StudentController extends Controller
 
       $data['section'] = $section;
 
-      $data['student'] = $student;
+      $user_lit = $this->getDoctrine()
+                        ->getRepository('AppBundle:LogInTable')
+                        ->findOneByUserName($student->getUserName());
 
+      $data['user_lit'] = $user_lit;
       return $this->render('student/view_one.html.twig', $data);
     } else {
       $data['message'] = 'You Are Not Qualified to View This Student.';
       return $this->render('accessDenied.html.twig', $data);
     }
+  }
+
+  /**
+   * @Route("/student/view_results/{student_id}", name="student_results")
+   */
+  public function studentResultsViewAction(Request $request, $student_id)
+  {
+    $session = new Session();
+
+    if($session->get('user_id') && ($session->get('user_type') == 'admin')){
+      $data = [];
+      $gpas_all = [];
+
+      $student = $this->getDoctrine()
+                          ->getRepository('AppBundle:Student')
+                          ->findOneById( $student_id );
+
+      $data['student'] = $student;
+
+      $module_gpas_old = $this->getDoctrine()
+                                  ->getRepository('AppBundle:ModuleGPA')
+                                  ->findBy(
+                                    array( 'studentId' => $student )
+                                  );
+      //
+      $semester_gpas_old = $this->getDoctrine()
+                                  ->getRepository('AppBundle:SemesterGPA')
+                                  ->findBy(
+                                    array( 'semesterId' => $currentModSemArr['id'], 'studentId' => $student )
+                                  );
+      //
+      $course_gpas_old = $this->getDoctrine()
+                                  ->getRepository('AppBundle:CourseGPA')
+                                  ->findBy(
+                                    array( 'courseId' => $currentModSemArr['id'], 'studentId' => $student )
+                                  );
+      //
+
+      array_push($gpas_all, $module_gpas_old);
+      array_push($gpas_all, $semester_gpas_old);
+      array_push($gpas_all, $course_gpas_old);
+
+      $data['gpas_all'] = $gpas_all;
+
+      return $this->render('student/result_view.html.twig', $data);
+    } else {
+      $data['message'] = 'You Are Not Qualified to View Student\'s Results.';
+      return $this->render('accessDenied.html.twig', $data);
+    }
+  }
+
+  /**
+   * @Route("/student/gpa/{student_id}", name="student_gpa")
+   */
+  public function studentGPAViewAction(Request $request, $student_id)
+  {
+    $session = new Session();
+
+    if(($session->get('user_type') == 'admin')){
+      if (($session->get('user_type') == 'registrar head') && ($session->get('user_type') == 'registrar officer')) {
+        $data = [];
+        $data['students'] = [];
+
+        $student = $this->getDoctrine()
+                        ->getRepository('AppBundle:Student')
+                        ->findOneById($student_id);
+
+        $data['student'] = $student;
+
+        $session_results = $this->getDoctrine()
+                                ->getRepository('AppBundle:SessionResult')
+                                ->findBy(
+                                  array('studentId' => $student, 'sessionPublished' => true)
+                                );
+
+        $session_result_adds = $this->getDoctrine()
+                                    ->getRepository('AppBundle:SessionResultAdd')
+                                    ->findBy(
+                                      array('studentId' => $student, 'sessionPublished' => true)
+                                    );
+
+        $session_results_final = array_merge($session_results, $session_result_adds);
+        $data['session_results'] = $session_results_final;
+        $data['session_result_adds'] = $session_result_adds;
+
+        $gpas = $this->getDoctrine()
+                      ->getRepository('AppBundle:GPA')
+                      ->findAll();
+
+        $data['gpas'] = $gpas;
+
+        $assessment_results = $this->getDoctrine()
+                                    ->getRepository('AppBundle:AssessmentResult')
+                                    ->findBy(
+                                      array('studentId' => $student)
+                                    );
+
+        $data['assessment_results'] = $assessment_results;
+
+        return $this->render('student/result_view.html.twig', $data);
+      }
+    }
+
+    $data['message'] = 'You Are Not Qualified to View Student\'s Results.';
+    return $this->render('accessDenied.html.twig', $data);
   }
 }

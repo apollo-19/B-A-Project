@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\Session\Session;
 use AppBundle\Entity\Admin;
 use AppBundle\Entity\LogInTable;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AdminController extends Controller
 {
@@ -157,6 +158,7 @@ class AdminController extends Controller
 
         if($admin_data['admin_user_photo']){
           $admin_user_photo = $admin_data['admin_user_photo'];
+          return new JsonResponse($admin_user_photo->guessExtension());
           $admin_user_photo_name = $admin->getAdminType() . '_' . $admin->getUserName() . '.' . $admin_user_photo->guessExtension();
           $admin->setUserPhoto($admin_user_photo_name);
           $admin_user_photo->move('img/user_photos/', $admin_user_photo_name);

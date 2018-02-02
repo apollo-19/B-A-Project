@@ -179,7 +179,7 @@ class DefaultController extends Controller
               $session->remove('user_name');
               $session->set('user_name', $user_details_lit_data['user_name']);
 
-              return $this->redirectToRoute('dashboard');
+              return $this->redirectToRoute('default_home');
             } else
               $data['result_message'] = 'New Passwords Don\'t Match.';
           } else

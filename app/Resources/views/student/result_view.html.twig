@@ -50,6 +50,8 @@
       {% endif %}
     {% endfor %}
 
+    {% set cgpaTotalSum = 0 %}
+    {% set cgpaTotalCreditHours = 0 %}
     {% for currentModSemArr in currentModSemArray %}
       <hr class="sep_hr" />
       <h1>{{ currentModSemArr }}</h1>
@@ -68,9 +70,10 @@
           </tr>
         </thead>
 
+        {% set totalSum = 0 %}
+        {% set totalCreditHours = 0 %}
         <tbody>
-          {% set totalSum = 0 %}
-          {% set totalCreditHours = 0 %}
+
           {% for session_result in session_results %}
             {% if session_result.sessionId.courseId.courseCreditHour is defined %}
               {% set sessionResultCreditHour = session_result.sessionId.courseId.courseCreditHour %}
@@ -151,10 +154,12 @@
           <tr>
             <td colspan="2"></td>
             <td colspan="2">Credit Hours = {{ totalCreditHours }}</td>
-            <td> Total = {{ totalSum }}</td>
+            <td> Total Result = {{ totalSum }}</td>
             <td id="total_row">
+              {% set cgpaTotalSum = cgpaTotalSum + totalSum %}
+              {% set cgpaTotalCreditHours = cgpaTotalCreditHours + totalCreditHours %}
               {% set gpaSt = totalSum|number_format(2, '.', ',') / totalCreditHours|number_format(2, '.', ',') %}
-              {{ totalSum }} / {{ totalCreditHours }} = {{ gpaSt }} (GPA)
+              {{ gpaSt|number_format(2, '.', ',') }} (GPA)
             </td>
 
             <td>
@@ -172,6 +177,42 @@
         </tbody>
       </table>
     {% endfor %}
+    <hr class="sep_hr" />
 
+    <table>
+      <thead>
+        <tr>
+          <th colspan="3">
+            Commulative GPA
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="total_row">
+            Total Credit Hours = {{ cgpaTotalSum }}
+          </td>
+
+          <td>
+            Total Result = {{ cgpaTotalCreditHours }}
+          </td>
+
+          <td>
+            {% set cgpa = cgpaTotalSum|number_format(2, '.', ',') / cgpaTotalCreditHours|number_format(2, '.', ',') %}
+            CGPA = {{ cgpa|number_format(2, '.', ',') }}
+
+            {% for gpa in gpas %}
+              {% if session_results[0].sessionId.sectionId.curriculumId.gpaSystemId == gpa.gpaSystemId %}
+                {% if cgpa >= gpa.startGpa and cgpa <= gpa.endGpa %}
+                  <font color="{{ (gpa.gpaPf == 'pass') ? '#006600' : '#FF0000' }}">
+                    {{ gpa.gpaPf|title }} ({{ gpa.gpaRemark|title }})
+                  </font>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 {% endblock %}

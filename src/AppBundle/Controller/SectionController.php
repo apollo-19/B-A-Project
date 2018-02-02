@@ -227,6 +227,7 @@ class SectionController extends Controller
     if( ($session->get('user_type') == 'admin') || ($session->get('user_type') == 'teacher') ){
       $data = [];
       $data['sections'] = [];
+      $data['mode'] = 'section';
 
       $section = $this->getDoctrine()
                           ->getRepository('AppBundle:Section')

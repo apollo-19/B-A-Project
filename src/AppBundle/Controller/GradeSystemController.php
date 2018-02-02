@@ -112,7 +112,7 @@ class GradeSystemController extends Controller
 
     if((($session->get('user_type') == 'admin') ? ($session->get('admin_class') == 'registrar head' || $session->get('admin_class') == 'registrar officer') : false )){
       $grade_system = $this->getDoctrine()
-                          ->getRepository('AppBundle:AssessmentResult')
+                          ->getRepository('AppBundle:GradeSystem')
                           ->findOneById($grade_system_id);
 
       $em = $this->getDoctrine()->getManager();
@@ -121,7 +121,7 @@ class GradeSystemController extends Controller
 
       $em->flush();
 
-      return $this->redirectToRoute('assessment_result_view');
+      return $this->redirectToRoute('grade_system_view');
     } else {
       $data['message'] = 'You Are Not Qualified to Delete This Assessment Type.';
       return $this->render('accessDenied.html.twig', $data);
